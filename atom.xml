@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-11-14T11:44:35.000Z</updated>
+  <updated>2016-11-15T07:42:09.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Objective-C 笔记</title>
+    <link href="http://vrast.cn/posts/e599b879/"/>
+    <id>http://vrast.cn/posts/e599b879/</id>
+    <published>2016-11-15T07:24:35.000Z</published>
+    <updated>2016-11-15T07:42:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>记录一些 Objective-C 的实用代码片段，本篇属于个人笔记</p>
+</blockquote>
+<h1 id="常用关键字一览"><a href="#常用关键字一览" class="headerlink" title="常用关键字一览"></a>常用关键字一览</h1><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@interface</span>、<span class="variable">@implementation</span>、<span class="variable">@end</span> </div><div class="line"><span class="variable">@public</span>、<span class="variable">@protected</span>、<span class="variable">@private</span>、<span class="variable">@selector</span> </div><div class="line"><span class="variable">@try</span>、<span class="variable">@catch</span>、<span class="variable">@throw</span>、<span class="variable">@finally</span> </div><div class="line"><span class="variable">@protocol</span>、<span class="variable">@optional</span>、<span class="variable">@required</span>、<span class="variable">@class</span></div><div class="line"><span class="variable">@property</span>、<span class="variable">@synthesize</span>、<span class="variable">@dynamic</span></div><div class="line">BOOL Class SEL YES NO id self super nil atomic nonatomic retain assign copy block …</div></pre></td></tr></table></figure>
+<h1 id="方法调用-基础语法"><a href="#方法调用-基础语法" class="headerlink" title="方法调用 基础语法"></a>方法调用 基础语法</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="comment">// - 表示动态方方法</span></div><div class="line"><span class="comment">// ＋表示静态方法</span></div><div class="line">@interface TestClass : NSObject</div><div class="line">&#123;</div><div class="line">@<span class="keyword">public</span></div><div class="line">    <span class="comment">//下划线开头</span></div><div class="line">    NSString * _name;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">@property NSString * NickName;</div><div class="line"> </div><div class="line">+(<span class="keyword">void</span>) staticSayHello;</div><div class="line">-(<span class="keyword">void</span>) SayHello;</div><div class="line"> </div><div class="line">+(<span class="keyword">double</span>) staticTestWithParams:(<span class="keyword">int</span>) num ThisIsWord:(<span class="keyword">int</span>) num2;</div><div class="line"> </div><div class="line">@end</div><div class="line"> </div><div class="line"><span class="comment">//实现上文中的方法才可以调用</span></div><div class="line">@implementation TestClass</div><div class="line"> </div><div class="line"><span class="comment">//实现构造函数</span></div><div class="line">-(id)init</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (self = [super init]) &#123;</div><div class="line">        NSLog(@<span class="string">"初始化构造函数..."</span>);</div><div class="line">    &#125;</div><div class="line">    returnself;</div><div class="line">&#125;</div><div class="line">-(id)initWithNickname:(NSString*)nickName</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (self = [super init]) &#123;</div><div class="line">        NSLog(@<span class="string">"带有参数的构造 %@"</span>,nickName);</div><div class="line">    &#125;</div><div class="line">    returnself;</div><div class="line">&#125;</div><div class="line">-(id)initAgeAndNickname:(<span class="keyword">int</span>)age andName :(NSString*)name</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (self =[super init]) &#123;</div><div class="line">        NSLog(@<span class="string">"带有双参数的构造 %d +++ %@"</span>,age,name);</div><div class="line">    &#125;</div><div class="line">    returnself;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"> </div><div class="line">-(<span class="keyword">void</span>) SayHello</div><div class="line">&#123;</div><div class="line">    NSLog(@<span class="string">"Name is %@ and age is %d"</span>,_name,_age);</div><div class="line">&#125;</div><div class="line">+(<span class="keyword">void</span>)staticSayHello&#123;</div><div class="line">    NSLog(@<span class="string">"Static Call SayHello must call by Class .."</span>);</div><div class="line">&#125;</div><div class="line">+(<span class="keyword">double</span>)staticTestWithParams:(<span class="keyword">int</span>)num ThisIsWord:(<span class="keyword">int</span>) num2</div><div class="line">&#123;</div><div class="line">    NSLog(@<span class="string">"%d +========+++=%d"</span>,num,num2);</div><div class="line">    <span class="keyword">return</span> num;</div><div class="line">&#125;</div><div class="line">@<span class="function">end</span></div><div class="line"> </div><div class="line"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> &#123;</div><div class="line">    </div><div class="line">    TestClass* test = [[TestClassalloc] initAgeAndNickname:<span class="number">21</span>andName:@<span class="string">"xiaonian"</span>];</div><div class="line">    </div><div class="line">    test-&gt;_name = @<span class="string">"Hello World"</span>;</div><div class="line">    test-&gt;_age = <span class="number">21</span>;</div><div class="line">    </div><div class="line">    [test SayHello];<span class="comment">//Call Method</span></div><div class="line">    [TestClassstaticSayHello];<span class="comment">//Casll Static Method</span></div><div class="line">    [TestClassstaticTestWithParams:<span class="number">123456</span>ThisIsWord:<span class="number">890123</span>];</div><div class="line">    </div><div class="line">    NSLog(@<span class="string">"--------分隔符---------"</span>);</div><div class="line">    </div><div class="line">    Class c = [TestClass <span class="keyword">class</span>];</div><div class="line">    NSLog(@<span class="string">"%p"</span>,c);</div><div class="line">    <span class="comment">//0x100004708</span></div><div class="line">    </div><div class="line">    NSLog(@<span class="string">"--------分隔符-@SEL--------"</span>);</div><div class="line">    SEL sel = @selector(SayHello);</div><div class="line">    [test performSelector:sel];</div><div class="line">    [test performSelector:@selector(SayHello)];</div><div class="line">    <span class="keyword">if</span> ([test respondsToSelector:sel]) &#123;</div><div class="line">        NSLog(@<span class="string">"%@"</span>,@<span class="string">"可以相应sel－－sayhello"</span>);</div><div class="line">    &#125;</div><div class="line">    NSLog(@<span class="string">"--------分隔符-@property--------"</span>);</div><div class="line">    </div><div class="line">    [test setNickName:@<span class="string">"xiaonian"</span>];</div><div class="line">    NSString* nickName = [test NickName];</div><div class="line">    test.NickName = @<span class="string">"xiaonian2"</span>;</div><div class="line">    NSString* nickName2 = test.NickName;</div><div class="line">    NSLog(@<span class="string">"%@ and %@"</span>,nickName,nickName2);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="基础类型转换"><a href="#基础类型转换" class="headerlink" title="基础类型转换"></a>基础类型转换</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> hours = <span class="built_in">floor</span>(rawtime / <span class="number">3600000</span>);</div><div class="line"></div><div class="line"><span class="keyword">int</span> mins = <span class="built_in">floor</span>((rawtime % <span class="number">3600000</span>) / (<span class="number">1000</span> * <span class="number">60</span>));</div><div class="line"><span class="keyword">int</span> secs = <span class="built_in">floor</span>(((rawtime % <span class="number">3600000</span>) % (<span class="number">1000</span> * <span class="number">60</span>)) / <span class="number">1000</span>);</div><div class="line"></div><div class="line">NSLog(@<span class="string">"%d:%d:%d"</span>, hours, mins, secs);</div><div class="line"></div><div class="line">NSString *hoursStr = [NSString stringWithFormat:@<span class="string">"%d"</span>, hours];</div><div class="line">NSString *minsStr = [NSString stringWithFormat:@<span class="string">"%d"</span>, mins];</div><div class="line">NSString *secsStr = [NSString stringWithFormat:@<span class="string">"%d"</span>, secs];</div><div class="line"></div><div class="line">NSLog(@<span class="string">"%a:%a:%a"</span>, hoursStr, minsStr, secsStr);</div></pre></td></tr></table></figure>
+<p><a href="http://stackoverflow.com/questions/2388991/objective-c-convert-int-to-nsstring-iphone" target="_blank" rel="external">参考链接 int to NSString</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;记录一些 Objective-C 的实用代码片段，本篇属于个人笔记&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;常用关键字一览&quot;&gt;&lt;a href=&quot;#常用关键字一览&quot; class=&quot;headerlink&quot; title=&quot;常用关键字一览&quot;&gt;&lt;
+    
+    </summary>
+    
+      <category term="Note" scheme="http://vrast.cn/categories/Note/"/>
+    
+    
+      <category term="Objective-C" scheme="http://vrast.cn/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>YouMiSDK FAQ</title>
     <link href="http://vrast.cn/posts/61ce4672/"/>
     <id>http://vrast.cn/posts/61ce4672/</id>
     <published>2016-11-14T11:27:17.000Z</published>
-    <updated>2016-11-14T11:44:35.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>记录有米视频SDK接入的一些问题 断断续续记录中📝</p>
@@ -52,7 +84,7 @@
     <link href="http://vrast.cn/posts/530f864b/"/>
     <id>http://vrast.cn/posts/530f864b/</id>
     <published>2016-11-14T05:36:36.000Z</published>
-    <updated>2016-11-14T06:28:10.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Coding.net Pages部署 FAQ</p>
@@ -94,7 +126,7 @@
     <link href="http://vrast.cn/posts/c7ee08d7/"/>
     <id>http://vrast.cn/posts/c7ee08d7/</id>
     <published>2016-10-31T02:38:30.000Z</published>
-    <updated>2016-11-15T03:41:23.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题</p>
@@ -144,7 +176,7 @@
     <link href="http://vrast.cn/posts/57edf9bb/"/>
     <id>http://vrast.cn/posts/57edf9bb/</id>
     <published>2016-10-25T13:08:56.000Z</published>
-    <updated>2016-11-14T05:39:30.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>优化hexo访问速度</p>
@@ -185,7 +217,7 @@
     <link href="http://vrast.cn/posts/5008cb40/"/>
     <id>http://vrast.cn/posts/5008cb40/</id>
     <published>2016-10-25T07:19:40.000Z</published>
-    <updated>2016-11-02T13:10:09.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>记录UNITY3D与iOS的互相调用，附通用模型</p>
@@ -229,7 +261,7 @@
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
     <published>2016-10-24T08:02:11.000Z</published>
-    <updated>2016-11-14T14:54:29.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
 <p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
@@ -337,7 +369,7 @@
     <link href="http://vrast.cn/posts/321de5e/"/>
     <id>http://vrast.cn/posts/321de5e/</id>
     <published>2016-10-14T09:24:12.000Z</published>
-    <updated>2016-11-15T03:41:40.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/QQ20161014-0.jpg" alt=""></p>
 <blockquote>
@@ -368,7 +400,7 @@
     <link href="http://vrast.cn/posts/8a54b94d/"/>
     <id>http://vrast.cn/posts/8a54b94d/</id>
     <published>2016-10-14T08:47:16.000Z</published>
-    <updated>2016-11-14T12:59:46.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>今天遇到在coding上部署了项目，生成密匙后发现不能正常push，遂发现了这个小秘密</p>
@@ -401,7 +433,7 @@
     <link href="http://vrast.cn/posts/fba9adf2/"/>
     <id>http://vrast.cn/posts/fba9adf2/</id>
     <published>2016-10-12T14:47:44.000Z</published>
-    <updated>2016-11-14T13:10:35.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
 <p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
@@ -440,7 +472,7 @@
     <link href="http://vrast.cn/posts/aae0baa1/"/>
     <id>http://vrast.cn/posts/aae0baa1/</id>
     <published>2016-10-12T09:43:37.000Z</published>
-    <updated>2016-10-25T13:24:11.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>网上介绍五花八门 其实主要就是这两项占磁盘，平均一次IPA打包要占用最少1G</p>
@@ -470,7 +502,7 @@
     <link href="http://vrast.cn/posts/abba0161/"/>
     <id>http://vrast.cn/posts/abba0161/</id>
     <published>2016-10-10T11:21:35.000Z</published>
-    <updated>2016-11-14T02:37:45.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/EBA9A054-30D8-4A8F-AC61-82B2BE9112DB.jpg" alt=""></p>
 <blockquote>
@@ -510,7 +542,7 @@
     <link href="http://vrast.cn/posts/82640783/"/>
     <id>http://vrast.cn/posts/82640783/</id>
     <published>2016-09-27T10:07:14.000Z</published>
-    <updated>2016-11-14T13:03:02.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>看了点<a href="https://www.zhihu.com/question/23442256" target="_blank" rel="external">知乎</a>上的问答挺有意思的这里记录下 顺便写点自己的感想。</p>
@@ -548,7 +580,7 @@
     <link href="http://vrast.cn/posts/df383137/"/>
     <id>http://vrast.cn/posts/df383137/</id>
     <published>2016-09-27T03:32:17.000Z</published>
-    <updated>2016-11-14T02:59:34.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/QQ20160927-0.jpg"></p>
 <blockquote>
@@ -578,7 +610,7 @@
     <link href="http://vrast.cn/posts/d88c5041/"/>
     <id>http://vrast.cn/posts/d88c5041/</id>
     <published>2016-09-21T11:02:16.000Z</published>
-    <updated>2016-11-14T02:41:03.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/QQ20160921-1@2x.jpg" alt=""></p>
 <blockquote>
@@ -608,7 +640,7 @@
     <link href="http://vrast.cn/posts/aa040ce4/"/>
     <id>http://vrast.cn/posts/aa040ce4/</id>
     <published>2016-09-21T05:07:04.000Z</published>
-    <updated>2016-11-14T13:00:10.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/QQ20160921-0.jpg" alt=""></p>
 <blockquote>
@@ -642,7 +674,7 @@
     <link href="http://vrast.cn/posts/830f33fc/"/>
     <id>http://vrast.cn/posts/830f33fc/</id>
     <published>2016-09-21T04:14:40.000Z</published>
-    <updated>2016-11-14T13:14:20.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>关于zsh的一些特性与技巧 </p>
@@ -674,7 +706,7 @@
     <link href="http://vrast.cn/posts/60b16049/"/>
     <id>http://vrast.cn/posts/60b16049/</id>
     <published>2016-09-20T13:48:05.000Z</published>
-    <updated>2016-11-14T13:00:55.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>两条直接显示本地隐藏文件的命令</p>
@@ -703,7 +735,7 @@
     <link href="http://vrast.cn/posts/c5f4d976/"/>
     <id>http://vrast.cn/posts/c5f4d976/</id>
     <published>2016-09-20T13:42:56.000Z</published>
-    <updated>2016-11-14T13:00:26.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>当使用ssh链接远程host的时候 密码正确，就是链接不上。此时显示访问被拒绝，双端密钥不对称。</p>
@@ -731,7 +763,7 @@
     <link href="http://vrast.cn/posts/5b4f7876/"/>
     <id>http://vrast.cn/posts/5b4f7876/</id>
     <published>2016-09-20T13:23:37.000Z</published>
-    <updated>2016-11-14T13:00:41.000Z</updated>
+    <updated>2016-11-15T03:55:22.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Mysql远程登录失败，没回馈 解决办法</p>
@@ -761,62 +793,6 @@
     
     
       <category term="MySQL" scheme="http://vrast.cn/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>细说PerGUI框架设计思路</title>
-    <link href="http://vrast.cn/posts/c2b10b93/"/>
-    <id>http://vrast.cn/posts/c2b10b93/</id>
-    <published>2016-08-26T14:20:30.000Z</published>
-    <updated>2016-11-14T12:59:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/70024C78-7F1F-4EE9-B52F-AF508107D6C8.jpg" alt=""></p>
-<blockquote>
-<p>本来想分析MarkUX框架的代码，但是需要购买，暂时就放下了，恰巧遇到PerGUI几乎雷同的设计思路。那就直接拿来分析吧。此文是我读此框架的笔记，外行看热闹内行看门道至于能理解多少就见仁见智了，如果我没理解的地方还请不吝指出。最后你可以在CodePlex上找到此开源代码。</p>
-</blockquote>
-<a id="more"></a>
-<p><img src="/uploads/8FE85478-C93E-430F-9F35-3DB696619597.jpg" alt=""></p>
-<h1 id="此项目的介绍"><a href="#此项目的介绍" class="headerlink" title="此项目的介绍"></a>此项目的介绍</h1><p>基于XML解析的数据，生产出对应的Widget。如果你有WPF开发经验的话会发现，这就是同一种思路。配置(xml或者其他存储方式)文件 -&gt; 映射(通过某种转换) -&gt; UI表现 .且不说游戏领域的这套做法，其他领域已经玩的非常溜了。此源码总的来说极轻量级 非常容易定制，对于拿来主义来说还真是比较不错的选择(当然不是说我自己啦 哈哈)。</p>
-<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>关于这种UI的开发模式 肯定适用于热更新（这个还真需要脑补），其次适用于给非程序人员使用(甚至是策划)，极大降低程序对UI表现改动的。好处显而易见。</p>
-<h1 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h1><pre><code>通过配置创建出UI,支持嵌套，容易上手
-</code></pre><h1 id="框架实现思路"><a href="#框架实现思路" class="headerlink" title="框架实现思路"></a>框架实现思路</h1><p>数据模型类(Model) = 代码(包括函数与属性) ＋ xml工具(此处使用Microsoft System.Xml)</p>
-<p>预实现UI类 ＋ 数据模型类(Model) ＝ PurGUI</p>
-<p>预实现UI类 与 Model 之间的糅合 使用的是 属性映射。直接通过Model的属性映射到配置文件，序列化出来的就是所需组件。</p>
-<p>核心：灵活利用xml反序列化特性抽象控件树加载逻辑。</p>
-<h1 id="代码目录结构及简要说明-通关攻略请配合源码使用"><a href="#代码目录结构及简要说明-通关攻略请配合源码使用" class="headerlink" title="代码目录结构及简要说明(通关攻略请配合源码使用)"></a>代码目录结构及简要说明(通关攻略请配合源码使用)</h1><h2 id="Attributes"><a href="#Attributes" class="headerlink" title="Attributes"></a>Attributes</h2><p>BindControlAttribute.cs 属性级别标记 标记出需要绑定的数据模型(Model)的当前属性用何种控件显示<br>ButtonClickEventAttribute.cs 函数级别标记 标记出需要绑定到数据模型(Model)的函数<br>ControlValueTargetAttribute.cs 属性级别标记 标记出需要绑定的数据模型(Model)的属性<br>WindowResourceAttribute.cs 类级别标记 标记出需要读取配置(XML)名 </p>
-<p>看到这几个文件名，基本上能猜出来 这个框架的套路了。通过新建一个 “数据模型(Model)”，也可称之为浑身都是标记的具体UI类，我们将 需要使用到的控件全部标记在属性上与函数上 我称之为 &lt;控件与具体UI类强绑定&gt; 。 通过类级别标记的值 映射(通过某种转换) 到配置 。</p>
-<h2 id="Cursor"><a href="#Cursor" class="headerlink" title="Cursor"></a>Cursor</h2><p>PGCursor.cs 小彩蛋，关于鼠标的配置。</p>
-<h2 id="Helper"><a href="#Helper" class="headerlink" title="Helper"></a>Helper</h2><p>PGCursorListener.cs 彩蛋相关(覆写了鼠标点击的接口,配合PGCursor实现鼠标的姿态切换)<br>PGDraggable.cs 彩蛋x2 UI拖动组建(覆写了 IDragHandler 拖动接口 添加了拖动超屏判断)</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> OnDrag(PointerEventData eventData)</div><div class="line">&#123;</div><div class="line">    _mTransform.SetAsLastSibling();</div><div class="line">    _mTransform.<span class="built_in">position</span> += <span class="keyword">new</span> Vector3(eventData.delta.x, eventData.delta.y);</div><div class="line">    _mTransform.<span class="built_in">position</span> = <span class="keyword">new</span> Vector3</div><div class="line">        (</div><div class="line">        Mathf.Min(Screen.<span class="built_in">width</span> - _mTransform.sizeDelta.x, Mathf.Max(<span class="number">0</span>f, _mTransform.<span class="built_in">position</span>.x)),</div><div class="line">        Mathf.Min(Screen.<span class="built_in">height</span> - _mTransform.sizeDelta.y, Mathf.Max(<span class="number">0</span>f, _mTransform.<span class="built_in">position</span>.y)),</div><div class="line">        _mTransform.<span class="built_in">position</span>.z</div><div class="line">        );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>PGEditFixer.cs 对UGUI的bug修正，闪动光标的初始位置偏移问题(执行一次)</p>
-<p>PGXmlLoader.cs 配置加载<br>以下配置加载是体现此框架的技巧性的部分之一了，这是一个加载规则(Rule) , <pregui.widgets.pg[???]> 就是命名空间。利用 PreGUI.Widgets 命名空间下的已PG开头的类 作为反序列化对象。好处是能通过配置序列化出各种预定义的控件类型,抽象了具体的判断。(灵活利用Microsoft提供的Xml类库也是一种能力的体现方式)<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> IPGControl XmlProcessChildControl(this XmlNode node)</div><div class="line">&#123;</div><div class="line">    var <span class="class"><span class="keyword">type</span> </span>= System.Type.GetType(<span class="string">"PreGUI.Widgets.PG"</span> + node.Name);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="class"><span class="keyword">type</span> </span>== <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    var iType = <span class="class"><span class="keyword">type</span>.<span class="title">GetInterface</span></span>(<span class="string">"IPGControl"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (iType == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> ((IPGControl)System.Activator.CreateInstance(<span class="class"><span class="keyword">type</span>)).<span class="title">GenerateFromXmlNode</span></span>(node);</div><div class="line">&#125;</div></pre></td></tr></table></figure></pregui.widgets.pg[???]></p>
-<p>PreGUIExtensions.cs 里面几个扩展函数就比较有意思了(重要)。</p>
-<p>//反射被绑定的类的事件实现 －&gt; 此处直接定位到了 Model(数据模型) 标记ButtonClickEvent特性的 函数，属于函数映射(Mapping)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public <span class="keyword">static</span> <span class="keyword">void</span> CallEventAction&lt;T&gt;(<span class="keyword">this</span> object viewModel, string controlName, T source)</div><div class="line">    where T : <span class="class"><span class="keyword">class</span>, <span class="title">new</span>()</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> eventsToCall = viewModel</div><div class="line">        .GetType()</div><div class="line">        .GetMethods()</div><div class="line">        .Where(<span class="function"><span class="params">x</span> =&gt;</span> x.GetCustomAttributes(<span class="keyword">typeof</span>(ButtonClickEventAttribute), <span class="literal">false</span>).Any(<span class="function"><span class="params">z</span> =&gt;</span> ((ButtonClickEventAttribute)z).ControlName == controlName));</div><div class="line"></div><div class="line">    foreach (<span class="keyword">var</span> ev <span class="keyword">in</span> eventsToCall)</div><div class="line">    &#123;</div><div class="line">        ev.Invoke(viewModel, <span class="keyword">new</span> object[] &#123; source &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>//反射被绑定的类的属性(数值)实现 －&gt; 此处直接定位到了 Model(数据模型) 标记ControlValueTarget特性的 属性(有点拗口)，属于属性映射(Mapping)<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> UpdateControlValue&lt;T&gt;(<span class="keyword">this</span> <span class="keyword">object</span> viewModel, <span class="keyword">string</span> controlName, T newValue)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> members = viewModel</div><div class="line">        .GetType()</div><div class="line">        .GetProperties()</div><div class="line">        .Where(x =&gt; x.GetCustomAttributes(<span class="keyword">typeof</span>(ControlValueTargetAttribute), <span class="literal">false</span>).Any(z =&gt; ((ControlValueTargetAttribute)z).ControlName == controlName));</div><div class="line"></div><div class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> member <span class="keyword">in</span> members)</div><div class="line">    &#123;</div><div class="line">        member.SetValue(viewModel, newValue, <span class="literal">null</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>//此函数一般由Widget自己调用 用来给 Model(数据模型) 内 标记了 BindControl 的标签 赋值为当前Widget.<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> BindTo&lt;T&gt;(<span class="keyword">this</span> T thisControl, <span class="keyword">string</span> controlName, <span class="keyword">object</span> viewModel)</div><div class="line">           <span class="keyword">where</span> T : IPGControl</div><div class="line">       &#123;</div><div class="line">           <span class="keyword">var</span> members = viewModel</div><div class="line">               .GetType()</div><div class="line">               .GetProperties()</div><div class="line">               .Where(x =&gt; x.GetCustomAttributes(<span class="keyword">typeof</span>(BindControlAttribute), <span class="literal">false</span>).Any(z =&gt; ((BindControlAttribute)z).ControlName == controlName));</div><div class="line"></div><div class="line">           <span class="keyword">foreach</span> (<span class="keyword">var</span> member <span class="keyword">in</span> members)</div><div class="line">           &#123;</div><div class="line">               member.SetValue(viewModel, thisControl, <span class="literal">null</span>);</div><div class="line">           &#125;</div><div class="line">       &#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><p>IPGControl.cs 抽象控件的标准化接口(这就是实现多种输入输出组件统一化的最终奥义)<br>此 LayoutControls(PreGui gui, GameObject parent, string windowName) 函数签名 告诉我们可以基于此接口创建出控件.<br>此 IPGControl GenerateFromXmlNode(XmlNode node) 函数签名告诉我们它是用来加载配置的.此处用了一个称之为FluentInterface的技巧(喂自己吃了颗语法糖)。既然有了配置的信息，那么自然可以通过上面的接口构造出组件。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPGControl</span> </div><div class="line">&#123;</div><div class="line">    <span class="function">GameObject <span class="title">LayoutControls</span>(<span class="params">PreGui gui, GameObject parent, <span class="keyword">string</span> windowName</span>)</span>;</div><div class="line">    <span class="function">IPGControl <span class="title">GenerateFromXmlNode</span>(<span class="params">XmlNode node</span>)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Widgets"><a href="#Widgets" class="headerlink" title="Widgets"></a>Widgets</h2><p>PGButton.cs<br>PGCaptionLabel.cs<br>PGCheckBox.cs<br>PGHorizontalLayout.cs<br>PGLabel.cs<br>PGPanel.cs<br>PGScrollWindow.cs<br>PGTextEdit.cs<br>PGVerticalLayout.cs 此处以上文件皆遵循 IPGControl 接口<br>PGWindowTitle.cs 此文件意在添加一个自定义的Head，实际上亦可转化为 遵循 IPGControl 的组件<br>PGWindow.cs 控件制造机／控件工厂 随便怎么叫都行，它是一切控件的(LayoutControls接口)组装的指派者。</p>
-<p>static PGWindow LoadFromXml (XmlNode node) 函数签名中截取代码 实现框架的关键函数<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for (<span class="name">var</span> i = <span class="number">0</span><span class="comment">; i &lt; node.ChildNodes.Count; i++) &#123;</span></div><div class="line">	result.Children [i] = node.ChildNodes.Item (<span class="name">i</span>).XmlProcessChildControl ()<span class="comment">;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>void InitializeWindow (GameObject gameObject) 函数签名中截取代码 实现框架的关键函数<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (Children != <span class="literal">null</span>) &#123;</div><div class="line">	Children.ProcessControls (Gui, contentArea, ControlName);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这两个函数决定了框架的UI组件以深度优先的方式加载(因为xml可以嵌套，也就是说代码中无需重复造轮子).</p>
-<h2 id="Root-根目录-gt-PurGUI-cs"><a href="#Root-根目录-gt-PurGUI-cs" class="headerlink" title="Root(根目录) -&gt; PurGUI.cs"></a>Root(根目录) -&gt; PurGUI.cs</h2><p>包含 创建UI的入口(函数签名) -&gt; void BindViewModel (string windowName, object viewModel)<br>包含 事件绑定 就是基于 Key -  Value的消息触发模型。Value即为Action.<br>包含 PurGUI框架的基础配置<br>包含(重要) UI所需基础元素，如Camera，_canvas </p>
-<p>PGWindow的直接操控者，此框架的大门，每当创建一个UI组件的时候，都会将自身引用 传递给 所创建的组件。这意味着 PurGUI与Widget 是一个一对多的关系。只要PurGUI发生更改 所有的组件都可以获取实时的变更。这种做的坏处是无法(面对复杂需求就跪了)进行多个摄像机的管理，如果需要新增多个相机或根节点(Canvas)则需要创建多个基础(PurGUI)，当然这存在很大的优化余地 这里暂时就不讨论了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/70024C78-7F1F-4EE9-B52F-AF508107D6C8.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;本来想分析MarkUX框架的代码，但是需要购买，暂时就放下了，恰巧遇到PerGUI几乎雷同的设计思路。那就直接拿来分析吧。此文是我读此框架的笔记，外行看热闹内行看门道至于能理解多少就见仁见智了，如果我没理解的地方还请不吝指出。最后你可以在CodePlex上找到此开源代码。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Framework" scheme="http://vrast.cn/categories/Framework/"/>
-    
-    
-      <category term="PerGUI" scheme="http://vrast.cn/tags/PerGUI/"/>
     
   </entry>
   
