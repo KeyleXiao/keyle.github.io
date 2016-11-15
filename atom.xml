@@ -94,7 +94,7 @@
     <link href="http://vrast.cn/2016/10/31/AppStore-Create-New-Application-FAQ/"/>
     <id>http://vrast.cn/2016/10/31/AppStore-Create-New-Application-FAQ/</id>
     <published>2016-10-31T02:38:30.000Z</published>
-    <updated>2016-11-14T02:35:22.000Z</updated>
+    <updated>2016-11-15T03:41:23.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题</p>
@@ -337,7 +337,7 @@
     <link href="http://vrast.cn/2016/10/14/GaussianBlur-Shader/"/>
     <id>http://vrast.cn/2016/10/14/GaussianBlur-Shader/</id>
     <published>2016-10-14T09:24:12.000Z</published>
-    <updated>2016-11-14T02:29:51.000Z</updated>
+    <updated>2016-11-15T03:41:40.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/QQ20161014-0.jpg" alt=""></p>
 <blockquote>
@@ -356,10 +356,10 @@
     
     </summary>
     
-      <category term="学习手札" scheme="http://vrast.cn/categories/%E5%AD%A6%E4%B9%A0%E6%89%8B%E6%9C%AD/"/>
+      <category term="图形学" scheme="http://vrast.cn/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
     
-      <category term="shader" scheme="http://vrast.cn/tags/shader/"/>
+      <category term="Shader" scheme="http://vrast.cn/tags/Shader/"/>
     
   </entry>
   
