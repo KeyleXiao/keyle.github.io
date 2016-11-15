@@ -52,7 +52,7 @@
     <link href="http://vrast.cn/posts/61ce4672/"/>
     <id>http://vrast.cn/posts/61ce4672/</id>
     <published>2016-11-14T11:27:17.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
+    <updated>2016-11-15T07:45:10.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>记录有米视频SDK接入的一些问题 断断续续记录中📝</p>
@@ -60,9 +60,14 @@
 <a id="more"></a>
 <h1 id="基础流程走-Document-案例"><a href="#基础流程走-Document-案例" class="headerlink" title="基础流程走 Document 案例"></a>基础流程走 Document 案例</h1><p>1.在 Unity3D 5.4.2 这个版本下打包出来的 XCode 工程 需要添加如下<br><img src="/uploads/QQ20161114-0.jpg" alt=""></p>
 <h1 id="主要的一些问题-FAQ"><a href="#主要的一些问题-FAQ" class="headerlink" title="主要的一些问题 FAQ"></a>主要的一些问题 FAQ</h1><ol>
-<li>You’ve implemented -[<uiapplicationdelegate> application:didReceiveRemoteNotification:fetchCompletionHandler:], but you still need to add “remote-notification” to the list of your supported UIBackgroundModes in your Info.plist.<br>解决方法：<br><img src="/uploads/QQ20161114-1.jpg" alt=""></uiapplicationdelegate></li>
+<li><p>You’ve implemented -[<uiapplicationdelegate> application:didReceiveRemoteNotification:fetchCompletionHandler:], but you still need to add “remote-notification” to the list of your supported UIBackgroundModes in your Info.plist.<br>解决方法：<br><img src="/uploads/QQ20161114-1.jpg" alt=""></uiapplicationdelegate></p>
+</li>
+<li><p>需要传入当前UIViewController,此处使用 <figure class="highlight plain"><figcaption><span>```来获取当前Unity3d使用的view.</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">``` c</div><div class="line">[UMVideoAd videoPlay:UnityGetGLViewController() videoPlayFinishCallBackBlock:^(BOOL isFinishPlay)&#123;</div><div class="line">        if (isFinishPlay) &#123;</div><div class="line">            UnitySendMessage(&quot;ADManager&quot;, &quot;AdPlayCallback&quot;, &quot;0&quot;);</div><div class="line">        &#125;else</div><div class="line">        &#123;</div><div class="line">            UnitySendMessage(&quot;ADManager&quot;, &quot;AdPlayCallback&quot;, &quot;3&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+</li>
+<li><p>使用的时候务必判断不同类型的返回值便于处理不同状态。譬如 增加是否有可用广告的判断</p>
+</li>
 </ol>
-<h1 id="待续"><a href="#待续" class="headerlink" title="待续"></a>待续</h1>]]></content>
+]]></content>
     
     <summary type="html">
     
