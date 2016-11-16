@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-11-15T08:14:43.000Z</updated>
+  <updated>2016-11-16T13:13:43.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>屌丝孙悟空的不幸福生活</title>
+    <link href="http://vrast.cn/posts/ae108100/"/>
+    <id>http://vrast.cn/posts/ae108100/</id>
+    <published>2016-11-16T13:11:31.000Z</published>
+    <updated>2016-11-16T13:13:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>分享一些有趣的故事,上班时候不要打开唷~</p>
+</blockquote>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=3&id=796627417&auto=0&height=66"></iframe>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;分享一些有趣的故事,上班时候不要打开唷~&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; heig
+    
+    </summary>
+    
+      <category term="Self" scheme="http://vrast.cn/categories/Self/"/>
+    
+    
+      <category term="有趣的故事" scheme="http://vrast.cn/tags/%E6%9C%89%E8%B6%A3%E7%9A%84%E6%95%85%E4%BA%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Objective-C 笔记</title>
@@ -268,7 +297,7 @@
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
     <published>2016-10-24T08:02:11.000Z</published>
-    <updated>2016-11-16T07:27:47.000Z</updated>
+    <updated>2016-11-16T13:07:28.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
 <p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
@@ -365,7 +394,7 @@
 <li>停用状态</li>
 </ol>
 <h3 id="掩护系统"><a href="#掩护系统" class="headerlink" title="掩护系统"></a>掩护系统</h3><p>该系统负责玩家掩护(防护)的的每个方面。<br>掩护检测由玩家的子节点CoverChecker完成。 要修改或微调掩护检测，请使用此GameObject的CoverTargetLogic组件。 其他掩护参数可以通过Player的PlayerAtts组件修改。</p>
-<h3 id="观察系统"><a href="#观察系统" class="headerlink" title="观察系统"></a>观察系统</h3>]]></content>
+<h3 id="观察系统"><a href="#观察系统" class="headerlink" title="观察系统"></a>观察系统</h3><h2 id="算法和代码部分"><a href="#算法和代码部分" class="headerlink" title="算法和代码部分"></a>算法和代码部分</h2>]]></content>
     
     <summary type="html">
     
@@ -775,44 +804,6 @@
     
     
       <category term="SSH" scheme="http://vrast.cn/tags/SSH/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VPS MySQL远程登录问题FAQ</title>
-    <link href="http://vrast.cn/posts/5b4f7876/"/>
-    <id>http://vrast.cn/posts/5b4f7876/</id>
-    <published>2016-09-20T13:23:37.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Mysql远程登录失败，没回馈 解决办法</p>
-</blockquote>
-<a id="more"></a>
-<p>开启mysql的远程访问权限,防火墙开放3306端口</p>
-<p>1.打开防火墙配置文件<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi  <span class="regexp">/etc/</span>sysconfig<span class="regexp">/iptables</span></div></pre></td></tr></table></figure></p>
-<p>2.如果有出现3306字样的行数据 直接删除之</p>
-<p>3.添加规则<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-A INPUT -m <span class="keyword">state</span> --state NEW -m tcp -p tcp --dport <span class="number">3306</span> -j ACCEPT</div></pre></td></tr></table></figure></p>
-<ol>
-<li>为Mysql数据的用户添加权限，％的意思是任意ip都允许，反之则是固定的IP允许</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> mysql;//切换到mysql库</div><div class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host = <span class="string">'%'</span> <span class="keyword">where</span> <span class="keyword">user</span> = <span class="string">'root'</span>;  //可以将root改为任意需要添加权限的用户名</div></pre></td></tr></table></figure>
-<p>5.重启路由表</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">service  iptables restart</span></div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Mysql远程登录失败，没回馈 解决办法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Host" scheme="http://vrast.cn/categories/Host/"/>
-    
-    
-      <category term="MySQL" scheme="http://vrast.cn/tags/MySQL/"/>
     
   </entry>
   
