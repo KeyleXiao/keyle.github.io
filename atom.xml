@@ -268,7 +268,7 @@
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
     <published>2016-10-24T08:02:11.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
+    <updated>2016-11-15T15:11:05.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
 <p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
@@ -352,7 +352,8 @@
 </code></pre><p><img src="/uploads/QQ20161114-0@2x.jpg" alt=""></p>
 <pre><code>13. 这段翻译有些长,你可以对照着下图看。
 </code></pre><p>点击播放，抽出武器，首先修正右手的动画。你需要选中RightHandHold的子节点 PosRotFixer 。调整到一个合适的角度位置，然后拷贝这个节点(PosRotFixer)的ttransform信息，粘贴到 AnimRightHand 之上。<br>做完了这些点击 AnimRightHand 组件上的 <save to="" temporary="">按钮，这样的话即使你停止的游戏，也不会丢失刚才的更改。<br>修正其他节点的位置， AimSight, AimHipFire, AimCover, LeftHandClip 使用 PosRotFixers 节点 就上上面操作的那样。注意，只有 LeftHandle 会被直接修改。<br>注意：你可以使用player的 PressFire2Button 当你修正瞄准动画的时候，(你不要用 Fire1Button 来修复AimHipFirePosition)和修正瞄准时候的位置。<br>当你都做完之后，保存到了 temporary ，停止游戏然后点击 Load from temporary .<br><img src="/uploads/QQ20161114-1@2x.jpg" alt="">   <img src="/uploads/QQ20161114-2@2x.jpg" alt=""><br>当角色（玩家或射手Ai）拔出武器时，将按您输入characterName字段的名称进行定位。 例如，当名为Player Remy的玩家拔出武器或瞄准它时，他将在GunAtt中使用具有匹配的字符名称的信息。</save></p>
-<h3 id="投掷系统"><a href="#投掷系统" class="headerlink" title="投掷系统"></a>投掷系统</h3>]]></content>
+<h3 id="投掷系统"><a href="#投掷系统" class="headerlink" title="投掷系统"></a>投掷系统</h3><p>提供的案例有一个 Frag Grenade 的例子。</p>
+]]></content>
     
     <summary type="html">
     
