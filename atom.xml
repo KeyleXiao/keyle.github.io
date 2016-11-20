@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-11-18T10:25:38.000Z</updated>
+  <updated>2016-11-20T14:16:31.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Documentation Intense Goap System.pdf</title>
+    <link href="http://vrast.cn/posts/17da9059/"/>
+    <id>http://vrast.cn/posts/17da9059/</id>
+    <published>2016-11-20T09:24:29.000Z</published>
+    <updated>2016-11-20T14:16:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>INTENSE GOAP System 说明文档译文。由于文档中图片较多，翻译部分如有不详细的地方还请自行对比原文。</p>
+</blockquote>
+
+
+	<div class="row">
+	  <iframe src="http://nagland.github.io/viewer/web/viewer.html?val=http:vrast.cn/uploads/Documentation-Intense-Goap-System.pdf.pdf" style="width:100%; height:550px"></iframe>
+	</div>
+
+
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;INTENSE GOAP System 说明文档译文。由于文档中图片较多，翻译部分如有不详细的地方还请自行对比原文。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+	&lt;div class=&quot;row&quot;&gt;
+	  &lt;iframe src=&quot;http://nag
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE GOAP文档" scheme="http://vrast.cn/tags/INTENSE-GOAP%E6%96%87%E6%A1%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>IDFA zeroed FAQ</title>
@@ -55,10 +93,9 @@
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
     <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-17T02:32:17.000Z</updated>
+    <updated>2016-11-20T09:26:44.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/uploads/QQ20161117-1@2x.jpg" alt=""></p>
-<blockquote>
+    <content type="html"><![CDATA[<blockquote>
 <p>本文记录TPS Documentation阅读过程,本篇讲述了此插件的基本配置与几个代码相关的系统与相关的代码案例.本篇基本上是翻译全文,有任何问题可留言，有兴趣的话推荐你阅读原文</p>
 </blockquote>
 <a id="more"></a>
@@ -173,8 +210,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/uploads/QQ20161117-1@2x.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
+      &lt;blockquote&gt;
 &lt;p&gt;本文记录TPS Documentation阅读过程,本篇讲述了此插件的基本配置与几个代码相关的系统与相关的代码案例.本篇基本上是翻译全文,有任何问题可留言，有兴趣的话推荐你阅读原文&lt;/p&gt;
 &lt;/blockquote&gt;
     
@@ -798,35 +834,6 @@
     
     
       <category term="ZSH" scheme="http://vrast.cn/tags/ZSH/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>显示mac本地隐藏文件命令</title>
-    <link href="http://vrast.cn/posts/60b16049/"/>
-    <id>http://vrast.cn/posts/60b16049/</id>
-    <published>2016-09-20T13:48:05.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>两条直接显示本地隐藏文件的命令</p>
-</blockquote>
-<p>显示：defaults write com.apple.finder AppleShowAllFiles -bool true<br>隐藏：defaults write com.apple.finder AppleShowAllFiles -bool false </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;两条直接显示本地隐藏文件的命令&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;显示：defaults write com.apple.finder AppleShowAllFiles -bool true&lt;br&gt;隐藏：defaults write co
-    
-    </summary>
-    
-      <category term="Mac" scheme="http://vrast.cn/categories/Mac/"/>
-    
-    
-      <category term="Terminal" scheme="http://vrast.cn/tags/Terminal/"/>
     
   </entry>
   
