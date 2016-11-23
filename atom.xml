@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-11-20T15:08:40.000Z</updated>
+  <updated>2016-11-23T14:49:43.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,14 +16,93 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>消息通知模型</title>
+    <link href="http://vrast.cn/posts/a9143383/"/>
+    <id>http://vrast.cn/posts/a9143383/</id>
+    <published>2016-11-23T13:56:19.000Z</published>
+    <updated>2016-11-23T14:49:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本章节讲述消息通知模型在TPS项目中的使用，这种模型常见于项目中，表现多为Observer模式;Key-Value触发器模式; 文章末我会列出自己写的基于事件触发的模型,支持多种类型消息传递。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="INTENSE的消息系统设计"><a href="#INTENSE的消息系统设计" class="headerlink" title="INTENSE的消息系统设计"></a>INTENSE的消息系统设计</h1><p>举个例子，在 ThrowingEvents.cs 脚本中，有预先暴露的Event接口，观察事件触发时便会通知其他注册的事件。</p>
+<ul>
+<li>不使用单例,当前消息系统并不是，也就意味着每次需要初始化一个新的消息系统</li>
+<li>保持隔离性，INTENSE的消息系统设计就是每个不同类型的消息系统都会相互隔离。使用不同类型进行区分</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//代码片段</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ThrowingEvents</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">SingleThrowParamHandler</span>(<span class="params">Exploder exp</span>)</span>;</div><div class="line"></div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">event</span> SingleThrowParamHandler onThrowableExit;</div><div class="line"></div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InvokeThrowableExit</span>(<span class="params">Exploder exp</span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (onThrowableExit != <span class="literal">null</span>)</div><div class="line">            onThrowableExit(exp);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当前消息在 Canvas3D.cs 脚本中被注册</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Canvas3D</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//···</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//···</span></div><div class="line">        player.SmbThrow.Events.onThrowableExit += OnThrowableExit;</div><div class="line">        <span class="comment">//···</span></div><div class="line">    &#125;        </div><div class="line">    <span class="comment">//···      </span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnThrowableExit</span>(<span class="params">Exploder exp</span>)</span></div><div class="line">    &#123;</div><div class="line">        SetThrowableImage(player.SmbThrow.GetThrowableSprite());</div><div class="line">        SetThrowableName(player.SmbThrow.GetThrowableName());</div><div class="line">        ThrowableCountTexter(player.SmbThrow.GetThrowableCount());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当前消息(事件)在 ThrowCSMB.cs 脚本中被触发</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ThrowCSMB</span> : <span class="title">CustomPlayerSystemSMB</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ThrowCExploderClone</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (cExploderClone)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//···</span></div><div class="line">            Events.InvokeOnThrow(cExploderClone);</div><div class="line">            <span class="comment">//···</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当这三个脚本运作起来的效果就是 玩家投掷-&gt;UI改变，此处有一个东西需要注意一下 就是 注册的先后顺序。</p>
+<h1 id="Event调用的先后顺序-先入先出"><a href="#Event调用的先后顺序-先入先出" class="headerlink" title="Event调用的先后顺序 先入先出"></a>Event调用的先后顺序 先入先出</h1><p>If I set up multiple event handlers, like so:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">_webservice.RetrieveDataCompleted += ProcessData1;</div><div class="line">_webservice.RetrieveDataCompleted += ProcessData2;</div></pre></td></tr></table></figure>
+<p>The answer will be specific to the RetrieveDataCompleted event.<br> If it has the default backing store of a multi-cast delegate, then yes “they run in the same thread and sequentially in the order that are registered”.<br> <a href="http://stackoverflow.com/questions/1645478/order-of-event-handler-execution" target="_blank" rel="external">Event在同一个线程内先注册的事件先被调用 - Stack Overflow FAQ</a></p>
+<h1 id="CASE"><a href="#CASE" class="headerlink" title="CASE"></a>CASE</h1><embed src="http://www.tudou.com/v/N0zqkp5U-eo/&bid=05&resourceId=0_05_05_99/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="480" height="400">
+
+<p><a href="http://git.oschina.net/keyle/SmartNotificationFramework" target="_blank" rel="external">我个人写的消息通知模型源码，附带单元测试。</a></p>
+<p><a href="http://git.oschina.net/keyle/SmartNotificationFramework/blob/master/SourceCode/TestCode/Demo.cs?dir=0&amp;filepath=SourceCode%2FTestCode%2FDemo.cs&amp;oid=703770de1ecdac0bbdf77dce2f6ec171c6a34af1&amp;sha=ba3aca46471c783b2320dac16056f5b4e70616dd" target="_blank" rel="external">核心部分举例</a> ，框架核心就是<code>RegisterEvent，UnregisterEvent</code>两个方法的包装。所有的消息被维护到具体的几个dictionary中。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本章节讲述消息通知模型在TPS项目中的使用，这种模型常见于项目中，表现多为Observer模式;Key-Value触发器模式; 文章末我会列出自己写的基于事件触发的模型,支持多种类型消息传递。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Observer" scheme="http://vrast.cn/tags/Observer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用UGUI制作3DUI</title>
+    <link href="http://vrast.cn/posts/56c3f748/"/>
+    <id>http://vrast.cn/posts/56c3f748/</id>
+    <published>2016-11-23T13:26:34.000Z</published>
+    <updated>2016-11-23T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/QQ20161123-0@2x.jpg" alt="效果图"></p>
+<blockquote>
+<p>使用UGUI来实现3DUI 动态跟随效果。<br>  ⚠️ 本章节如果遇到动画一类的脚本使用不会讲解，后续有专门的章节进行动画技巧讲解<br>  ⚠️ 本文按照大纲的阅读流程进行 如果有错误还请指出 本文会进行修正</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="脚本结构"><a href="#脚本结构" class="headerlink" title="脚本结构"></a>脚本结构</h2><p>主要跟随脚本在 Canvas3D.cs 中实现，UI面板更新事件在 HudEventCatcher.cs 中被实现。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Canvas3D.cs</div><div class="line">HudEventCatcher.cs</div></pre></td></tr></table></figure></p>
+<h2 id="prefab结构"><a href="#prefab结构" class="headerlink" title="prefab结构"></a>prefab结构</h2><p><img src="/uploads/QQ20161123-1@2x.jpg" alt="Prefab结构图"><br>CamRig 结构下有两台摄像机，上级摄像机只处理3D物体，子节点摄像机负责处理3DUI.</p>
+<h1 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h1><p><code>useCamDistanceResizer</code> 决定3DUI面板是否动态朝向主摄像机。<br><code>followBone</code> 实际是UI相对位置锚定的骨骼。此处使用的是 Head ，当动画运作时候UI会发生相应的位移。<br><code>transform</code> 此处为当前整个 3DUI部分</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Canvas3D</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">	<span class="comment">//···</span></div><div class="line"></div><div class="line">	<span class="keyword">public</span> HumanBodyBones bone = HumanBodyBones.Head;</div><div class="line"></div><div class="line">       <span class="comment">//···</span></div><div class="line"></div><div class="line">	<span class="keyword">private</span> Vector3 targetPosition;</div><div class="line"></div><div class="line">       <span class="comment">//···</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="comment">//···</span></div><div class="line"></div><div class="line">		playerCamera = player.GetComponent&lt;SetupAndUserInput&gt;().cameraRig.GetComponent&lt;PlayerCamera&gt;();</div><div class="line"></div><div class="line">           <span class="comment">//···</span></div><div class="line"></div><div class="line">		followBone = player.GetComponent&lt;Animator&gt;().GetBoneTransform(bone);</div><div class="line"></div><div class="line">           <span class="comment">//···</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">       <span class="comment">//···</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">           <span class="comment">//···</span></div><div class="line"></div><div class="line">		ManageSize();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">       <span class="comment">//···</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ManageSize</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="comment">//是否面向摄像机</span></div><div class="line">		<span class="keyword">if</span> (!useCamDistanceResizer)</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">           <span class="comment">//进行一个相对位移</span></div><div class="line">		targetPosition = followBone.position + playerCamera.transform.right * (playerCamera.currentOffset.x &gt;= <span class="number">0</span> ? <span class="number">1</span> * rightFix : <span class="number">-1</span> * (leftFix)) + Vector3.up * upFix;</div><div class="line">           <span class="comment">//使用插值平滑移动到新的位置(如果跟随的骨骼发生改变)</span></div><div class="line">		transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * positionLerpSpeed);</div><div class="line">           <span class="comment">//直接设置角度 这里会造成3DUI屏幕转向有点抖动 源码</span></div><div class="line">		<span class="comment">//transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, playerCamera.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);</span></div><div class="line">           </div><div class="line">           <span class="comment">//建议修改 此处我修改成如下，添加插值并且减少2/1的 positionLerpSpeed 增加平滑度。</span></div><div class="line">           <span class="keyword">float</span> yAngle = Mathf.LerpAngle(transform.eulerAngles.y, playerCamera.transform.rotation.eulerAngles.y, Time.deltaTime * positionLerpSpeed / <span class="number">2</span>);</div><div class="line">		transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yAngle, transform.rotation.eulerAngles.z);</div><div class="line"></div><div class="line">           <span class="comment">//3D相机与UI的距离</span></div><div class="line">		<span class="keyword">float</span> fov = Vector3.Distance(playerCamera.transform.position, transform.position);</div><div class="line">           <span class="comment">//最大尺寸与最小尺寸阀值控制(微调选项)</span></div><div class="line">		<span class="keyword">float</span> maxDif = maxScaleAtDist - minScaleAtDist;</div><div class="line">		<span class="keyword">float</span> cDif = fov - minScaleAtDist;</div><div class="line"></div><div class="line">           <span class="comment">//近大远小</span></div><div class="line">		<span class="keyword">float</span> scale = Mathf.Lerp(minScale, maxScale, cDif / maxDif);</div><div class="line">		transform.localScale = Vector3.one * scale;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">       <span class="comment">//···   </span></div><div class="line">       </div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/QQ20161123-0@2x.jpg&quot; alt=&quot;效果图&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用UGUI来实现3DUI 动态跟随效果。&lt;br&gt;  ⚠️ 本章节如果遇到动画一类的脚本使用不会讲解，后续有专门的章节进行动画技巧讲解&lt;br&gt;  ⚠️ 本文按照大纲的阅读流程进行 如果有错误还请指出 本文会进行修正&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="3DUI" scheme="http://vrast.cn/tags/3DUI/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Goap System.pdf</title>
     <link href="http://vrast.cn/posts/17da9059/"/>
     <id>http://vrast.cn/posts/17da9059/</id>
     <published>2016-11-20T09:24:29.000Z</published>
-    <updated>2016-11-20T15:08:40.000Z</updated>
+    <updated>2016-11-23T13:14:23.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>INTENSE GOAP System 说明文档译文。由于文档中图片较多，翻译部分如有不详细的地方还请自行对比原文。</p>
+<p>INTENSE GOAP System 翻译暂时搁置。由于文档中图片较多，翻译部分如有不详细的地方还请自行对比原文。</p>
 </blockquote>
 
 
@@ -37,7 +116,7 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;INTENSE GOAP System 说明文档译文。由于文档中图片较多，翻译部分如有不详细的地方还请自行对比原文。&lt;/p&gt;
+&lt;p&gt;INTENSE GOAP System 翻译暂时搁置。由于文档中图片较多，翻译部分如有不详细的地方还请自行对比原文。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 
@@ -228,7 +307,7 @@
     <link href="http://vrast.cn/posts/fba9adf2/"/>
     <id>http://vrast.cn/posts/fba9adf2/</id>
     <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-16T15:20:18.000Z</updated>
+    <updated>2016-11-23T14:51:07.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
 <p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
@@ -236,12 +315,35 @@
 <p>很高兴的开始了INTENSE TPS的项目分析，今晚试玩了几把感觉整体还是非常顺畅的。AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI IK动画 GOAP 集群AI AI编辑器 算法</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="3DUI"><a href="#3DUI" class="headerlink" title="3DUI"></a>3DUI</h3><p>1.UGUI 的效果制作</p>
-<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>1.分析动画控制逻辑<br>2.动画融合技巧(动画融合等等细节)<br>3.IK动画<br>4.结束之后 额外内容 《如何做动画系统的控制》</p>
-<h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><p>1.AI接口梳理<br>2.细分逻辑解析(寻路，数据，武器更换等)<br>3.结束之后 额外内容 《GOAP AI结构设计》</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>1.手雷投掷抛物线绘制<br>2.开枪准星抖动模拟</p>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译-简略"><a href="#文档翻译-简略" class="headerlink" title="文档翻译 简略"></a>文档翻译 简略</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><p>1.layout构成<br>2.游戏的基本逻辑<br>3.动画控制器</p>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><ol>
+<li>分析动画控制逻辑</li>
+<li>动画融合技巧(动画融合等等细节)</li>
+<li>IK动画</li>
+<li>结束之后 额外内容 《如何做动画系统的控制》</li>
+</ol>
+<h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译-简略"><a href="#文档翻译-简略" class="headerlink" title="文档翻译 简略"></a>文档翻译 简略</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
 <h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
 ]]></content>
     
@@ -768,72 +870,6 @@
     
     
       <category term="protobuf" scheme="http://vrast.cn/tags/protobuf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>马上就要关闭运营一年的网站了</title>
-    <link href="http://vrast.cn/posts/aa040ce4/"/>
-    <id>http://vrast.cn/posts/aa040ce4/</id>
-    <published>2016-09-21T05:07:04.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/QQ20160921-0.jpg" alt=""></p>
-<blockquote>
-<p>SS站 运营了一年整 现在终于停服了，做自己擅长的事很重要,否则就只是徒劳</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="兴趣"><a href="#兴趣" class="headerlink" title="兴趣"></a>兴趣</h1><pre><code>做了一年VPN网站，从最开始的VPN连接，到后面的shadowsocks,再后来自己租vps建站，弄前端 ，优化 等等... 总之还是有收获的 。虽然浪费了很长很长一段时间。但是有点意思 玩儿嘛 总是要付出点什么的。
-</code></pre><h1 id="做自己擅长的事"><a href="#做自己擅长的事" class="headerlink" title="做自己擅长的事"></a>做自己擅长的事</h1><pre><code>有时间就做自己擅长的事 做到极致 便是成功。与其跨领域从零开始学起 不如把现在手头的上的事做到最棒。
-</code></pre><h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><pre><code>看来要很长一段时间不沾VPS了，这东西有毒。有这些时间 还是做点实际点的东西 如果立下一个小目标。:-）
-</code></pre><h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><pre><code>好多事情都列在墙头 没有动手，时光易逝还是先做重要的事吧
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/QQ20160921-0.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;SS站 运营了一年整 现在终于停服了，做自己擅长的事很重要,否则就只是徒劳&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Host" scheme="http://vrast.cn/categories/Host/"/>
-    
-    
-      <category term="VPN" scheme="http://vrast.cn/tags/VPN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>zsh技巧</title>
-    <link href="http://vrast.cn/posts/830f33fc/"/>
-    <id>http://vrast.cn/posts/830f33fc/</id>
-    <published>2016-09-21T04:14:40.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>关于zsh的一些特性与技巧 </p>
-</blockquote>
-<p><img src="/uploads/QQ20160921-0@2x.jpg" alt=""></p>
-<a id="more"></a>
-<h1 id="TAB自动补全"><a href="#TAB自动补全" class="headerlink" title="TAB自动补全"></a>TAB自动补全</h1><h1 id="R-递归查找历史命令的使用"><a href="#R-递归查找历史命令的使用" class="headerlink" title="+R 递归查找历史命令的使用"></a><ctrl>+R 递归查找历史命令的使用</ctrl></h1><h1 id="查看环境变量"><a href="#查看环境变量" class="headerlink" title="查看环境变量"></a>查看环境变量</h1><h2 id="pwd"><a href="#pwd" class="headerlink" title="$pwd"></a>$pwd<tab></tab></h2><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><h2 id="ps-查看进程"><a href="#ps-查看进程" class="headerlink" title="ps 查看进程"></a>ps 查看进程</h2><h2 id="Kill-Progress"><a href="#Kill-Progress" class="headerlink" title="Kill Progress"></a>Kill Progress</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">kill</span> r &lt;<span class="literal">TAB</span>&gt;</div></pre></td></tr></table></figure>
-<p>#说明<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Command --<span class="params">&lt;TAB&gt;</span> <span class="comment">//快捷说明</span></div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;关于zsh的一些特性与技巧 &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/QQ20160921-0@2x.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Terminal" scheme="http://vrast.cn/categories/Terminal/"/>
-    
-    
-      <category term="ZSH" scheme="http://vrast.cn/tags/ZSH/"/>
     
   </entry>
   
