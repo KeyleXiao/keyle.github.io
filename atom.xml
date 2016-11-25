@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-11-23T14:49:43.000Z</updated>
+  <updated>2016-11-24T15:54:11.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AI接口梳理</title>
+    <link href="http://vrast.cn/posts/6aa8a811/"/>
+    <id>http://vrast.cn/posts/6aa8a811/</id>
+    <published>2016-11-24T15:02:53.000Z</published>
+    <updated>2016-11-24T15:54:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>初读GOAP AI系统设计觉得一头雾水，现在正慢慢理清思路往下写，本篇是个人代码阅读笔记 更新中…</p>
+</blockquote>
+<a id="more"></a>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;初读GOAP AI系统设计觉得一头雾水，现在正慢慢理清思路往下写，本篇是个人代码阅读笔记 更新中…&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="AI" scheme="http://vrast.cn/tags/AI/"/>
+    
+  </entry>
   
   <entry>
     <title>消息通知模型</title>
@@ -307,22 +335,16 @@
     <link href="http://vrast.cn/posts/fba9adf2/"/>
     <id>http://vrast.cn/posts/fba9adf2/</id>
     <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T03:16:02.000Z</updated>
+    <updated>2016-11-24T15:37:31.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
 <p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
 <blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，今晚试玩了几把感觉整体还是非常顺畅的。AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI IK动画 GOAP 集群AI AI编辑器 算法</p>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
 </blockquote>
 <a id="more"></a>
 <h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><ol>
-<li>分析动画控制逻辑</li>
-<li>动画融合技巧(动画融合等等细节)</li>
-<li>IK动画</li>
-<li>结束之后 额外内容 《如何做动画系统的控制》</li>
-</ol>
-<h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
 <li>AI接口梳理</li>
 <li>细分逻辑解析(寻路，数据，武器更换等)</li>
 <li>结束之后 额外内容 《GOAP AI结构设计》</li>
@@ -352,7 +374,7 @@
       &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，今晚试玩了几把感觉整体还是非常顺畅的。AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI IK动画 GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
@@ -840,36 +862,6 @@
     
     
       <category term="rendertexure" scheme="http://vrast.cn/tags/rendertexure/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>protobuf-net ios 无法运行解决方案</title>
-    <link href="http://vrast.cn/posts/d88c5041/"/>
-    <id>http://vrast.cn/posts/d88c5041/</id>
-    <published>2016-09-21T11:02:16.000Z</published>
-    <updated>2016-11-18T06:38:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/QQ20160921-1@2x.jpg" alt=""></p>
-<blockquote>
-<p>protobuf-net ios 无法运行解决方案</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="使用上图所示-源码-方式-调用protobuf。"><a href="#使用上图所示-源码-方式-调用protobuf。" class="headerlink" title="使用上图所示 源码 方式 调用protobuf。"></a>使用上图所示 源码 方式 调用protobuf。</h1><h1 id="在unity3d-project-setting-中使用-net-subset-子集。"><a href="#在unity3d-project-setting-中使用-net-subset-子集。" class="headerlink" title="在unity3d project setting 中使用 .net subset 子集。"></a>在unity3d project setting 中使用 .net subset 子集。</h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/QQ20160921-1@2x.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;protobuf-net ios 无法运行解决方案&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Unity3D" scheme="http://vrast.cn/categories/Unity3D/"/>
-    
-    
-      <category term="protobuf" scheme="http://vrast.cn/tags/protobuf/"/>
     
   </entry>
   
