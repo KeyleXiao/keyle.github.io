@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-11-28T03:19:11.000Z</updated>
+  <updated>2016-11-28T03:21:18.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,18 +20,20 @@
     <link href="http://vrast.cn/posts/58b26bad/"/>
     <id>http://vrast.cn/posts/58b26bad/</id>
     <published>2016-11-28T03:16:32.000Z</published>
-    <updated>2016-11-28T03:19:11.000Z</updated>
+    <updated>2016-11-28T03:21:18.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>判断当前选中资源是否是文件夹 小问题FAQ</p>
+<p>判断当前选中资源是否是文件夹</p>
 </blockquote>
 <a id="more"></a>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">GetSelectedPathOrFallback</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> path = <span class="string">"Assets"</span>;</div><div class="line"></div><div class="line">    <span class="keyword">foreach</span> (UnityEngine.Object obj <span class="keyword">in</span> Selection.GetFiltered(<span class="keyword">typeof</span>(UnityEngine.Object), SelectionMode.Assets))</div><div class="line">    &#123;</div><div class="line">        path = AssetDatabase.GetAssetPath(obj);</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">string</span>.IsNullOrEmpty(path) &amp;&amp; File.Exists(path))</div><div class="line">        &#123;</div><div class="line">            path = Path.GetDirectoryName(path);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> path;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> Retrieves selected folder on Project view.</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">GetSelectedPathOrFallback</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> path = <span class="string">"Assets"</span>;</div><div class="line">  </div><div class="line">    <span class="keyword">foreach</span> (UnityEngine.Object obj <span class="keyword">in</span> Selection.GetFiltered(<span class="keyword">typeof</span>(UnityEngine.Object), SelectionMode.Assets))</div><div class="line">    &#123;</div><div class="line">        path = AssetDatabase.GetAssetPath(obj);</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">string</span>.IsNullOrEmpty(path) &amp;&amp; File.Exists(path))</div><div class="line">        &#123;</div><div class="line">            path = Path.GetDirectoryName(path);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> path;</div><div class="line">&#125;</div><div class="line">  </div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> Recursively gather all files under the given path including all its subfolders.</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">static</span> IEnumerable&lt;<span class="keyword">string</span>&gt; <span class="title">GetFiles</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></div><div class="line">&#123;</div><div class="line">    Queue&lt;<span class="keyword">string</span>&gt; queue = <span class="keyword">new</span> Queue&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    queue.Enqueue(path);</div><div class="line">    <span class="keyword">while</span> (queue.Count &gt; <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        path = queue.Dequeue();</div><div class="line">        <span class="keyword">try</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">foreach</span> (<span class="keyword">string</span> subDir <span class="keyword">in</span> Directory.GetDirectories(path))</div><div class="line">            &#123;</div><div class="line">                queue.Enqueue(subDir);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span> (System.Exception ex)</div><div class="line">        &#123;</div><div class="line">            Debug.LogError(ex.Message);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">string</span>[] files = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">try</span></div><div class="line">        &#123;</div><div class="line">            files = Directory.GetFiles(path);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span> (System.Exception ex)</div><div class="line">        &#123;</div><div class="line">            Debug.LogError(ex.Message);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (files != <span class="literal">null</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; files.Length; i++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">yield</span> <span class="keyword">return</span> files[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// You can either filter files to get only neccessary files by its file extension using LINQ.</span></div><div class="line"><span class="comment">// It excludes .meta files from all the gathers file list.</span></div><div class="line"><span class="keyword">var</span> assetFiles = GetFiles(GetSelectedPathOrFallback()).Where(s =&gt; s.Contains(<span class="string">".meta"</span>) == <span class="literal">false</span>);</div><div class="line">  </div><div class="line"><span class="keyword">foreach</span> (<span class="keyword">string</span> f <span class="keyword">in</span> assetFiles)</div><div class="line">&#123;</div><div class="line">  Debug.Log(<span class="string">"Files: "</span> + f);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="http://answers.unity3d.com/questions/472808/how-to-get-the-current-selected-folder-of-project.html" target="_blank" rel="external">How to get the current selected folder of &quot;Project&quot; Window</a><br><a href="http://answers.unity3d.com/questions/47029/get-folder-from-selection-array.html" target="_blank" rel="external">get folder from selection array</a></p>
+]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;判断当前选中资源是否是文件夹 小问题FAQ&lt;/p&gt;
+&lt;p&gt;判断当前选中资源是否是文件夹&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
@@ -224,6 +226,62 @@
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -355,62 +413,6 @@
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
