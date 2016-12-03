@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-03T13:09:22.000Z</updated>
+  <updated>2016-12-03T14:55:21.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,88 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android Studio生成jar包</title>
+    <link href="http://vrast.cn/posts/bfe68343/"/>
+    <id>http://vrast.cn/posts/bfe68343/</id>
+    <published>2016-12-03T13:14:09.000Z</published>
+    <updated>2016-12-03T14:55:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。</p>
+<a id="more"></a>
+<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ol>
+<li>请确保本地有 Android SDK,如无 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
+<li>确保gradle环境配置完毕 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
+</ol>
+<h1 id="What-is-jar"><a href="#What-is-jar" class="headerlink" title="What is jar ?"></a>What is jar ?</h1><p>JAR（Java ARchive，Java 归档）是一种与平台无关的文件格式，可将多个文件合成一个文件。可以简单的看作类似zip的压缩包，里面存放的是代码与项目资源。<br>更详细的介绍在这里 <a href="http://www.ibm.com/developerworks/cn/java/j-jar/" target="_blank" rel="external">JAR 文件揭密 -来自IBM公司官网</a> 下面做一些jar的特性摘要：</p>
+<p>JAR 文件格式提供了许多优势和功能，其中很多是传统的压缩格式如 ZIP 或者 TAR 所没有提供的。它们包括：</p>
+<ul>
+<li>安全性。可以对 JAR 文件内容加上数字化签名。这样，能够识别签名的工具就可以有选择地为您授予软件安全特权，这是其他文件做不到的，它还可以检测代码是否被篡改过。</li>
+<li>减少下载时间。如果一个 applet 捆绑到一个 JAR 文件中，那么浏览器就可以在一个 HTTP 事务中下载这个 applet 的类文件和相关的资源，而不是对每一个文件打开一个新连接。</li>
+<li>压缩。JAR 格式允许您压缩文件以提高存储效率。</li>
+<li>传输平台扩展。Java 扩展框架 (Java Extensions Framework) 提供了向 Java 核心平台添加功能的方法，这些扩展是用 JAR 文件打包的 (Java 3D 和 JavaMail 就是由 Sun 开发的扩展例子 )。</li>
+<li>包密封。存储在 JAR 文件中的包可以选择进行 密封，以增强版本一致性和安全性。密封一个包意味着包中的所有类都必须在同一 JAR 文件中找到。</li>
+<li>包版本控制。一个 JAR 文件可以包含有关它所包含的文件的数据，如厂商和版本信息。</li>
+<li>可移植性。处理 JAR 文件的机制是 Java 平台核心 API 的标准部分。</li>
+</ul>
+<h1 id="Eclipse平台打包-jar-的方式"><a href="#Eclipse平台打包-jar-的方式" class="headerlink" title="Eclipse平台打包 jar 的方式"></a>Eclipse平台打包 jar 的方式</h1><ol>
+<li><p>自动化打jar包方法<br><a href="http://stackoverflow.com/questions/1062941/build-project-into-a-jar-automatically-in-eclipse" target="_blank" rel="external">Build project into a JAR automatically in Eclipse -来自stackoverflow</a></p>
+</li>
+<li><p>手动导出</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>Choose Export &gt; Java &gt; JAR file </div><div class="line"><span class="bullet">2. </span>选中需要导出的文件即可</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="使用Android-Studio导出jar包"><a href="#使用Android-Studio导出jar包" class="headerlink" title="使用Android Studio导出jar包"></a>使用Android Studio导出jar包</h1><p>Android Studio只能间接导出jar包，对此我深表遗憾，它需要新建一个android studio的空项目，然后 添加一个名为 Android Library 的库。最后将这个库导出为jar文件。这里着重说明几个我遇到的问题，</p>
+<ul>
+<li>需要删除test project也就是测试工程，并且在Gradle中删除测试项目的编译命令 </li>
+<li>导出的代码是整个 Library 的代码</li>
+</ul>
+<h2 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h2><ol>
+<li><p>下一步下一步默认即可，注意此处 你的Application Name需要大写开头<br><img src="/uploads/QQ20161203-0@2x.jpg" alt="创建工程"></p>
+</li>
+<li><p>此处我使用的 MyPlugunJar 作为 Andorid Library(类库)名<br><img src="/uploads/QQ20161203-1@2x.jpg" alt="创建Android Library"></p>
+</li>
+</ol>
+<p><img src="/uploads/QQ20161203-5@2x.jpg" alt="添加一个测试用的 MainActivity.java"></p>
+<ol>
+<li>删除测试工程<br><img src="/uploads/AFF4FDDB-BA8D-47B8-978A-04A84C1F9D39.jpg" alt="打开Moudle 设置"></li>
+</ol>
+<p><img src="/uploads/QQ20161203-2@2x.jpg" alt="依次删除 app/MyPlugunJar的依赖项"></p>
+<p><img src="/uploads/70EAC071-2BCC-444F-BD37-A43DB14E4745.jpg" alt="依次删除 测试项目"></p>
+<p>这一步需要注意一下 如果是 Build Unity3D 使用的jar包 是不需要引用 <code>com.android.support:appcompat-v7:22.2.0</code> 这个项目的，可以适当的予以删除。</p>
+<ol>
+<li>添加自动构建代码<br>选中app的Gradle,添加如下代码<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dependencies</span> &#123;</div><div class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(<span class="keyword">include</span>: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)</div><div class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:22.2.0'</span></div><div class="line"></div><div class="line">    <span class="comment">//添加编译的类库</span></div><div class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">':myplugunjar'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">task</span> makeJar(type: <span class="keyword">Copy</span>) &#123;</div><div class="line">    <span class="comment">//删除存在的</span></div><div class="line">    <span class="keyword">delete</span> <span class="string">'build/libs/mysdk.jar'</span></div><div class="line">    <span class="comment">//打包这个里面的文件</span></div><div class="line">    <span class="keyword">from</span>(<span class="string">'build/intermediates/bundles/release/'</span>)</div><div class="line">    <span class="comment">//放到这个目录</span></div><div class="line">    <span class="keyword">into</span>(<span class="string">'build/libs/'</span>)</div><div class="line">    <span class="comment">//将classes.jar放入build/libs/目录下</span></div><div class="line">    <span class="comment">//include ,exclude参数来设置过滤</span></div><div class="line">    <span class="comment">//这里只需要包含classes.jar这个文件</span></div><div class="line">    <span class="keyword">include</span>(<span class="string">'classes.jar'</span>)</div><div class="line">    <span class="comment">//重命名</span></div><div class="line">    rename (<span class="string">'classes.jar'</span>, <span class="string">'mysdk.jar'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">makeJar.dependsOn(build)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/uploads/QQ20161203-3@2x.jpg" alt="添加自动构建代码"></p>
+<ol>
+<li>编译，并且获取jar包</li>
+</ol>
+<p><img src="/uploads/QQ20161203-4@2x.jpg" alt="切换到app项目目录"></p>
+<p>编译指令如下<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">gradle makeJar</span></div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/QQ20161203-6@2x.jpg" alt="最终生成的文件"></p>
+<p><img src="/uploads/QQ20161203-8@2x.jpg" alt="解压这个文件,查看是否正确"></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="http://blog.csdn.net/ta893115871/article/details/46955791/" target="_blank" rel="external">该文章还介绍了打包资源文件到jar</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android Studio" scheme="http://vrast.cn/categories/Android-Studio/"/>
+    
+    
+      <category term="jar" scheme="http://vrast.cn/tags/jar/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ADB环境配置以及常用命令</title>
     <link href="http://vrast.cn/posts/e3476f51/"/>
     <id>http://vrast.cn/posts/e3476f51/</id>
     <published>2016-12-03T10:24:49.000Z</published>
-    <updated>2016-12-03T13:09:22.000Z</updated>
+    <updated>2016-12-03T13:10:17.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>本文描述ADB在MAC上的配置过程，以及常用的Command(ADB装x指南).更科学的Android SDK使用。</p>
@@ -342,62 +419,6 @@
   </entry>
   
   <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -529,6 +550,62 @@
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
@@ -870,36 +947,6 @@
     
     
       <category term="Git技巧" scheme="http://vrast.cn/tags/Git%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>优化XCode磁盘空间占用</title>
-    <link href="http://vrast.cn/posts/aae0baa1/"/>
-    <id>http://vrast.cn/posts/aae0baa1/</id>
-    <published>2016-10-12T09:43:37.000Z</published>
-    <updated>2016-11-18T06:38:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>网上介绍五花八门 其实主要就是这两项占磁盘，平均一次IPA打包要占用最少1G</p>
-</blockquote>
-<a id="more"></a>
-<p>1.移除Archives<br>影响：不可恢复；Adhoc或者App Store版本会被删除。建议备份dSYM文件夹<br>路径：~/Library/Developer/Xcode/Archives</p>
-<p>2.移除DerivedData<br>影响：可重新生成；会删除build生成的项目索引、build输出以及日志。重新打开项目时会重新生成，大的项目会耗费一些时间。<br>路径：~/Library/Developer/Xcode/DerivedData</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;网上介绍五花八门 其实主要就是这两项占磁盘，平均一次IPA打包要占用最少1G&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Mac" scheme="http://vrast.cn/categories/Mac/"/>
-    
-    
-      <category term="XCode" scheme="http://vrast.cn/tags/XCode/"/>
     
   </entry>
   
