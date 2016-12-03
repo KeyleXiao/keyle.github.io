@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-02T15:12:43.000Z</updated>
+  <updated>2016-12-03T13:09:22.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,81 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ADB环境配置以及常用命令</title>
+    <link href="http://vrast.cn/posts/e3476f51/"/>
+    <id>http://vrast.cn/posts/e3476f51/</id>
+    <published>2016-12-03T10:24:49.000Z</published>
+    <updated>2016-12-03T13:09:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本文描述ADB在MAC上的配置过程，以及常用的Command(ADB装x指南).更科学的Android SDK使用。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ol>
+<li>请确保本地有 Android SDK,如无 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
+<li>确保 SDK 中有 platform-tools,以下是我的配置路径</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> keyle@keyles-MacBook-Pro  ~/Library/Android/sdk/platform-tools  ls -<span class="selector-tag">a</span></div><div class="line">.                 adb               fastboot          sqlite3</div><div class="line">..                api               hprof-conv        systrace</div><div class="line"><span class="selector-class">.DS_Store</span>         dmtracedump       package<span class="selector-class">.xml</span></div><div class="line">NOTICE<span class="selector-class">.txt</span>        etc1tool          source.properties</div></pre></td></tr></table></figure>
+<h2 id="配置MAC环境"><a href="#配置MAC环境" class="headerlink" title="配置MAC环境"></a>配置MAC环境</h2><p>打开terminal,在<code>~</code>路径下输入下面命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">//</span>此命令写文本</div><div class="line">vim .bash_profile</div><div class="line"><span class="regexp">//</span>进入编辑模式 粘贴如下配置</div><div class="line">export PATH=<span class="variable">$PATH</span>:~<span class="regexp">/Library/</span>Android<span class="regexp">/sdk/</span>platform-tools</div><div class="line"><span class="regexp">//</span>键入:wq 结束编辑,返回后键入如下代码 完成配置</div><div class="line">source .bash_profile</div></pre></td></tr></table></figure>
+<h1 id="关于ADB你不得不知道的8个命令-The-Most-Common-ADB-Commands-You-Must-Know-译文"><a href="#关于ADB你不得不知道的8个命令-The-Most-Common-ADB-Commands-You-Must-Know-译文" class="headerlink" title="关于ADB你不得不知道的8个命令 The Most Common ADB Commands You Must Know 译文"></a>关于ADB你不得不知道的8个命令 <a href="https://www.maketecheasier.com/common-adb-commands/" target="_blank" rel="external">The Most Common ADB Commands You Must Know 译文</a></h1><p>ADB对于Andorid实在是Debug的桥梁啊，它允许你使用你的电脑控制你的手机。这种情况下你想在桌面上给你的手机安装APP，你就该用ADB了。ADB可以干很多类似事儿，比如说装APP,懂点使用ADB命令的知识是非常有益的(利于装x)，你可以不碰手机能干老多事儿了，在下文，我们例举了常见的可以在操作手机的ADB指令。<br>ADB stands for Android Debug Bridge, and it allows you to communicate with your Android device using your computer. For instance, if you wish to install an app on your device right from your desktop, you can do so using ADB. There is a lot more you can do with ADB than just installing an app. Having knowledge of some of the most used ADB commands is really beneficial, as it will let you perform a number of actions on your device without even touching it. Here, we have compiled some of the common commands that you can use with ADB to perform actions on your device.</p>
+<ol>
+<li>Reboot your Device 重启手机</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot</span></div></pre></td></tr></table></figure>
+<ol>
+<li>Reboot into Recovery 重启进入Recovery模式</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot recovery</span></div></pre></td></tr></table></figure>
+<ol>
+<li>Reboot into Bootloader Mode 重启进入Bootloader模式</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot bootloader</span></div></pre></td></tr></table></figure>
+<p>这里我想提醒看本文的朋友，如果不懂Bootloader模式是什么就不要进去了，可能会把手机变成 “真.砖”.<br>Bootloader是嵌入式系统在加电后执行的第一段代码，在它完成CPU和相关硬件的初始化之后，再将操作系统映像或固化的嵌入式应用程序装在到内存中然后跳转到操作系统所在的空间，启动操作系统运行.<a href="http://baike.baidu.com/link?url=grtUF08lHN4fVUlzG2SfFAb6GvWzP_TwOnJB2RfSZaSE8GS-t1_4qY0lVtNn1dVUDZxsS79BqN-FQmIsvqQND6fC7g63eDkE3MUFMC-K2Uy" target="_blank" rel="external">-来自百度百科的一段介绍</a></p>
+<ol>
+<li>Reboot into Fastboot 重启进入Fastboot模式</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot fastboot</span></div></pre></td></tr></table></figure>
+<ol>
+<li>Send File to your Device 给手机发送文件</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb <span class="keyword">push</span> <span class="keyword">Source</span> Destination</div></pre></td></tr></table></figure>
+<p>上面的命令支持你发送文件到设备上去，你只需要将文件的源路径写在命令的Source参数上和你想发送的目标参数填写完毕。<br>The above command lets you send files to your device. You just need to specify the source location of the file in the source argument in the command and the destination where you want to send your file.</p>
+<ol>
+<li>Get File from your Device 从手机获取文件</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb pull FileLocation Destination</span></div></pre></td></tr></table></figure>
+<p>此命令支持你从手机拉取数据，换句话说，从手机接收文件。只需要填写设备上的文件路径与电脑上的目录即可正常运行。<br>It will let you pull, or in other words, receive a file from your device. Just specify the file location on your device and the destination in the command, and it should do the job for you.</p>
+<ol>
+<li>Install an App on your Device 安装APK</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb <span class="keyword">install</span> APKLocation</div></pre></td></tr></table></figure>
+<p>这条命令支持你从电脑安装手机APP,你只需要填写APK的特殊路径，他就会安装你选中的APK.<br>What this command does is let you install an app on your device right from your computer. You just need to specify the APK location in the command, and it will install the selected app on your device.</p>
+<ol>
+<li>Remount the System 重装系统</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb remount</span></div></pre></td></tr></table></figure>
+<p>如果你想重新挂载你设备的系统分区，可以用上面提到的命令<br>In case you want to remount the entire system of your device, you can issue the command mentioned above.<br><code>adb remount</code>命令主要是 重新挂载系统分区，使系统分区重新可写(读写权限)</p>
+<p>Conclusion 结论 略..<br>These were the most common ADB commands you should know if you have an Android device and you often connect it to your computer. It will save you some time that you will otherwise spend doing tasks manually.</p>
+<p>Just having knowledge of some of the commands given above would prove to be really beneficial to you in the future. As if you ever wish to reboot your device into a specific mode or just want to install an app right off your computer, you will be able to do so by just issuing a single line of command from the Command Prompt Window</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文描述ADB在MAC上的配置过程，以及常用的Command(ADB装x指南).更科学的Android SDK使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://vrast.cn/categories/Android/"/>
+    
+    
+      <category term="ADB" scheme="http://vrast.cn/tags/ADB/"/>
+    
+  </entry>
   
   <entry>
     <title>Gradle环境配置</title>
@@ -267,6 +342,62 @@
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -398,62 +529,6 @@
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
@@ -825,46 +900,6 @@
     
     
       <category term="XCode" scheme="http://vrast.cn/tags/XCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Graphics.PresentAndSync FAQ</title>
-    <link href="http://vrast.cn/posts/abba0161/"/>
-    <id>http://vrast.cn/posts/abba0161/</id>
-    <published>2016-10-10T11:21:35.000Z</published>
-    <updated>2016-11-18T06:37:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/EBA9A054-30D8-4A8F-AC61-82B2BE9112DB.jpg" alt=""></p>
-<blockquote>
-<p>PresentAndSync导致程序卡顿 本篇从多个角度介绍了针对PresentAndSync的措施</p>
-</blockquote>
- <a id="more"></a>
-<h1 id="关于VSync在iOS平台上的表现"><a href="#关于VSync在iOS平台上的表现" class="headerlink" title="关于VSync在iOS平台上的表现"></a>关于VSync在iOS平台上的表现</h1><p>1.iOS devices are always vsynced and that can’t be changed. vsync is allways ON, for iOS and cannot be turned off<br>2.By default the framerate is capped at 30;<br>3.you can use Application.targetFrameRate to change it to 60.</p>
-<h1 id="Graphics-PresentAndSync-是什么？"><a href="#Graphics-PresentAndSync-是什么？" class="headerlink" title="Graphics.PresentAndSync 是什么？"></a>Graphics.PresentAndSync 是什么？</h1><p>1.主线程进行Present时的等待时间和等待垂直同步的时间<br>2.其真实的意思应该是为了在渲染子线程（Rendering Thread）中进行Present，当前主线程（MainThread）需要等待的时间。<br>3.引擎会在主线程中进行Present(当前绝大多数的移动游戏均在使用该中操作)，当然，Present操作同样需要等待GPU完成上一次的渲染。如果GPU渲染开销很大，则CPU的Present操作将一直处于等待操作，其等待时间，即为当前帧的Graphics.PresentAndSync时间</p>
-<h1 id="为什么会导致Graphics-PresentAndSync过高💥"><a href="#为什么会导致Graphics-PresentAndSync过高💥" class="headerlink" title="为什么会导致Graphics.PresentAndSync过高💥"></a>为什么会导致Graphics.PresentAndSync过高💥</h1><p>CPU端开销很高，使得Present执行时错过了VSync操作，这样，Present将不得不等待下一次VSync的到来，从而造成了Gfx.WaitForPresent 和 Graphics.PresentAndSync的CPU开销较高。这种情况在CPU端加载过量资源时特别容易发生，比如WWW加载较大的AssetBundle、Resource.Load加载大量的Texture等等。</p>
-<p>造成这两个参数的CPU占用较高的原因主要有以下三种原因：<br>1.CPU开销非常低，所以CPU在等待GPU完成渲染工作或等待VSync的到来；<br>2.CPU开销很高，使Present错过了当前帧的VSync，即不得不等待下一次VSync的到来<br>3.GPU开销很高，CPU的Present需要等待GPU上一帧渲染工作的完成。</p>
-<h1 id="一些论坛的FAQ有一定参考意义"><a href="#一些论坛的FAQ有一定参考意义" class="headerlink" title="一些论坛的FAQ有一定参考意义"></a>一些论坛的FAQ有一定参考意义</h1><h2 id="这个是硬件设备强制开启的，Unity是无法对其进行关闭的"><a href="#这个是硬件设备强制开启的，Unity是无法对其进行关闭的" class="headerlink" title="这个是硬件设备强制开启的，Unity是无法对其进行关闭的"></a>这个是硬件设备强制开启的，Unity是无法对其进行关闭的</h2><p>出现这种情况的问题可能有以下几种：<br>1、渲染成本过高，可能使用了iPad2当前OS无法很好支持的渲染功能。<br>2、是否在其他线程中有大量加载资源的情况出现，该情况同样会导致该选项过高（原因是垂直同步）</p>
-<h2 id="通过对帧数的限制来防止垂直同步的等待"><a href="#通过对帧数的限制来防止垂直同步的等待" class="headerlink" title="通过对帧数的限制来防止垂直同步的等待"></a>通过对帧数的限制来防止垂直同步的等待</h2><p>发现在unity上对帧数限制不管用，后来在xcode上面的接收unity帧数的函数里强行对帧行进了限制</p>
-<h1 id="解决卡顿的一些建议"><a href="#解决卡顿的一些建议" class="headerlink" title="解决卡顿的一些建议"></a>解决卡顿的一些建议</h1><p>1.强制关闭垂直同步方案,强制设置帧率至60(仍然需要做CPU优化)<br>2.均摊计算到不同帧，降低CPU计算 使用Profiler查找开销源<br>3.优化Shader GPU 垂直同步问题是双向的，既要优化CPU也要优化GPU运算</p>
-<h1 id="一些类似的问题"><a href="#一些类似的问题" class="headerlink" title="一些类似的问题"></a>一些类似的问题</h1><h2 id="场景1-IPhone4-Unity3D-Version4-X-遇到"><a href="#场景1-IPhone4-Unity3D-Version4-X-遇到" class="headerlink" title="场景1 IPhone4 Unity3D Version4.X 遇到"></a>场景1 IPhone4 Unity3D Version4.X 遇到</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">As it turns out, we hade to modify our shader code. The same shaders that had very little performance impact in 3.3 had massive performance impact on iOS in 3.4. So if you are stuck, <span class="keyword">check</span> there. Also, <span class="keyword">in</span> AppController.mm, <span class="keyword">change</span> this:</div><div class="line"></div><div class="line"><span class="keyword">define</span> USE_OPENGLES20_IF_AVAILABLE <span class="number">1</span></div><div class="line"><span class="keyword">To</span> this:</div><div class="line"><span class="keyword">define</span> USE_OPENGLES20_IF_AVAILABLE <span class="number">0</span></div><div class="line">Which we <span class="keyword">found</span> also gave us a significant FPS increase (nearly doubled our framerate <span class="keyword">on</span> iOS).</div><div class="line"></div><div class="line"><span class="keyword">url</span> : <span class="keyword">http</span>://answers.unity3d.com/questions/<span class="number">152966</span>/massive-<span class="keyword">performance</span>-decrease-<span class="keyword">in</span><span class="number">-34</span>-devicepresent-t.html</div></pre></td></tr></table></figure>
-<h2 id="场景2-Unity3D-5-X"><a href="#场景2-Unity3D-5-X" class="headerlink" title="场景2 Unity3D 5.X"></a>场景2 Unity3D 5.X</h2><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">In</span> <span class="number">5.4</span> uncheking the <span class="string">"Auto Graphics API "</span> ( <span class="built_in">in</span> <span class="built_in">player</span> settings) <span class="built_in">and</span> deleting GLES3 Gave me back a few <span class="built_in">FPS</span></div></pre></td></tr></table></figure>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://answers.unity3d.com/questions/602628/why-does-my-game-require-so-much-rendering-power.html" target="_blank" rel="external">http://answers.unity3d.com/questions/602628/why-does-my-game-require-so-much-rendering-power.html</a><br><a href="http://answers.unity3d.com/questions/152966/massive-performance-decrease-in-34-devicepresent-t.html" target="_blank" rel="external">http://answers.unity3d.com/questions/152966/massive-performance-decrease-in-34-devicepresent-t.html</a><br><a href="https://forum.unity3d.com/threads/graphics-presentandsync-problem.318705/" target="_blank" rel="external">https://forum.unity3d.com/threads/graphics-presentandsync-problem.318705/</a><br><a href="https://docs.unity3d.com/Manual/class-QualitySettings.html" target="_blank" rel="external">https://docs.unity3d.com/Manual/class-QualitySettings.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/EBA9A054-30D8-4A8F-AC61-82B2BE9112DB.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;PresentAndSync导致程序卡顿 本篇从多个角度介绍了针对PresentAndSync的措施&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Unity3D" scheme="http://vrast.cn/categories/Unity3D/"/>
-    
-    
-      <category term="Optimize" scheme="http://vrast.cn/tags/Optimize/"/>
     
   </entry>
   
