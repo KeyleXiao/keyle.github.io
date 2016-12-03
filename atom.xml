@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-03T14:55:21.000Z</updated>
+  <updated>2016-12-03T15:35:32.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>U3D代码片段赏析</title>
+    <link href="http://vrast.cn/posts/a5028a57/"/>
+    <id>http://vrast.cn/posts/a5028a57/</id>
+    <published>2016-12-03T15:22:09.000Z</published>
+    <updated>2016-12-03T15:35:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本篇分享一些有意思的代码片段 ~</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Designing-a-Jump-in-Unity"><a href="#Designing-a-Jump-in-Unity" class="headerlink" title="Designing a Jump in Unity"></a><a href="http://www.gamasutra.com/blogs/DanielFineberg/20150825/244650/Designing_a_Jump_in_Unity.php" target="_blank" rel="external">Designing a Jump in Unity</a></h1><p>随着 jumpTime 时间延长 proportionCompleted 值变小，thisFrameJumpVector 插值向量越大。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function">IEnumerator <span class="title">JumpRoutine</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    rigidbody.velocity = Vector2.zero;</div><div class="line">    <span class="keyword">float</span> timer = <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">while</span>(jumpButtonPressed &amp;&amp; timer &lt; jumpTime)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//Calculate how far through the jump we are as a percentage</span></div><div class="line">        <span class="comment">//apply the full jump force on the first frame, then apply less force</span></div><div class="line">        <span class="comment">//each consecutive frame</span></div><div class="line">        </div><div class="line">        <span class="keyword">float</span> proportionCompleted = timer / jumpTime;</div><div class="line">        Vector2 thisFrameJumpVector = Vector2.Lerp(jumpVector, Vector2.zero, proportionCompleted);</div><div class="line">        rigidbody.AddForce(thisFrameJumpVector);</div><div class="line">        timer += Time.deltaTime;</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    jumping = <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>未完待续</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本篇分享一些有意思的代码片段 ~&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="CODE" scheme="http://vrast.cn/tags/CODE/"/>
+    
+  </entry>
   
   <entry>
     <title>Android Studio生成jar包</title>
@@ -419,6 +451,62 @@
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -550,62 +638,6 @@
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
@@ -914,39 +946,6 @@
     
     
       <category term="Shader" scheme="http://vrast.cn/tags/Shader/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>让Git密匙同时存在多个</title>
-    <link href="http://vrast.cn/posts/8a54b94d/"/>
-    <id>http://vrast.cn/posts/8a54b94d/</id>
-    <published>2016-10-14T08:47:16.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>今天遇到在coding上部署了项目，生成密匙后发现不能正常push，遂发现了这个小秘密</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="创建confg用来管理多个密匙"><a href="#创建confg用来管理多个密匙" class="headerlink" title="创建confg用来管理多个密匙"></a>创建confg用来管理多个密匙</h1><p>1.切到ssh目录 ~/.ssh<br>2.创建config文件 vim config<br>3.替换如下 注意IdentityFile一栏中不需要文件的扩展名</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Host github.com</div><div class="line">PreferredAuthentications publickey</div><div class="line">IdentityFile ~/.ssh/KeyNameWithoutExtension</div><div class="line"><span class="keyword">User</span> <span class="title">username</span></div><div class="line"></div><div class="line">Host git.coding.net</div><div class="line">PreferredAuthentications publickey</div><div class="line">IdentityFile ~/.ssh/KeyNameWithoutExtension</div><div class="line"><span class="keyword">User</span> <span class="title">username</span></div></pre></td></tr></table></figure>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>ssh -T git@xxx.com</p>
-<p><img src="/uploads/QQ20161014-0@2x.jpg" alt=""></p>
-<h1 id="备注-生产密匙指令"><a href="#备注-生产密匙指令" class="headerlink" title="备注 生产密匙指令"></a>备注 生产密匙指令</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ssh-keygen</span> <span class="selector-tag">-t</span> <span class="selector-tag">rsa</span> <span class="selector-tag">-C</span> "<span class="selector-tag">your_mail_addr</span>@<span class="keyword">gmail</span>.<span class="keyword">com</span>" 添加公钥</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;今天遇到在coding上部署了项目，生成密匙后发现不能正常push，遂发现了这个小秘密&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Git" scheme="http://vrast.cn/categories/Git/"/>
-    
-    
-      <category term="Git技巧" scheme="http://vrast.cn/tags/Git%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
