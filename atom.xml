@@ -131,7 +131,7 @@
     <link href="http://vrast.cn/posts/e3476f51/"/>
     <id>http://vrast.cn/posts/e3476f51/</id>
     <published>2016-12-03T10:24:49.000Z</published>
-    <updated>2016-12-03T13:10:17.000Z</updated>
+    <updated>2016-12-04T06:42:31.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>本文描述ADB在MAC上的配置过程，以及常用的Command(ADB装x指南).更科学的Android SDK使用。</p>
@@ -184,6 +184,7 @@
 <p>如果你想重新挂载你设备的系统分区，可以用上面提到的命令<br>In case you want to remount the entire system of your device, you can issue the command mentioned above.<br><code>adb remount</code>命令主要是 重新挂载系统分区，使系统分区重新可写(读写权限)</p>
 <p>Conclusion 结论 略..<br>These were the most common ADB commands you should know if you have an Android device and you often connect it to your computer. It will save you some time that you will otherwise spend doing tasks manually.</p>
 <p>Just having knowledge of some of the commands given above would prove to be really beneficial to you in the future. As if you ever wish to reboot your device into a specific mode or just want to install an app right off your computer, you will be able to do so by just issuing a single line of command from the Command Prompt Window</p>
+<h1 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h1><p><img src="/uploads/QQ20161204-0@2x.jpg" alt="安装与卸载APK"></p>
 ]]></content>
     
     <summary type="html">
