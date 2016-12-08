@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-08T02:24:09.000Z</updated>
+  <updated>2016-12-08T15:22:30.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,80 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>UNITY3D中的宏定义</title>
+    <link href="http://vrast.cn/posts/e5d2512b/"/>
+    <id>http://vrast.cn/posts/e5d2512b/</id>
+    <published>2016-12-08T15:11:24.000Z</published>
+    <updated>2016-12-08T15:22:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本文介绍UNITY3D常用的宏命令以及如何定义一个宏。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="常用的平台"><a href="#常用的平台" class="headerlink" title="常用的平台"></a>常用的平台</h1><p><img src="/uploads/8E256D56-9F58-43AA-B6F4-C2598A06B243.jpg" alt="常用的平台"></p>
+<h1 id="定义宏"><a href="#定义宏" class="headerlink" title="定义宏"></a>定义宏</h1><h2 id="添加预编译指令-宏"><a href="#添加预编译指令-宏" class="headerlink" title="添加预编译指令(宏)"></a>添加预编译指令(宏)</h2><p>添加一个名为Test的宏 此时这段代码是无法执行的<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="meta">#<span class="meta-keyword">if</span> Test</span></div><div class="line">    <span class="comment">//.. you code here</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="使定义的宏可用"><a href="#使定义的宏可用" class="headerlink" title="使定义的宏可用"></a>使定义的宏可用</h2><p>找到 <code>Build Setting &gt; PlayerSetting &gt;当前平台 &gt; Scripting Define Symbols </code> 添加 Test 即可。</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://docs.unity3d.com/Manual/PlatformDependentCompilation.html" target="_blank" rel="external">UNITY3D 官方文档</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文介绍UNITY3D常用的宏命令以及如何定义一个宏。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="Define" scheme="http://vrast.cn/tags/Define/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AssetBundle生成配置文件关系分析</title>
+    <link href="http://vrast.cn/posts/c13fff2a/"/>
+    <id>http://vrast.cn/posts/c13fff2a/</id>
+    <published>2016-12-08T08:11:01.000Z</published>
+    <updated>2016-12-08T15:44:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>UNITY3D VERSION 5 新版本AB工具 在生产 AB 包的时候会生成 manifest 文件。这些文件有什么联系呢 ？通过测试 我们来一探究竟～</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="UNITY3D-AB新功能"><a href="#UNITY3D-AB新功能" class="headerlink" title="UNITY3D AB新功能"></a>UNITY3D AB新功能</h1><ol>
+<li>你可以在 UNITY3D 生成 AB 包的指定目录下，找到一个与 AB 包相同的文件，然后我们加载这个 AB 包便可以获取当前目录下所有的依赖项目。下面的一个案例中，我们从 iOS 当前的目录 AB 包中直接获取到了<code>mapbehaviourmonster_fire_2</code>文件的哈希值 当然也可以获取所有文件的哈希值。这个哈希值我想我会用来校验文件是否被篡改。</li>
+<li>你可以在 AB 生成的 manifest 文件中轻松的获取到 CRC 文件校验码 ，如果你并没有修改当前 AB 包的文件，当前 AB 包再次打包就会跳过当前文件。</li>
+<li>你在当前 AB 的 manifest 文件中可以找到依赖项的完整路径信息，当然你在目录文件 AB 中同样可以找到 只是这个路径不是完整的。</li>
+</ol>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>mapbehaviourmonster_fire_2 文件的 manifest 信息如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">ManifestFileVersion</span>: <span class="number">0</span></div><div class="line"><span class="attribute">CRC</span>: <span class="number">3977712109</span></div><div class="line"><span class="attribute">Hashes</span>:</div><div class="line">  <span class="attribute">AssetFileHash</span>:</div><div class="line">    <span class="attribute">serializedVersion</span>: <span class="number">2</span></div><div class="line">    <span class="attribute">Hash</span>: <span class="number">6</span>ecd135fec1799a7a296d2ec71e12356</div><div class="line">  <span class="attribute">TypeTreeHash</span>:</div><div class="line">    <span class="attribute">serializedVersion</span>: <span class="number">2</span></div><div class="line">    <span class="attribute">Hash</span>: <span class="number">1033</span>bf7ddfd4c6d43e7a6382c0a0a61a</div><div class="line"><span class="attribute">HashAppended</span>: <span class="number">0</span></div><div class="line"><span class="attribute">ClassTypes</span>:</div><div class="line">- <span class="attribute">Class</span>: <span class="number">49</span></div><div class="line">  <span class="attribute">Script</span>: &#123;<span class="attribute">instanceID</span>: <span class="number">0</span>&#125;</div><div class="line"><span class="attribute">Assets</span>:</div><div class="line">- Assets/Resources/Config/MapBehaviourMonster_Fire_2.txt</div><div class="line"><span class="attribute">Dependencies</span>: []</div></pre></td></tr></table></figure></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">string</span> path = Path.Combine(Application.streamingAssetsPath, Utility.GetPlatformName());</div><div class="line"><span class="keyword">var</span> bt = File.ReadAllBytes(Path.Combine(path, <span class="string">"iOS"</span>));</div><div class="line"></div><div class="line">AssetBundle ab = AssetBundle.LoadFromMemory(bt);</div><div class="line">AssetBundleManifest mainfet = ab.LoadAsset&lt;AssetBundleManifest&gt;(<span class="string">"AssetBundleManifest"</span>);</div><div class="line"></div><div class="line">Debug.Log(mainfet.GetAssetBundleHash(<span class="string">"mapbehaviourmonster_fire_2"</span>));</div></pre></td></tr></table></figure>
+<p>测试输出结果如下：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">6</span>ecd135fec1799a7a296d2ec<span class="number">71e12356</span></div></pre></td></tr></table></figure></p>
+<h1 id="更多的内存测试"><a href="#更多的内存测试" class="headerlink" title="更多的内存测试"></a>更多的内存测试</h1><p>我也是在晚上搜到这篇文章的他反复做了几个读取释放与资源内存方面的测试感兴趣的可以看看<br><a href="https://segmentfault.com/a/1190000004335280" target="_blank" rel="external">unity3d 关于AssetBundle的一些处理细节</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;UNITY3D VERSION 5 新版本AB工具 在生产 AB 包的时候会生成 manifest 文件。这些文件有什么联系呢 ？通过测试 我们来一探究竟～&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="AssetBundle" scheme="http://vrast.cn/tags/AssetBundle/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Unity3D coroutines in detail</title>
     <link href="http://vrast.cn/posts/937d6de4/"/>
     <id>http://vrast.cn/posts/937d6de4/</id>
     <published>2016-12-08T02:21:19.000Z</published>
-    <updated>2016-12-08T02:24:09.000Z</updated>
+    <updated>2016-12-08T02:24:37.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>coroutines的技术细节 节选自 <a href="http://stackoverflow.com/questions/12932306/how-does-startcoroutine-yield-return-pattern-really-work-in-unity" target="_blank" rel="external">How does StartCoroutine / yield return pattern really work in Unity? -stackoverflow</a></p>
@@ -530,6 +599,62 @@ else /* similar stuff for other YieldInstruction subtypes */
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -661,62 +786,6 @@ else /* similar stuff for other YieldInstruction subtypes */
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
@@ -909,91 +978,6 @@ else /* similar stuff for other YieldInstruction subtypes */
     
     
       <category term="IAP" scheme="http://vrast.cn/tags/IAP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>优化hexo访问速度</title>
-    <link href="http://vrast.cn/posts/57edf9bb/"/>
-    <id>http://vrast.cn/posts/57edf9bb/</id>
-    <published>2016-10-25T13:08:56.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>优化hexo访问速度</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="三项优化"><a href="#三项优化" class="headerlink" title="三项优化"></a>三项优化</h1><ul>
-<li><p>推荐使用图片压缩 图片一般都是最占带宽的，过大的图片极度影响访问速度</p>
-</li>
-<li><p>优化googleapis 的使用，在国内访问可以考虑换为360的cdn库 </p>
-</li>
-<li><p>在github托管的站点，最重要的技巧是 ping you_blog.github.io;获取最快的IP节点</p>
-</li>
-</ul>
-<h1 id="搜索关键词"><a href="#搜索关键词" class="headerlink" title="搜索关键词"></a>搜索关键词</h1><ul>
-<li>Compress All!</li>
-<li>hexo googleapis</li>
-<li>ping 定位IP</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;优化hexo访问速度&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Site" scheme="http://vrast.cn/categories/Site/"/>
-    
-    
-      <category term="Hexo" scheme="http://vrast.cn/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UNITY3D &amp; IOS PAY</title>
-    <link href="http://vrast.cn/posts/5008cb40/"/>
-    <id>http://vrast.cn/posts/5008cb40/</id>
-    <published>2016-10-25T07:19:40.000Z</published>
-    <updated>2016-11-18T06:37:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>记录UNITY3D与iOS的互相调用，附通用模型</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="基本交互"><a href="#基本交互" class="headerlink" title="基本交互"></a>基本交互</h1><h2 id="标记call函数"><a href="#标记call函数" class="headerlink" title="标记call函数"></a>标记call函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[DllImport (&quot;__Internal&quot;)]</div><div class="line">private static extern float FooPluginFunction();</div></pre></td></tr></table></figure>
-<h2 id="使用C来链接被call函数-不使用也可"><a href="#使用C来链接被call函数-不使用也可" class="headerlink" title="使用C来链接被call函数(不使用也可)"></a>使用C来链接被call函数(不使用也可)</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line">  <span class="keyword">float</span> FooPluginFunction();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">如果不使用可以直接写在.mm文件的 @implemented  <span class="keyword">@end</span> 之间</div></pre></td></tr></table></figure>
-<h2 id="在iOS层-使用-UnitySendMessage-函数给Unity场景发送消息"><a href="#在iOS层-使用-UnitySendMessage-函数给Unity场景发送消息" class="headerlink" title="在iOS层 使用 UnitySendMessage 函数给Unity场景发送消息"></a>在iOS层 使用 UnitySendMessage 函数给Unity场景发送消息</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">UnitySendMessage</span>(<span class="string">"GameObjectName1"</span>, <span class="string">"MethodName1"</span>, <span class="string">"Message to send"</span>);</div></pre></td></tr></table></figure>
-<ul>
-<li>必须有同名的GameObject</li>
-<li>方法签名必须要对应上</li>
-<li>UnitySendMessage函数是异步的，会delay一帧，然后被调用。</li>
-</ul>
-<h2 id="插件整合方法"><a href="#插件整合方法" class="headerlink" title="插件整合方法"></a>插件整合方法</h2><ul>
-<li>.m,.mm,.c,.cpp 格式都被支持，需要至于 Plugins/iOS 文件夹下</li>
-<li>.h 文件不会在Xcode project tree上显示</li>
-</ul>
-<h1 id="UnityGameNotification-h-Plugin-通用"><a href="#UnityGameNotification-h-Plugin-通用" class="headerlink" title="UnityGameNotification.h - Plugin 通用"></a>UnityGameNotification.h - Plugin 通用</h1><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  NSObject+IAPModule.h</span></div><div class="line"><span class="comment">//  Unity-iPhone</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by keyle on 11/2/16.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">IAPModule</span> : <span class="title">NSObject</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSString</span>* status;</div><div class="line">    <span class="built_in">BOOL</span> searching;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)init;</div><div class="line">- (<span class="keyword">int</span>)getCount;</div><div class="line">- (<span class="built_in">NSString</span> *)getStatus;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<h1 id="UnityGameNotification-mm-Plugin-通用"><a href="#UnityGameNotification-mm-Plugin-通用" class="headerlink" title="UnityGameNotification.mm - Plugin 通用"></a>UnityGameNotification.mm - Plugin 通用</h1><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"UnityGameNotification.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NetServiceBrowserDelegate</span> : <span class="title">NSObject</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSString</span>* status;</div><div class="line">    <span class="built_in">BOOL</span> searching;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">id</span>)init</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div><div class="line">    searching = <span class="literal">NO</span>;</div><div class="line">	status = <span class="string">@"Initializing"</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line"><span class="comment">//    [super dealloc];	</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">int</span>)getCount</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> <span class="number">1024</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSString</span> *)getStatus</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> status;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="keyword">static</span> UnityGameNotification* delegateObject = <span class="literal">nil</span>;</div><div class="line"></div><div class="line"><span class="comment">// Converts C style string to NSString</span></div><div class="line"><span class="built_in">NSString</span>* CreateNSString (<span class="keyword">const</span> <span class="keyword">char</span>* string)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (string)</div><div class="line">		<span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithUTF8String: string];</div><div class="line">	<span class="keyword">else</span></div><div class="line">		<span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithUTF8String: <span class="string">""</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Helper method to create C string copy</span></div><div class="line"><span class="keyword">char</span>* MakeStringCopy (<span class="keyword">const</span> <span class="keyword">char</span>* string)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (string == <span class="literal">NULL</span>)</div><div class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">char</span>* res = (<span class="keyword">char</span>*)malloc(strlen(string) + <span class="number">1</span>);</div><div class="line">	strcpy(res, string);</div><div class="line">	<span class="keyword">return</span> res;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// When native code plugin is implemented in .mm / .cpp file, then functions</span></div><div class="line"><span class="comment">// should be surrounded with extern "C" block to conform C function naming rules</span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line"></div><div class="line">	<span class="keyword">void</span> _ExecuteMethodFromiOS (<span class="keyword">const</span> <span class="keyword">char</span>* arg1, <span class="keyword">const</span> <span class="keyword">char</span>* arg2)</div><div class="line">	&#123;</div><div class="line">        <span class="comment">//do some initialize work</span></div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	<span class="keyword">const</span> <span class="keyword">char</span>* _GetStringFromiOS ()</div><div class="line">	&#123;</div><div class="line">        <span class="keyword">return</span> MakeStringCopy([<span class="string">@"have fun"</span> UTF8String]);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">int</span> _GetINT ()</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> <span class="number">1024</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">const</span> <span class="keyword">char</span>* _GetServiceName (<span class="keyword">int</span> serviceNumber)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> MakeStringCopy([<span class="string">@"have fun"</span> UTF8String]);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://docs.unity3d.com/Manual/PluginsForIOS.html" target="_blank" rel="external">Building Plugins for iOS</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;记录UNITY3D与iOS的互相调用，附通用模型&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Unity3D&amp;iOS" scheme="http://vrast.cn/categories/Unity3D-iOS/"/>
-    
-    
-      <category term="Interaction" scheme="http://vrast.cn/tags/Interaction/"/>
     
   </entry>
   
