@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-21T16:18:06.000Z</updated>
+  <updated>2016-12-21T16:27:14.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/fec7c50a/"/>
     <id>http://vrast.cn/posts/fec7c50a/</id>
     <published>2016-12-21T03:19:24.000Z</published>
-    <updated>2016-12-21T16:18:06.000Z</updated>
+    <updated>2016-12-21T16:27:14.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失(5.X API)，然后引发出了有趣的小故事～</p>
@@ -37,29 +37,11 @@
 <h1 id="勘误"><a href="#勘误" class="headerlink" title="勘误"></a>勘误</h1><p>今天晚上重新看了这个问题，发现是由于打包的时候<code>重名文件引起的！</code>这里直接推翻了之前所有的猜测。</p>
 <h1 id="勘误测试"><a href="#勘误测试" class="headerlink" title="勘误测试"></a>勘误测试</h1><p><img src="/uploads/QQ20161221-1@2x.jpg" alt="文件结构"></p>
 <p>打包代码如下</p>
-<p>··· cs<br>using UnityEngine;<br>using UnityEditor;<br>using System.Collections;</p>
-<p>public class ABBuilder : Editor<br>{<br>    [MenuItem(“Editor/导出ab”)]<br>    public static void BudidCurrent()<br>    {<br>        BuildPipeline.BuildAssetBundles(“Assets”, BuildAssetBundleOptions.None, BuildTarget.iOS);<br>    }<br>}<br>···</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> UnityEditor;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ABBuilder</span> : <span class="title">Editor</span></div><div class="line">&#123;</div><div class="line">	[MenuItem(<span class="string">"Editor/导出ab"</span>)]</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">BudidCurrent</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		BuildPipeline.BuildAssetBundles(<span class="string">"Assets"</span>, BuildAssetBundleOptions.None, BuildTarget.iOS);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>附加在prefab之上的测试脚本，本测试目的是测试 testStr 的debug输出是否正常。</p>
-<p>··· cs<br>using UnityEngine;<br>using System.Collections;</p>
-<p>public class showLog : MonoBehaviour<br>{<br>    public string testStr = “xiaonian”;<br>    // Use this for initialization<br>    IEnumerator Start()<br>    {<br>        while (true)<br>        {<br>            yield return new WaitForSeconds(1f);<br>            Debug.Log(testStr);<br>        }<br>    }</p>
-<pre><code>// Update is called once per frame
-void Update()
-{
-
-}
-</code></pre><p>}<br>···</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> showLog : MonoBehaviour</div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> <span class="built_in">string</span> testStr = <span class="string">"xiaonian"</span>;</div><div class="line">	<span class="comment">// Use this for initialization</span></div><div class="line">	<span class="function">IEnumerator <span class="title">Start</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">while</span> (<span class="literal">true</span>)</div><div class="line">		&#123;</div><div class="line">			<span class="function">yield <span class="keyword">return</span> <span class="keyword">new</span> <span class="title">WaitForSeconds</span><span class="params">(<span class="number">1f</span>)</span></span>;</div><div class="line">			Debug.Log(testStr);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Update is called once per frame</span></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Update</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>AssetBundle的加载如下</p>
-<p>··· cs<br>using UnityEngine;<br>using System.Collections;<br>using System.IO;</p>
-<p>public class AB : MonoBehaviour<br>{<br>    IEnumerator Start()<br>    {<br>        yield return new WaitForSeconds(2);<br>        LoadAB();<br>    }</p>
-<pre><code>public void LoadAB()
-{
-    var bts = File.ReadAllBytes((Application.dataPath + &quot;/testkeyle&quot;));
-
-    var ab = AssetBundle.LoadFromMemory(bts);
-    var obj = ab.LoadAsset&lt;GameObject&gt;(&quot;Cube&quot;);
-    Instantiate(obj);
-}
-</code></pre><p>}<br>···</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">using</span> System.IO;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AB</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">	<span class="function">IEnumerator <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">2</span></span>)</span>;</div><div class="line">		LoadAB();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">LoadAB</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">var</span> bts = File.ReadAllBytes((Application.dataPath + <span class="string">"/testkeyle"</span>));</div><div class="line"></div><div class="line">		<span class="keyword">var</span> ab = AssetBundle.LoadFromMemory(bts);</div><div class="line">		<span class="keyword">var</span> obj = ab.LoadAsset&lt;GameObject&gt;(<span class="string">"Cube"</span>);</div><div class="line">		Instantiate(obj);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><img src="/uploads/QQ20161221-2@2x.jpg" alt="测试结果 正常输出"></p>
 <h1 id="用这段代码演示这个错误的判断"><a href="#用这段代码演示这个错误的判断" class="headerlink" title="用这段代码演示这个错误的判断"></a>用这段代码演示这个错误的判断</h1><p><img src="/uploads/QQ20161221-0@2x.jpg" alt="文件结构"><br><img src="/uploads/QQ20161221-4@2x.jpg" alt="生成的manifest信息"><br><img src="/uploads/QQ20161221-3@2x.jpg" alt="测试结果 加载了重名的空预制体"></p>
 <h2 id="这里可以猜想-是否Unity3d是遍历生成的信息-找到一个-同名的然后就return出去了-？"><a href="#这里可以猜想-是否Unity3d是遍历生成的信息-找到一个-同名的然后就return出去了-？" class="headerlink" title="这里可以猜想 是否Unity3d是遍历生成的信息 找到一个 同名的然后就return出去了 ？"></a>这里可以猜想 是否Unity3d是遍历生成的信息 找到一个 同名的然后就return出去了 ？</h2><p><img src="/uploads/QQ20161221-5@2x.jpg" alt="将A文件夹换到最后"><br>这里需要将原来生成的AB包相关信息全部删除，否则只会更新 manifest 文件 ！<br><img src="/uploads/QQ20161221-6@2x.jpg" alt="重新生成的manifest信息与AB包"><br><img src="/uploads/QQ20161221-7@2x.jpg" alt="测试结果 正常的预制体"></p>
@@ -654,6 +636,62 @@ void Update()
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -785,62 +823,6 @@ void Update()
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
