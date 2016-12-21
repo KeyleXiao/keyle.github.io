@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-08T15:44:56.000Z</updated>
+  <updated>2016-12-21T03:30:47.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AB热更新脚本信息无法获取</title>
+    <link href="http://vrast.cn/posts/fec7c50a/"/>
+    <id>http://vrast.cn/posts/fec7c50a/</id>
+    <published>2016-12-21T03:19:24.000Z</published>
+    <updated>2016-12-21T03:30:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失，本文记录解决步骤</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？"><a href="#BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？" class="headerlink" title="BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？"></a>BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？</h1><p><img src="/uploads/5CCE21BA-FEF8-4333-8C76-1D9F89D395B1.jpg" alt="案例 Prefab"></p>
+<p><img src="/uploads/BED55101-4E2C-472D-B09E-973776B3EB9D.jpg" alt="案例 打包脚本"></p>
+<blockquote>
+<p>manifest 文件上有脚本的关联信息，猜测是因为 改变了脚本的状态 导致找不到脚本。</p>
+</blockquote>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><blockquote>
+<p>就是打包一个不暴露变量的脚本上去，看看获取ab包的时候能否自动找到本地的脚本<br><img src="/uploads/AF401BA4-BFE3-40AC-9A8C-CC007537AF75.jpg" alt="打包结果"><br>manifest 文件上 是可以找到两个脚本对应的guid。这里是对应的上的，但是get ab包的时候仍然找不到脚本 ？？</p>
+</blockquote>
+<h1 id="暂时的解决方案"><a href="#暂时的解决方案" class="headerlink" title="暂时的解决方案"></a>暂时的解决方案</h1><p>解决方案是改脚本，然后继承 ScriptableObject 序列化需要保存的信息，打包这个文件进去，动态加载一下</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失，本文记录解决步骤&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="AssetBundle" scheme="http://vrast.cn/tags/AssetBundle/"/>
+    
+  </entry>
   
   <entry>
     <title>UNITY3D中的宏定义</title>
@@ -141,7 +178,7 @@
     <link href="http://vrast.cn/posts/6aa8a811/"/>
     <id>http://vrast.cn/posts/6aa8a811/</id>
     <published>2016-12-06T15:02:53.000Z</published>
-    <updated>2016-12-06T15:43:53.000Z</updated>
+    <updated>2016-12-18T08:32:53.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>关于GOAP目标导向型AI以前没有自己写过 所以本篇更新的会比较慢，现在正慢慢理清思路往下写，本篇是个人代码阅读笔记 更新中…<br>2016.12.6 更新StateDictionary／State 部分分析</p>
@@ -157,6 +194,11 @@
 <h1 id="StateDictionary"><a href="#StateDictionary" class="headerlink" title="StateDictionary"></a>StateDictionary</h1><p>封装一个 key-value ,里面无意义代码也比较多。根本上就是处理key-value的对比，合并重写，初始化的快捷操作<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">object</span>&gt; conditions;</div></pre></td></tr></table></figure></p>
 <h1 id="State"><a href="#State" class="headerlink" title="State"></a>State</h1><p>统一调用所有的 AIStateSystem ，先是State基类 作为统一调用的入口而存在，图二通过方法侵入，设置当前状态。还是忍不住截了张图，这设计太经典了。打出一套combo连招～<br><img src="/uploads/QQ20161206-0@2x.jpg" alt="图一 State基类"><br><img src="/uploads/QQ20161206-1@2x.jpg" alt="图二 分别表示三种基础状态"><br>忍不住要说说这种设计的好处，隐藏了具体实现细节，而且只需要重写相应的代码即可修改代码执行之前的判断。</p>
 <h1 id="Checkers"><a href="#Checkers" class="headerlink" title="Checkers"></a>Checkers</h1><p>优化基础代码<br><img src="/uploads/QQ20161206-2@2x.jpg" alt="图一 Checkers类"></p>
+<h1 id="AIAction-Interface"><a href="#AIAction-Interface" class="headerlink" title="AIAction Interface"></a>AIAction Interface</h1><ol>
+<li>具体行为的执行者，当前行为节点可以预知正在执行的节点与下一个节点。</li>
+<li>计算当前节点消耗 (根据世界状态)</li>
+<li></li>
+</ol>
 <p><a href="http://alumni.media.mit.edu/~jorkin/goap.html" target="_blank" rel="external">GOAP参考文档</a><br><a href="https://gamedevelopment.tutsplus.com/tutorials/goal-oriented-action-planning-for-a-smarter-ai--cms-20793" target="_blank" rel="external">GOAP Demo</a></p>
 ]]></content>
     
@@ -909,56 +951,6 @@
     
     
       <category term="Hexo" scheme="http://vrast.cn/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title> AppStore Create New Application FAQ</title>
-    <link href="http://vrast.cn/posts/c7ee08d7/"/>
-    <id>http://vrast.cn/posts/c7ee08d7/</id>
-    <published>2016-10-31T02:38:30.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="协议升级"><a href="#协议升级" class="headerlink" title="协议升级"></a>协议升级</h1><p><img src="/uploads/QQ20161031-0@2x.jpg" alt="协议升级"></p>
-<ul>
-<li>更新了三个协议 Agreements, Tax, and Banking 。这次升级必须要一个一个点进去填写相应的信息。<br>协议，税务，银行卡 需要填写的信息比较简单，大约2个工作日内审核完毕。</li>
-</ul>
-<h1 id="iTunes-Connect上创建APP"><a href="#iTunes-Connect上创建APP" class="headerlink" title="iTunes Connect上创建APP"></a>iTunes Connect上创建APP</h1><h2 id="设置购买付费"><a href="#设置购买付费" class="headerlink" title="设置购买付费"></a>设置购买付费</h2><p>1.在 My Apps 中创建一个新App<br>2.My App -&gt; Pricing and Availability -&gt; Price Schedule 添加售价</p>
-<h2 id="添加内购项目"><a href="#添加内购项目" class="headerlink" title="添加内购项目"></a>添加内购项目</h2><p>1.2.My App -&gt; In-App Purchases 添加内购项</p>
-<h2 id="添加测试账户"><a href="#添加测试账户" class="headerlink" title="添加测试账户"></a>添加测试账户</h2><p>1.<a href="https://itunesconnect.apple.com" target="_blank" rel="external">User and Role -&gt; SandBox Testers -&gt; 添加沙盒测试用户</a><br>2.取消移动端的iTunes账户<br>3.需要付费时 填入测试用户</p>
-<h2 id="资料填写"><a href="#资料填写" class="headerlink" title="资料填写"></a>资料填写</h2><ul>
-<li>尽量详细</li>
-<li>尽量不要漏</li>
-</ul>
-<h2 id="参考源码"><a href="#参考源码" class="headerlink" title="参考源码"></a>参考源码</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"IAPManager.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">IAPManager</span></span></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) attachObserver&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"AttachObserver"</span>);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] addTransactionObserver:<span class="keyword">self</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="built_in">BOOL</span>) CanMakePayment&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">SKPaymentQueue</span> canMakePayments];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) requestProductData:(<span class="built_in">NSString</span> *)productIdentifiers&#123;</div><div class="line">    <span class="built_in">NSArray</span> *idArray = [productIdentifiers componentsSeparatedByString:<span class="string">@"\t"</span>];</div><div class="line">    <span class="built_in">NSSet</span> *idSet = [<span class="built_in">NSSet</span> setWithArray:idArray];</div><div class="line">    [<span class="keyword">self</span> sendRequest:idSet];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)sendRequest:(<span class="built_in">NSSet</span> *)idSet&#123;</div><div class="line">    <span class="built_in">SKProductsRequest</span> *request = [[<span class="built_in">SKProductsRequest</span> alloc] initWithProductIdentifiers:idSet];</div><div class="line">    request.delegate = <span class="keyword">self</span>;</div><div class="line">    [request start];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)productsRequest:(<span class="built_in">SKProductsRequest</span> *)request didReceiveResponse:(<span class="built_in">SKProductsResponse</span> *)response&#123;</div><div class="line">    <span class="built_in">NSArray</span> *products = response.products;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (<span class="built_in">SKProduct</span> *p <span class="keyword">in</span> products) &#123;</div><div class="line">        UnitySendMessage(<span class="string">"Main"</span>, <span class="string">"ShowProductList"</span>, [[<span class="keyword">self</span> productInfo:p] UTF8String]);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="built_in">NSString</span> *invalidProductId <span class="keyword">in</span> response.invalidProductIdentifiers)&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Invalid product id:%@"</span>,invalidProductId);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)buyRequest:(<span class="built_in">NSString</span> *)productIdentifier&#123;</div><div class="line">    <span class="built_in">SKPayment</span> *payment = [<span class="built_in">SKPayment</span> paymentWithProductIdentifier:productIdentifier];</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] addPayment:payment];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="built_in">NSString</span> *)productInfo:(<span class="built_in">SKProduct</span> *)product&#123;</div><div class="line">    <span class="built_in">NSArray</span> *info = [<span class="built_in">NSArray</span> arrayWithObjects:product.localizedTitle,product.localizedDescription,product.price,product.productIdentifier, <span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> [info componentsJoinedByString:<span class="string">@"\t"</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)paymentQueue:(<span class="built_in">SKPaymentQueue</span> *)queue updatedTransactions:(<span class="built_in">NSArray</span> *)transactions&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="built_in">SKPaymentTransaction</span> *transaction <span class="keyword">in</span> transactions) &#123;</div><div class="line">        <span class="keyword">switch</span> (transaction.transactionState) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStatePurchased</span>:</div><div class="line">                [<span class="keyword">self</span> completeTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStateFailed</span>:</div><div class="line">                [<span class="keyword">self</span> failedTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStateRestored</span>:</div><div class="line">                [<span class="keyword">self</span> restoreTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) completeTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSString</span> * productIdentifier = [[<span class="built_in">NSString</span> alloc] initWithData:transaction.transactionReceipt encoding:<span class="built_in">NSUTF8StringEncoding</span>];</div><div class="line">    <span class="built_in">NSString</span> * receipt = [[productIdentifier dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>] base64EncodedStringWithOptions:<span class="built_in">NSDataBase64Encoding64CharacterLineLength</span>];</div><div class="line">    receipt = [receipt stringByReplacingOccurrencesOfString:<span class="string">@"\r"</span> withString:<span class="string">@""</span>];</div><div class="line">    receipt = [receipt stringByReplacingOccurrencesOfString:<span class="string">@"\n"</span> withString:<span class="string">@""</span>];</div><div class="line">    </div><div class="line">    UnitySendMessage(<span class="string">"PAYManager"</span>, <span class="string">"BuyGoldIAPComplete"</span>,[receipt UTF8String]);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) restoreTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Restore transaction : %@"</span>,transaction.transactionIdentifier);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) provideContent:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line"></div><div class="line">    UnitySendMessage(<span class="string">"Main"</span>, <span class="string">"ProvideContent"</span>, [transaction.transactionIdentifier UTF8String]);</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) failedTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Failed transaction : %@"</span>,transaction.transactionIdentifier);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (transaction.error.code != <span class="built_in">SKErrorPaymentCancelled</span>) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"!Cancelled"</span>);</div><div class="line">    &#125;</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">static</span> IAPManager* iap_manager = <span class="literal">nil</span>;</div><div class="line"></div><div class="line"></div><div class="line">IAPManager* GetIAPManager()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (iap_manager == <span class="literal">nil</span>) &#123;</div><div class="line">        iap_manager = [[IAPManager alloc] init];</div><div class="line">        [iap_manager attachObserver];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> iap_manager;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">bool</span> IsProductAvailable()&#123;</div><div class="line">    <span class="keyword">return</span> [GetIAPManager() CanMakePayment];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> RequstProductInfo(<span class="keyword">void</span> *p)&#123;</div><div class="line">    <span class="built_in">NSString</span> *list = [<span class="built_in">NSString</span> stringWithUTF8String:p];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"productKey:%@"</span>,list);</div><div class="line">    [GetIAPManager() requestProductData:list];</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> BuyProduct(<span class="keyword">void</span> *p)&#123;</div><div class="line">    [GetIAPManager() buyRequest:[<span class="built_in">NSString</span> stringWithUTF8String:p]];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="WARNING"><a href="#WARNING" class="headerlink" title="WARNING"></a>WARNING</h3><ul>
-<li>上传App Icon 需要上传1024*1024的，而不能有圆角</li>
-<li>必须添加测试账号</li>
-<li>.ipa文件不能包含中文</li>
-<li>必须保证Private Policy URL的可用性</li>
-<li>Cleared for Sale 需要勾选</li>
-<li>支付完成需要拿着苹果收费凭据去服务器校验 验证本地服务购买的有效性</li>
-<li>苹果校验错误码如下 <a href="https://sandbox.itunes.apple.com/verifyReceipt" target="_blank" rel="external">沙盒校验地址</a>   <a href="https://buy.itunes.apple.com/verifyReceipt" target="_blank" rel="external"> 正式校验地址</a><br><img src="/uploads/tmp2a22b8d6.jpg" alt="协议升级"></li>
-</ul>
-<p><a href="http://blog.csdn.net/lxmy2012/article/details/48444731" target="_blank" rel="external">关于协议升级的中文链接</a><br><a href="http://www.cocoachina.com/bbs/read.php?tid=330302" target="_blank" rel="external">关于商家事项的中文链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="AppStore" scheme="http://vrast.cn/categories/AppStore/"/>
-    
-    
-      <category term="IAP" scheme="http://vrast.cn/tags/IAP/"/>
     
   </entry>
   
