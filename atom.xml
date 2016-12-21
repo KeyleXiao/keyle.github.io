@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-08T15:44:56.000Z</updated>
+  <updated>2016-12-21T16:18:06.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AB热更新脚本信息无法获取(勘误)</title>
+    <link href="http://vrast.cn/posts/fec7c50a/"/>
+    <id>http://vrast.cn/posts/fec7c50a/</id>
+    <published>2016-12-21T03:19:24.000Z</published>
+    <updated>2016-12-21T16:18:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失(5.X API)，然后引发出了有趣的小故事～</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？"><a href="#BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？" class="headerlink" title="BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？"></a>BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？</h1><p><img src="/uploads/5CCE21BA-FEF8-4333-8C76-1D9F89D395B1.jpg" alt="案例 Prefab"></p>
+<p><img src="/uploads/BED55101-4E2C-472D-B09E-973776B3EB9D.jpg" alt="案例 打包脚本"></p>
+<blockquote>
+<p>manifest 文件上有脚本的关联信息，猜测是因为 改变了脚本的状态 导致找不到脚本。(一个错误的猜测)</p>
+</blockquote>
+<h1 id="测试-一个错误的测试"><a href="#测试-一个错误的测试" class="headerlink" title="测试(一个错误的测试)"></a>测试(一个错误的测试)</h1><blockquote>
+<p>就是打包一个不暴露变量的脚本上去，看看获取ab包的时候能否自动找到本地的脚本<br><img src="/uploads/AF401BA4-BFE3-40AC-9A8C-CC007537AF75.jpg" alt="打包结果"><br>manifest 文件上 是可以找到两个脚本对应的guid。这里是对应的上的，但是get ab包的时候仍然找不到脚本 ？？</p>
+</blockquote>
+<h1 id="勘误"><a href="#勘误" class="headerlink" title="勘误"></a>勘误</h1><p>今天晚上重新看了这个问题，发现是由于打包的时候<code>重名文件引起的！</code>这里直接推翻了之前所有的猜测。</p>
+<h1 id="勘误测试"><a href="#勘误测试" class="headerlink" title="勘误测试"></a>勘误测试</h1><p><img src="/uploads/QQ20161221-1@2x.jpg" alt="文件结构"></p>
+<p>打包代码如下</p>
+<p>··· cs<br>using UnityEngine;<br>using UnityEditor;<br>using System.Collections;</p>
+<p>public class ABBuilder : Editor<br>{<br>    [MenuItem(“Editor/导出ab”)]<br>    public static void BudidCurrent()<br>    {<br>        BuildPipeline.BuildAssetBundles(“Assets”, BuildAssetBundleOptions.None, BuildTarget.iOS);<br>    }<br>}<br>···</p>
+<p>附加在prefab之上的测试脚本，本测试目的是测试 testStr 的debug输出是否正常。</p>
+<p>··· cs<br>using UnityEngine;<br>using System.Collections;</p>
+<p>public class showLog : MonoBehaviour<br>{<br>    public string testStr = “xiaonian”;<br>    // Use this for initialization<br>    IEnumerator Start()<br>    {<br>        while (true)<br>        {<br>            yield return new WaitForSeconds(1f);<br>            Debug.Log(testStr);<br>        }<br>    }</p>
+<pre><code>// Update is called once per frame
+void Update()
+{
+
+}
+</code></pre><p>}<br>···</p>
+<p>AssetBundle的加载如下</p>
+<p>··· cs<br>using UnityEngine;<br>using System.Collections;<br>using System.IO;</p>
+<p>public class AB : MonoBehaviour<br>{<br>    IEnumerator Start()<br>    {<br>        yield return new WaitForSeconds(2);<br>        LoadAB();<br>    }</p>
+<pre><code>public void LoadAB()
+{
+    var bts = File.ReadAllBytes((Application.dataPath + &quot;/testkeyle&quot;));
+
+    var ab = AssetBundle.LoadFromMemory(bts);
+    var obj = ab.LoadAsset&lt;GameObject&gt;(&quot;Cube&quot;);
+    Instantiate(obj);
+}
+</code></pre><p>}<br>···</p>
+<p><img src="/uploads/QQ20161221-2@2x.jpg" alt="测试结果 正常输出"></p>
+<h1 id="用这段代码演示这个错误的判断"><a href="#用这段代码演示这个错误的判断" class="headerlink" title="用这段代码演示这个错误的判断"></a>用这段代码演示这个错误的判断</h1><p><img src="/uploads/QQ20161221-0@2x.jpg" alt="文件结构"><br><img src="/uploads/QQ20161221-4@2x.jpg" alt="生成的manifest信息"><br><img src="/uploads/QQ20161221-3@2x.jpg" alt="测试结果 加载了重名的空预制体"></p>
+<h2 id="这里可以猜想-是否Unity3d是遍历生成的信息-找到一个-同名的然后就return出去了-？"><a href="#这里可以猜想-是否Unity3d是遍历生成的信息-找到一个-同名的然后就return出去了-？" class="headerlink" title="这里可以猜想 是否Unity3d是遍历生成的信息 找到一个 同名的然后就return出去了 ？"></a>这里可以猜想 是否Unity3d是遍历生成的信息 找到一个 同名的然后就return出去了 ？</h2><p><img src="/uploads/QQ20161221-5@2x.jpg" alt="将A文件夹换到最后"><br>这里需要将原来生成的AB包相关信息全部删除，否则只会更新 manifest 文件 ！<br><img src="/uploads/QQ20161221-6@2x.jpg" alt="重新生成的manifest信息与AB包"><br><img src="/uploads/QQ20161221-7@2x.jpg" alt="测试结果 正常的预制体"></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>如果AB包中存在重名的文件 AssetBundle 在加载的时候会顺序查找当前AB包中的文件 找到第一个同名资源就会返回该资源！</p>
+<h1 id="就这样结束了吗-新的问题！伴随着解决旧问题-又被发现了-！"><a href="#就这样结束了吗-新的问题！伴随着解决旧问题-又被发现了-！" class="headerlink" title="就这样结束了吗  新的问题！伴随着解决旧问题 又被发现了 ！"></a>就这样结束了吗  新的问题！伴随着解决旧问题 又被发现了 ！</h1><h2 id="too-young-too-native"><a href="#too-young-too-native" class="headerlink" title="too young too native"></a>too young too native</h2><h1 id="又是一个演示"><a href="#又是一个演示" class="headerlink" title="又是一个演示"></a>又是一个演示</h1><p>我在主场景手动拖放了一个Cube，然后通过AB加载除了一个新的 Cube(Clone)</p>
+<p><img src="/uploads/5CCE21BA-FEF8-4333-8C76-1D9F89D395B1.jpg" alt="新的问题~"></p>
+<p>他俩的材质应该是一样的！但是此处显示居然不一致。通过AB加载出来的prefab材质 拖动数值居然不能改变显示效果。</p>
+<h2 id="这个问题我还在查-欢迎感兴趣的朋友留言-一起探讨"><a href="#这个问题我还在查-欢迎感兴趣的朋友留言-一起探讨" class="headerlink" title="这个问题我还在查  欢迎感兴趣的朋友留言 一起探讨"></a>这个问题我还在查  欢迎感兴趣的朋友留言 一起探讨</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失(5.X API)，然后引发出了有趣的小故事～&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="AssetBundle" scheme="http://vrast.cn/tags/AssetBundle/"/>
+    
+  </entry>
   
   <entry>
     <title>UNITY3D中的宏定义</title>
@@ -585,6 +654,62 @@
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -716,62 +841,6 @@
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
@@ -914,56 +983,6 @@
     
     
       <category term="Hexo" scheme="http://vrast.cn/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title> AppStore Create New Application FAQ</title>
-    <link href="http://vrast.cn/posts/c7ee08d7/"/>
-    <id>http://vrast.cn/posts/c7ee08d7/</id>
-    <published>2016-10-31T02:38:30.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="协议升级"><a href="#协议升级" class="headerlink" title="协议升级"></a>协议升级</h1><p><img src="/uploads/QQ20161031-0@2x.jpg" alt="协议升级"></p>
-<ul>
-<li>更新了三个协议 Agreements, Tax, and Banking 。这次升级必须要一个一个点进去填写相应的信息。<br>协议，税务，银行卡 需要填写的信息比较简单，大约2个工作日内审核完毕。</li>
-</ul>
-<h1 id="iTunes-Connect上创建APP"><a href="#iTunes-Connect上创建APP" class="headerlink" title="iTunes Connect上创建APP"></a>iTunes Connect上创建APP</h1><h2 id="设置购买付费"><a href="#设置购买付费" class="headerlink" title="设置购买付费"></a>设置购买付费</h2><p>1.在 My Apps 中创建一个新App<br>2.My App -&gt; Pricing and Availability -&gt; Price Schedule 添加售价</p>
-<h2 id="添加内购项目"><a href="#添加内购项目" class="headerlink" title="添加内购项目"></a>添加内购项目</h2><p>1.2.My App -&gt; In-App Purchases 添加内购项</p>
-<h2 id="添加测试账户"><a href="#添加测试账户" class="headerlink" title="添加测试账户"></a>添加测试账户</h2><p>1.<a href="https://itunesconnect.apple.com" target="_blank" rel="external">User and Role -&gt; SandBox Testers -&gt; 添加沙盒测试用户</a><br>2.取消移动端的iTunes账户<br>3.需要付费时 填入测试用户</p>
-<h2 id="资料填写"><a href="#资料填写" class="headerlink" title="资料填写"></a>资料填写</h2><ul>
-<li>尽量详细</li>
-<li>尽量不要漏</li>
-</ul>
-<h2 id="参考源码"><a href="#参考源码" class="headerlink" title="参考源码"></a>参考源码</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"IAPManager.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">IAPManager</span></span></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) attachObserver&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"AttachObserver"</span>);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] addTransactionObserver:<span class="keyword">self</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="built_in">BOOL</span>) CanMakePayment&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">SKPaymentQueue</span> canMakePayments];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) requestProductData:(<span class="built_in">NSString</span> *)productIdentifiers&#123;</div><div class="line">    <span class="built_in">NSArray</span> *idArray = [productIdentifiers componentsSeparatedByString:<span class="string">@"\t"</span>];</div><div class="line">    <span class="built_in">NSSet</span> *idSet = [<span class="built_in">NSSet</span> setWithArray:idArray];</div><div class="line">    [<span class="keyword">self</span> sendRequest:idSet];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)sendRequest:(<span class="built_in">NSSet</span> *)idSet&#123;</div><div class="line">    <span class="built_in">SKProductsRequest</span> *request = [[<span class="built_in">SKProductsRequest</span> alloc] initWithProductIdentifiers:idSet];</div><div class="line">    request.delegate = <span class="keyword">self</span>;</div><div class="line">    [request start];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)productsRequest:(<span class="built_in">SKProductsRequest</span> *)request didReceiveResponse:(<span class="built_in">SKProductsResponse</span> *)response&#123;</div><div class="line">    <span class="built_in">NSArray</span> *products = response.products;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (<span class="built_in">SKProduct</span> *p <span class="keyword">in</span> products) &#123;</div><div class="line">        UnitySendMessage(<span class="string">"Main"</span>, <span class="string">"ShowProductList"</span>, [[<span class="keyword">self</span> productInfo:p] UTF8String]);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="built_in">NSString</span> *invalidProductId <span class="keyword">in</span> response.invalidProductIdentifiers)&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Invalid product id:%@"</span>,invalidProductId);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)buyRequest:(<span class="built_in">NSString</span> *)productIdentifier&#123;</div><div class="line">    <span class="built_in">SKPayment</span> *payment = [<span class="built_in">SKPayment</span> paymentWithProductIdentifier:productIdentifier];</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] addPayment:payment];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="built_in">NSString</span> *)productInfo:(<span class="built_in">SKProduct</span> *)product&#123;</div><div class="line">    <span class="built_in">NSArray</span> *info = [<span class="built_in">NSArray</span> arrayWithObjects:product.localizedTitle,product.localizedDescription,product.price,product.productIdentifier, <span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> [info componentsJoinedByString:<span class="string">@"\t"</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)paymentQueue:(<span class="built_in">SKPaymentQueue</span> *)queue updatedTransactions:(<span class="built_in">NSArray</span> *)transactions&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="built_in">SKPaymentTransaction</span> *transaction <span class="keyword">in</span> transactions) &#123;</div><div class="line">        <span class="keyword">switch</span> (transaction.transactionState) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStatePurchased</span>:</div><div class="line">                [<span class="keyword">self</span> completeTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStateFailed</span>:</div><div class="line">                [<span class="keyword">self</span> failedTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStateRestored</span>:</div><div class="line">                [<span class="keyword">self</span> restoreTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) completeTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSString</span> * productIdentifier = [[<span class="built_in">NSString</span> alloc] initWithData:transaction.transactionReceipt encoding:<span class="built_in">NSUTF8StringEncoding</span>];</div><div class="line">    <span class="built_in">NSString</span> * receipt = [[productIdentifier dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>] base64EncodedStringWithOptions:<span class="built_in">NSDataBase64Encoding64CharacterLineLength</span>];</div><div class="line">    receipt = [receipt stringByReplacingOccurrencesOfString:<span class="string">@"\r"</span> withString:<span class="string">@""</span>];</div><div class="line">    receipt = [receipt stringByReplacingOccurrencesOfString:<span class="string">@"\n"</span> withString:<span class="string">@""</span>];</div><div class="line">    </div><div class="line">    UnitySendMessage(<span class="string">"PAYManager"</span>, <span class="string">"BuyGoldIAPComplete"</span>,[receipt UTF8String]);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) restoreTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Restore transaction : %@"</span>,transaction.transactionIdentifier);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) provideContent:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line"></div><div class="line">    UnitySendMessage(<span class="string">"Main"</span>, <span class="string">"ProvideContent"</span>, [transaction.transactionIdentifier UTF8String]);</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) failedTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Failed transaction : %@"</span>,transaction.transactionIdentifier);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (transaction.error.code != <span class="built_in">SKErrorPaymentCancelled</span>) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"!Cancelled"</span>);</div><div class="line">    &#125;</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">static</span> IAPManager* iap_manager = <span class="literal">nil</span>;</div><div class="line"></div><div class="line"></div><div class="line">IAPManager* GetIAPManager()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (iap_manager == <span class="literal">nil</span>) &#123;</div><div class="line">        iap_manager = [[IAPManager alloc] init];</div><div class="line">        [iap_manager attachObserver];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> iap_manager;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">bool</span> IsProductAvailable()&#123;</div><div class="line">    <span class="keyword">return</span> [GetIAPManager() CanMakePayment];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> RequstProductInfo(<span class="keyword">void</span> *p)&#123;</div><div class="line">    <span class="built_in">NSString</span> *list = [<span class="built_in">NSString</span> stringWithUTF8String:p];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"productKey:%@"</span>,list);</div><div class="line">    [GetIAPManager() requestProductData:list];</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> BuyProduct(<span class="keyword">void</span> *p)&#123;</div><div class="line">    [GetIAPManager() buyRequest:[<span class="built_in">NSString</span> stringWithUTF8String:p]];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="WARNING"><a href="#WARNING" class="headerlink" title="WARNING"></a>WARNING</h3><ul>
-<li>上传App Icon 需要上传1024*1024的，而不能有圆角</li>
-<li>必须添加测试账号</li>
-<li>.ipa文件不能包含中文</li>
-<li>必须保证Private Policy URL的可用性</li>
-<li>Cleared for Sale 需要勾选</li>
-<li>支付完成需要拿着苹果收费凭据去服务器校验 验证本地服务购买的有效性</li>
-<li>苹果校验错误码如下 <a href="https://sandbox.itunes.apple.com/verifyReceipt" target="_blank" rel="external">沙盒校验地址</a>   <a href="https://buy.itunes.apple.com/verifyReceipt" target="_blank" rel="external"> 正式校验地址</a><br><img src="/uploads/tmp2a22b8d6.jpg" alt="协议升级"></li>
-</ul>
-<p><a href="http://blog.csdn.net/lxmy2012/article/details/48444731" target="_blank" rel="external">关于协议升级的中文链接</a><br><a href="http://www.cocoachina.com/bbs/read.php?tid=330302" target="_blank" rel="external">关于商家事项的中文链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="AppStore" scheme="http://vrast.cn/categories/AppStore/"/>
-    
-    
-      <category term="IAP" scheme="http://vrast.cn/tags/IAP/"/>
     
   </entry>
   
