@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-21T16:27:14.000Z</updated>
+  <updated>2016-12-22T05:56:23.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,20 +20,20 @@
     <link href="http://vrast.cn/posts/fec7c50a/"/>
     <id>http://vrast.cn/posts/fec7c50a/</id>
     <published>2016-12-21T03:19:24.000Z</published>
-    <updated>2016-12-21T16:27:14.000Z</updated>
+    <updated>2016-12-22T05:56:23.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失(5.X API)，然后引发出了有趣的小故事～</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？"><a href="#BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？" class="headerlink" title="BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？"></a>BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？</h1><p><img src="/uploads/5CCE21BA-FEF8-4333-8C76-1D9F89D395B1.jpg" alt="案例 Prefab"></p>
+<h1 id="BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？"><a href="#BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？" class="headerlink" title="BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？"></a>BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？</h1><p><img src="/uploads/QQ20161221-3@2x.jpg" alt="案例 Prefab"></p>
 <p><img src="/uploads/BED55101-4E2C-472D-B09E-973776B3EB9D.jpg" alt="案例 打包脚本"></p>
 <blockquote>
 <p>manifest 文件上有脚本的关联信息，猜测是因为 改变了脚本的状态 导致找不到脚本。(一个错误的猜测)</p>
 </blockquote>
-<h1 id="测试-一个错误的测试"><a href="#测试-一个错误的测试" class="headerlink" title="测试(一个错误的测试)"></a>测试(一个错误的测试)</h1><blockquote>
-<p>就是打包一个不暴露变量的脚本上去，看看获取ab包的时候能否自动找到本地的脚本<br><img src="/uploads/AF401BA4-BFE3-40AC-9A8C-CC007537AF75.jpg" alt="打包结果"><br>manifest 文件上 是可以找到两个脚本对应的guid。这里是对应的上的，但是get ab包的时候仍然找不到脚本 ？？</p>
-</blockquote>
+<h1 id="测试-一个错误的测试"><a href="#测试-一个错误的测试" class="headerlink" title="测试(一个错误的测试)"></a>测试(一个错误的测试)</h1><ul>
+<li>就是打包一个不暴露变量的脚本上去，看看获取ab包的时候能否自动找到本地的脚本<br><img src="/uploads/AF401BA4-BFE3-40AC-9A8C-CC007537AF75.jpg" alt="打包结果"><br>manifest 文件上 是可以找到两个脚本对应的guid。这里是对应的上的，但是get ab包的时候仍然找不到脚本 ？？</li>
+</ul>
 <h1 id="勘误"><a href="#勘误" class="headerlink" title="勘误"></a>勘误</h1><p>今天晚上重新看了这个问题，发现是由于打包的时候<code>重名文件引起的！</code>这里直接推翻了之前所有的猜测。</p>
 <h1 id="勘误测试"><a href="#勘误测试" class="headerlink" title="勘误测试"></a>勘误测试</h1><p><img src="/uploads/QQ20161221-1@2x.jpg" alt="文件结构"></p>
 <p>打包代码如下</p>
@@ -49,7 +49,9 @@
 <h1 id="就这样结束了吗-新的问题！伴随着解决旧问题-又被发现了-！"><a href="#就这样结束了吗-新的问题！伴随着解决旧问题-又被发现了-！" class="headerlink" title="就这样结束了吗  新的问题！伴随着解决旧问题 又被发现了 ！"></a>就这样结束了吗  新的问题！伴随着解决旧问题 又被发现了 ！</h1><h2 id="too-young-too-native"><a href="#too-young-too-native" class="headerlink" title="too young too native"></a>too young too native</h2><h1 id="又是一个演示"><a href="#又是一个演示" class="headerlink" title="又是一个演示"></a>又是一个演示</h1><p>我在主场景手动拖放了一个Cube，然后通过AB加载除了一个新的 Cube(Clone)</p>
 <p><img src="/uploads/5CCE21BA-FEF8-4333-8C76-1D9F89D395B1.jpg" alt="新的问题~"></p>
 <p>他俩的材质应该是一样的！但是此处显示居然不一致。通过AB加载出来的prefab材质 拖动数值居然不能改变显示效果。</p>
-<h2 id="这个问题我还在查-欢迎感兴趣的朋友留言-一起探讨"><a href="#这个问题我还在查-欢迎感兴趣的朋友留言-一起探讨" class="headerlink" title="这个问题我还在查  欢迎感兴趣的朋友留言 一起探讨"></a>这个问题我还在查  欢迎感兴趣的朋友留言 一起探讨</h2>]]></content>
+<h2 id="这个问题我还在查"><a href="#这个问题我还在查" class="headerlink" title="这个问题我还在查"></a>这个问题我还在查</h2><p>现在打包到真机看看结果<br><img src="/uploads/QQ20161222-0.jpg" alt="新的问题~"></p>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>发布到真机发现一切正常 ！<br><img src="/uploads/702E9B339B6CEA87BB44ACA6FBABCD56.jpg" alt="我做了一些代码上的修改 然后打包到真机环境"></p>
+]]></content>
     
     <summary type="html">
     
