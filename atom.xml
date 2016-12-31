@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-22T06:02:33.000Z</updated>
+  <updated>2016-12-31T05:20:27.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Terminal写Hexo</title>
+    <link href="http://vrast.cn/posts/a02a67d7/"/>
+    <id>http://vrast.cn/posts/a02a67d7/</id>
+    <published>2016-12-31T02:39:52.000Z</published>
+    <updated>2016-12-31T05:20:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>之前写博文都是用Terminal命令生成md,文件然后通过sublimetext编辑文章,昨天偶见同事用VIM编辑代码十分的6,惊为天人,随后便有了这一篇记录博文。</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="/uploads/QQ20161231-0@2x.jpg" alt="iTerm2 + ZSH + solarized themes + vim"></p>
+<blockquote>
+<p>本文写的比较入门仅介绍写markdown所需要的一些基本快捷键,熟练之后基本上可以用vim全程写文。</p>
+</blockquote>
+<h1 id="Terminal常用快捷键"><a href="#Terminal常用快捷键" class="headerlink" title="Terminal常用快捷键"></a>Terminal常用快捷键</h1><ul>
+<li>Conrol + A/E 在Console状态下移到行首与行末</li>
+<li>Ctrl + u 清除当前行</li>
+<li>Ctrl + k 清除当前至行末</li>
+<li>Ctrl + l == Clear == 清屏</li>
+</ul>
+<h1 id="Vim常用快捷键"><a href="#Vim常用快捷键" class="headerlink" title="Vim常用快捷键"></a>Vim常用快捷键</h1><h2 id="Normal状态下的文本编辑"><a href="#Normal状态下的文本编辑" class="headerlink" title="Normal状态下的文本编辑"></a>Normal状态下的文本编辑</h2><h3 id="光标的转跳"><a href="#光标的转跳" class="headerlink" title="光标的转跳"></a>光标的转跳</h3><ol>
+<li>G 至文末/gg 到文首</li>
+<li>$/^ 光标移动到行尾/行首</li>
+<li>Shift + 上下/左右 上下翻页,左右移动光标<br>3.1 w/b 前/后 移动光标(同上)</li>
+<li>h/j/k/l 左／下/上／右移动光标</li>
+</ol>
+<h3 id="格式缩进"><a href="#格式缩进" class="headerlink" title="格式缩进"></a>格式缩进</h3><ol>
+<li>Shift + &gt;/&lt; 右/左缩进</li>
+</ol>
+<h3 id="关于Copy-Paste-Undo-Delete"><a href="#关于Copy-Paste-Undo-Delete" class="headerlink" title="关于Copy/Paste/Undo/Delete"></a>关于Copy/Paste/Undo/Delete</h3><ol>
+<li>v行选中/Ctrl+v列选中</li>
+<li>y/yy 复制当前/复制整行</li>
+<li>p 粘贴</li>
+<li>u 撤销 /  Ctrl + r 反撤销 </li>
+<li>d/dd 删除当前/删除整行(存剪切板)</li>
+</ol>
+<h3 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h3><ol>
+<li>在当前文档中搜索光标所在</li>
+<li>使用/ + 关键词搜索，使用n/N 后/前搜索</li>
+</ol>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
+<li>j/J 移动到下一行/合并当前与下一行(移除换行符)</li>
+</ol>
+<h2 id="从Normal状态-进入编辑状态"><a href="#从Normal状态-进入编辑状态" class="headerlink" title="从Normal状态 进入编辑状态"></a>从Normal状态 进入编辑状态</h2><ol>
+<li>s替换当前光标所在字符进入编辑</li>
+<li>i插入到光标所在字符之前进入编辑</li>
+</ol>
+<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ol>
+<li><a href="http://www.cnblogs.com/jiqingwu/archive/2012/06/14/vim_notes.html#commentform" target="_blank" rel="external">Vim使用笔记 - 博客园</a> </li>
+<li><a href="http://python-web-guide.readthedocs.io/zh/latest/devtools/vim.html" target="_blank" rel="external">vim 快速入门</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;之前写博文都是用Terminal命令生成md,文件然后通过sublimetext编辑文章,昨天偶见同事用VIM编辑代码十分的6,惊为天人,随后便有了这一篇记录博文。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Terminal" scheme="http://vrast.cn/categories/Terminal/"/>
+    
+    
+      <category term="VIM" scheme="http://vrast.cn/tags/VIM/"/>
+    
+  </entry>
   
   <entry>
     <title>AB热更新脚本信息无法获取(勘误)</title>
@@ -638,62 +707,6 @@
   </entry>
   
   <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -829,6 +842,62 @@
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>屌丝孙悟空的不幸福生活</title>
     <link href="http://vrast.cn/posts/ae108100/"/>
     <id>http://vrast.cn/posts/ae108100/</id>
@@ -925,48 +994,6 @@
     
     
       <category term="YouMi" scheme="http://vrast.cn/tags/YouMi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Coding.net Pages部署</title>
-    <link href="http://vrast.cn/posts/530f864b/"/>
-    <id>http://vrast.cn/posts/530f864b/</id>
-    <published>2016-11-14T05:36:36.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Coding.net Pages部署 FAQ</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="Coding相关设置"><a href="#Coding相关设置" class="headerlink" title="Coding相关设置"></a>Coding相关设置</h1><h2 id="注册账户"><a href="#注册账户" class="headerlink" title="注册账户"></a>注册账户</h2><p><a href="https://coding.net/" target="_blank" rel="external">https://coding.net/</a></p>
-<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><ol>
-<li>创建 coding-pages 分支(可选)</li>
-<li>开启pages服务 可选master分支</li>
-<li>如果有域名需要绑定 CNAME </li>
-</ol>
-<h2 id="配置hexo-git"><a href="#配置hexo-git" class="headerlink" title="配置hexo git"></a>配置hexo git</h2><ol>
-<li><p>安装 git 扩展</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>配置 git</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># Deployment</span></div><div class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/deployment.html</span></span></div><div class="line"><span class="symbol">deploy:</span></div><div class="line"><span class="symbol">  type:</span> git</div><div class="line"><span class="symbol">  repo:</span> </div><div class="line"><span class="symbol">      github:</span> git@github.com:xxx/xxx.git</div><div class="line"><span class="symbol">      coding:</span> git@git.coding.net:xxx.git</div><div class="line"><span class="symbol">  branch:</span> master</div><div class="line"><span class="symbol">  message:</span> <span class="string">" updateed: &#123;&#123; now('YYYY-MM-DD HH:mm:ss') &#125;&#125;"</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Coding.net Pages部署 FAQ&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Site" scheme="http://vrast.cn/categories/Site/"/>
-    
-    
-      <category term="Hexo" scheme="http://vrast.cn/tags/Hexo/"/>
     
   </entry>
   
