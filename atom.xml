@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2016-12-22T06:02:33.000Z</updated>
+  <updated>2017-01-05T06:55:40.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,143 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MACOS开发环境配置</title>
+    <link href="http://vrast.cn/posts/35d56e26/"/>
+    <id>http://vrast.cn/posts/35d56e26/</id>
+    <published>2017-01-05T06:43:07.000Z</published>
+    <updated>2017-01-05T06:55:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#Homebrew<br>好用插件管理工具，Homebrew的开发者现在为apple工作了，Xcode内建的Package Manager就是他写的。(链接附上🔗 )[<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">http://brew.sh/index_zh-cn.html</a>]</p>
+<p>#Oh-my-zsh<br>(超级shell 高度定制你的terminal)[<a href="http://ohmyz.sh" target="_blank" rel="external">http://ohmyz.sh</a>]</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#Homebrew&lt;br&gt;好用插件管理工具，Homebrew的开发者现在为apple工作了，Xcode内建的Package Manager就是他写的。(链接附上🔗 )[&lt;a href=&quot;http://brew.sh/index_zh-cn.html&quot; target=&quot;_b
+    
+    </summary>
+    
+      <category term="MAC" scheme="http://vrast.cn/categories/MAC/"/>
+    
+    
+      <category term="MAC" scheme="http://vrast.cn/tags/MAC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>告别2016</title>
+    <link href="http://vrast.cn/posts/fe76973f/"/>
+    <id>http://vrast.cn/posts/fe76973f/</id>
+    <published>2016-12-31T06:56:05.000Z</published>
+    <updated>2016-12-31T08:03:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>2016年的最后一天，总想写点什么来记录下。📝  2016 有未来得及做完成的事情，也有遗憾的事。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="我的2016"><a href="#我的2016" class="headerlink" title="我的2016"></a>我的2016</h1><p>2015年来现在这家公司,转眼也一年过去了，整整又是一年，到现在甚至有种生活步入正轨的错觉，其实真实的情况是该吃吃该喝喝，该开玩笑的时候绝对不假正经。这样也好 也不好。好在没什么人事之间的矛盾，不好在久而久之就像那温水里的青蛙。原因是外面的形势也不好。谁也不知道未来的手游圈还不好好混。</p>
+<p>2016.10月4日，完成了人生中第一件大事，古人云：成家立业。那意思就是先要结婚成家然后才能明白自己要努力干出一番事业。爱人 家庭 是我前进的动力。目标是要有的，然后就是不顾一切的去实现他了。我老婆前一段认真的说道：”如果30岁之前买不起上海的房，那就跟我去重庆!”。我把这句话记在这里，在我30岁以前肯定会给你买套大房子😄  </p>
+<p>2016.11月参加了国家成人高考，如愿进入上外。The Limits Of Your Language Are The Limits Of Your World . </p>
+<p>还有什么事呢，我还真想不到了。应该都是一些不重要的事吧。值得记录下来的东西还真是不多。</p>
+<h1 id="学会了什么"><a href="#学会了什么" class="headerlink" title="学会了什么"></a>学会了什么</h1><p>我看到过一个笑话是这样讲的，我完成了去年实现的所有目标，就是最后爱吹牛的毛病没有改掉。我的2016没有什么很具体的学习到的东西，还是在积累中。远未达到量变促成质变的境地。换句话说：我走在我的路上了。</p>
+<h1 id="得到了什么"><a href="#得到了什么" class="headerlink" title="得到了什么"></a>得到了什么</h1><p>经历这一年的时间，明确了我应该达到的3年目标,8年目标。另外别人拥有的并非就是自己追求的东西，我亦不会羡慕。活成自己是我对自己2017年的要求。</p>
+<h1 id="有什么遗憾"><a href="#有什么遗憾" class="headerlink" title="有什么遗憾"></a>有什么遗憾</h1><pre><code>惫懒的习惯浪费了2016年的大半美好时光。明明可以做一些有意义的事。最后一无所获。
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总体上来看，2013 - 2014 - 2015 - 2016 四年里，兜兜转转还是最后找到自己今后要走的路。时间一去不复返，在这里立下2017年的目标</p>
+<ul>
+<li>2017年 有一个好作息习惯 晚上11:30 之前睡觉 早7:30之前起来</li>
+<li>2017年 词汇过2w</li>
+<li>做个独立开发者 </li>
+<li>坚持学习</li>
+<li>坚持写博客</li>
+<li>拒绝慵懒</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;2016年的最后一天，总想写点什么来记录下。📝  2016 有未来得及做完成的事情，也有遗憾的事。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="http://vrast.cn/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="None" scheme="http://vrast.cn/tags/None/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Terminal写Hexo</title>
+    <link href="http://vrast.cn/posts/a02a67d7/"/>
+    <id>http://vrast.cn/posts/a02a67d7/</id>
+    <published>2016-12-31T02:39:52.000Z</published>
+    <updated>2016-12-31T06:58:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>之前写博文都是用Terminal命令生成md,文件然后通过sublimetext编辑文章,昨天偶见同事用VIM编辑代码十分的6,惊为天人,随后便有了这一篇记录博文。</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="/uploads/QQ20161231-0@2x.jpg" alt="iTerm2 + ZSH + solarized themes + vim"></p>
+<blockquote>
+<p>本文写的比较入门仅介绍写markdown所需要的一些基本快捷键,熟练之后基本上可以用vim全程写文。</p>
+</blockquote>
+<h1 id="Terminal常用快捷键"><a href="#Terminal常用快捷键" class="headerlink" title="Terminal常用快捷键"></a>Terminal常用快捷键</h1><ul>
+<li>Conrol + A/E 在Console状态下移到行首与行末</li>
+<li>Ctrl + u 清除当前行</li>
+<li>Ctrl + k 清除当前至行末</li>
+<li>Ctrl + l == Clear == 清屏</li>
+</ul>
+<h1 id="Vim常用快捷键"><a href="#Vim常用快捷键" class="headerlink" title="Vim常用快捷键"></a>Vim常用快捷键</h1><h2 id="Normal状态下的文本编辑"><a href="#Normal状态下的文本编辑" class="headerlink" title="Normal状态下的文本编辑"></a>Normal状态下的文本编辑</h2><h3 id="光标的转跳"><a href="#光标的转跳" class="headerlink" title="光标的转跳"></a>光标的转跳</h3><ol>
+<li>G 至文末/gg 到文首</li>
+<li>$/^ 光标移动到行尾/行首</li>
+<li>Shift + 上下/左右 上下翻页,左右移动光标<br>3.1 w/b 前/后 移动光标(同上)</li>
+<li>h/j/k/l 左／下/上／右移动光标</li>
+</ol>
+<h3 id="格式缩进"><a href="#格式缩进" class="headerlink" title="格式缩进"></a>格式缩进</h3><ol>
+<li>Shift + &gt;/&lt; 右/左缩进</li>
+</ol>
+<h3 id="关于Copy-Paste-Undo-Delete"><a href="#关于Copy-Paste-Undo-Delete" class="headerlink" title="关于Copy/Paste/Undo/Delete"></a>关于Copy/Paste/Undo/Delete</h3><ol>
+<li>v行选中/Ctrl+v列选中</li>
+<li>y/yy 复制当前/复制整行</li>
+<li>p 粘贴</li>
+<li>u 撤销 /  Ctrl + r 反撤销 </li>
+<li>d/dd 删除当前/删除整行(存剪切板)</li>
+</ol>
+<h3 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h3><ol>
+<li>在当前文档中搜索光标所在</li>
+<li>使用/ + 关键词搜索，使用n/N 后/前搜索</li>
+</ol>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
+<li>j/J 移动到下一行/合并当前与下一行(移除换行符)</li>
+</ol>
+<h2 id="从Normal状态-进入编辑状态"><a href="#从Normal状态-进入编辑状态" class="headerlink" title="从Normal状态 进入编辑状态"></a>从Normal状态 进入编辑状态</h2><ol>
+<li>s替换当前光标所在字符进入编辑</li>
+<li>i插入到光标所在字符之前进入编辑</li>
+</ol>
+<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ol>
+<li><a href="http://www.cnblogs.com/jiqingwu/archive/2012/06/14/vim_notes.html#commentform" target="_blank" rel="external">Vim使用笔记 - 博客园</a> </li>
+<li><a href="http://python-web-guide.readthedocs.io/zh/latest/devtools/vim.html" target="_blank" rel="external">vim 快速入门</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;之前写博文都是用Terminal命令生成md,文件然后通过sublimetext编辑文章,昨天偶见同事用VIM编辑代码十分的6,惊为天人,随后便有了这一篇记录博文。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Terminal" scheme="http://vrast.cn/categories/Terminal/"/>
+    
+    
+      <category term="VIM" scheme="http://vrast.cn/tags/VIM/"/>
+    
+  </entry>
   
   <entry>
     <title>AB热更新脚本信息无法获取(勘误)</title>
@@ -186,6 +323,57 @@
     
     
       <category term="coroutines" scheme="http://vrast.cn/tags/coroutines/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AI接口梳理</title>
+    <link href="http://vrast.cn/posts/6aa8a811/"/>
+    <id>http://vrast.cn/posts/6aa8a811/</id>
+    <published>2016-12-06T15:02:53.000Z</published>
+    <updated>2017-01-05T06:59:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>关于GOAP目标导向型AI以前没有自己写过 所以本篇更新的会比较慢，现在正慢慢理清思路往下写，本篇是个人代码阅读笔记 更新中…<br>2016.12.6 更新StateDictionary／State 部分分析</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Goal-Oriented-Action-Planning-GOAP"><a href="#Goal-Oriented-Action-Planning-GOAP" class="headerlink" title="Goal-Oriented Action Planning (GOAP)"></a>Goal-Oriented Action Planning (GOAP)</h1><p>面向目标的行动规划</p>
+<h1 id="AIBrain"><a href="#AIBrain" class="headerlink" title="AIBrain"></a>AIBrain</h1><p>AIBrain.cs AI的大脑，大脑会知道当前AI的一切状态;</p>
+<h2 id="AIBrain-lt-AIStateSystem-Interface"><a href="#AIBrain-lt-AIStateSystem-Interface" class="headerlink" title="AIBrain &lt;- AIStateSystem Interface"></a>AIBrain &lt;- AIStateSystem Interface</h2><p>当前 AI Agent 所处的状态。动画的开始结束，更新函数被 AIBrain 高层面统一调用。</p>
+<h2 id="AIBrain-lt-AISensor-Interface"><a href="#AIBrain-lt-AISensor-Interface" class="headerlink" title="AIBrain &lt;- AISensor Interface"></a>AIBrain &lt;- AISensor Interface</h2><p>约定AI Sensor模版是可以被序列化的支持在Unity3d中使用ScriptableTool操作。为了方便模版的批量定制</p>
+<h1 id="StateDictionary"><a href="#StateDictionary" class="headerlink" title="StateDictionary"></a>StateDictionary</h1><p>封装一个 key-value ,里面无意义代码也比较多。根本上就是处理key-value的对比，合并重写，初始化的快捷操作<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">object</span>&gt; conditions;</div></pre></td></tr></table></figure></p>
+<h1 id="State"><a href="#State" class="headerlink" title="State"></a>State</h1><p>统一调用所有的 AIStateSystem ，先是State基类 作为统一调用的入口而存在，图二通过方法侵入，设置当前状态。还是忍不住截了张图，这设计太经典了。打出一套combo连招～<br><img src="/uploads/QQ20161206-0@2x.jpg" alt="图一 State基类"><br><img src="/uploads/QQ20161206-1@2x.jpg" alt="图二 分别表示三种基础状态"><br>忍不住要说说这种设计的好处，隐藏了具体实现细节，而且只需要重写相应的代码即可修改代码执行之前的判断。</p>
+<h1 id="Checkers"><a href="#Checkers" class="headerlink" title="Checkers"></a>Checkers</h1><p>优化基础代码<br><img src="/uploads/QQ20161206-2@2x.jpg" alt="图一 Checkers类"></p>
+<h1 id="AIAction-Interface"><a href="#AIAction-Interface" class="headerlink" title="AIAction Interface"></a>AIAction Interface</h1><ol>
+<li>具体行为的执行者 </li>
+<li>计算当前节点消耗 [CalculateCost]</li>
+<li>AIAction可以得到一切计算所需要的数据，有最具体的数据处理逻辑</li>
+<li>preConditions AI能被执行的前提条件，只有这个条件列表都被满足才能执行这个AI行为</li>
+<li>postEffects 当前行为结束[IsCompleted(AIBrain)]之后 将要抛出这个变更过的条件列表，给AIBrain</li>
+<li>提供函数给Planner校验是否当前行为可以被添加到计划中[CanBeAddedToPlan]</li>
+<li>[JustBeforePlan] 一个钩子函数，如果有什么需要预处理的可以提前处理。</li>
+<li>[GetRelated] 也是比较重要的一个函数，获取关联的函数</li>
+</ol>
+<h1 id="Planner"><a href="#Planner" class="headerlink" title="Planner"></a>Planner</h1><ol>
+<li>计划所有目标的可行性</li>
+<li>给当前脑中的所有goal排序 </li>
+<li></li>
+</ol>
+<p><a href="http://alumni.media.mit.edu/~jorkin/goap.html" target="_blank" rel="external">GOAP参考文档</a><br><a href="https://gamedevelopment.tutsplus.com/tutorials/goal-oriented-action-planning-for-a-smarter-ai--cms-20793" target="_blank" rel="external">GOAP Demo</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;关于GOAP目标导向型AI以前没有自己写过 所以本篇更新的会比较慢，现在正慢慢理清思路往下写，本篇是个人代码阅读笔记 更新中…&lt;br&gt;2016.12.6 更新StateDictionary／State 部分分析&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="AI" scheme="http://vrast.cn/tags/AI/"/>
     
   </entry>
   
@@ -562,62 +750,6 @@
   </entry>
   
   <entry>
-    <title>INTENSE TPS 项目分析概述</title>
-    <link href="http://vrast.cn/posts/fba9adf2/"/>
-    <id>http://vrast.cn/posts/fba9adf2/</id>
-    <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-24T15:37:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
-<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
-<blockquote>
-<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
-<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
-<li>AI接口梳理</li>
-<li>细分逻辑解析(寻路，数据，武器更换等)</li>
-<li>结束之后 额外内容 《GOAP AI结构设计》</li>
-</ol>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
-<li>手雷投掷抛物线绘制</li>
-<li><p>开枪准星抖动模拟</p>
-<p>⚠️ 如果有额外的部分会陆续补充</p>
-</li>
-</ol>
-<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
-<li>layout构成</li>
-<li>游戏的基本逻辑</li>
-<li>动画控制器</li>
-</ol>
-<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
-<li>使用UGUI制作3DUI</li>
-</ol>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
-<li>消息通知模型</li>
-</ol>
-<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Documentation Intense Tps.pdf</title>
     <link href="http://vrast.cn/posts/3c9df6f/"/>
     <id>http://vrast.cn/posts/3c9df6f/</id>
@@ -753,6 +885,62 @@
   </entry>
   
   <entry>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
+    <published>2016-11-16T13:17:11.000Z</published>
+    <updated>2016-11-24T15:37:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
+</li>
+</ol>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
+</ol>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
+</ol>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
+</ol>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>屌丝孙悟空的不幸福生活</title>
     <link href="http://vrast.cn/posts/ae108100/"/>
     <id>http://vrast.cn/posts/ae108100/</id>
@@ -810,178 +998,6 @@
     
     
       <category term="Objective-C" scheme="http://vrast.cn/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>YouMiSDK FAQ</title>
-    <link href="http://vrast.cn/posts/61ce4672/"/>
-    <id>http://vrast.cn/posts/61ce4672/</id>
-    <published>2016-11-14T11:27:17.000Z</published>
-    <updated>2016-11-15T07:50:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>记录有米视频SDK接入的一些问题 断断续续记录中📝</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="基础流程走-Document-案例"><a href="#基础流程走-Document-案例" class="headerlink" title="基础流程走 Document 案例"></a>基础流程走 Document 案例</h1><p>1.在 Unity3D 5.4.2 这个版本下打包出来的 XCode 工程 需要添加如下<br><img src="/uploads/QQ20161114-0.jpg" alt=""></p>
-<h1 id="主要的一些问题-FAQ"><a href="#主要的一些问题-FAQ" class="headerlink" title="主要的一些问题 FAQ"></a>主要的一些问题 FAQ</h1><ol>
-<li><p>You’ve implemented -[<uiapplicationdelegate> application:didReceiveRemoteNotification:fetchCompletionHandler:], but you still need to add “remote-notification” to the list of your supported UIBackgroundModes in your Info.plist.<br>解决方法：<br><img src="/uploads/QQ20161114-1.jpg" alt=""></uiapplicationdelegate></p>
-</li>
-<li><p>需要传入当前UIViewController,此处使用 <code>UnityGetGLViewController()</code> 来获取当前Unity3d使用的view.</p>
-</li>
-</ol>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[UMVideoAd videoPlay:UnityGetGLViewController() videoPlayFinishCallBackBlock:^(<span class="built_in">BOOL</span> isFinishPlay)&#123;</div><div class="line">        <span class="keyword">if</span> (isFinishPlay) &#123;</div><div class="line">            <span class="comment">//You Code Here</span></div><div class="line">        &#125;<span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">//You Code Here</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>使用的时候务必判断不同类型的返回值便于处理不同状态。譬如 增加是否有可用广告的判断</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;记录有米视频SDK接入的一些问题 断断续续记录中📝&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="SDK" scheme="http://vrast.cn/categories/SDK/"/>
-    
-    
-      <category term="YouMi" scheme="http://vrast.cn/tags/YouMi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Coding.net Pages部署</title>
-    <link href="http://vrast.cn/posts/530f864b/"/>
-    <id>http://vrast.cn/posts/530f864b/</id>
-    <published>2016-11-14T05:36:36.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Coding.net Pages部署 FAQ</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="Coding相关设置"><a href="#Coding相关设置" class="headerlink" title="Coding相关设置"></a>Coding相关设置</h1><h2 id="注册账户"><a href="#注册账户" class="headerlink" title="注册账户"></a>注册账户</h2><p><a href="https://coding.net/" target="_blank" rel="external">https://coding.net/</a></p>
-<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><ol>
-<li>创建 coding-pages 分支(可选)</li>
-<li>开启pages服务 可选master分支</li>
-<li>如果有域名需要绑定 CNAME </li>
-</ol>
-<h2 id="配置hexo-git"><a href="#配置hexo-git" class="headerlink" title="配置hexo git"></a>配置hexo git</h2><ol>
-<li><p>安装 git 扩展</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>配置 git</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># Deployment</span></div><div class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/deployment.html</span></span></div><div class="line"><span class="symbol">deploy:</span></div><div class="line"><span class="symbol">  type:</span> git</div><div class="line"><span class="symbol">  repo:</span> </div><div class="line"><span class="symbol">      github:</span> git@github.com:xxx/xxx.git</div><div class="line"><span class="symbol">      coding:</span> git@git.coding.net:xxx.git</div><div class="line"><span class="symbol">  branch:</span> master</div><div class="line"><span class="symbol">  message:</span> <span class="string">" updateed: &#123;&#123; now('YYYY-MM-DD HH:mm:ss') &#125;&#125;"</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Coding.net Pages部署 FAQ&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Site" scheme="http://vrast.cn/categories/Site/"/>
-    
-    
-      <category term="Hexo" scheme="http://vrast.cn/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title> AppStore Create New Application FAQ</title>
-    <link href="http://vrast.cn/posts/c7ee08d7/"/>
-    <id>http://vrast.cn/posts/c7ee08d7/</id>
-    <published>2016-10-31T02:38:30.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="协议升级"><a href="#协议升级" class="headerlink" title="协议升级"></a>协议升级</h1><p><img src="/uploads/QQ20161031-0@2x.jpg" alt="协议升级"></p>
-<ul>
-<li>更新了三个协议 Agreements, Tax, and Banking 。这次升级必须要一个一个点进去填写相应的信息。<br>协议，税务，银行卡 需要填写的信息比较简单，大约2个工作日内审核完毕。</li>
-</ul>
-<h1 id="iTunes-Connect上创建APP"><a href="#iTunes-Connect上创建APP" class="headerlink" title="iTunes Connect上创建APP"></a>iTunes Connect上创建APP</h1><h2 id="设置购买付费"><a href="#设置购买付费" class="headerlink" title="设置购买付费"></a>设置购买付费</h2><p>1.在 My Apps 中创建一个新App<br>2.My App -&gt; Pricing and Availability -&gt; Price Schedule 添加售价</p>
-<h2 id="添加内购项目"><a href="#添加内购项目" class="headerlink" title="添加内购项目"></a>添加内购项目</h2><p>1.2.My App -&gt; In-App Purchases 添加内购项</p>
-<h2 id="添加测试账户"><a href="#添加测试账户" class="headerlink" title="添加测试账户"></a>添加测试账户</h2><p>1.<a href="https://itunesconnect.apple.com" target="_blank" rel="external">User and Role -&gt; SandBox Testers -&gt; 添加沙盒测试用户</a><br>2.取消移动端的iTunes账户<br>3.需要付费时 填入测试用户</p>
-<h2 id="资料填写"><a href="#资料填写" class="headerlink" title="资料填写"></a>资料填写</h2><ul>
-<li>尽量详细</li>
-<li>尽量不要漏</li>
-</ul>
-<h2 id="参考源码"><a href="#参考源码" class="headerlink" title="参考源码"></a>参考源码</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"IAPManager.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">IAPManager</span></span></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) attachObserver&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"AttachObserver"</span>);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] addTransactionObserver:<span class="keyword">self</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="built_in">BOOL</span>) CanMakePayment&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">SKPaymentQueue</span> canMakePayments];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) requestProductData:(<span class="built_in">NSString</span> *)productIdentifiers&#123;</div><div class="line">    <span class="built_in">NSArray</span> *idArray = [productIdentifiers componentsSeparatedByString:<span class="string">@"\t"</span>];</div><div class="line">    <span class="built_in">NSSet</span> *idSet = [<span class="built_in">NSSet</span> setWithArray:idArray];</div><div class="line">    [<span class="keyword">self</span> sendRequest:idSet];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)sendRequest:(<span class="built_in">NSSet</span> *)idSet&#123;</div><div class="line">    <span class="built_in">SKProductsRequest</span> *request = [[<span class="built_in">SKProductsRequest</span> alloc] initWithProductIdentifiers:idSet];</div><div class="line">    request.delegate = <span class="keyword">self</span>;</div><div class="line">    [request start];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)productsRequest:(<span class="built_in">SKProductsRequest</span> *)request didReceiveResponse:(<span class="built_in">SKProductsResponse</span> *)response&#123;</div><div class="line">    <span class="built_in">NSArray</span> *products = response.products;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (<span class="built_in">SKProduct</span> *p <span class="keyword">in</span> products) &#123;</div><div class="line">        UnitySendMessage(<span class="string">"Main"</span>, <span class="string">"ShowProductList"</span>, [[<span class="keyword">self</span> productInfo:p] UTF8String]);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="built_in">NSString</span> *invalidProductId <span class="keyword">in</span> response.invalidProductIdentifiers)&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Invalid product id:%@"</span>,invalidProductId);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)buyRequest:(<span class="built_in">NSString</span> *)productIdentifier&#123;</div><div class="line">    <span class="built_in">SKPayment</span> *payment = [<span class="built_in">SKPayment</span> paymentWithProductIdentifier:productIdentifier];</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] addPayment:payment];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="built_in">NSString</span> *)productInfo:(<span class="built_in">SKProduct</span> *)product&#123;</div><div class="line">    <span class="built_in">NSArray</span> *info = [<span class="built_in">NSArray</span> arrayWithObjects:product.localizedTitle,product.localizedDescription,product.price,product.productIdentifier, <span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> [info componentsJoinedByString:<span class="string">@"\t"</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)paymentQueue:(<span class="built_in">SKPaymentQueue</span> *)queue updatedTransactions:(<span class="built_in">NSArray</span> *)transactions&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="built_in">SKPaymentTransaction</span> *transaction <span class="keyword">in</span> transactions) &#123;</div><div class="line">        <span class="keyword">switch</span> (transaction.transactionState) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStatePurchased</span>:</div><div class="line">                [<span class="keyword">self</span> completeTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStateFailed</span>:</div><div class="line">                [<span class="keyword">self</span> failedTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">SKPaymentTransactionStateRestored</span>:</div><div class="line">                [<span class="keyword">self</span> restoreTransaction:transaction];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) completeTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSString</span> * productIdentifier = [[<span class="built_in">NSString</span> alloc] initWithData:transaction.transactionReceipt encoding:<span class="built_in">NSUTF8StringEncoding</span>];</div><div class="line">    <span class="built_in">NSString</span> * receipt = [[productIdentifier dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>] base64EncodedStringWithOptions:<span class="built_in">NSDataBase64Encoding64CharacterLineLength</span>];</div><div class="line">    receipt = [receipt stringByReplacingOccurrencesOfString:<span class="string">@"\r"</span> withString:<span class="string">@""</span>];</div><div class="line">    receipt = [receipt stringByReplacingOccurrencesOfString:<span class="string">@"\n"</span> withString:<span class="string">@""</span>];</div><div class="line">    </div><div class="line">    UnitySendMessage(<span class="string">"PAYManager"</span>, <span class="string">"BuyGoldIAPComplete"</span>,[receipt UTF8String]);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) restoreTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Restore transaction : %@"</span>,transaction.transactionIdentifier);</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) provideContent:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line"></div><div class="line">    UnitySendMessage(<span class="string">"Main"</span>, <span class="string">"ProvideContent"</span>, [transaction.transactionIdentifier UTF8String]);</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>) failedTransaction:(<span class="built_in">SKPaymentTransaction</span> *)transaction&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Failed transaction : %@"</span>,transaction.transactionIdentifier);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (transaction.error.code != <span class="built_in">SKErrorPaymentCancelled</span>) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"!Cancelled"</span>);</div><div class="line">    &#125;</div><div class="line">    [[<span class="built_in">SKPaymentQueue</span> defaultQueue] finishTransaction:transaction];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">static</span> IAPManager* iap_manager = <span class="literal">nil</span>;</div><div class="line"></div><div class="line"></div><div class="line">IAPManager* GetIAPManager()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (iap_manager == <span class="literal">nil</span>) &#123;</div><div class="line">        iap_manager = [[IAPManager alloc] init];</div><div class="line">        [iap_manager attachObserver];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> iap_manager;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">bool</span> IsProductAvailable()&#123;</div><div class="line">    <span class="keyword">return</span> [GetIAPManager() CanMakePayment];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> RequstProductInfo(<span class="keyword">void</span> *p)&#123;</div><div class="line">    <span class="built_in">NSString</span> *list = [<span class="built_in">NSString</span> stringWithUTF8String:p];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"productKey:%@"</span>,list);</div><div class="line">    [GetIAPManager() requestProductData:list];</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> BuyProduct(<span class="keyword">void</span> *p)&#123;</div><div class="line">    [GetIAPManager() buyRequest:[<span class="built_in">NSString</span> stringWithUTF8String:p]];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="WARNING"><a href="#WARNING" class="headerlink" title="WARNING"></a>WARNING</h3><ul>
-<li>上传App Icon 需要上传1024*1024的，而不能有圆角</li>
-<li>必须添加测试账号</li>
-<li>.ipa文件不能包含中文</li>
-<li>必须保证Private Policy URL的可用性</li>
-<li>Cleared for Sale 需要勾选</li>
-<li>支付完成需要拿着苹果收费凭据去服务器校验 验证本地服务购买的有效性</li>
-<li>苹果校验错误码如下 <a href="https://sandbox.itunes.apple.com/verifyReceipt" target="_blank" rel="external">沙盒校验地址</a>   <a href="https://buy.itunes.apple.com/verifyReceipt" target="_blank" rel="external"> 正式校验地址</a><br><img src="/uploads/tmp2a22b8d6.jpg" alt="协议升级"></li>
-</ul>
-<p><a href="http://blog.csdn.net/lxmy2012/article/details/48444731" target="_blank" rel="external">关于协议升级的中文链接</a><br><a href="http://www.cocoachina.com/bbs/read.php?tid=330302" target="_blank" rel="external">关于商家事项的中文链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Agreement Update : Review the updated Paid Applications Schedule.记录上架流程与问题&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="AppStore" scheme="http://vrast.cn/categories/AppStore/"/>
-    
-    
-      <category term="IAP" scheme="http://vrast.cn/tags/IAP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>优化hexo访问速度</title>
-    <link href="http://vrast.cn/posts/57edf9bb/"/>
-    <id>http://vrast.cn/posts/57edf9bb/</id>
-    <published>2016-10-25T13:08:56.000Z</published>
-    <updated>2016-11-15T03:55:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>优化hexo访问速度</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="三项优化"><a href="#三项优化" class="headerlink" title="三项优化"></a>三项优化</h1><ul>
-<li><p>推荐使用图片压缩 图片一般都是最占带宽的，过大的图片极度影响访问速度</p>
-</li>
-<li><p>优化googleapis 的使用，在国内访问可以考虑换为360的cdn库 </p>
-</li>
-<li><p>在github托管的站点，最重要的技巧是 ping you_blog.github.io;获取最快的IP节点</p>
-</li>
-</ul>
-<h1 id="搜索关键词"><a href="#搜索关键词" class="headerlink" title="搜索关键词"></a>搜索关键词</h1><ul>
-<li>Compress All!</li>
-<li>hexo googleapis</li>
-<li>ping 定位IP</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;优化hexo访问速度&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Site" scheme="http://vrast.cn/categories/Site/"/>
-    
-    
-      <category term="Hexo" scheme="http://vrast.cn/tags/Hexo/"/>
     
   </entry>
   
