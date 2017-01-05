@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-01-05T06:55:40.000Z</updated>
+  <updated>2017-01-05T08:00:54.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,15 +20,15 @@
     <link href="http://vrast.cn/posts/35d56e26/"/>
     <id>http://vrast.cn/posts/35d56e26/</id>
     <published>2017-01-05T06:43:07.000Z</published>
-    <updated>2017-01-05T06:55:40.000Z</updated>
+    <updated>2017-01-05T08:00:54.000Z</updated>
     
-    <content type="html"><![CDATA[<p>#Homebrew<br>好用插件管理工具，Homebrew的开发者现在为apple工作了，Xcode内建的Package Manager就是他写的。(链接附上🔗 )[<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">http://brew.sh/index_zh-cn.html</a>]</p>
-<p>#Oh-my-zsh<br>(超级shell 高度定制你的terminal)[<a href="http://ohmyz.sh" target="_blank" rel="external">http://ohmyz.sh</a>]</p>
+    <content type="html"><![CDATA[<h1 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h1><p>好用插件管理工具，Homebrew的开发者现在为apple工作了，Xcode内建的Package Manager就是他写的。(链接附上🔗 )[<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">http://brew.sh/index_zh-cn.html</a>]</p>
+<h1 id="Oh-my-zsh"><a href="#Oh-my-zsh" class="headerlink" title="Oh-my-zsh"></a>Oh-my-zsh</h1><p>(超级shell 高度定制你的terminal)[<a href="http://ohmyz.sh" target="_blank" rel="external">http://ohmyz.sh</a>]</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;#Homebrew&lt;br&gt;好用插件管理工具，Homebrew的开发者现在为apple工作了，Xcode内建的Package Manager就是他写的。(链接附上🔗 )[&lt;a href=&quot;http://brew.sh/index_zh-cn.html&quot; target=&quot;_b
+      &lt;h1 id=&quot;Homebrew&quot;&gt;&lt;a href=&quot;#Homebrew&quot; class=&quot;headerlink&quot; title=&quot;Homebrew&quot;&gt;&lt;/a&gt;Homebrew&lt;/h1&gt;&lt;p&gt;好用插件管理工具，Homebrew的开发者现在为apple工作了，Xcode内建的Packa
     
     </summary>
     
@@ -331,12 +331,23 @@
     <link href="http://vrast.cn/posts/6aa8a811/"/>
     <id>http://vrast.cn/posts/6aa8a811/</id>
     <published>2016-12-06T15:02:53.000Z</published>
-    <updated>2017-01-05T06:59:08.000Z</updated>
+    <updated>2017-01-05T07:39:24.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>关于GOAP目标导向型AI以前没有自己写过 所以本篇更新的会比较慢，现在正慢慢理清思路往下写，本篇是个人代码阅读笔记 更新中…<br>2016.12.6 更新StateDictionary／State 部分分析</p>
 </blockquote>
 <a id="more"></a>
+<h1 id="阅读经验-💡"><a href="#阅读经验-💡" class="headerlink" title="阅读经验 💡"></a>阅读经验 💡</h1><p>阅读每个文件夹的时候，问自己几个问题</p>
+<ul>
+<li>与AIAction的关系 ?</li>
+<li>与AIGoals的关系 ?</li>
+<li>与AIMemory的关系 ?</li>
+<li>与AISensors的关系 ?</li>
+<li>与AISystem的关系 ?</li>
+</ul>
+<blockquote>
+<p>笔记部分</p>
+</blockquote>
 <h1 id="Goal-Oriented-Action-Planning-GOAP"><a href="#Goal-Oriented-Action-Planning-GOAP" class="headerlink" title="Goal-Oriented Action Planning (GOAP)"></a>Goal-Oriented Action Planning (GOAP)</h1><p>面向目标的行动规划</p>
 <h1 id="AIBrain"><a href="#AIBrain" class="headerlink" title="AIBrain"></a>AIBrain</h1><p>AIBrain.cs AI的大脑，大脑会知道当前AI的一切状态;</p>
 <h2 id="AIBrain-lt-AIStateSystem-Interface"><a href="#AIBrain-lt-AIStateSystem-Interface" class="headerlink" title="AIBrain &lt;- AIStateSystem Interface"></a>AIBrain &lt;- AIStateSystem Interface</h2><p>当前 AI Agent 所处的状态。动画的开始结束，更新函数被 AIBrain 高层面统一调用。</p>
