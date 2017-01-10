@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-01-05T08:00:54.000Z</updated>
+  <updated>2017-01-10T02:09:37.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一次加载所有Shader</title>
+    <link href="http://vrast.cn/posts/8cb143d1/"/>
+    <id>http://vrast.cn/posts/8cb143d1/</id>
+    <published>2017-01-09T13:00:25.000Z</published>
+    <updated>2017-01-10T02:09:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>一次性加载所有的Shader.避免材质上的Shader丢失，5.X需要调用<code>Shader.WarmupAllShaders</code></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="ShaderVariantCollection-Document"><a href="#ShaderVariantCollection-Document" class="headerlink" title="ShaderVariantCollection Document"></a>ShaderVariantCollection Document</h1><p>Description</p>
+<p>ShaderVariantCollection records which shader variants are actually used in each shader.</p>
+<p>This is used for shader preloading (“warmup”), so that a game can make sure “actually required” shader variants are loaded at startup (or level load time), to avoid shader compilation related hiccups later on in the game.</p>
+<p>In Unity, many shaders internally have multiple “variants”, to account for different light modes, lightmaps, shadows and so on. These variants are indentified by a shader pass type, and a set of shader keywords. See ShaderVariant.</p>
+<p>Typical use of ShaderVariantCollection is to record the shader variants used during a play session from the editor (under Graphics Settings), save them out as an asset, and add to the list of preloaded shaders (again in Graphics Settings). Additionally, you could call WarmUp on a ShaderVariantCollection object manually.</p>
+<p>ShaderVariantCollection generally replaces the old Shader.WarmupAllShaders function.</p>
+<h1 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h1><p>对于Unity4.x版本，Shader的AssetBundle加载后只需LoadAll即可完成所有Shader的加载和解析，但对于Unity5.x版本，除执行LoadAllAssets操作外，还需要进行Shader.WarmupAllShaders操作，因为在Unity5.x版本中，Shader的解析和CreateGPUProgram操作是分离的。 – 摘录自UWA【Unity加载模块深度解析（Shader篇)】</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="http://blog.csdn.net/ynnmnm/article/details/44674211" target="_blank" rel="external">Unity3D - 图形性能优化：优化着色器加载时间</a><br><a href="http://blog.uwa4d.com/archives/LoadingPerformance_Shader.html" target="_blank" rel="external">Unity加载模块深度解析（Shader篇)</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;一次性加载所有的Shader.避免材质上的Shader丢失，5.X需要调用&lt;code&gt;Shader.WarmupAllShaders&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="Shader" scheme="http://vrast.cn/tags/Shader/"/>
+    
+  </entry>
   
   <entry>
     <title>MACOS开发环境配置</title>
@@ -991,34 +1027,6 @@
     
     
       <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>屌丝孙悟空的不幸福生活</title>
-    <link href="http://vrast.cn/posts/ae108100/"/>
-    <id>http://vrast.cn/posts/ae108100/</id>
-    <published>2016-11-16T13:11:31.000Z</published>
-    <updated>2016-11-16T13:34:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>分享一些有趣的故事，人缘最好的不是孙猴子原来是一无是处的唐僧。唐僧原是高干子弟又因对佛经不感冒在上课的时候打瞌睡被佛祖罚转世取西经。西经一路唐僧做的最多的就是进出妖怪洞府，被结婚，做的普渡众生着实少。你说妖怪谁真的敢咬唐僧 哈哈。</p>
-</blockquote>
-<a id="more"></a>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="http://music.163.com/outchain/player?type=4&id=343553052&auto=0&height=430"></iframe>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;分享一些有趣的故事，人缘最好的不是孙猴子原来是一无是处的唐僧。唐僧原是高干子弟又因对佛经不感冒在上课的时候打瞌睡被佛祖罚转世取西经。西经一路唐僧做的最多的就是进出妖怪洞府，被结婚，做的普渡众生着实少。你说妖怪谁真的敢咬唐僧 哈哈。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Self" scheme="http://vrast.cn/categories/Self/"/>
-    
-    
-      <category term="有趣的故事" scheme="http://vrast.cn/tags/%E6%9C%89%E8%B6%A3%E7%9A%84%E6%95%85%E4%BA%8B/"/>
     
   </entry>
   
