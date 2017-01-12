@@ -59,7 +59,7 @@
     <link href="http://vrast.cn/posts/8cb143d1/"/>
     <id>http://vrast.cn/posts/8cb143d1/</id>
     <published>2017-01-09T13:00:25.000Z</published>
-    <updated>2017-01-10T02:09:49.000Z</updated>
+    <updated>2017-01-12T09:28:18.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>一次性加载所有的Shader.避免材质上的Shader丢失，5.X需要调用<code>Shader.WarmupAllShaders</code></p>
@@ -71,7 +71,7 @@
 <p>In Unity, many shaders internally have multiple “variants”, to account for different light modes, lightmaps, shadows and so on. These variants are indentified by a shader pass type, and a set of shader keywords. See ShaderVariant.</p>
 <p>Typical use of ShaderVariantCollection is to record the shader variants used during a play session from the editor (under Graphics Settings), save them out as an asset, and add to the list of preloaded shaders (again in Graphics Settings). Additionally, you could call WarmUp on a ShaderVariantCollection object manually.</p>
 <p>ShaderVariantCollection generally replaces the old Shader.WarmupAllShaders function.</p>
-<h1 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h1><p>对于Unity4.x版本，Shader的AssetBundle加载后只需LoadAll即可完成所有Shader的加载和解析，但对于Unity5.x版本，除执行LoadAllAssets操作外，还需要进行Shader.WarmupAllShaders操作，因为在Unity5.x版本中，Shader的解析和CreateGPUProgram操作是分离的。 – 摘录自UWA【Unity加载模块深度解析（Shader篇)】</p>
+<h1 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h1><p>对于Unity4.x版本，Shader的AssetBundle加载后只需LoadAll即可完成所有Shader的加载和解析，但对于Unity5.x版本，除执行LoadAllAssets操作外，还需要进行Shader.WarmupAllShaders操作，因为在Unity5.x版本中，Shader的解析和CreateGPUProgram操作是分离的。 – <a href="http://blog.uwa4d.com/archives/LoadingPerformance_Shader.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">摘录自UWA Unity加载模块深度解析（Shader篇)</a></p>
 <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="http://blog.csdn.net/ynnmnm/article/details/44674211" target="_blank" rel="external">Unity3D - 图形性能优化：优化着色器加载时间</a><br><a href="http://blog.uwa4d.com/archives/LoadingPerformance_Shader.html" target="_blank" rel="external">Unity加载模块深度解析（Shader篇)</a></p>
 ]]></content>
     
