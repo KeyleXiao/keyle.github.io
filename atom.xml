@@ -517,15 +517,17 @@
     <link href="http://vrast.cn/posts/bfe68343/"/>
     <id>http://vrast.cn/posts/bfe68343/</id>
     <published>2016-12-03T13:14:09.000Z</published>
-    <updated>2016-12-04T03:08:06.000Z</updated>
+    <updated>2017-01-12T15:06:13.000Z</updated>
     
-    <content type="html"><![CDATA[<p>当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。</p>
+    <content type="html"><![CDATA[<blockquote>
+<p>当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。</p>
+</blockquote>
 <a id="more"></a>
 <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ol>
 <li>请确保本地有 Android SDK,如无 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
 <li>确保gradle环境配置完毕 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
 </ol>
-<h1 id="What-is-jar"><a href="#What-is-jar" class="headerlink" title="What is jar ?"></a>What is jar ?</h1><p>JAR（Java ARchive，Java 归档）是一种与平台无关的文件格式，可将多个文件合成一个文件。可以简单的看作类似zip的压缩包，里面存放的是代码与项目资源。<br>更详细的介绍在这里 <a href="http://www.ibm.com/developerworks/cn/java/j-jar/" target="_blank" rel="external">JAR 文件揭密 -来自IBM公司官网</a> 下面做一些jar的特性摘要：</p>
+<h1 id="什么是jar包"><a href="#什么是jar包" class="headerlink" title="什么是jar包 ?"></a>什么是jar包 ?</h1><p>JAR（Java ARchive，Java 归档）是一种与平台无关的文件格式，可将多个文件合成一个文件。可以简单的看作类似zip的压缩包，里面存放的是代码与项目资源。<br>更详细的介绍在这里 <a href="http://www.ibm.com/developerworks/cn/java/j-jar/" target="_blank" rel="external">JAR 文件揭密 -来自IBM公司官网</a> 下面做一些jar的特性摘要：</p>
 <p>JAR 文件格式提供了许多优势和功能，其中很多是传统的压缩格式如 ZIP 或者 TAR 所没有提供的。它们包括：</p>
 <ul>
 <li>安全性。可以对 JAR 文件内容加上数字化签名。这样，能够识别签名的工具就可以有选择地为您授予软件安全特权，这是其他文件做不到的，它还可以检测代码是否被篡改过。</li>
@@ -580,7 +582,9 @@
     
     <summary type="html">
     
-      &lt;p&gt;当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。&lt;/p&gt;
+      &lt;blockquote&gt;
+&lt;p&gt;当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
