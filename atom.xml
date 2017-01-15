@@ -889,129 +889,50 @@
   </entry>
   
   <entry>
-    <title>Documentation Intense Tps.pdf</title>
-    <link href="http://vrast.cn/posts/3c9df6f/"/>
-    <id>http://vrast.cn/posts/3c9df6f/</id>
+    <title>INTENSE TPS 项目分析概述</title>
+    <link href="http://vrast.cn/posts/fba9adf2/"/>
+    <id>http://vrast.cn/posts/fba9adf2/</id>
     <published>2016-11-16T13:17:11.000Z</published>
-    <updated>2016-11-20T09:26:44.000Z</updated>
+    <updated>2016-11-24T15:37:31.000Z</updated>
     
-    <content type="html"><![CDATA[<blockquote>
-<p>本文记录TPS Documentation阅读过程,本篇讲述了此插件的基本配置与几个代码相关的系统与相关的代码案例.本篇基本上是翻译全文,有任何问题可留言，有兴趣的话推荐你阅读原文</p>
+    <content type="html"><![CDATA[<p><img src="/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg" alt=""></p>
+<p>支持正版请移步Unity3D AssetStore <a href="https://www.assetstore.unity3d.com/en/#!/content/41738" target="_blank" rel="external">INTENSE TPS</a></p>
+<blockquote>
+<p>很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="项目导入设置"><a href="#项目导入设置" class="headerlink" title="项目导入设置"></a>项目导入设置</h1><h2 id="Layers-and-tags"><a href="#Layers-and-tags" class="headerlink" title="Layers and tags"></a>Layers and tags</h2><p>添加程会使用到的 Layers &amp; tag.</p>
-<p><img src="/uploads/QQ20161024-0@2x.jpg"></p>
-<h2 id="场景管理"><a href="#场景管理" class="headerlink" title="场景管理"></a>场景管理</h2><p>当前有3个场景在游戏中，其中两个是包含玩家的，WeaponTest场景是测试可用物件的。有这几个prefab(Player Remy, CamRig, 3Dcanvas01Follow, EnvFx, 2Dcanvas)</p>
-<ul>
-<li>Camrig &amp; EnvFx 必须要在场景中，否则会报错。为了让 3Dcanvas01Follow 与 2Dcanvas 正常工作，需要有一个可用的player在场景中。</li>
-<li>当前场景中只能又一个player处于激活状态。有多个则取消其激活。</li>
-<li>如果你拖动一个 player prefa b到场景中，但是这个 player prefab 不能处于平台之上，意味着这个平台的layer并不实代码中支持的那个layer。</li>
-<li>你需要在player身上的 SetUpAndUserInput 组建中添加 CamRig 的引用(直接拖)</li>
-<li>所有的玩家设置完毕之后使用 player prefab 身上的组件 PlayerAtts ，指派新武器，指派的武器需要在场景中处于可用状态，不是prefabs，是要你在指派之前放到场景里。</li>
-<li>如果你用Tps这个project，在导入之后会自动进行上面的设置</li>
-</ul>
-<h1 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h1><ul>
-<li>所有的控制键位与逻辑都在 SetUpAndUserInput 脚本中可以找到。项目的默认设置没有进行过更改;</li>
-</ul>
-<p>a. Keyboard and mouse 1: Keyboard and mouse<br>a. Locomotion: W/A/S/D<br>b. Sprint: Shift<br>c. Collect: E<br>d. Jump: Space<br>e. Pullout/Holster weapon: F<br>f. Throw grenade: G<br>g. Drop weapon: H<br>h. Crouch/Stand: C<br>i. Toggle Walk/Run: LeftAlt<br>j. Fire: Mouse0<br>k. Sight/Cover Aim: Mouse1<br>l. Hipfire Aim: Mouse0<br>m. Reload: R<br>n. SecondaryFire: Mouse2<br>o. Camera/Player rotation: Mouse<br>p. Modify weapon: V<br>q. Weapon Flashlight: T<br>r. Change weapon/throwable: Keyboard arrows<br>b. Touchscreen</p>
-<ul>
-<li>为了触摸屏的控制，MobileControlRig 这个prefab在监视面板中需要处于可用状态另外 Mobile Input也需要在unity editor中开启。移动端控制器用来拾取，移动相机，换武器… 记住移动控制的某些特性只在特定的支持设备上可用。<br><img src="/uploads/QQ20161024-1@2x.jpg" alt="触摸屏"></li>
-</ul>
-<h1 id="更替角色-Character"><a href="#更替角色-Character" class="headerlink" title="更替角色(Character)"></a>更替角色(Character)</h1><p>如果你的 Character 是 humanoid 的话(这里指Animation Type),你可以很轻易的设置成你的新player。你可以检查下你的 Rig -&gt; configure ,如果所有的节点配置都是绿色的那么就没问题了。</p>
-<h2 id="角色快速配置"><a href="#角色快速配置" class="headerlink" title="角色快速配置"></a>角色快速配置</h2><ul>
-<li>检查下你的导入设置是否如图所示<br><img src="/uploads/QQ20161024-2@2x.jpg" alt="触摸屏"></li>
-<li>创建个新场景或者直接用 WeaponTest 场景。把玩家prefab拖上来。复制一个然后重命名。把之前不用的旧 prefab 给关掉。如果导入的prefab太小了，对照之前的旧prefab 进行相应的调整。</li>
-<li>把你的角色模型拖到复制出来的player prefab里。移除模型身上的 Animator 然后我们使用 player上的Animator.把角色的 Avatar 拖到 player 的 Animator 组件中。</li>
-<li><p>为角色创建一个 Ragdoll(unity布娃娃)。GameObject -&gt; 3D Object -&gt; Ragdoll .然后把几个身体的部位设置下。</p>
-</li>
-<li><p>在你的项目页签中 IntenseTPS/Prefabs/Player/SettingUp 。你可以看到一些prefab。在监视面板中</p>
-</li>
-</ul>
-<ol>
-<li>拖放 LeftHandHold prefab 到模型的 left hand 节点下。</li>
-<li>拖放 RightHandHold prefab 到模型的 right hand 节点下。</li>
-<li>拖放 WeaponIK prefab 到模型的 Head 节点下。<br>最后重置这些组件的位置与旋转信息。</li>
+<h1 id="待完成目录"><a href="#待完成目录" class="headerlink" title="待完成目录"></a>待完成目录</h1><h3 id="Documentation-Intense-Goap-System-pdf"><a href="#Documentation-Intense-Goap-System-pdf" class="headerlink" title="Documentation Intense Goap System.pdf"></a>Documentation Intense Goap System.pdf</h3><p>1.Soldier Sensor Layers / Other Layers 介绍<br>2.Scriptable Objects 序列化细节介绍<br>3.StateSystem 多种StateSystem介绍<br>备注：暂时交给 Tamako 翻译</p>
+<h2 id="INTENSE-TPS-项目分析"><a href="#INTENSE-TPS-项目分析" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="GOAP"><a href="#GOAP" class="headerlink" title="GOAP"></a>GOAP</h3><ol>
+<li>AI接口梳理</li>
+<li>细分逻辑解析(寻路，数据，武器更换等)</li>
+<li>结束之后 额外内容 《GOAP AI结构设计》</li>
 </ol>
-<ul>
-<li><p>把上一步加入的三个组件的位置进行一下修正 +/-90, +/-180 。如下图所示<br><img src="/uploads/QQ20161024-3@2x.jpg" alt="注意方向"></p>
-</li>
-<li><p>选中新 player 找到 Health 组件，我们使用这个脚本快速关闭所有 rigidbodies &amp; ragdoll colliders。拖放 角色模型骨骼到这里。点击下（Get ragdoll colliders &amp; rigidbodys）按钮。</p>
-</li>
-<li><p>上一步点击按钮之后你会看见下图所示。<br><img src="/uploads/QQ20161024-4@2x.jpg" alt="顺序不重要"></p>
-</li>
-<li>选中角色模型，在layer中选择 PlayerBody 。</li>
-</ul>
-<p>如果你的模型能正确的握住武器了那就证明没问题了。都搞定之后接着来阅读 Weapon System 部分吧。</p>
-<h1 id="玩家系统"><a href="#玩家系统" class="headerlink" title="玩家系统"></a>玩家系统</h1><p>在这个项目中玩家逻辑被分为多个部分，我称这些部分为 player systems.大多系统都有自己的被序列化的类。你可以直接在监视面板中更改。如果你想定义一个新系统，我非常建议你先阅读编码部分。</p>
-<h2 id="武器系统"><a href="#武器系统" class="headerlink" title="武器系统"></a>武器系统</h2><p>这个系统几乎控制所有的武器，从拔枪到射击 等等。</p>
-<h3 id="为一个新的武器配置一个新player-Animations"><a href="#为一个新的武器配置一个新player-Animations" class="headerlink" title="为一个新的武器配置一个新player Animations"></a>为一个新的武器配置一个新player Animations</h3><ol>
-<li>Weapon System在一个Animator中使用了4个动画层(Animator Layers),RightArm, LeftArm, RightHand, LeftHand.LeftArm层模仿RightArm层。这个状态及名叫 Weapon 你看 LeftArm 层是copyRightArm层。如果你定义一个新的武器，只需要拷贝这个 Weapon 状态机然后改改就行了。</li>
-<li>现在来看看 Weapon System 的动画融合树(animation blend trees) 如下图(RightArmLayer)<br> <img src="/uploads/QQ20161024-5@2x.jpg" alt="动画融合树结构1"></li>
-<li><p>融合树对player使用的任何武器都适用<br> 1- PullOutWeapon<br> 2- IdleWithWeapon<br> 3- ReloadWeapon<br> 4- AimingWithWeapon<br>你需要像下图那样修改融合树，我将会使用PullOutWeapon (1) 的blend trees来描述定义的动画，因为blend trees (2,3,4) 都是用的同样的blend tree。<br> <img src="/uploads/QQ20161024-6@2x.jpg" alt="动画融合树结构2"></p>
-</li>
-<li><p>如果你仔细看了上面的配置，PullOutWeapon blend tree 使用了Weapon Style参数来切换单个武器的动画。事实上这里并没有用到融合。Weapon Style的参数并不能定义为1.5或者2.3之类的。Blend tree在这里只是简单的应用。你可以在这里看到Threshold的准确信息。<br>现在假说我有武器了，并且在握住武器的时候想用Weapon Style No:4 动画。我就只能添加一个motion到PullOut blend tree同时设置Threshold时间点为4。<br>如果我们添加好了所有动画并且设置好了所有的在GunAtt组件上的 weaponStyle 字段，player在拿起武器的时候就会使用这些动画了。<br>另外两个 animation/blend trees 都可以修改，方法同上。<br><img src="/uploads/QQ20161103-0@2x.jpg" alt="动画融合树结构3"></p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>手雷投掷抛物线绘制</li>
+<li><p>开枪准星抖动模拟</p>
+<p>⚠️ 如果有额外的部分会陆续补充</p>
 </li>
 </ol>
-<h3 id="定义一个新武器"><a href="#定义一个新武器" class="headerlink" title="定义一个新武器"></a>定义一个新武器</h3><p>你需要一个武器模型，在倒入模型之后，照着教程做。我将设置一个名为 Colt 的模型，让其在项目中可用。</p>
-<ol>
-<li>将名为 AK47的武器拖入场景，设置成合适的大小。<br><img src="/uploads/QQ20161104-0@2x.jpg" alt="设置prefab"></li>
-<li>把新武器模型朝向/大小改的和旧武器模型差不多。加入AK47下作为子节点，把之前的旧模型干掉。</li>
-<li>重命名AK47然后保存一个新的prefab。<br><img src="/uploads/QQ20161104-1@2x.jpg" alt="设置新prefab"></li>
-<li>如果武器动画是分离的，就需要创建Rigidbody, Box Collider，有必要重命名</li>
-<li>设置Clip 的 collider box呈灰态，Rigidbody设置成 Non kinematic .<br><img src="/uploads/QQ20161104-2@2x.jpg" alt="设置新prefab"></li>
-<li>设置上一步的 clip 节点作为武器的一个子节点。</li>
-<li>选择武器并且设置一些必须字段。CurClipObject 就是上一步提到的 Clip节点。CurClipPrefab 就是你导入的模型。</li>
-<li>请给这个武器创建一个新的prefab</li>
-<li>给这个武器添加 GunAtt，你在这个脚本里这个定义武器各方面的行为。我将在这里该一些基本的特性 武器名字，clip capacity,武器风格等。选择一个子弹模型到 CurrentProjectilePrefab 字段。<br><img src="/uploads/QQ20161104-3@2x.jpg" alt=""></li>
-<li>你可以看到武器的一些子节点，武器系统使用GunAtt来控制这些节点。EmptyShellPosRot 节点用来控制子弹初始化的位置/角度。TrailExitPos 节点用来控制射线或物体的位置。(这段话有问题 具体在项目中看)。勿要修改 FixHolderforCharacters 节点。</li>
+<h1 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h1><h2 id="文档翻译"><a href="#文档翻译" class="headerlink" title="文档翻译"></a>文档翻译</h2><h3 id="Documentation-Intense-Tps-pdf"><a href="#Documentation-Intense-Tps-pdf" class="headerlink" title="Documentation Intense Tps.pdf"></a>Documentation Intense Tps.pdf</h3><ol>
+<li>layout构成</li>
+<li>游戏的基本逻辑</li>
+<li>动画控制器</li>
 </ol>
-<ul>
-<li>武器可以射出特定口径的子弹。 这意味着如果玩家的武器剪辑为空，武器系统将尝试使用PlayerAtts ammoBag字段中相同的机芯子弹进行搜索。 口径号用于区分不同武器使用的子弹。</li>
-<li>如果武器没有使用射线投射，一些GunAtt字段将不会被使用，这意味着它们将被像RPG火箭弹那样的投射物覆盖</li>
-</ul>
-<pre><code>11. 现在指派这个新武器到 player 上。点击开始按钮你可以看到角色拿着武器站在那里
-</code></pre><p><img src="/uploads/QQ20161104-4@2x.jpg" alt=""><br><img src="/uploads/QQ20161104-5@2x.jpg" alt=""></p>
-<pre><code>12. 如果你没有倒入新角色可以跳过 13 步骤。停止游戏，在监视面板中选中武器并且找到 GunAtt 之上的 CharacterFixHolders 字段。对于单个角色需要绑定(拖放)6个 Transfrom 。
-</code></pre><p><img src="/uploads/QQ20161114-0@2x.jpg" alt=""></p>
-<pre><code>13. 这段翻译有些长,你可以对照着下图看。
-</code></pre><p>点击播放，抽出武器，首先修正右手的动画。你需要选中RightHandHold的子节点 PosRotFixer 。调整到一个合适的角度位置，然后拷贝这个节点(PosRotFixer)的ttransform信息，粘贴到 AnimRightHand 之上。<br>做完了这些点击 AnimRightHand 组件上的 <save to="" temporary="">按钮，这样的话即使你停止的游戏，也不会丢失刚才的更改。<br>修正其他节点的位置， AimSight, AimHipFire, AimCover, LeftHandClip 使用 PosRotFixers 节点 就上上面操作的那样。注意，只有 LeftHandle 会被直接修改。<br>注意：你可以使用player的 PressFire2Button 当你修正瞄准动画的时候，(你不要用 Fire1Button 来修复AimHipFirePosition)和修正瞄准时候的位置。<br>当你都做完之后，保存到了 temporary ，停止游戏然后点击 Load from temporary .<br><img src="/uploads/QQ20161114-1@2x.jpg" alt="">   <img src="/uploads/QQ20161114-2@2x.jpg" alt=""><br>当角色（玩家或射手Ai）拔出武器时，将按您输入characterName字段的名称进行定位。 例如，当名为Player Remy的玩家拔出武器或瞄准它时，他将在GunAtt中使用具有匹配的字符名称的信息。</save></p>
-<h3 id="投掷系统"><a href="#投掷系统" class="headerlink" title="投掷系统"></a>投掷系统</h3><p>这个系统能够投掷，在游戏中会实例化prefab。 在项目中有一个Frag Grenade示例。<br>为了让玩家投掷预制，预制需要有3个主要组件。 Rigidbody, Collider，Exploder。 您可以修改投掷的Exploder组件以定义不同的可抛出行为。 Rigidbody和Collider有些可选，<br>但投掷系统将需要 Exploder组件在prefab上才能工作。</p>
-<ol>
-<li>定义一个New Player的投掷动画<br>1.1 你需要为投掷定义不同的玩家动画。作为一个例子，我已经添加了一个更多的throw动画，目前没有使用。投掷是在Player的animator的第四层完成的。<br>如果你想为一个throwable添加一个不同的Player动画，你将需要遵循一个类似的方式,在武器部分示例的那样。<br>我添加了一个混合树到ReadyIdle混合树导入player animation。 如果你不想使用Far/Short 只是创建一个motion。 我设置了Threshold为2，这样，当玩家拉出这个可抛物，他会使用这些动画。 修改像PullOut / ToReady这个例子类似 其他混合树。<br><img src="/uploads/macscreenshot1.jpg" alt="注意此图右边"></li>
+<h2 id="INTENSE-TPS-项目分析-1"><a href="#INTENSE-TPS-项目分析-1" class="headerlink" title="INTENSE TPS 项目分析"></a>INTENSE TPS 项目分析</h2><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<li>使用UGUI制作3DUI</li>
 </ol>
-<h3 id="相机系统"><a href="#相机系统" class="headerlink" title="相机系统"></a>相机系统</h3><p>它的工作原理类似于一些Player系统，如Look At system.Generally，这是由其他系统，如武器，封面等使用。<br>例如武器系统想要相机聚焦到一个位置，它会告诉相机系统这个请求，如果相机没有更重要的工作，它会执行这个请求。<br>目前，该系统完全可以覆盖第三人称，第一人称，其他系统聚焦。</p>
-<h3 id="运动系统"><a href="#运动系统" class="headerlink" title="运动系统"></a>运动系统</h3><p>Locomotion系统，正如其名称所解释的那样负责运动。 该系统有4个状态，可被其他系统覆盖。</p>
-<ol>
-<li>用键自由移动</li>
-<li>带键的静态运动（通常是转向一类的位置变换）</li>
-<li>使用navmeshagent移动</li>
-<li>停用状态</li>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>消息通知模型</li>
 </ol>
-<h3 id="掩护系统"><a href="#掩护系统" class="headerlink" title="掩护系统"></a>掩护系统</h3><p>该系统负责玩家掩护(防护)的的每个方面。<br>掩护检测由玩家的子节点CoverChecker完成。 要修改或微调掩护检测，请使用此GameObject的CoverTargetLogic组件。 其他掩护参数可以通过Player的PlayerAtts组件修改。</p>
-<h3 id="观察系统"><a href="#观察系统" class="headerlink" title="观察系统"></a>观察系统</h3><h2 id="算法和代码部分"><a href="#算法和代码部分" class="headerlink" title="算法和代码部分"></a>算法和代码部分</h2><h3 id="Player的基础"><a href="#Player的基础" class="headerlink" title="Player的基础"></a>Player的基础</h3><p>Player系统在理论上是完全独立的。 但在真实或游戏世界中，一般来说，这是不可能的。 因此，系统将总是尝试与其他系统通信。</p>
-<p>我将尝试用几个例子来解释Player系统的工作流程，希望它能帮助你以后定义你的系统。</p>
-<p>想象一下，武器被武器系统拉出，玩家击中目标按钮，然后再次武器系统正在播放瞄准动画，但是玩家也想在瞄准时向后移动，因此他/她按下移动返回按钮， S键。</p>
-<p>如果两个系统工作而没有彼此通信，则player可能瞄准相机本身，因为Locomotion System通过转玩家来响应向后移动按钮。 然后你会得到一些有趣的行为。</p>
-<p>现在让我们看看 IntenseTPS 在这样的情况如何工作。在我们的例子中，当按钮事件时触发时武器系统开始瞄准，Locomotion系统将上从武器系统得到一个消息，转向一个总是在Player和摄像机前面的对象。之后，他将始终瞄准并转向相机正在看的位置。<br>之后，当瞄准完成武器系统会告诉Locomotion系统，它不再需要转到一个位置。然后运动系统将返回其默认行为。</p>
-<p>让我们假设玩家靠近墙壁，想要被掩护，他/她通过按掩护按钮进入掩体。掩护系统将进入掩体，它会要求相机覆盖自己的第三人相机状态与“掩体的特定参数”。假设它没有来自任何其他系统的其他请求，并根据Cover System的要求设置它自己。然后玩家拉出一个武器，想要瞄准，武器系统也会要求相机系统重写自己的第三人称相机，但与武器系统的参数。相机会选择哪一个？在这样的情况下，答案是最重要的。</p>
-<p>一般的想法是，一个系统不能在一个参数都没有的情况下要求另一个系统改变它的状态。 该系统将如何使用该特殊参数的？ 那么，这是一个系统本身需要解决的问题。</p>
-<p>通过遵循所有Player系统的这个逻辑，当你添加一个新的系统，你不必担心，如果它将与其他系统工作。</p>
-<p>除此之外，系统的关键触发器不会在没有特殊参数的情况下被调用。 例如投掷系统的按钮触发开始投掷，但有时我们不希望玩家投掷手榴弹时，当进掩体面时。 </p>
-<p>因此，掩体系统将修改投掷系统的触发器以在短时间内禁用其部分或全部触发器，使得我们不会错误地混淆动画。</p>
-<h3 id="代码例子"><a href="#代码例子" class="headerlink" title="代码例子"></a>代码例子</h3><p>如果你已经阅读了上一部分（玩家系统基础），你应该知道玩家系统背后的基本逻辑。现在让我们来看看一些代码示例。<br>我将尝试解释我如何集成一些功能与代码示例。看看下面的代码。</p>
-<p><img src="/uploads/QQ20161117-0@2x.jpg" alt="Code Sample"></p>
-<p> 这段代码取自Locomotion脚本，它的工作是进入第一人称照相机并退出。它也可以写成摄像机系统的一部分，因为在摄像机系统中没有其他按钮触发的事件，它被写为Locomotion System的一部分。<br>首先if语句检查第一人称相机按钮是否被按下，然后检查它是否已经处于第一人称相机模式，然后检查是否使用</p>
-<p>如果你已经阅读了上一部分（玩家系统基础），你应该知道玩家系统背后的基本逻辑。现在让我们来看看一些代码示例。</p>
-<p>我将尝试解释我如何集成一些功能与代码示例。看看下面的代码。</p>
-<p>这段代码取自Locomotion脚本，它的工作是进入第一人称照相机并退出。它也可以写成摄像机系统的一部分，因为在摄像机系统中没有其他按钮触发的事件，它被写为Locomotion System的一部分。<br>首先if语句检查第一人称相机按钮是否被按下，然后检查它是否已经处于第一人称相机模式，然后用<code>TriggS.LastValue.GetTrigger（LocomotionSystemTriggers.ct_FreeLook）</code>代码检查是否使用启用了第一人称相机触发。<br>因此，如果名为Triggs的属性没有被任何其他系统播放器重写，将进入第一人称观察模式。</p>
-<p>当第一人称观看模式被激活时，locomotion系统将以短整数（在这种情况下为-3）的方式告诉相机重写自身到第一人称相机状态。这意味着相机将重写自身到这个状态，即使它通过另一个事件被重写和改变它的状态。</p>
-<p>然后这个触发器将尝试重写武器系统的触发器，这些触发器基本上是按钮触发的事件，例如拉出武器，瞄准等…<br>相同的请求也被发送到Cover System和Throw系统，最后它将发送请求到Look At系统 来设置其自身为激活状态。<br>我们实现了什么？<br>那么，在进入第一人称观看模式之后，即使他/她按下相关按钮，玩家将不能与武器交互，他/她将不能进入掩体面等。<br>所以如果你检查else if语句（退出第一人称看模式的条件），如果玩家按下按钮或者如果<code>!TriggS.LastValue.GetTrigger（LocomotionSystemTriggers.ct_FreeLook）</code>条件为真，玩家将退出第一人称模式 ，这意味着Locomotion系统触发器属性被另一个系统重写。</p>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><p>知乎：游戏AI的设计和实现困难么？有哪些大师级的人物，他们有什么传奇，制作了哪些经典游戏？<br><a href="https://www.zhihu.com/question/19989350" target="_blank" rel="external">https://www.zhihu.com/question/19989350</a></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;本文记录TPS Documentation阅读过程,本篇讲述了此插件的基本配置与几个代码相关的系统与相关的代码案例.本篇基本上是翻译全文,有任何问题可留言，有兴趣的话推荐你阅读原文&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/uploads/33DD91C0-5CC1-45B4-9CFA-4581BE138CE6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持正版请移步Unity3D AssetStore &lt;a href=&quot;https://www.assetstore.unity3d.com/en/#!/content/41738&quot;&gt;INTENSE TPS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很高兴的开始了INTENSE TPS的项目分析，AI的表现还是比较贴合大型游戏的做法。关键词: 3DUI GOAP 集群AI AI编辑器 算法&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
@@ -1019,7 +940,7 @@
       <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="INTENSE文档" scheme="http://vrast.cn/tags/INTENSE%E6%96%87%E6%A1%A3/"/>
+      <category term="INTENSE总纲" scheme="http://vrast.cn/tags/INTENSE%E6%80%BB%E7%BA%B2/"/>
     
   </entry>
   
