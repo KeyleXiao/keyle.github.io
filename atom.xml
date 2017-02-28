@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-01-15T04:37:06.000Z</updated>
+  <updated>2017-02-28T11:05:09.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,95 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Properties in iOS</title>
+    <link href="http://vrast.cn/posts/f9b2637/"/>
+    <id>http://vrast.cn/posts/f9b2637/</id>
+    <published>2017-02-28T07:40:00.000Z</published>
+    <updated>2017-02-28T11:05:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>翻译一篇iOS平台OC语法中的Properties用法及说明 <a href="http://rypress.com/tutorials/objective-c/properties" target="_blank" rel="external">原文地址</a></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h1><p>一个Object’s的属性可以让其他的Objects来更改它的状态。但是，一个好的面向对对象程序设计中，不可以直接的访问到这个object的状态。作为代替。访问方法(getter &amp; setters)用来抽象与底层的数据交互。</p>
+<p><img src="/uploads/accessor-methods.jpg" alt="通过属性操作的方法交互"></p>
+<p>@property 命令的目标是通过生成操作函数来更简单的访问。它允许你在语义级别指定公共属性的行为，并且会为你处理实现细节。<br>该模块概括了允许您更改getter和setter行为的各种属性。这些属性中的一些确定属性如何处理其底层内存。所以这个模块也可以作为一个介绍内存管理的实例在Objective-C。 有关更详细的讨论，<a href="http://rypress.com/tutorials/objective-c/properties" target="_blank" rel="external">请参阅内存管理</a>。</p>
+<h1 id="property-命令"><a href="#property-命令" class="headerlink" title="@property 命令"></a>@property 命令</h1><p>首先，让我们看看当我们使用@property指令时发生了什么。思考接下来的 car class的接口与相关实现。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Car.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> <span class="built_in">BOOL</span> running;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Car.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Car</span></span></div><div class="line"></div><div class="line"><span class="keyword">@synthesize</span> running = _running;    <span class="comment">// Optional for Xcode 4.4+</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>编译器会生成 running 属性的 getter &amp; setter 方法。他默认的命名惯例是使用属性本身(名字)作为getter，setter使用set作为前缀并且使用下划线在这个实例变量上。就像是这样：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)running &#123;</div><div class="line">    <span class="keyword">return</span> _running;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setRunning:(<span class="built_in">BOOL</span>)newValue &#123;</div><div class="line">    _running = newValue;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在使用 @property 命令声明属性之后，你可以调用这些方法，就像它已经包含在你的接口与实现类中一样。你可以在 Car.m 重写它们 支持制定 getter/setters.但是他将要强制使用 @synthesize 命令。然而，自从 @property 属性使你在抽象级别上做这些，你很少需要定制访问接口。<br>通过点表示法访问的属性被转换为幕后的上述访问器方法，因此，当您从其中读取值时，下面的 honda.running代码实际上调用setRunning：当你为它赋值和运行时从它读取：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        Car *honda = [[Car alloc] init];</div><div class="line">        honda.running = <span class="literal">YES</span>;                <span class="comment">// [honda setRunning:YES]</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%d"</span>, honda.running);        <span class="comment">// [honda running]</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要更改生成的访问器的行为，可以在@property 指令后面的括号中指定属性。 本模块的其余部分介绍可用的属性。</p>
+<h1 id="getter-与-setter-属性"><a href="#getter-与-setter-属性" class="headerlink" title="getter= 与 setter= 属性"></a>getter= 与 setter= 属性</h1><p>如果你不喜欢 @property 的命名惯例，你可以使用 getter= and setter= 属性，更改 getter/setter 的方法名。一个常见的用例是 Boolean 属性，它的getter常用前缀是 is。尝试在下面的 Car.h 中更改属性的声明。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">getter</span>=isRunning) <span class="built_in">BOOL</span> running;</div></pre></td></tr></table></figure>
+<p>现在这个生成的访问器叫 isRunning 与 setRunning. 注意这个访问器 他的公开属性仍旧叫 running 。这是你为什么最好要使用点语法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Car *honda = [[Car alloc] init];</div><div class="line">honda.running = <span class="literal">YES</span>;                <span class="comment">// [honda setRunning:YES]</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>, honda.running);        <span class="comment">// [honda isRunning]</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>, [honda running]);      <span class="comment">// Error: method no longer exists</span></div></pre></td></tr></table></figure>
+<p>这些都是只使用一个参数的属性（存取器方法名称） - 其他的都是布尔标志。</p>
+<h1 id="The-readonly-Attribute"><a href="#The-readonly-Attribute" class="headerlink" title="The readonly Attribute"></a>The readonly Attribute</h1><p>readonly属性是最简单去设置一个属性的只读。他删除了 setter 方法，阻止点语法进行分配。但是 getter 方法不受影响。在这个例子里面。我们像下面这样更改 Car 的接口。注意 你可以使用多个属性 用逗号 分隔。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">getter</span>=isRunning, <span class="keyword">readonly</span>) <span class="built_in">BOOL</span> running;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)startEngine;</div><div class="line">- (<span class="keyword">void</span>)stopEngine;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>而不是让其他对象更改running属性，我们将通过startEngine和stopEngine方法在内部进行设置。 相应的实现可以在下面找到。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Car.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Car</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)startEngine &#123;</div><div class="line">    _running = <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)stopEngine &#123;</div><div class="line">    _running = <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>上面直到这一点，属性真的只是方便的快捷方式，让我们避免编写样板getter和setter方法。 剩余的属性不会出现这种情况，这会显着改变属性的行为。 它们也只适用于存储Objective-C对象（与原始C数据类型相反）的属性。</p>
+<h1 id="The-nonatomic-Attribute"><a href="#The-nonatomic-Attribute" class="headerlink" title="The nonatomic Attribute"></a>The nonatomic Attribute</h1><p>原子性与属性在线程环境中的行为有关。当你在多于一个线程的情况下可能出现同时读写一个属性。这意味着读写可能被另外一个操作打断。可能损坏数据。<br>原子属性锁定底层对象以防止这种情况发生(google翻译这里)，以防止发生这种情况，保证get或set操作使用完整的值。 然而，重要的是要理解这只是线程安全的一个方面 - 使用原子属性并不一定意味着你的代码是线程安全的。<br>使用 @property 声明的属性在默认情况下是原子的，这会产生一些开销。 所以，如果你不是在多线程环境（或者你正在实现自己的线程安全），你会想要覆盖这个行为与 nonatomic 属性，如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *model;</div></pre></td></tr></table></figure>
+<p>还有一个小的，实际的警告与原子属性。 原子属性的访问器必须是生成的或用户定义的。 只有非原子属性允许您将合成存取器与自定义存取器混合和匹配。 你可以通过从上面的代码中删除非原子并在Car.m中添加自定义getter来看到这一点。</p>
+<h1 id="Memory-Management"><a href="#Memory-Management" class="headerlink" title="Memory Management"></a>Memory Management</h1><p>在任何OOP语言中，对象驻留在计算机的内存中，并且尤其是在移动设备上 - 这是一种稀缺的资源。 内存管理系统的目标是通过以有效的方式创建和销毁对象来确保程序不占用任何更多的空间。</p>
+<p>许多语言通过垃圾回收实现这一点，但Objective-C使用一种更有效的替代方法称为对象所有权。 当你开始与一个对象进行交互时，你会说它拥有该对象，这意味着只要你使用它就保证存在。 当你完成它，你放弃所有权，如果对象没有其他所有者，操作系统销毁对象和释放底层内存。</p>
+<p><img src="/uploads/object-ownership.jpg" alt="所有关系"></p>
+<p>随着 <a href="http://rypress.com/tutorials/objective-c/memory-management.html#automatic-reference-counting" target="_blank" rel="external">自动引用计数</a> 的出现，编译器自动管理所有对象所有权。 在大多数情况下，这意味着你永远不会担心内存管理系统如何工作。 但是，你必须了解@property的strong，week和copy属性，因为他们告诉编译器应该有什么样的关系对象。</p>
+<h1 id="The-strong-Attribute"><a href="#The-strong-Attribute" class="headerlink" title="The strong Attribute"></a>The strong Attribute</h1><p>strong属性会为分配给属性的任何对象创建一个拥有关系。 这是所有对象属性的隐式行为，这是一个安全的默认值，因为它确保值存在，只要它被分配给属性。<br>让我们通过创建另一个名为Person的类来看看这是如何工作的。 它的接口只是声明一个name属性：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>实现如下所示。 它使用由@property生成的默认访问器。 它还重写了NSObject的description方法，该方法返回对象的字符串表示形式。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></div><div class="line"></div><div class="line">- (<span class="built_in">NSString</span> *)description &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>接下来，让我们添加一个Person属性到Car类。 为Car.h更改为以下内容。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Car.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *model;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) Person *driver;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>然后，思考main.m的以下迭代：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        Person *john = [[Person alloc] init];</div><div class="line">        john.name = <span class="string">@"John"</span>;</div><div class="line">        </div><div class="line">        Car *honda = [[Car alloc] init];</div><div class="line">        honda.model = <span class="string">@"Honda Civic"</span>;</div><div class="line">        honda.driver = john;</div><div class="line">        </div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@ is driving the %@"</span>, honda.driver, honda.model);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于 driver 是一个 strong 关联，honda对象拥有john的所有权。 这确保它将有效，只要 honda 需要它。</p>
+<h1 id="The-weak-Attribute"><a href="#The-weak-Attribute" class="headerlink" title="The weak Attribute"></a>The weak Attribute</h1><p>大多数时候，strong属性直观地是你想要的对象属性。 然而，如果我们需要一个从 driver 到他驾驶的Car对象的引用，强引用会产生问题。 首先，让我们为Person.h添加一个car属性：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">Car</span>;</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) Car *car;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>@class Car行是Car类的提前声明。 这就像告诉编译器，“相信我，Car类存在，所以不要尝试找到它现在。”我们必须这样做，而不是我们通常的#import语句，因为Car还导入 Person.h，我们将 有无限循环的导入。 （编译器不喜欢无尽循环。）接下来，在honda.driver分配之后，将下面的行添加到main.m：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">honda.driver = john;</div><div class="line">john.car = honda;       <span class="comment">// Add this line</span></div></pre></td></tr></table></figure>
+<p>现在我们有一个honda到john的所属关系以及另外一个所有关系即john到honda。所以内存管理系统不能销毁它们，如果它们长久的互相需要。</p>
+<p><img src="/uploads/retain-cycle.jpg" alt="在Car 与 Person之间循环依赖"></p>
+<p>它称之为 循环依赖 ，这就是内存泄漏的出处。内存泄漏是不好的。幸运的是，很容易修复这个问题，只需要在属性中添加 weak reference 。在 Person.h ，修改 car 的声明如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) Car *car;</div></pre></td></tr></table></figure>
+<p>weak 属性给 car 创建了一个无所有者的关系。它允许 john 持有一个 honda 的引用 在循环依赖期间。但是，这也意味着 john还持有引用的时候 honda 可能被销毁。如果发生了，weak 属性将会方便的将 car 设置为 nil 来避免 dangling（悬挂指针） 指针。</p>
+<p>这里我说明一下悬挂指针，文中没有详细说明：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">如果指针在被释放后，仍然引用原来的内存，就叫做悬挂指针。该指针不指向任何有效的对象。有时称为过早释放。</div><div class="line"></div><div class="line">使用悬挂指针能导致几种不同的问题，包括：</div><div class="line"></div><div class="line">不可预知的行为，如果访问内存</div><div class="line">分段错误，当内存不再是可访问</div><div class="line">潜在的安全风险</div><div class="line">如下情况将产生这些错误：</div><div class="line">释放后访问内存</div><div class="line">一个指针返回到前一个函数调用的自动变量</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/weak-reference.jpg" alt="Person对car持有若引用"></p>
+<p>弱属性的常见用例是父子数据结构。 按照惯例，父对象应该使用它的子保持一个强引用，并且子应该存储一个弱引用返回父对象。 弱引用也是代理设计模式的固有部分。要去除的一点是，两个对象应该永远不会有强烈的对方引用。 弱属性使得可以维持周期性关系而不创建保留周期。</p>
+<h1 id="The-copy-Attribute"><a href="#The-copy-Attribute" class="headerlink" title="The copy Attribute"></a>The copy Attribute</h1><p>copy属性是strong的替代。 它不是获取现有对象的所有权，而是创建一个分配给该属性的副本，然后拥有该属性的所有权。 只有符合NSCopying协议的对象才能使用此属性。</p>
+<p>表示值（与连接或关系相反）的属性是复制的良好候选。 例如，开发人员通常复制NSString属性，而不是强烈引用它们：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Car.h</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *model;</div></pre></td></tr></table></figure>
+<p>这里还是看原文吧。<br>Now, Car will store a brand new instance of whatever value we assign to model. If you’re working with mutable values, this has the added perk of freezing the object at whatever value it had when it was assigned. This is demonstrated below:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        Car *honda = [[Car alloc] init];</div><div class="line">        <span class="built_in">NSMutableString</span> *model = [<span class="built_in">NSMutableString</span> stringWithString:<span class="string">@"Honda Civic"</span>];</div><div class="line">        honda.model = model;</div><div class="line">        </div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, honda.model);</div><div class="line">        [model setString:<span class="string">@"Nissa Versa"</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, honda.model);            <span class="comment">// Still "Honda Civic"</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>NSMutableString是NSString的子类，可以直接编辑。 如果model属性没有创建原始实例的副本，我们将能够在第二个NSLog()输出中看到更改的字符串（Nissan Versa）。</p>
+<h1 id="Other-Attributes"><a href="#Other-Attributes" class="headerlink" title="Other Attributes"></a>Other Attributes</h1><p>上面的 @property 属性是现代 Objective-C应用程序（iOS 5+）所需要的，但是你可能会在旧的库或文档中遇到其他一些属性。</p>
+<h1 id="The-retain-Attribute"><a href="#The-retain-Attribute" class="headerlink" title="The retain Attribute"></a>The retain Attribute</h1><p>retain属性是strong的手动保留版本，它具有完全相同的效果：声明所分配的值的所有权。 您不应在自动引用计数环境中使用此引用。</p>
+<h1 id="The-unsafe-unretained-Attribute"><a href="#The-unsafe-unretained-Attribute" class="headerlink" title="The unsafe_unretained Attribute"></a>The unsafe_unretained Attribute</h1><p>具有unsafe_unretained属性的属性的行为类似于weak属性，但是如果引用的对象被销毁，它们不会自动将其值设置为nil。 你应该需要使用unsafe_unretained的唯一原因是使你的类与不支持weak属性的代码兼容。</p>
+<h1 id="The-assign-Attribute"><a href="#The-assign-Attribute" class="headerlink" title="The assign Attribute"></a>The assign Attribute</h1><p>具有unsafe_unretained属性的属性的行为类似于weak属性，但是如果引用的对象被销毁，它们不会自动将其值设置为nil。 你应该需要使用unsafe_unretained的唯一原因是使你的类与不支持weak属性的代码兼容。</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>此模块介绍了所有的@property属性选择，我们希望你感觉相对舒服的修改生成的访问器方法的行为。 请记住，所有这些属性的目标是帮助您通过让编译器自动确定其表示方式来关注需要记录的数据。 它们总结如下。</p>
+<p>Attribute   Description<br>getter= Use a custom name for the getter method.<br>setter= Use a custom name for the setter method.<br>readonly    Don’t synthesize a setter method.<br>nonatomic   Don’t guarantee the integrity of accessors in a multi-threaded environment. This is more efficient than the default atomic behavior.<br>strong  Create an owning relationship between the property and the assigned value. This is the default for object properties.<br>weak    Create a non-owning relationship between the property and the assigned value. Use this to prevent retain cycles.<br>copy    Create a copy of the assigned value instead of referencing the existing instance.<br>Now that we’ve got properties out of the way, we can take an in-depth look at the other half of Objective-C classes: methods. We’ll explore everything from the quirks behind their naming conventions to dynamic method calls.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;翻译一篇iOS平台OC语法中的Properties用法及说明 &lt;a href=&quot;http://rypress.com/tutorials/objective-c/properties&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
+    
+    
+      <category term="Objective-C" scheme="http://vrast.cn/tags/Objective-C/"/>
+    
+  </entry>
   
   <entry>
     <title>在MAC平台体验DotnetCore</title>
@@ -897,41 +986,6 @@
     
     
       <category term="INTENSE GOAP文档" scheme="http://vrast.cn/tags/INTENSE-GOAP%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IDFA zeroed FAQ</title>
-    <link href="http://vrast.cn/posts/72c95874/"/>
-    <id>http://vrast.cn/posts/72c95874/</id>
-    <published>2016-11-18T09:50:28.000Z</published>
-    <updated>2016-11-18T10:25:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>IDFA获取时 值为<code> 00000000-0000-0000-0000-000000000000 </code> 解决方案</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="获取IDFA的方法"><a href="#获取IDFA的方法" class="headerlink" title="获取IDFA的方法"></a>获取IDFA的方法</h1><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> * adid =[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];</div></pre></td></tr></table></figure>
-<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p>获取出来的ID为用户广告ID，可作为用户广告的唯一标识，通常广告商都会使用此id作为标识符，如果获取不到则会造成<code>广告无法播放</code></p>
-<ol>
-<li>目前尚无解决办法，需要用户自己去 隐私-&gt;广告-&gt;关闭限制广告追踪</li>
-<li>可以在需要项目启动的时候就判断一次广告是否开启作出相应提示</li>
-</ol>
-<p><a href="https://developer.apple.com/reference/adsupport/asidentifiermanager/1614151-advertisingidentifier" target="_blank" rel="external">advertisingIdentifier官方相关说明文档</a><br><a href="http://stackoverflow.com/questions/38919414/ios-10-and-idfa-zeroed-attribution" target="_blank" rel="external">stackoverflow相关问题</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;IDFA获取时 值为&lt;code&gt; 00000000-0000-0000-0000-000000000000 &lt;/code&gt; 解决方案&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="Objective-C" scheme="http://vrast.cn/tags/Objective-C/"/>
     
   </entry>
   
