@@ -59,10 +59,10 @@
     <link href="http://vrast.cn/posts/d1301104/"/>
     <id>http://vrast.cn/posts/d1301104/</id>
     <published>2017-03-01T14:35:29.000Z</published>
-    <updated>2017-03-02T15:24:57.000Z</updated>
+    <updated>2017-03-02T15:45:48.000Z</updated>
     
     <content type="html"><![CDATA[<p>这个系列是我阅读 UNITY5.X AI PROGRAMMING COOKBOOK 的笔记。有好又坏 请酌情阅读，有不当之处还请指出。<br><a id="more"></a></p>
-<p>本章主要概述如果让AI动起来。对应到原书也就是第一章节。</p>
+<p>本章主要概述让 AI 更智能的移动。对应到原书也就是第一章节。</p>
 <h1 id="使AI移动"><a href="#使AI移动" class="headerlink" title="使AI移动"></a>使AI移动</h1><p>这三个类的工作如下。</p>
 <ol>
 <li>Agent负责 计算当前帧的移动与下一帧的移动。</li>
