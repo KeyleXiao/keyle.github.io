@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-02T12:24:26.000Z</updated>
+  <updated>2017-03-03T07:21:04.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>KVO in iOS</title>
+    <link href="http://vrast.cn/posts/d0d6deab/"/>
+    <id>http://vrast.cn/posts/d0d6deab/</id>
+    <published>2017-03-02T11:20:52.000Z</published>
+    <updated>2017-03-03T07:21:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>如果我更改了一个属性的值，KVO会帮助我们检测这个值的变化，从而通知我们这个值改变了。典型的观察者模式。当然我想起在UNITY3D中，如果检视面板的数值发生改变对应的GameObject发生位移之类的。我曾经实现了一个inspector的编辑器类，值改变直接通知(其实是调用)对应的函数。在iOS这里 一切发生的那么自然。不需要额外实现 这是iOS的特性之一 名曰：KVO 。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>上一篇 KVC 讲到需要遵循的几条几本规则在 KVO 中同样适用。</p>
+<ul>
+<li>骆驼命名法,不能数字开头</li>
+<li>不能包含空格</li>
+<li>键必须是ASCII编码的</li>
+<li>使用默认的get/set</li>
+</ul>
+<p>上一章 只要是针对 object 的元素查询，调用，筛选。本文主要是讲述 KVO 监听(观察者模式) 属性值的变更。</p>
+<h1 id="添加／移除-一个监听"><a href="#添加／移除-一个监听" class="headerlink" title="添加／移除 一个监听"></a>添加／移除 一个监听</h1><p>addObserver 函数签名如下</p>
+<ul>
+<li>addObserver：监听的接受脚本的类</li>
+<li>context：    随便传入任何值都可以，最后取出来的时候需要强转</li>
+<li>forKeyPath:  选择一个需要监听的属性</li>
+<li>options：    可选项</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Bar.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    Foo* foo = [[Foo alloc]init];</div><div class="line">   </div><div class="line">    <span class="built_in">NSString</span>* s = <span class="string">@"helloworld"</span>;</div><div class="line">    </div><div class="line">    foo.bar = [[Bar alloc]init];</div><div class="line">    [foo.bar addObserver:foo forKeyPath:<span class="string">@"stringOnBar"</span> options:<span class="number">0</span> context: (<span class="keyword">void</span>*)s];</div><div class="line">    </div><div class="line">    foo.bar.stringOnBar = <span class="string">@"test"</span>;</div><div class="line"></div><div class="line">    [foo.bar removeObserver:foo forKeyPath:<span class="string">@"stringOnBar"</span>];</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>控制台输出如下:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-03</span> <span class="number">15</span>:<span class="number">17</span>:<span class="number">22.085142</span> oc[<span class="number">52721</span>:<span class="number">6279405</span>] helloworld</div><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-03</span> <span class="number">15</span>:<span class="number">17</span>:<span class="number">22.085371</span> oc[<span class="number">52721</span>:<span class="number">6279405</span>] Value Changed : stringOnBar</div><div class="line">Program ended with exit code: <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<h2 id="关于-options-可选项"><a href="#关于-options-可选项" class="headerlink" title="关于 options 可选项"></a>关于 options 可选项</h2><p>上面的代码中 options 是个可选项，这里不需要处理所以填写0，详细的选项如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSKeyValueObservingOptionNew</span>     把更改之前的值提供给处理方法</div><div class="line"><span class="built_in">NSKeyValueObservingOptionOld</span>     把更改之后的值提供给处理方法</div><div class="line"><span class="built_in">NSKeyValueObservingOptionInitial</span> 把初始化的值提供给处理方法，一旦注册，立马就会调用一次。通常它会带有新值，而不会带有旧值。</div><div class="line"><span class="built_in">NSKeyValueObservingOptionPrior</span>   分<span class="number">2</span>次调用。在值改变之前和值改变之后。</div><div class="line"><span class="number">0</span>                                不带任何参数进去</div></pre></td></tr></table></figure>
+<p>传递给监听的值在接受函数<code> ofObject:(id)object </code>可以获取到。</p>
+<h2 id="关于监听脚本"><a href="#关于监听脚本" class="headerlink" title="关于监听脚本"></a>关于监听脚本</h2><p>不用担心监听脚本过于复杂。其实是自动生成的 键入 observeValueForKeyPath 则会生成如下代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span> *)change context:(<span class="keyword">void</span> *)context</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span>* content = (__bridge <span class="built_in">NSString</span>*)context;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (content) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,content);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"stringOnBar"</span>]) &#123;</div><div class="line">         <span class="built_in">NSLog</span>(<span class="string">@"Value Changed : stringOnBar"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"stringOnFoo"</span>]) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Value Changed : stringOnFoo"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> observeValueForKeyPath:keyPath ofObject:object change:change context:context];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然结构体里面的内容是我自己些的 😄</p>
+<p>当类 dealloc 的时候需要手动移除监听，否则会报错 … 报错信息如下:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">2017-03-03 15:16:02.560251 oc[52593:6273946] *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'An instance 0x1004065e0 of class Bar was deallocated while key value observers were still registered with it. Current observation info: &lt;NSKeyValueObservationInfo 0x100406b90&gt; (</div><div class="line">&lt;NSKeyValueObservance 0x100407e80: Observer: 0x1004045e0, Key path: stringOnBar, Options: &lt;New: NO, Old: NO, Prior: NO&gt; Context: 0x1000030c0, Property: 0x100406ac0&gt;</div><div class="line">)'</div><div class="line">*** First throw call stack:</div><div class="line">(</div><div class="line">	0   CoreFoundation                      0x00007fffa311fe7b __exceptionPreprocess + 171</div><div class="line">	1   libobjc.A.dylib                     0x00007fffb7d09cad objc_exception_throw + 48</div><div class="line">	2   CoreFoundation                      0x00007fffa319e99d +[NSException raise:format:] + 205</div><div class="line">	3   Foundation                          0x00007fffa4aff6e4 NSKVODeallocate + 293</div><div class="line">	4   oc                                  0x000000010000278e -[Foo .cxx_destruct] + 78</div><div class="line">	5   libobjc.A.dylib                     0x00007fffb7d05686 _ZL27object_cxxDestructFromClassP11objc_objectP10objc_class + 127</div><div class="line">	6   libobjc.A.dylib                     0x00007fffb7cfe0c6 objc_destructInstance + 92</div><div class="line">	7   libobjc.A.dylib                     0x00007fffb7cfe059 object_dispose + 22</div><div class="line">	8   oc                                  0x000000010000166e main + 398</div><div class="line">	9   libdyld.dylib                       0x00007fffb85ed255 start + 1</div><div class="line">)</div><div class="line">libc++abi.dylib: terminating with uncaught exception of type NSException</div><div class="line">(lldb)</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;如果我更改了一个属性的值，KVO会帮助我们检测这个值的变化，从而通知我们这个值改变了。典型的观察者模式。当然我想起在UNITY3D中，如果检视面板的数值发生改变对应的GameObject发生位移之类的。我曾经实现了一个inspector的编辑器类，值改变直接通知(其实是调用)对应的函数。在iOS这里 一切发生的那么自然。不需要额外实现 这是iOS的特性之一 名曰：KVO 。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
+    
+    
+      <category term="KVO" scheme="http://vrast.cn/tags/KVO/"/>
+    
+  </entry>
   
   <entry>
     <title>KVC in iOS</title>
@@ -981,52 +1033,6 @@
     
     
       <category term="Unity3D编辑器" scheme="http://vrast.cn/tags/Unity3D%E7%BC%96%E8%BE%91%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>消息通知模型</title>
-    <link href="http://vrast.cn/posts/a9143383/"/>
-    <id>http://vrast.cn/posts/a9143383/</id>
-    <published>2016-11-23T13:56:19.000Z</published>
-    <updated>2016-11-23T14:49:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>本章节讲述消息通知模型在TPS项目中的使用，这种模型常见于项目中，表现多为Observer模式;Key-Value触发器模式; 文章末我会列出自己写的基于事件触发的模型,支持多种类型消息传递。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="INTENSE的消息系统设计"><a href="#INTENSE的消息系统设计" class="headerlink" title="INTENSE的消息系统设计"></a>INTENSE的消息系统设计</h1><p>举个例子，在 ThrowingEvents.cs 脚本中，有预先暴露的Event接口，观察事件触发时便会通知其他注册的事件。</p>
-<ul>
-<li>不使用单例,当前消息系统并不是，也就意味着每次需要初始化一个新的消息系统</li>
-<li>保持隔离性，INTENSE的消息系统设计就是每个不同类型的消息系统都会相互隔离。使用不同类型进行区分</li>
-</ul>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//代码片段</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ThrowingEvents</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">SingleThrowParamHandler</span>(<span class="params">Exploder exp</span>)</span>;</div><div class="line"></div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">event</span> SingleThrowParamHandler onThrowableExit;</div><div class="line"></div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InvokeThrowableExit</span>(<span class="params">Exploder exp</span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (onThrowableExit != <span class="literal">null</span>)</div><div class="line">            onThrowableExit(exp);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当前消息在 Canvas3D.cs 脚本中被注册</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Canvas3D</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//···</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//···</span></div><div class="line">        player.SmbThrow.Events.onThrowableExit += OnThrowableExit;</div><div class="line">        <span class="comment">//···</span></div><div class="line">    &#125;        </div><div class="line">    <span class="comment">//···      </span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnThrowableExit</span>(<span class="params">Exploder exp</span>)</span></div><div class="line">    &#123;</div><div class="line">        SetThrowableImage(player.SmbThrow.GetThrowableSprite());</div><div class="line">        SetThrowableName(player.SmbThrow.GetThrowableName());</div><div class="line">        ThrowableCountTexter(player.SmbThrow.GetThrowableCount());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当前消息(事件)在 ThrowCSMB.cs 脚本中被触发</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ThrowCSMB</span> : <span class="title">CustomPlayerSystemSMB</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//···</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ThrowCExploderClone</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (cExploderClone)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//···</span></div><div class="line">            Events.InvokeOnThrow(cExploderClone);</div><div class="line">            <span class="comment">//···</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当这三个脚本运作起来的效果就是 玩家投掷-&gt;UI改变，此处有一个东西需要注意一下 就是 注册的先后顺序。</p>
-<h1 id="Event调用的先后顺序-先入先出"><a href="#Event调用的先后顺序-先入先出" class="headerlink" title="Event调用的先后顺序 先入先出"></a>Event调用的先后顺序 先入先出</h1><p>If I set up multiple event handlers, like so:</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">_webservice.RetrieveDataCompleted += ProcessData1;</div><div class="line">_webservice.RetrieveDataCompleted += ProcessData2;</div></pre></td></tr></table></figure>
-<p>The answer will be specific to the RetrieveDataCompleted event.<br> If it has the default backing store of a multi-cast delegate, then yes “they run in the same thread and sequentially in the order that are registered”.<br> <a href="http://stackoverflow.com/questions/1645478/order-of-event-handler-execution" target="_blank" rel="external">Event在同一个线程内先注册的事件先被调用 - Stack Overflow FAQ</a></p>
-<h1 id="CASE"><a href="#CASE" class="headerlink" title="CASE"></a>CASE</h1><embed src="http://www.tudou.com/v/N0zqkp5U-eo/&bid=05&resourceId=0_05_05_99/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="480" height="400">
-
-<p><a href="http://git.oschina.net/keyle/SmartNotificationFramework" target="_blank" rel="external">我个人写的消息通知模型源码，附带单元测试。</a></p>
-<p><a href="http://git.oschina.net/keyle/SmartNotificationFramework/blob/master/SourceCode/TestCode/Demo.cs?dir=0&amp;filepath=SourceCode%2FTestCode%2FDemo.cs&amp;oid=703770de1ecdac0bbdf77dce2f6ec171c6a34af1&amp;sha=ba3aca46471c783b2320dac16056f5b4e70616dd" target="_blank" rel="external">核心部分举例</a> ，框架核心就是<code>RegisterEvent，UnregisterEvent</code>两个方法的包装。所有的消息被维护到具体的几个dictionary中。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本章节讲述消息通知模型在TPS项目中的使用，这种模型常见于项目中，表现多为Observer模式;Key-Value触发器模式; 文章末我会列出自己写的基于事件触发的模型,支持多种类型消息传递。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="INTENSE项目源码分析" scheme="http://vrast.cn/categories/INTENSE%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Observer" scheme="http://vrast.cn/tags/Observer/"/>
     
   </entry>
   
