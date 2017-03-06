@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-06T07:42:13.000Z</updated>
+  <updated>2017-03-06T08:04:59.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,14 +20,16 @@
     <link href="http://vrast.cn/posts/f84fd914/"/>
     <id>http://vrast.cn/posts/f84fd914/</id>
     <published>2017-03-06T06:43:32.000Z</published>
-    <updated>2017-03-06T07:42:13.000Z</updated>
+    <updated>2017-03-06T08:04:59.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 <code>partial</code> 部分类。<br><a id="more"></a></p>
 </blockquote>
 <p>下面的例子直接使用扩展类。不修改原类型 <code>Foo</code>的前提下，给  <code>Foo</code> 添加了一个 <code>GetDescription</code> 实例方法。并且访问了 <code>Foo</code> 的 <code>stringOnFoo</code> 属性。</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.stringOnFoo) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,<span class="keyword">self</span>.stringOnFoo);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.stringOnFoo;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">@""</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    fo.stringOnFoo = <span class="string">@"helloworld"</span>;</div><div class="line">    [fo GetDescription];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
+<p>扩展类型的时候记得要加上属于自己的前缀，因为在原类型中可能后续会追加与扩展类的重名的方法签名，导致无法调用，即被扩展类的方法覆盖。</p>
+<h1 id="匿名类扩展"><a href="#匿名类扩展" class="headerlink" title="匿名类扩展"></a>匿名类扩展</h1><p>我在这里声明了一个匿名的扩展类型。然后在 Foo.m 中进行了实现。这个接口声明对使用者隐藏了。所以也不用 import 这个匿名头文件，可以直接调用。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span>()</span></div><div class="line">-(<span class="keyword">void</span>)InvokePrivateMethod;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    [fo InvokePrivateMethod];</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -48,7 +50,7 @@
     <link href="http://vrast.cn/posts/cdd77a74/"/>
     <id>http://vrast.cn/posts/cdd77a74/</id>
     <published>2017-03-06T02:39:18.000Z</published>
-    <updated>2017-03-06T06:39:27.000Z</updated>
+    <updated>2017-03-06T07:43:12.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>记录关于协议在objectivec中的用法以及类比。之前我认为 objectivec 所谓的协议就是C#里的接口。oc里的协议支持继承，支持可选实现，支持嵌套的结构(在A协议使用B协议) 的意思。</p>
@@ -80,7 +82,7 @@
     <link href="http://vrast.cn/posts/c511b8c1/"/>
     <id>http://vrast.cn/posts/c511b8c1/</id>
     <published>2017-03-04T12:59:48.000Z</published>
-    <updated>2017-03-06T06:37:38.000Z</updated>
+    <updated>2017-03-06T07:43:12.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>为什么要学外语 ？如果不感兴趣的你可以不用学，嘿嘿。 本文是我阅读文法俱乐部(旋元佑老师著作)的笔记，无笔记不读书。记录一些关键的信息，一共二十二个章节，我打算分11个笔记记录我阅读的过程。那么我们就开始了 😁</p>
