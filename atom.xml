@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-06T08:04:59.000Z</updated>
+  <updated>2017-03-06T10:04:26.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Exception in iOS</title>
+    <link href="http://vrast.cn/posts/372264d9/"/>
+    <id>http://vrast.cn/posts/372264d9/</id>
+    <published>2017-03-06T08:59:21.000Z</published>
+    <updated>2017-03-06T10:04:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>每一种语言都有自己的异常处理机制，几乎都类似有一个 Exception 类型，和一个 throw 的动作。</p>
+</blockquote>
+<h1 id="使用NSExpection系统"><a href="#使用NSExpection系统" class="headerlink" title="使用NSExpection系统"></a>使用NSExpection系统</h1><p>通过Expection的 exceptionWithName 定义一个异常说明。使用 @throw 抛出这个异常<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSException</span>* ex =[<span class="built_in">NSException</span> exceptionWithName:<span class="string">@"error happen ..."</span> reason:<span class="string">@"haha.."</span> userInfo:<span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">@try</span> &#123;</div><div class="line">        <span class="keyword">@throw</span> ex;</div><div class="line">    &#125; <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"catch expection %@"</span>,exception.name);</div><div class="line">    &#125; <span class="keyword">@finally</span> &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"finally ..."</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>控制台输出如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-06</span> <span class="number">17</span>:<span class="number">16</span>:<span class="number">29.790786</span> oc[<span class="number">56297</span>:<span class="number">1862847</span>] catch expection error happen ...</div><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-06</span> <span class="number">17</span>:<span class="number">16</span>:<span class="number">29.791746</span> oc[<span class="number">56297</span>:<span class="number">1862847</span>] finally ...</div><div class="line">Program ended with exit code: <span class="number">0</span></div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;每一种语言都有自己的异常处理机制，几乎都类似有一个 Exception 类型，和一个 throw 的动作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;使用NSExpection系统&quot;&gt;&lt;a href=&quot;#使用NSExpection系统&quot; 
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
+    
+    
+      <category term="Exception" scheme="http://vrast.cn/tags/Exception/"/>
+    
+  </entry>
   
   <entry>
     <title>Extension in iOS</title>
@@ -926,89 +956,6 @@
     
     
       <category term="CODE" scheme="http://vrast.cn/tags/CODE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Studio生成jar包</title>
-    <link href="http://vrast.cn/posts/bfe68343/"/>
-    <id>http://vrast.cn/posts/bfe68343/</id>
-    <published>2016-12-03T13:14:09.000Z</published>
-    <updated>2017-01-12T15:06:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ol>
-<li>请确保本地有 Android SDK,如无 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
-<li>确保gradle环境配置完毕 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
-</ol>
-<h1 id="什么是jar包"><a href="#什么是jar包" class="headerlink" title="什么是jar包 ?"></a>什么是jar包 ?</h1><p>JAR（Java ARchive，Java 归档）是一种与平台无关的文件格式，可将多个文件合成一个文件。可以简单的看作类似zip的压缩包，里面存放的是代码与项目资源。<br>更详细的介绍在这里 <a href="http://www.ibm.com/developerworks/cn/java/j-jar/" target="_blank" rel="external">JAR 文件揭密 -来自IBM公司官网</a> 下面做一些jar的特性摘要：</p>
-<p>JAR 文件格式提供了许多优势和功能，其中很多是传统的压缩格式如 ZIP 或者 TAR 所没有提供的。它们包括：</p>
-<ul>
-<li>安全性。可以对 JAR 文件内容加上数字化签名。这样，能够识别签名的工具就可以有选择地为您授予软件安全特权，这是其他文件做不到的，它还可以检测代码是否被篡改过。</li>
-<li>减少下载时间。如果一个 applet 捆绑到一个 JAR 文件中，那么浏览器就可以在一个 HTTP 事务中下载这个 applet 的类文件和相关的资源，而不是对每一个文件打开一个新连接。</li>
-<li>压缩。JAR 格式允许您压缩文件以提高存储效率。</li>
-<li>传输平台扩展。Java 扩展框架 (Java Extensions Framework) 提供了向 Java 核心平台添加功能的方法，这些扩展是用 JAR 文件打包的 (Java 3D 和 JavaMail 就是由 Sun 开发的扩展例子 )。</li>
-<li>包密封。存储在 JAR 文件中的包可以选择进行 密封，以增强版本一致性和安全性。密封一个包意味着包中的所有类都必须在同一 JAR 文件中找到。</li>
-<li>包版本控制。一个 JAR 文件可以包含有关它所包含的文件的数据，如厂商和版本信息。</li>
-<li>可移植性。处理 JAR 文件的机制是 Java 平台核心 API 的标准部分。</li>
-</ul>
-<h1 id="Eclipse平台打包-jar-的方式"><a href="#Eclipse平台打包-jar-的方式" class="headerlink" title="Eclipse平台打包 jar 的方式"></a>Eclipse平台打包 jar 的方式</h1><ol>
-<li><p>自动化打jar包方法<br><a href="http://stackoverflow.com/questions/1062941/build-project-into-a-jar-automatically-in-eclipse" target="_blank" rel="external">Build project into a JAR automatically in Eclipse -来自stackoverflow</a></p>
-</li>
-<li><p>手动导出</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>Choose Export &gt; Java &gt; JAR file </div><div class="line"><span class="bullet">2. </span>选中需要导出的文件即可</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="使用Android-Studio导出jar包"><a href="#使用Android-Studio导出jar包" class="headerlink" title="使用Android Studio导出jar包"></a>使用Android Studio导出jar包</h1><p>Android Studio只能间接导出jar包，对此我深表遗憾，它需要新建一个android studio的空项目，然后 添加一个名为 Android Library 的库。最后将这个库导出为jar文件。这里着重说明几个我遇到的问题，</p>
-<ul>
-<li>需要删除test project也就是测试工程，并且在Gradle中删除测试项目的编译命令 </li>
-<li>导出的代码是整个 Library 的代码</li>
-</ul>
-<h2 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h2><ol>
-<li><p>下一步下一步默认即可，注意此处 你的Application Name需要大写开头<br><img src="/uploads/QQ20161203-0@2x.jpg" alt="创建工程"></p>
-</li>
-<li><p>此处我使用的 MyPlugunJar 作为 Andorid Library(类库)名<br><img src="/uploads/QQ20161203-1@2x.jpg" alt="创建Android Library"></p>
-</li>
-</ol>
-<p><img src="/uploads/QQ20161203-5@2x.jpg" alt="添加一个测试用的 MainActivity.java"></p>
-<ol>
-<li>删除测试工程<br><img src="/uploads/AFF4FDDB-BA8D-47B8-978A-04A84C1F9D39.jpg" alt="打开Moudle 设置"></li>
-</ol>
-<p><img src="/uploads/QQ20161203-2@2x.jpg" alt="依次删除 app/MyPlugunJar的依赖项"></p>
-<p><img src="/uploads/70EAC071-2BCC-444F-BD37-A43DB14E4745.jpg" alt="依次删除 测试项目"></p>
-<p>这一步需要注意一下 如果是 Build Unity3D 使用的jar包 是不需要引用 <code>com.android.support:appcompat-v7:22.2.0</code> 这个项目的，可以适当的予以删除。</p>
-<ol>
-<li>添加自动构建代码<br>选中app的Gradle,添加如下代码</li>
-</ol>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dependencies</span> &#123;</div><div class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(<span class="keyword">include</span>: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)</div><div class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:22.2.0'</span></div><div class="line"></div><div class="line">    <span class="comment">//添加编译的类库</span></div><div class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">':myplugunjar'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>选中myplugunjar的Gradle,添加如下代码</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">task</span> makeJar(type: <span class="keyword">Copy</span>) &#123;</div><div class="line">    <span class="comment">//删除存在的</span></div><div class="line">    <span class="keyword">delete</span> <span class="string">'build/libs/mysdk.jar'</span></div><div class="line">    <span class="comment">//打包这个里面的文件</span></div><div class="line">    <span class="keyword">from</span>(<span class="string">'build/intermediates/bundles/release/'</span>)</div><div class="line">    <span class="comment">//放到这个目录</span></div><div class="line">    <span class="keyword">into</span>(<span class="string">'build/libs/'</span>)</div><div class="line">    <span class="comment">//将classes.jar放入build/libs/目录下</span></div><div class="line">    <span class="comment">//include ,exclude参数来设置过滤</span></div><div class="line">    <span class="comment">//这里只需要包含classes.jar这个文件</span></div><div class="line">    <span class="keyword">include</span>(<span class="string">'classes.jar'</span>)</div><div class="line">    <span class="comment">//重命名</span></div><div class="line">    rename (<span class="string">'classes.jar'</span>, <span class="string">'mysdk.jar'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">makeJar.dependsOn(build)</div></pre></td></tr></table></figure>
-<p><img src="/uploads/QQ20161203-3@2x.jpg" alt="添加自动构建代码"></p>
-<ol>
-<li>编译，并且获取jar包</li>
-</ol>
-<p><img src="/uploads/QQ20161203-4@2x.jpg" alt="切换到app项目目录"></p>
-<p>编译指令如下<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">gradle makeJar</span></div></pre></td></tr></table></figure></p>
-<p><img src="/uploads/QQ20161203-6@2x.jpg" alt="最终生成的文件"></p>
-<p><img src="/uploads/QQ20161203-8@2x.jpg" alt="解压这个文件,查看是否正确"></p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="http://blog.csdn.net/ta893115871/article/details/46955791/" target="_blank" rel="external">该文章还介绍了打包资源文件到jar</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;当你在Unity3D开发的时候需要一个Android Plugin的时候回来看看这个文章吧，本篇介绍如何使用Android Studio生成jar包(MacOS)。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Android Studio" scheme="http://vrast.cn/categories/Android-Studio/"/>
-    
-    
-      <category term="jar" scheme="http://vrast.cn/tags/jar/"/>
     
   </entry>
   
