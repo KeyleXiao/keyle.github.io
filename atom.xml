@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-06T10:04:26.000Z</updated>
+  <updated>2017-03-06T13:23:52.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,11 +20,12 @@
     <link href="http://vrast.cn/posts/372264d9/"/>
     <id>http://vrast.cn/posts/372264d9/</id>
     <published>2017-03-06T08:59:21.000Z</published>
-    <updated>2017-03-06T10:04:26.000Z</updated>
+    <updated>2017-03-06T13:23:52.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>每一种语言都有自己的异常处理机制，几乎都类似有一个 Exception 类型，和一个 throw 的动作。</p>
 </blockquote>
+<a id="more"></a>
 <h1 id="使用NSExpection系统"><a href="#使用NSExpection系统" class="headerlink" title="使用NSExpection系统"></a>使用NSExpection系统</h1><p>通过Expection的 exceptionWithName 定义一个异常说明。使用 @throw 抛出这个异常<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSException</span>* ex =[<span class="built_in">NSException</span> exceptionWithName:<span class="string">@"error happen ..."</span> reason:<span class="string">@"haha.."</span> userInfo:<span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">@try</span> &#123;</div><div class="line">        <span class="keyword">@throw</span> ex;</div><div class="line">    &#125; <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"catch expection %@"</span>,exception.name);</div><div class="line">    &#125; <span class="keyword">@finally</span> &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"finally ..."</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>控制台输出如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-06</span> <span class="number">17</span>:<span class="number">16</span>:<span class="number">29.790786</span> oc[<span class="number">56297</span>:<span class="number">1862847</span>] catch expection error happen ...</div><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-06</span> <span class="number">17</span>:<span class="number">16</span>:<span class="number">29.791746</span> oc[<span class="number">56297</span>:<span class="number">1862847</span>] finally ...</div><div class="line">Program ended with exit code: <span class="number">0</span></div></pre></td></tr></table></figure></p>
 ]]></content>
@@ -34,7 +35,6 @@
       &lt;blockquote&gt;
 &lt;p&gt;每一种语言都有自己的异常处理机制，几乎都类似有一个 Exception 类型，和一个 throw 的动作。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;使用NSExpection系统&quot;&gt;&lt;a href=&quot;#使用NSExpection系统&quot; 
     
     </summary>
     
