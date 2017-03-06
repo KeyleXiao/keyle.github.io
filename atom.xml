@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-03T08:07:12.000Z</updated>
+  <updated>2017-03-06T07:42:13.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,116 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Extension in iOS</title>
+    <link href="http://vrast.cn/posts/f84fd914/"/>
+    <id>http://vrast.cn/posts/f84fd914/</id>
+    <published>2017-03-06T06:43:32.000Z</published>
+    <updated>2017-03-06T07:42:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 <code>partial</code> 部分类。<br><a id="more"></a></p>
+</blockquote>
+<p>下面的例子直接使用扩展类。不修改原类型 <code>Foo</code>的前提下，给  <code>Foo</code> 添加了一个 <code>GetDescription</code> 实例方法。并且访问了 <code>Foo</code> 的 <code>stringOnFoo</code> 属性。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.stringOnFoo) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,<span class="keyword">self</span>.stringOnFoo);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.stringOnFoo;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">@""</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    fo.stringOnFoo = <span class="string">@"helloworld"</span>;</div><div class="line">    [fo GetDescription];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 &lt;code&gt;partial&lt;/code&gt; 部分类。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
+    
+    
+      <category term="Extension" scheme="http://vrast.cn/tags/Extension/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protocal in iOS</title>
+    <link href="http://vrast.cn/posts/cdd77a74/"/>
+    <id>http://vrast.cn/posts/cdd77a74/</id>
+    <published>2017-03-06T02:39:18.000Z</published>
+    <updated>2017-03-06T06:39:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>记录关于协议在objectivec中的用法以及类比。之前我认为 objectivec 所谓的协议就是C#里的接口。oc里的协议支持继承，支持可选实现，支持嵌套的结构(在A协议使用B协议) 的意思。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="像c-使用接口那样使用协议"><a href="#像c-使用接口那样使用协议" class="headerlink" title="像c#使用接口那样使用协议"></a>像c#使用接口那样使用协议</h1><p>我创建了一个默认的协议，继承了NSObject的协议，这个协议当然是可选的。不正经的说这里就像是C#的泛型约束(where class)。<br>我在这里标记了 @required ,这也是可选的，因为默认都是 @required。<br>@optional 也是可选的，标记了 @optional 就可以不必在继承此协议的类中使用。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">PrintLine</span></span></div><div class="line"></div><div class="line"><span class="keyword">@required</span></div><div class="line">-(<span class="keyword">void</span>)Log:(<span class="built_in">NSString</span>*) content;</div><div class="line"></div><div class="line"><span class="keyword">@optional</span></div><div class="line">-(<span class="keyword">void</span>)SayHello:(<span class="built_in">NSString</span>*) content;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>可以在尖括号里添加多个协议<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Bar.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"PrintLine.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span> : <span class="title">NSObject</span>&lt;<span class="title">PrintLine</span>,<span class="title">NSObject</span>&gt;</span></div><div class="line">&#123;</div><div class="line">    Bar* bar;</div><div class="line">    <span class="built_in">NSString</span>* stringOnFoo;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) Bar* bar;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSString</span>* stringOnFoo;</div><div class="line"></div><div class="line">+(<span class="keyword">void</span>)sayHello:(<span class="built_in">NSString</span>*) name;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)addObserver;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>如果想要知道一个协议是否被正在使用的类实现了，可以使用 <code>confirmsToProtocal</code></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"PrintLine.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">     Foo* fo = [[Foo alloc]init];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> ([fo conformsToProtocol:<span class="class"><span class="keyword">@protocol</span>(<span class="title">PrintLine</span>)]) </span>&#123;</div><div class="line">        [fo Log:<span class="string">@"protocal"</span>];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;记录关于协议在objectivec中的用法以及类比。之前我认为 objectivec 所谓的协议就是C#里的接口。oc里的协议支持继承，支持可选实现，支持嵌套的结构(在A协议使用B协议) 的意思。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
+    
+    
+      <category term="Protocal" scheme="http://vrast.cn/tags/Protocal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>English Grammar 1</title>
+    <link href="http://vrast.cn/posts/c511b8c1/"/>
+    <id>http://vrast.cn/posts/c511b8c1/</id>
+    <published>2017-03-04T12:59:48.000Z</published>
+    <updated>2017-03-06T06:37:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>为什么要学外语 ？如果不感兴趣的你可以不用学，嘿嘿。 本文是我阅读文法俱乐部(旋元佑老师著作)的笔记，无笔记不读书。记录一些关键的信息，一共二十二个章节，我打算分11个笔记记录我阅读的过程。那么我们就开始了 😁</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="五种常见基本句型"><a href="#五种常见基本句型" class="headerlink" title="五种常见基本句型"></a>五种常见基本句型</h1><p>主            动          宾           补<br>S : Subject   V : Verb   O：Object   C: Complement</p>
+<ul>
+<li>S + V </li>
+<li>S + V + O</li>
+<li>S + V + C</li>
+<li>S + V + O + O</li>
+<li>S + V + O + C</li>
+</ul>
+<p>一个完整的句子少不了动词。</p>
+<h1 id="补语"><a href="#补语" class="headerlink" title="补语"></a>补语</h1><p>要了解补语，只需要研究那些解释为“是”的动词。基本句型分五种，是因为有五种特性不同的动词而造成的。<br>在所有的英语动词中，只有解释为“是”的动词是空的,完全没有意义。也只有这种动词才需要补语来补足句子的意思。</p>
+<p>可以独立发生，不牵涉到别的人或物，这种动词就叫“不及物”动词。不及物动词反之。</p>
+<p>一个完整的句子必须能够表达完整的意思。这需要两个以上部分来完成：主语和动词。主语，是这个句子叙述的对象。动词，构成叙述的主要内容。</p>
+<p>在中文翻译中，动词“是”完全不见了！<br>The cat is lovely.        这只猫很可爱。<br>The soup is too hot.      汤太烫了<br>Taroko Gorge is beautiful.xx峡谷很美。</p>
+<p>我们称“是”为连缀动词。跟在这种动词后面的部分，因为代替了动词所扮演的叙述角色，补足了句子使它获得完整的意思，称之为“补语”。</p>
+<p>需要补语的动词有哪些：<br>look , seem , appear , sound , feel . taste , turn , prove , become , make<br>因为这些动词都是空字眼，都还不能构成一个有意义的完整句子，所以需要补语来补足。<br>上面这些动词有一个特点 就是都可以用 is 来替代。</p>
+<blockquote>
+<p>检验 <code>S + V + O + C </code>的技巧，把宾语与补语拿出来中间加一个be动词。看看能不能改成 <code>S + V + C</code></p>
+</blockquote>
+<p>补语的词类应该是名词和形容词比较合理。因为主语或宾语都是名词，所以补语也可以是名词，经由“是”连接表达同等的关系。</p>
+<p>be动词时最纯粹的linking verb，解释为“是”，后面应该有补语才算完整，如果看到be动词后面没有补语，表示这个be动词并不是当作连缀动词使用。如果看到be动词后面没有补语，表示这个be动词并不是当作连缀动词使用，这时候be动词不解释为“是”，而是要解释为“存在”，用在最单纯的“主语+动词(S+V)”的句型中。<br>A is B’s father . 这里be动词必须翻译出来。<br>To be or not to be .that is the question. –哈姆雷特</p>
+<h1 id="双宾语句型"><a href="#双宾语句型" class="headerlink" title="双宾语句型"></a>双宾语句型</h1><p>dog 并不对 him 进行补充,him 与 dog是并列的，所以都是宾语。可以把两个宾语拿出来中间加一个be 哈哈。him is a dog 。骂人就不对了。<br>A’s father gave him a dog.</p>
+<p>dog是对him的补充说明。所以满足 SVOC<br>A’s father called him a dog. </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;为什么要学外语 ？如果不感兴趣的你可以不用学，嘿嘿。 本文是我阅读文法俱乐部(旋元佑老师著作)的笔记，无笔记不读书。记录一些关键的信息，一共二十二个章节，我打算分11个笔记记录我阅读的过程。那么我们就开始了 😁&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="English" scheme="http://vrast.cn/categories/English/"/>
+    
+    
+      <category term="Grammar" scheme="http://vrast.cn/tags/Grammar/"/>
+    
+  </entry>
   
   <entry>
     <title>KVO in iOS</title>
@@ -897,147 +1007,6 @@
     
     
       <category term="jar" scheme="http://vrast.cn/tags/jar/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ADB环境配置以及常用命令</title>
-    <link href="http://vrast.cn/posts/e3476f51/"/>
-    <id>http://vrast.cn/posts/e3476f51/</id>
-    <published>2016-12-03T10:24:49.000Z</published>
-    <updated>2016-12-04T06:42:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>本文描述ADB在MAC上的配置过程，以及常用的Command(ADB装x指南).更科学的Android SDK使用。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ol>
-<li>请确保本地有 Android SDK,如无 <a href="http://vrast.cn/posts/9d8752cb/">请参见 Gradle环境配置一文</a></li>
-<li>确保 SDK 中有 platform-tools,以下是我的配置路径</li>
-</ol>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> keyle@keyles-MacBook-Pro  ~/Library/Android/sdk/platform-tools  ls -<span class="selector-tag">a</span></div><div class="line">.                 adb               fastboot          sqlite3</div><div class="line">..                api               hprof-conv        systrace</div><div class="line"><span class="selector-class">.DS_Store</span>         dmtracedump       package<span class="selector-class">.xml</span></div><div class="line">NOTICE<span class="selector-class">.txt</span>        etc1tool          source.properties</div></pre></td></tr></table></figure>
-<h2 id="配置MAC环境"><a href="#配置MAC环境" class="headerlink" title="配置MAC环境"></a>配置MAC环境</h2><p>打开terminal,在<code>~</code>路径下输入下面命令</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">//</span>此命令写文本</div><div class="line">vim .bash_profile</div><div class="line"><span class="regexp">//</span>进入编辑模式 粘贴如下配置</div><div class="line">export PATH=<span class="variable">$PATH</span>:~<span class="regexp">/Library/</span>Android<span class="regexp">/sdk/</span>platform-tools</div><div class="line"><span class="regexp">//</span>键入:wq 结束编辑,返回后键入如下代码 完成配置</div><div class="line">source .bash_profile</div></pre></td></tr></table></figure>
-<h1 id="关于ADB你不得不知道的8个命令-The-Most-Common-ADB-Commands-You-Must-Know-译文"><a href="#关于ADB你不得不知道的8个命令-The-Most-Common-ADB-Commands-You-Must-Know-译文" class="headerlink" title="关于ADB你不得不知道的8个命令 The Most Common ADB Commands You Must Know 译文"></a>关于ADB你不得不知道的8个命令 <a href="https://www.maketecheasier.com/common-adb-commands/" target="_blank" rel="external">The Most Common ADB Commands You Must Know 译文</a></h1><p>ADB对于Andorid实在是Debug的桥梁啊，它允许你使用你的电脑控制你的手机。这种情况下你想在桌面上给你的手机安装APP，你就该用ADB了。ADB可以干很多类似事儿，比如说装APP,懂点使用ADB命令的知识是非常有益的(利于装x)，你可以不碰手机能干老多事儿了，在下文，我们例举了常见的可以在操作手机的ADB指令。<br>ADB stands for Android Debug Bridge, and it allows you to communicate with your Android device using your computer. For instance, if you wish to install an app on your device right from your desktop, you can do so using ADB. There is a lot more you can do with ADB than just installing an app. Having knowledge of some of the most used ADB commands is really beneficial, as it will let you perform a number of actions on your device without even touching it. Here, we have compiled some of the common commands that you can use with ADB to perform actions on your device.</p>
-<ol>
-<li>Reboot your Device 重启手机</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot</span></div></pre></td></tr></table></figure>
-<ol>
-<li>Reboot into Recovery 重启进入Recovery模式</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot recovery</span></div></pre></td></tr></table></figure>
-<ol>
-<li>Reboot into Bootloader Mode 重启进入Bootloader模式</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot bootloader</span></div></pre></td></tr></table></figure>
-<p>这里我想提醒看本文的朋友，如果不懂Bootloader模式是什么就不要进去了，可能会把手机变成 “真.砖”.<br>Bootloader是嵌入式系统在加电后执行的第一段代码，在它完成CPU和相关硬件的初始化之后，再将操作系统映像或固化的嵌入式应用程序装在到内存中然后跳转到操作系统所在的空间，启动操作系统运行.<a href="http://baike.baidu.com/link?url=grtUF08lHN4fVUlzG2SfFAb6GvWzP_TwOnJB2RfSZaSE8GS-t1_4qY0lVtNn1dVUDZxsS79BqN-FQmIsvqQND6fC7g63eDkE3MUFMC-K2Uy" target="_blank" rel="external">-来自百度百科的一段介绍</a></p>
-<ol>
-<li>Reboot into Fastboot 重启进入Fastboot模式</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb reboot fastboot</span></div></pre></td></tr></table></figure>
-<ol>
-<li>Send File to your Device 给手机发送文件</li>
-</ol>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb <span class="keyword">push</span> <span class="keyword">Source</span> Destination</div></pre></td></tr></table></figure>
-<p>上面的命令支持你发送文件到设备上去，你只需要将文件的源路径写在命令的Source参数上和你想发送的目标参数填写完毕。<br>The above command lets you send files to your device. You just need to specify the source location of the file in the source argument in the command and the destination where you want to send your file.</p>
-<ol>
-<li>Get File from your Device 从手机获取文件</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb pull FileLocation Destination</span></div></pre></td></tr></table></figure>
-<p>此命令支持你从手机拉取数据，换句话说，从手机接收文件。只需要填写设备上的文件路径与电脑上的目录即可正常运行。<br>It will let you pull, or in other words, receive a file from your device. Just specify the file location on your device and the destination in the command, and it should do the job for you.</p>
-<ol>
-<li>Install an App on your Device 安装APK</li>
-</ol>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb <span class="keyword">install</span> APKLocation</div></pre></td></tr></table></figure>
-<p>这条命令支持你从电脑安装手机APP,你只需要填写APK的特殊路径，他就会安装你选中的APK.<br>What this command does is let you install an app on your device right from your computer. You just need to specify the APK location in the command, and it will install the selected app on your device.</p>
-<ol>
-<li>Remount the System 重装系统</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">adb remount</span></div></pre></td></tr></table></figure>
-<p>如果你想重新挂载你设备的系统分区，可以用上面提到的命令<br>In case you want to remount the entire system of your device, you can issue the command mentioned above.<br><code>adb remount</code>命令主要是 重新挂载系统分区，使系统分区重新可写(读写权限)</p>
-<p>Conclusion 结论 略..<br>These were the most common ADB commands you should know if you have an Android device and you often connect it to your computer. It will save you some time that you will otherwise spend doing tasks manually.</p>
-<p>Just having knowledge of some of the commands given above would prove to be really beneficial to you in the future. As if you ever wish to reboot your device into a specific mode or just want to install an app right off your computer, you will be able to do so by just issuing a single line of command from the Command Prompt Window</p>
-<h1 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h1><p><img src="/uploads/QQ20161204-0@2x.jpg" alt="安装与卸载APK"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文描述ADB在MAC上的配置过程，以及常用的Command(ADB装x指南).更科学的Android SDK使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://vrast.cn/categories/Android/"/>
-    
-    
-      <category term="ADB" scheme="http://vrast.cn/tags/ADB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradle环境配置</title>
-    <link href="http://vrast.cn/posts/9d8752cb/"/>
-    <id>http://vrast.cn/posts/9d8752cb/</id>
-    <published>2016-12-02T14:47:39.000Z</published>
-    <updated>2016-12-02T15:12:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>从Android Studio出发，从零开始认识 Gradle(项目构建工具)<br><a href="https://www.zhihu.com/question/30432152" target="_blank" rel="external">如何通俗地理解 Gradle? -来自知乎</a></p>
-</blockquote>
-<a id="more"></a>
-<h1 id="环境下载"><a href="#环境下载" class="headerlink" title="环境下载"></a>环境下载</h1><p>国内的环境你也知道，此处推荐 <a href="http://www.android-studio.org" target="_blank" rel="external">Android Studio中文社区</a>，这里几乎能下到所有Android开发所必须的东西。</p>
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="拷贝路径"><a href="#拷贝路径" class="headerlink" title="拷贝路径"></a>拷贝路径</h2><p>请找到Android Studio安装目录. 此处我使用的是 gradle-3.0<br><code>/Applications/Android Studio.app/Contents/gradle/gradle-3.0/</code></p>
-<h3 id="没有gradle-3-0？"><a href="#没有gradle-3-0？" class="headerlink" title="没有gradle-3.0？"></a>没有gradle-3.0？</h3><p>下载完成需要解压到 <code>/Applications/Android Studio.app/Contents/gradle/{这里}</code><br><a href="http://gradle.android-studio.org" target="_blank" rel="external">Gradle下载-百度网盘地址</a></p>
-<h2 id="配置MAC环境"><a href="#配置MAC环境" class="headerlink" title="配置MAC环境"></a>配置MAC环境</h2><p>打开terminal,在<code>~</code>路径下输入下面命令</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//此命令写文本</span></div><div class="line">vim .bash_profile</div><div class="line"><span class="comment">//进入编辑模式 粘贴如下配置</span></div><div class="line">GRADLE_HOME=<span class="regexp">/Applications/</span>Android\ Studio.app<span class="regexp">/Contents/</span>gradle<span class="regexp">/gradle-3.0/</span>;</div><div class="line">export GRADLE_HOME</div><div class="line">export PATH=<span class="string">$PATH:</span>$GRADLE_HOME/bin</div><div class="line"><span class="comment">//键入:wq 结束编辑,返回后键入如下代码 完成配置</span></div><div class="line">source .bash_profile</div></pre></td></tr></table></figure>
-<h2 id="配置Android-Studio环境"><a href="#配置Android-Studio环境" class="headerlink" title="配置Android Studio环境"></a>配置Android Studio环境</h2><p>在 Preferences 中搜索 Gradle 更改本地路径即可。</p>
-<h1 id="查看当前-Gradle-版本号"><a href="#查看当前-Gradle-版本号" class="headerlink" title="查看当前 Gradle 版本号"></a>查看当前 Gradle 版本号</h1><p>Console中键入 <code>gradle -version</code></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">------------------------------------------------------------</span></div><div class="line"><span class="selector-tag">Gradle</span> 3<span class="selector-class">.0</span></div><div class="line"><span class="selector-tag">------------------------------------------------------------</span></div><div class="line"></div><div class="line"><span class="selector-tag">Build</span> <span class="selector-tag">time</span>:   2016<span class="selector-tag">-08-15</span> 13<span class="selector-pseudo">:15</span><span class="selector-pseudo">:01</span> <span class="selector-tag">UTC</span></div><div class="line"><span class="selector-tag">Revision</span>:     <span class="selector-tag">ad76ba00f59ecb287bd3c037bd25fc3df13ca558</span></div><div class="line"></div><div class="line"><span class="selector-tag">Groovy</span>:       2<span class="selector-class">.4</span><span class="selector-class">.7</span></div><div class="line"><span class="selector-tag">Ant</span>:          <span class="selector-tag">Apache</span> <span class="selector-tag">Ant</span>(<span class="selector-tag">TM</span>) <span class="selector-tag">version</span> 1<span class="selector-class">.9</span><span class="selector-class">.6</span> <span class="selector-tag">compiled</span> <span class="selector-tag">on</span> <span class="selector-tag">June</span> 29 2015</div><div class="line"><span class="selector-tag">JVM</span>:          1<span class="selector-class">.8</span><span class="selector-class">.0_40</span> (<span class="selector-tag">Oracle</span> <span class="selector-tag">Corporation</span> 25<span class="selector-class">.40-b25</span>)</div><div class="line"><span class="selector-tag">OS</span>:           <span class="selector-tag">Mac</span> <span class="selector-tag">OS</span> <span class="selector-tag">X</span> 10<span class="selector-class">.12</span><span class="selector-class">.1</span> <span class="selector-tag">x86_64</span></div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;从Android Studio出发，从零开始认识 Gradle(项目构建工具)&lt;br&gt;&lt;a href=&quot;https://www.zhihu.com/question/30432152&quot;&gt;如何通俗地理解 Gradle? -来自知乎&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://vrast.cn/categories/Android/"/>
-    
-    
-      <category term="Gradle" scheme="http://vrast.cn/tags/Gradle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Unity3d判断资源是否是文件夹</title>
-    <link href="http://vrast.cn/posts/58b26bad/"/>
-    <id>http://vrast.cn/posts/58b26bad/</id>
-    <published>2016-11-28T03:16:32.000Z</published>
-    <updated>2016-11-28T03:23:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>判断当前选中资源是否是文件夹</p>
-</blockquote>
-<a id="more"></a>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> Retrieves selected folder on Project view.</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">GetSelectedPathOrFallback</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> path = <span class="string">"Assets"</span>;</div><div class="line">  </div><div class="line">    <span class="keyword">foreach</span> (UnityEngine.Object obj <span class="keyword">in</span> Selection.GetFiltered(<span class="keyword">typeof</span>(UnityEngine.Object), SelectionMode.Assets))</div><div class="line">    &#123;</div><div class="line">        path = AssetDatabase.GetAssetPath(obj);</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">string</span>.IsNullOrEmpty(path) &amp;&amp; File.Exists(path))</div><div class="line">        &#123;</div><div class="line">            path = Path.GetDirectoryName(path);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> path;</div><div class="line">&#125;</div><div class="line">  </div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> Recursively gather all files under the given path including all its subfolders.</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">static</span> IEnumerable&lt;<span class="keyword">string</span>&gt; <span class="title">GetFiles</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></div><div class="line">&#123;</div><div class="line">    Queue&lt;<span class="keyword">string</span>&gt; queue = <span class="keyword">new</span> Queue&lt;<span class="keyword">string</span>&gt;();</div><div class="line">    queue.Enqueue(path);</div><div class="line">    <span class="keyword">while</span> (queue.Count &gt; <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        path = queue.Dequeue();</div><div class="line">        <span class="keyword">try</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">foreach</span> (<span class="keyword">string</span> subDir <span class="keyword">in</span> Directory.GetDirectories(path))</div><div class="line">            &#123;</div><div class="line">                queue.Enqueue(subDir);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span> (System.Exception ex)</div><div class="line">        &#123;</div><div class="line">            Debug.LogError(ex.Message);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">string</span>[] files = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">try</span></div><div class="line">        &#123;</div><div class="line">            files = Directory.GetFiles(path);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span> (System.Exception ex)</div><div class="line">        &#123;</div><div class="line">            Debug.LogError(ex.Message);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (files != <span class="literal">null</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; files.Length; i++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">yield</span> <span class="keyword">return</span> files[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// You can either filter files to get only neccessary files by its file extension using LINQ.</span></div><div class="line"><span class="comment">// It excludes .meta files from all the gathers file list.</span></div><div class="line"><span class="keyword">var</span> assetFiles = GetFiles(GetSelectedPathOrFallback()).Where(s =&gt; s.Contains(<span class="string">".meta"</span>) == <span class="literal">false</span>);</div><div class="line">  </div><div class="line"><span class="keyword">foreach</span> (<span class="keyword">string</span> f <span class="keyword">in</span> assetFiles)</div><div class="line">&#123;</div><div class="line">  Debug.Log(<span class="string">"Files: "</span> + f);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>参考链接<br><a href="http://answers.unity3d.com/questions/472808/how-to-get-the-current-selected-folder-of-project.html" target="_blank" rel="external">How to get the current selected folder of &quot;Project&quot; Window🔗</a><br><a href="http://answers.unity3d.com/questions/47029/get-folder-from-selection-array.html" target="_blank" rel="external">get folder from selection array🔗</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;判断当前选中资源是否是文件夹&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Unity3D" scheme="http://vrast.cn/categories/Unity3D/"/>
-    
-    
-      <category term="Unity3D编辑器" scheme="http://vrast.cn/tags/Unity3D%E7%BC%96%E8%BE%91%E5%99%A8/"/>
     
   </entry>
   
