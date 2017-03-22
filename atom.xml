@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-13T05:07:17.000Z</updated>
+  <updated>2017-03-22T11:18:44.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,213 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>关于外语学习</title>
+    <title>Lua Script 1</title>
+    <link href="http://vrast.cn/posts/32bf7061/"/>
+    <id>http://vrast.cn/posts/32bf7061/</id>
+    <published>2017-03-22T08:50:24.000Z</published>
+    <updated>2017-03-22T11:18:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>总结Lua基础语法，与简单运用 这里并不涉及深入内容<br><a id="more"></a></p>
+</blockquote>
+<p><a href="http://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="external">推荐一个快速学习LUA的网站</a><br>推荐书籍 Programming in Lua third edition.pdf</p>
+<h1 id="总结一点学习编程语言的技巧"><a href="#总结一点学习编程语言的技巧" class="headerlink" title="总结一点学习编程语言的技巧"></a>总结一点学习编程语言的技巧</h1><ol>
+<li><p>学习一个新的语言难免会涉及到大量的内置限定词。这时候就需要使用一个合适的开发工具(重要)，智能提示可以帮助我们快速输入和记忆这些重要且不好记忆的文法。</p>
+</li>
+<li><p>类比之前的语言 总是可以找到大量的特性的，这时候就免去的重复的记忆</p>
+</li>
+</ol>
+<h1 id="关于lua语言一些难搞的概念"><a href="#关于lua语言一些难搞的概念" class="headerlink" title="关于lua语言一些难搞的概念"></a>关于lua语言一些难搞的概念</h1><p>这个可以放到最后看</p>
+<ol>
+<li><a href="http://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="external">迭代器</a></li>
+</ol>
+<h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><p>我在桌面新建了一个 a.lua 脚本 ， 第一行代码是让这个脚本去寻找解释器</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#!/usr/<span class="keyword">local</span>/bin/lua</div><div class="line"><span class="built_in">print</span>(<span class="string">"hello world"</span>);</div></pre></td></tr></table></figure>
+<p>因为权限问题 我先给脚本授权，然后直接调用了这个脚本<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">keyle@keyles-MacBook-Pro  ~/Desktop  chmod a+x /Users/keyle/Desktop/<span class="selector-tag">a</span><span class="selector-class">.lua</span></div><div class="line">keyle@keyles-MacBook-Pro  ~/Desktop  ./<span class="selector-tag">a</span><span class="selector-class">.lua</span></div><div class="line">hello world</div></pre></td></tr></table></figure></p>
+<h1 id="保留关键字"><a href="#保留关键字" class="headerlink" title="保留关键字"></a>保留关键字</h1><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">and</span>	<span class="keyword">break</span>	<span class="keyword">do</span>	<span class="keyword">else</span></div><div class="line"><span class="keyword">elseif</span>	<span class="keyword">end</span>	<span class="keyword">false</span>	<span class="keyword">for</span></div><div class="line"><span class="function"><span class="keyword">function</span>	<span class="title">if</span>	<span class="title">in</span>	<span class="title">local</span></span></div><div class="line"><span class="title">nil</span>	<span class="title">not</span>	<span class="title">or</span>	<span class="title">repeat</span></div><div class="line"><span class="title">return</span>	<span class="title">then</span>	<span class="title">true</span>	<span class="title">until</span></div><div class="line"><span class="title">while</span></div></pre></td></tr></table></figure>
+<h1 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a>基础数据类型</h1><p>nil、boolean、number、string、userdata、function、thread和table</p>
+<h2 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h2><p>最后一个输出结果 type(nil) 之后 得到了一个 string。<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="string">"Hello world"</span>))</span>      --&gt;</span> string</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="number">10.4</span>*<span class="number">3</span>))</span>             --&gt;</span> number</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="built_in">print</span>))</span>              --&gt;</span> <span class="keyword">function</span></div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(type))</span>               --&gt;</span> <span class="keyword">function</span></div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="literal">true</span>))</span>               --&gt;</span> boolean</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(nil))</span>                --&gt;</span> nil</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(type(X)))</span>            --&gt;</span> string</div></pre></td></tr></table></figure></p>
+<h3 id="nil的特性"><a href="#nil的特性" class="headerlink" title="nil的特性"></a>nil的特性</h3><p>使用nil 可以删除table里面的key-value<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tab1 = &#123; key1 = <span class="string">"val1"</span>, key2 = <span class="string">"val2"</span>, <span class="string">"val3"</span> &#125;</div><div class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(tab1) <span class="keyword">do</span></div><div class="line">    <span class="built_in">print</span>(k .. <span class="string">" - "</span> .. v)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="built_in">print</span>(<span class="string">""</span>)</div><div class="line">tab1.key1 = <span class="keyword">nil</span></div><div class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(tab1) <span class="keyword">do</span></div><div class="line">    <span class="built_in">print</span>(k .. <span class="string">" - "</span> .. v)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p><code>key1 - val1</code>已经被删除了。在table里如果默认没有声明 key ，则默认从1开始自增<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> - val3</div><div class="line">key1 - val1</div><div class="line">key2 - val2</div><div class="line"></div><div class="line"><span class="number">1</span> - val3</div><div class="line">key2 - val2</div></pre></td></tr></table></figure></p>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>boolean 类型只有两个可选值：true（真） 和 false（假），Lua 把 false 和 nil 看作是”假”，其他的都为”真”<br>在其他语言也是如此</p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>Lua 默认只有一种 number 类型 – double（双精度）类型（默认类型可以修改 luaconf.h 里的定义）</p>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>字符串由一对双引号或单引号来表示。也可以用 2 个方括号 “[[]]” 来表示”一块”字符串。<br>在lua里使用<code>#</code>来计算字符串长度。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">print</span><span class="params">(#<span class="string">"123"</span>)</span></span></div></pre></td></tr></table></figure></p>
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><ol>
+<li>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字或者是字符串。</li>
+<li>在 Lua 里表的默认初始索引一般以 1 开始。</li>
+<li>table 不会固定长度大小，有新数据添加时 table 长度会自动增长，没初始的 table 都是 nil。<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 创建一个空的 table</span></div><div class="line"><span class="keyword">local</span> tbl1 = &#123;&#125;</div><div class="line"> </div><div class="line"><span class="comment">-- 直接初始表</span></div><div class="line"><span class="keyword">local</span> tbl2 = &#123;<span class="string">"apple"</span>, <span class="string">"pear"</span>, <span class="string">"orange"</span>, <span class="string">"grape"</span>&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(tbl2) <span class="keyword">do</span></div><div class="line">	<span class="built_in">print</span>(i,v)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>输出结果：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> ⚙  keyle@keyles-MacBook-Pro  ~/Desktop  ./a.lua</div><div class="line"><span class="number">1</span>	apple</div><div class="line"><span class="number">2</span>	pear</div><div class="line"><span class="number">3</span>	orange</div><div class="line"><span class="number">4</span>	grape</div></pre></td></tr></table></figure></p>
+<h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><ul>
+<li>支持作为变量传递</li>
+<li>支持以匿名的方式使用</li>
+<li>支持多个返回值</li>
+</ul>
+<h3 id="多个返回值"><a href="#多个返回值" class="headerlink" title="多个返回值"></a>多个返回值</h3><p>支持多个返回值，比如string.find，其返回匹配串”开始和结束的下标”（如果不存在匹配串返回nil）。<br>举个例子：返回字符串的开始|结束下表<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">s, e = <span class="built_in">string</span>.find(<span class="string">"just test for you"</span>, <span class="string">"test"</span>) </div><div class="line"><span class="built_in">print</span>(s, e)</div><div class="line"></div><div class="line"><span class="comment">--测试函数的多个返回值</span></div><div class="line">func1  =  <span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">			<span class="keyword">return</span> <span class="string">"keyle"</span>,<span class="string">"666"</span></div><div class="line">		  <span class="keyword">end</span></div><div class="line"><span class="built_in">print</span>(func1())</div></pre></td></tr></table></figure></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">6</span>	<span class="number">9</span></div><div class="line">keyle	<span class="number">666</span></div></pre></td></tr></table></figure>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>lua支持不固定参数的传入<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">func1  =  <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span></div><div class="line">			<span class="keyword">local</span> args = &#123;...&#125;</div><div class="line">			<span class="keyword">local</span> result = <span class="number">0</span></div><div class="line"></div><div class="line">			<span class="keyword">for</span> i=<span class="number">1</span>,#args <span class="keyword">do</span></div><div class="line">				result = result + args[i]</div><div class="line">			<span class="keyword">end</span></div><div class="line"></div><div class="line">			<span class="keyword">return</span> result,#args</div><div class="line">		  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(func1(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>))</div><div class="line"><span class="comment">-- 返回结果 15	5</span></div></pre></td></tr></table></figure></p>
+<h2 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h2><p>lua使用的是协程（coroutine） 与 unity3d的机制几乎一样。 这个也好理解。</p>
+<h2 id="userdata"><a href="#userdata" class="headerlink" title="userdata"></a>userdata</h2><p>userdata 是一种用户自定义数据，用于表示一种由应用程序或 C/C++ 语言库所创建的类型，可以将任意 C/C++ 的任意数据类型的数据（通常是 struct 和 指针）存储到 Lua 变量中调用。ulua就是通过扩展userdata来实现调用unity3d的各种属性。</p>
+<h1 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h1><ul>
+<li>Lua 变量有三种类型：全局变量、局部变量、表中的域。</li>
+<li>Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量。</li>
+<li>局部变量的作用域为从声明位置开始到所在语句块结束。</li>
+<li>变量的默认值均为 nil。<br>尽可能使用局部变量，因为访问速度快<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">do</span> </div><div class="line">	<span class="keyword">local</span> a = <span class="number">123</span></div><div class="line">	<span class="built_in">print</span>(a)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="comment">--超出了作用域 print -&gt; nil</span></div><div class="line"><span class="built_in">print</span>(a)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h1><p>简单形象的赋值方式，第二第三两行是交换两个变量的值。免去写交换算法了<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a, b = <span class="number">10</span>, <span class="number">2</span> * x           <span class="comment">--&gt; a=10; b=2*x</span></div><div class="line">x, y = y, x                <span class="comment">-- swap 'x' for 'y'</span></div><div class="line">a[i], a[j] = a[j], a[i]    <span class="comment">-- swap 'a[i]' for 'a[j]'</span></div></pre></td></tr></table></figure></p>
+<p>左右两边要对称,如果不对称参看下文<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">当变量个数和值的个数不一致时，Lua会一直以变量个数为基础采取以下策略：</div><div class="line"><span class="selector-tag">a</span>. 变量个数 &gt; 值的个数             按变量个数补足nil</div><div class="line"><span class="selector-tag">b</span>. 变量个数 &lt; 值的个数             多余的值会被忽略</div></pre></td></tr></table></figure></p>
+<p>这里直接使用 [table].key 的方式取出了 “321”<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">a = &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">9</span>&#125;</div><div class="line">a[<span class="string">"key"</span>] = <span class="string">"321"</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(a.key)</div><div class="line"><span class="built_in">print</span>(a[<span class="number">1</span>])</div><div class="line"><span class="built_in">print</span>(a[<span class="number">4</span>]) </div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"-----"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(a) <span class="keyword">do</span></div><div class="line">	<span class="built_in">print</span>(i,v)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>控制台输出 ：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">321</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">9</span></div><div class="line">-----</div><div class="line"><span class="number">1</span>	<span class="number">3</span></div><div class="line"><span class="number">2</span>	<span class="number">2</span></div><div class="line"><span class="number">3</span>	<span class="number">1</span></div><div class="line"><span class="number">4</span>	<span class="number">9</span></div></pre></td></tr></table></figure></p>
+<h1 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h1><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">repeat</span></div><div class="line">   statements</div><div class="line"><span class="keyword">until</span>( condition )</div></pre></td></tr></table></figure>
+<p>输出1 – 10<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">i</span> = <span class="number">1</span></div><div class="line"><span class="keyword">while</span> true</div><div class="line">do</div><div class="line">	<span class="keyword">if</span>(<span class="built_in">i</span>&gt;<span class="number">10</span>) then</div><div class="line">		<span class="keyword">break</span></div><div class="line">	<span class="keyword">end</span></div><div class="line">	print(<span class="built_in">i</span>)</div><div class="line">	<span class="built_in">i</span>=<span class="built_in">i</span>+<span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h1 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h1><ol>
+<li>不允许类似 a ++ , a/=1 之类的写法</li>
+<li>不允许类似c#里的&amp;&amp;(and)符号，这里需要用 and</li>
+<li>使用 .. 连接字符串 .. </li>
+<li><code>#</code>用来计算字符或者table长度 </li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;总结Lua基础语法，与简单运用 这里并不涉及深入内容&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
+    
+    
+      <category term="Lua" scheme="http://vrast.cn/tags/Lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Install Lua on MACOS</title>
+    <link href="http://vrast.cn/posts/2b34f5ba/"/>
+    <id>http://vrast.cn/posts/2b34f5ba/</id>
+    <published>2017-03-22T08:13:11.000Z</published>
+    <updated>2017-03-22T11:18:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>简单记录下LUA在macOS上的安装。Lua的解释引擎很小 所以安装也很方便，我直接在 lua.org 上下载了lua的源码在macOS上进行编译。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Install-Lua"><a href="#Install-Lua" class="headerlink" title="Install Lua"></a>Install Lua</h1><p><a href="http://www.lua.org/download.html" target="_blank" rel="external">下载页面</a></p>
+<p>下载的文件叫做 lua-5.3.4.tar 。直接解压 cd 到 文件夹下的 src 目录。然后执行下面命令安装完毕。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">make</span> macosx</div><div class="line"><span class="keyword">cd</span> ..</div><div class="line">sudo <span class="keyword">make</span> install</div></pre></td></tr></table></figure></p>
+<h1 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h1><p>使用lua命令直接进入lua脚本编辑模式<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> keyle@keyles-MacBook-Pro  ~  lua</div><div class="line">Lua <span class="number">5.3</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2017</span> Lua.org, PUC-Rio</div></pre></td></tr></table></figure></p>
+<h1 id="Environment-Setting"><a href="#Environment-Setting" class="headerlink" title="Environment Setting"></a>Environment Setting</h1><p>我使用 sublime text3 作为编辑器，当然可以直接使用vscode，或者Xamarin Studio.<br>这里贴出 sublime text3 的配置方法。</p>
+<ol>
+<li><p>进入如下目录<br>~/Library/Application Support/Sublime Text 3/Packages/User</p>
+</li>
+<li><p>添加配置信息 <code>lua_setting.sublime-build</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;    </div><div class="line">  <span class="attr">"cmd"</span>: [<span class="string">"/usr/local/bin/lua"</span>, <span class="string">"$file"</span>],   </div><div class="line">  <span class="attr">"file_regex"</span>: <span class="string">"^(?:lua:)?[\t ](...*?):([0-9]*):?([0-9]*)"</span>,  </div><div class="line">  <span class="attr">"selector"</span>: <span class="string">"source.lua"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>编译时选择 Lua 即可在命令行看到编译结果。</p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;简单记录下LUA在macOS上的安装。Lua的解释引擎很小 所以安装也很方便，我直接在 lua.org 上下载了lua的源码在macOS上进行编译。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
+    
+    
+      <category term="Lua" scheme="http://vrast.cn/tags/Lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>句子的构成</title>
+    <link href="http://vrast.cn/posts/e62162e2/"/>
+    <id>http://vrast.cn/posts/e62162e2/</id>
+    <published>2017-03-20T13:45:03.000Z</published>
+    <updated>2017-03-22T11:14:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>记录一些关于句子构成的语法。以前上学的时候没有用心学现在回头看应该还来的及吧。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="主语"><a href="#主语" class="headerlink" title="主语"></a>主语</h1><ol>
+<li>名词作主语</li>
+<li>代词作主语</li>
+<li>动名词作主语或不定式作主语(动词不能做主语，需变成动名词或不定式)，不定式或动名词作主语有时候造成句子过长这时候用代词it作主语，动名词移到句尾一般改成不定式。</li>
+</ol>
+<h1 id="从句"><a href="#从句" class="headerlink" title="从句"></a>从句</h1><h2 id="名词性从句作主语"><a href="#名词性从句作主语" class="headerlink" title="名词性从句作主语"></a>名词性从句作主语</h2><p>例句：他不学习令我生气<br>翻译：that he doesn’t study makes me angry.<br>这里不能翻译成 he doesn’t study makes me angry.的原因是 <code>he doesn’t study </code>是个句子。句子是不能充当主语的。</p>
+<h2 id="从句种类"><a href="#从句种类" class="headerlink" title="从句种类"></a>从句种类</h2><p>从句可充当 宾 ， 主 ， 表  ，从 ， 同(位语)</p>
+<h3 id="that引导"><a href="#that引导" class="headerlink" title="that引导"></a>that引导</h3><p>任何一个主语起首的句子冠以that即为that从句。</p>
+<h3 id="whether引导"><a href="#whether引导" class="headerlink" title="whether引导"></a>whether引导</h3><p>能用yes/no回答的句子(一般疑问句)，可以使用 whether<br>问句一般有助动词，这时候需要特殊处理：</p>
+<h4 id="be动词"><a href="#be动词" class="headerlink" title="be动词"></a>be动词</h4><p>主语/动词还原，句首冠以 whether引导</p>
+<h4 id="一般助动词"><a href="#一般助动词" class="headerlink" title="一般助动词"></a>一般助动词</h4><p>主语/助动词还原，句首冠以 whether引导</p>
+<h4 id="do-does-did等助动词"><a href="#do-does-did等助动词" class="headerlink" title="do,does,did等助动词"></a>do,does,did等助动词</h4><p>主语/动词还原,将 do,does,did 去掉，后面的单词依据人称和时态变化。</p>
+<h3 id="疑问词引导"><a href="#疑问词引导" class="headerlink" title="疑问词引导"></a>疑问词引导</h3><h4 id="be动词-1"><a href="#be动词-1" class="headerlink" title="be动词"></a>be动词</h4><p>主语/be动词还原，前面保留疑问</p>
+<h4 id="一般助动词-1"><a href="#一般助动词-1" class="headerlink" title="一般助动词"></a>一般助动词</h4><p>主语/助动词还原，前面保留疑问</p>
+<h4 id="do-does-did等助动词-1"><a href="#do-does-did等助动词-1" class="headerlink" title="do,does,did等助动词"></a>do,does,did等助动词</h4><p>主语/助动词还原，前面保留疑问,将 do,does,did 去掉，后面的单词依据人称和时态变化。</p>
+<h1 id="需要记忆的概念"><a href="#需要记忆的概念" class="headerlink" title="需要记忆的概念"></a>需要记忆的概念</h1><p>以下的概念均搜集来自百度百科。</p>
+<h2 id="不定式-infinitive"><a href="#不定式-infinitive" class="headerlink" title="不定式[infinitive]"></a>不定式[infinitive]</h2><p>在语法中，动词不定式是指动词的一种不带词形变化从而不指示人称、数量、时态的形式。它之所以被叫做不定式，是因为动词不被限定，或者说不被词形变化所局限。不定式属于非谓语动词。</p>
+<h2 id="非谓语动词-the-Non-Finite-Verbs"><a href="#非谓语动词-the-Non-Finite-Verbs" class="headerlink" title="非谓语动词[the Non-Finite Verbs]"></a>非谓语动词[the Non-Finite Verbs]</h2><p>非谓语动词，又叫非限定动词，非谓语动词是指在句子中不是谓语的动词，主要包括不定式、动名词和分词（现在分词和过去分词），即动词的非谓语形式。非谓语动词除了不能独立作谓语外，可以承担句子的其他成分。</p>
+<h2 id="助动词"><a href="#助动词" class="headerlink" title="助动词"></a>助动词</h2><p>最常用的助动词有：be， have， has， do， does， shall， did， will， should， would等。助动词可以协助主要动词构成时态或者语态，也可构成疑问句和否定句，构成否定句时与否定副词not连用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;记录一些关于句子构成的语法。以前上学的时候没有用心学现在回头看应该还来的及吧。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="http://vrast.cn/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="语法" scheme="http://vrast.cn/tags/%E8%AF%AD%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GCD in iOS</title>
+    <link href="http://vrast.cn/posts/71d7254d/"/>
+    <id>http://vrast.cn/posts/71d7254d/</id>
+    <published>2017-03-16T07:39:11.000Z</published>
+    <updated>2017-03-22T11:14:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>如果想用Thread的话，就试试GCD吧。</p>
+</blockquote>
+<p>我找了几篇写的比较好的GCD介绍：<br><a href="http://blog.csdn.net/totogo2010/article/details/8016129" target="_blank" rel="external">iOS多线程编程之Grand Central Dispatch(GCD)介绍和使用</a></p>
+<p><a href="https://www.objc.io/issues/2-concurrency/low-level-concurrency-apis/" target="_blank" rel="external">Low-Level Concurrency APIs</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;如果想用Thread的话，就试试GCD吧。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我找了几篇写的比较好的GCD介绍：&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/totogo2010/article/details/801
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
+    
+    
+      <category term="GCD" scheme="http://vrast.cn/tags/GCD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>当下 工作之余的学习</title>
     <link href="http://vrast.cn/posts/44494be0/"/>
     <id>http://vrast.cn/posts/44494be0/</id>
     <published>2017-03-11T13:55:53.000Z</published>
-    <updated>2017-03-13T05:07:17.000Z</updated>
+    <updated>2017-03-20T13:46:19.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>我在YouTube的频道上看了一个关于英语的讲座，对我来说有一些感触。我在这里记录下来<br><a href="https://www.youtube.com/watch?v=BENA8QSPmLY" target="_blank" rel="external">视频连接如下</a></p>
@@ -71,7 +273,7 @@
     <link href="http://vrast.cn/posts/b0ffa5e0/"/>
     <id>http://vrast.cn/posts/b0ffa5e0/</id>
     <published>2017-03-11T13:33:38.000Z</published>
-    <updated>2017-03-11T14:52:24.000Z</updated>
+    <updated>2017-03-13T05:07:45.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>近期我的生活看似有规律实则一团乱麻。需要做的事情我也正在做，需要达成的目标也正在继续中。</p>
@@ -116,7 +318,7 @@
     <link href="http://vrast.cn/posts/6fc31101/"/>
     <id>http://vrast.cn/posts/6fc31101/</id>
     <published>2017-03-09T09:15:01.000Z</published>
-    <updated>2017-03-09T10:17:00.000Z</updated>
+    <updated>2017-03-15T10:01:43.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>以前常用VS的 Nuget管理项目的外部类库与一些小插件。在xocde里有类似的东西，它就是Cocopods。</p>
@@ -137,6 +339,12 @@
 <h1 id="Setup报错"><a href="#Setup报错" class="headerlink" title="Setup报错"></a>Setup报错</h1><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --<span class="keyword">global</span> <span class="keyword">http</span>.postBuffer <span class="number">24288000</span></div><div class="line">$ git config --<span class="keyword">list</span></div></pre></td></tr></table></figure>
 <p>若输出 http.postbuffer=24288000, 就 OK了</p>
 <p><a href="http://blog.csdn.net/wangyanchang21/article/details/51437934" target="_blank" rel="external">cocoapods:常见错误总结</a></p>
+<h1 id="可视化CocoaPods"><a href="#可视化CocoaPods" class="headerlink" title="可视化CocoaPods"></a>可视化CocoaPods</h1><p>我使用 <a href="http://alcatraz.io" target="_blank" rel="external">alcatraz</a>来可视化CocoaPods操作。因为有时候用命令行不是很方便。</p>
+<p>安装命令如下：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/supermarin/Alcatraz/deploy/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure></p>
+<p>卸载命令如下：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rm -rf <span class="regexp">~/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins/Alcatraz.xcplugin</div><div class="line">rm -rf <span class="regexp">~/Library/</span>Application\ Support/Alcatraz</div></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/XVimProject/XVim/blob/master/INSTALL_Xcode8.md" target="_blank" rel="external">XCode  8.X 需要 usign 才能使用插件</a></p>
+<h1 id="解决插件升级不能使用的问题"><a href="#解决插件升级不能使用的问题" class="headerlink" title="解决插件升级不能使用的问题"></a>解决插件升级不能使用的问题</h1><p>在xcode版本更新的之后，或者从package manager新下载了插件，有时候不可用。这时候就需要找到下面目录<br><code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code><br>然后找到新下载的插件 ShowContent 。打开plist文件，在DVTPlugInCompatibilityUUIDs列表中新增一串ID。</p>
+<p>下面是这串ID的获取方法：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults <span class="keyword">read</span> <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/</span>Info DVTPlugInCompatibilityUUID</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
@@ -758,204 +966,6 @@
     
     
       <category term="MAC" scheme="http://vrast.cn/tags/MAC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>告别2016</title>
-    <link href="http://vrast.cn/posts/fe76973f/"/>
-    <id>http://vrast.cn/posts/fe76973f/</id>
-    <published>2016-12-31T06:56:05.000Z</published>
-    <updated>2016-12-31T08:03:26.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>2016年的最后一天，总想写点什么来记录下。📝  2016 有未来得及做完成的事情，也有遗憾的事。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="我的2016"><a href="#我的2016" class="headerlink" title="我的2016"></a>我的2016</h1><p>2015年来现在这家公司,转眼也一年过去了，整整又是一年，到现在甚至有种生活步入正轨的错觉，其实真实的情况是该吃吃该喝喝，该开玩笑的时候绝对不假正经。这样也好 也不好。好在没什么人事之间的矛盾，不好在久而久之就像那温水里的青蛙。原因是外面的形势也不好。谁也不知道未来的手游圈还不好好混。</p>
-<p>2016.10月4日，完成了人生中第一件大事，古人云：成家立业。那意思就是先要结婚成家然后才能明白自己要努力干出一番事业。爱人 家庭 是我前进的动力。目标是要有的，然后就是不顾一切的去实现他了。我老婆前一段认真的说道：”如果30岁之前买不起上海的房，那就跟我去重庆!”。我把这句话记在这里，在我30岁以前肯定会给你买套大房子😄  </p>
-<p>2016.11月参加了国家成人高考，如愿进入上外。The Limits Of Your Language Are The Limits Of Your World . </p>
-<p>还有什么事呢，我还真想不到了。应该都是一些不重要的事吧。值得记录下来的东西还真是不多。</p>
-<h1 id="学会了什么"><a href="#学会了什么" class="headerlink" title="学会了什么"></a>学会了什么</h1><p>我看到过一个笑话是这样讲的，我完成了去年实现的所有目标，就是最后爱吹牛的毛病没有改掉。我的2016没有什么很具体的学习到的东西，还是在积累中。远未达到量变促成质变的境地。换句话说：我走在我的路上了。</p>
-<h1 id="得到了什么"><a href="#得到了什么" class="headerlink" title="得到了什么"></a>得到了什么</h1><p>经历这一年的时间，明确了我应该达到的3年目标,8年目标。另外别人拥有的并非就是自己追求的东西，我亦不会羡慕。活成自己是我对自己2017年的要求。</p>
-<h1 id="有什么遗憾"><a href="#有什么遗憾" class="headerlink" title="有什么遗憾"></a>有什么遗憾</h1><pre><code>惫懒的习惯浪费了2016年的大半美好时光。明明可以做一些有意义的事。最后一无所获。
-</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总体上来看，2013 - 2014 - 2015 - 2016 四年里，兜兜转转还是最后找到自己今后要走的路。时间一去不复返，在这里立下2017年的目标</p>
-<ul>
-<li>2017年 有一个好作息习惯 晚上11:30 之前睡觉 早7:30之前起来</li>
-<li>2017年 词汇过2w</li>
-<li>做个独立开发者 </li>
-<li>坚持学习</li>
-<li>坚持写博客</li>
-<li>拒绝慵懒</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;2016年的最后一天，总想写点什么来记录下。📝  2016 有未来得及做完成的事情，也有遗憾的事。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="http://vrast.cn/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="None" scheme="http://vrast.cn/tags/None/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Terminal写Hexo</title>
-    <link href="http://vrast.cn/posts/a02a67d7/"/>
-    <id>http://vrast.cn/posts/a02a67d7/</id>
-    <published>2016-12-31T02:39:52.000Z</published>
-    <updated>2016-12-31T06:58:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>之前写博文都是用Terminal命令生成md,文件然后通过sublimetext编辑文章,昨天偶见同事用VIM编辑代码十分的6,惊为天人,随后便有了这一篇记录博文。</p>
-</blockquote>
-<a id="more"></a>
-<p><img src="/uploads/QQ20161231-0@2x.jpg" alt="iTerm2 + ZSH + solarized themes + vim"></p>
-<blockquote>
-<p>本文写的比较入门仅介绍写markdown所需要的一些基本快捷键,熟练之后基本上可以用vim全程写文。</p>
-</blockquote>
-<h1 id="Terminal常用快捷键"><a href="#Terminal常用快捷键" class="headerlink" title="Terminal常用快捷键"></a>Terminal常用快捷键</h1><ul>
-<li>Conrol + A/E 在Console状态下移到行首与行末</li>
-<li>Ctrl + u 清除当前行</li>
-<li>Ctrl + k 清除当前至行末</li>
-<li>Ctrl + l == Clear == 清屏</li>
-</ul>
-<h1 id="Vim常用快捷键"><a href="#Vim常用快捷键" class="headerlink" title="Vim常用快捷键"></a>Vim常用快捷键</h1><h2 id="Normal状态下的文本编辑"><a href="#Normal状态下的文本编辑" class="headerlink" title="Normal状态下的文本编辑"></a>Normal状态下的文本编辑</h2><h3 id="光标的转跳"><a href="#光标的转跳" class="headerlink" title="光标的转跳"></a>光标的转跳</h3><ol>
-<li>G 至文末/gg 到文首</li>
-<li>$/^ 光标移动到行尾/行首</li>
-<li>Shift + 上下/左右 上下翻页,左右移动光标<br>3.1 w/b 前/后 移动光标(同上)</li>
-<li>h/j/k/l 左／下/上／右移动光标</li>
-</ol>
-<h3 id="格式缩进"><a href="#格式缩进" class="headerlink" title="格式缩进"></a>格式缩进</h3><ol>
-<li>Shift + &gt;/&lt; 右/左缩进</li>
-</ol>
-<h3 id="关于Copy-Paste-Undo-Delete"><a href="#关于Copy-Paste-Undo-Delete" class="headerlink" title="关于Copy/Paste/Undo/Delete"></a>关于Copy/Paste/Undo/Delete</h3><ol>
-<li>v行选中/Ctrl+v列选中</li>
-<li>y/yy 复制当前/复制整行</li>
-<li>p 粘贴</li>
-<li>u 撤销 /  Ctrl + r 反撤销 </li>
-<li>d/dd 删除当前/删除整行(存剪切板)</li>
-</ol>
-<h3 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h3><ol>
-<li>在当前文档中搜索光标所在</li>
-<li>使用/ + 关键词搜索，使用n/N 后/前搜索</li>
-</ol>
-<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
-<li>j/J 移动到下一行/合并当前与下一行(移除换行符)</li>
-</ol>
-<h2 id="从Normal状态-进入编辑状态"><a href="#从Normal状态-进入编辑状态" class="headerlink" title="从Normal状态 进入编辑状态"></a>从Normal状态 进入编辑状态</h2><ol>
-<li>s替换当前光标所在字符进入编辑</li>
-<li>i插入到光标所在字符之前进入编辑</li>
-</ol>
-<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ol>
-<li><a href="http://www.cnblogs.com/jiqingwu/archive/2012/06/14/vim_notes.html#commentform" target="_blank" rel="external">Vim使用笔记 - 博客园</a> </li>
-<li><a href="http://python-web-guide.readthedocs.io/zh/latest/devtools/vim.html" target="_blank" rel="external">vim 快速入门</a></li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;之前写博文都是用Terminal命令生成md,文件然后通过sublimetext编辑文章,昨天偶见同事用VIM编辑代码十分的6,惊为天人,随后便有了这一篇记录博文。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Terminal" scheme="http://vrast.cn/categories/Terminal/"/>
-    
-    
-      <category term="VIM" scheme="http://vrast.cn/tags/VIM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AB热更新脚本信息无法获取(勘误)</title>
-    <link href="http://vrast.cn/posts/fec7c50a/"/>
-    <id>http://vrast.cn/posts/fec7c50a/</id>
-    <published>2016-12-21T03:19:24.000Z</published>
-    <updated>2016-12-22T06:02:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失(5.X API)，然后引发出了有趣的小故事～</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？"><a href="#BuildPipeline-BuildAssetBundles-Build包之后-加载的prefab上脚本丢失？" class="headerlink" title="BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？"></a>BuildPipeline.BuildAssetBundles  Build包之后  加载的prefab上脚本丢失？</h1><p><img src="/uploads/QQ20161221-3@2x.jpg" alt="案例 Prefab"></p>
-<p><img src="/uploads/BED55101-4E2C-472D-B09E-973776B3EB9D.jpg" alt="案例 打包脚本"></p>
-<blockquote>
-<p>manifest 文件上有脚本的关联信息，猜测是因为 改变了脚本的状态 导致找不到脚本。(一个错误的猜测)</p>
-</blockquote>
-<h1 id="测试-一个错误的测试"><a href="#测试-一个错误的测试" class="headerlink" title="测试(一个错误的测试)"></a>测试(一个错误的测试)</h1><ul>
-<li>就是打包一个不暴露变量的脚本上去，看看获取ab包的时候能否自动找到本地的脚本<br><img src="/uploads/AF401BA4-BFE3-40AC-9A8C-CC007537AF75.jpg" alt="打包结果"><br>manifest 文件上 是可以找到两个脚本对应的guid。这里是对应的上的，但是get ab包的时候仍然找不到脚本 ？？</li>
-</ul>
-<h1 id="勘误"><a href="#勘误" class="headerlink" title="勘误"></a>勘误</h1><p>今天晚上重新看了这个问题，发现是由于打包的时候<code>重名文件引起的！</code>这里直接推翻了之前所有的猜测。</p>
-<h1 id="勘误测试"><a href="#勘误测试" class="headerlink" title="勘误测试"></a>勘误测试</h1><p><img src="/uploads/QQ20161221-1@2x.jpg" alt="文件结构"></p>
-<p>打包代码如下</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> UnityEditor;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ABBuilder</span> : <span class="title">Editor</span></div><div class="line">&#123;</div><div class="line">	[MenuItem(<span class="string">"Editor/导出ab"</span>)]</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">BudidCurrent</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		BuildPipeline.BuildAssetBundles(<span class="string">"Assets"</span>, BuildAssetBundleOptions.None, BuildTarget.iOS);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>附加在prefab之上的测试脚本，本测试目的是测试 testStr 的debug输出是否正常。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> showLog : MonoBehaviour</div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> <span class="built_in">string</span> testStr = <span class="string">"xiaonian"</span>;</div><div class="line">	<span class="comment">// Use this for initialization</span></div><div class="line">	<span class="function">IEnumerator <span class="title">Start</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">while</span> (<span class="literal">true</span>)</div><div class="line">		&#123;</div><div class="line">			<span class="function">yield <span class="keyword">return</span> <span class="keyword">new</span> <span class="title">WaitForSeconds</span><span class="params">(<span class="number">1f</span>)</span></span>;</div><div class="line">			Debug.Log(testStr);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Update is called once per frame</span></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Update</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>AssetBundle的加载如下</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">using</span> System.IO;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AB</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">	<span class="function">IEnumerator <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">2</span></span>)</span>;</div><div class="line">		LoadAB();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">LoadAB</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">var</span> bts = File.ReadAllBytes((Application.dataPath + <span class="string">"/testkeyle"</span>));</div><div class="line"></div><div class="line">		<span class="keyword">var</span> ab = AssetBundle.LoadFromMemory(bts);</div><div class="line">		<span class="keyword">var</span> obj = ab.LoadAsset&lt;GameObject&gt;(<span class="string">"Cube"</span>);</div><div class="line">		Instantiate(obj);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/uploads/QQ20161221-2@2x.jpg" alt="测试结果 正常输出"></p>
-<h1 id="用这段代码演示这个错误的判断"><a href="#用这段代码演示这个错误的判断" class="headerlink" title="用这段代码演示这个错误的判断"></a>用这段代码演示这个错误的判断</h1><p><img src="/uploads/QQ20161221-0@2x.jpg" alt="文件结构"><br><img src="/uploads/QQ20161221-4@2x.jpg" alt="生成的manifest信息"><br><img src="/uploads/QQ20161221-3@2x.jpg" alt="测试结果 加载了重名的空预制体"></p>
-<h2 id="这里可以猜想-是否Unity3d是遍历生成的信息-找到一个-同名的然后就return出去了-？"><a href="#这里可以猜想-是否Unity3d是遍历生成的信息-找到一个-同名的然后就return出去了-？" class="headerlink" title="这里可以猜想 是否Unity3d是遍历生成的信息 找到一个 同名的然后就return出去了 ？"></a>这里可以猜想 是否Unity3d是遍历生成的信息 找到一个 同名的然后就return出去了 ？</h2><p><img src="/uploads/QQ20161221-5@2x.jpg" alt="将A文件夹换到最后"><br>这里需要将原来生成的AB包相关信息全部删除，否则只会更新 manifest 文件 ！<br><img src="/uploads/QQ20161221-6@2x.jpg" alt="重新生成的manifest信息与AB包"><br><img src="/uploads/QQ20161221-7@2x.jpg" alt="测试结果 正常的预制体"></p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>如果AB包中存在重名的文件 AssetBundle 在加载的时候会顺序查找当前AB包中的文件 找到第一个同名资源就会返回该资源！</p>
-<h1 id="就这样结束了吗-新的问题！伴随着解决旧问题-又被发现了-！"><a href="#就这样结束了吗-新的问题！伴随着解决旧问题-又被发现了-！" class="headerlink" title="就这样结束了吗  新的问题！伴随着解决旧问题 又被发现了 ！"></a>就这样结束了吗  新的问题！伴随着解决旧问题 又被发现了 ！</h1><h2 id="too-young-too-native"><a href="#too-young-too-native" class="headerlink" title="too young too native"></a>too young too native</h2><h1 id="又是一个演示"><a href="#又是一个演示" class="headerlink" title="又是一个演示"></a>又是一个演示</h1><p>我在主场景手动拖放了一个Cube，然后通过AB加载除了一个新的 Cube(Clone)</p>
-<p><img src="/uploads/5CCE21BA-FEF8-4333-8C76-1D9F89D395B1.jpg" alt="新的问题~"></p>
-<p>他俩的材质应该是一样的！但是此处显示居然不一致。通过AB加载出来的prefab材质 拖动数值居然不能改变显示效果。</p>
-<h2 id="这个问题我还在查"><a href="#这个问题我还在查" class="headerlink" title="这个问题我还在查"></a>这个问题我还在查</h2><p>现在打包到真机看看结果<br><img src="/uploads/QQ20161222-0@2x.jpg" alt="新的问题~"></p>
-<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>发布到真机发现一切正常 ！<br><img src="/uploads/702E9B339B6CEA87BB44ACA6FBABCD56.jpg" alt="我做了一些代码上的修改 然后打包到真机环境"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;今天遇到一个问题，热更新 Unity3D Prefab ，prefab上的附加脚本信息丢失(5.X API)，然后引发出了有趣的小故事～&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="AssetBundle" scheme="http://vrast.cn/tags/AssetBundle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UNITY3D中的宏定义</title>
-    <link href="http://vrast.cn/posts/e5d2512b/"/>
-    <id>http://vrast.cn/posts/e5d2512b/</id>
-    <published>2016-12-08T15:11:24.000Z</published>
-    <updated>2016-12-08T15:44:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>本文介绍UNITY3D常用的宏命令以及如何定义一个宏。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="常用的平台"><a href="#常用的平台" class="headerlink" title="常用的平台"></a>常用的平台</h1><p><img src="/uploads/8E256D56-9F58-43AA-B6F4-C2598A06B243.jpg" alt="常用的平台"></p>
-<h1 id="定义宏"><a href="#定义宏" class="headerlink" title="定义宏"></a>定义宏</h1><h2 id="添加预编译指令-宏"><a href="#添加预编译指令-宏" class="headerlink" title="添加预编译指令(宏)"></a>添加预编译指令(宏)</h2><p>添加一个名为Test的宏 此时这段代码是无法执行的<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="meta">#<span class="meta-keyword">if</span> Test</span></div><div class="line">    <span class="comment">//.. you code here</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="使定义的宏可用"><a href="#使定义的宏可用" class="headerlink" title="使定义的宏可用"></a>使定义的宏可用</h2><p>找到 <code>Build Setting &gt; PlayerSetting &gt;当前平台 &gt; Scripting Define Symbols </code> 添加 Test 即可。</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://docs.unity3d.com/Manual/PlatformDependentCompilation.html" target="_blank" rel="external">UNITY3D 官方文档</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文介绍UNITY3D常用的宏命令以及如何定义一个宏。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="Define" scheme="http://vrast.cn/tags/Define/"/>
     
   </entry>
   
