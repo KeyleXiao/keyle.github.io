@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-23T08:09:38.000Z</updated>
+  <updated>2017-03-28T07:34:09.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,283 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python相关的环境问题</title>
+    <link href="http://vrast.cn/posts/b3941f7a/"/>
+    <id>http://vrast.cn/posts/b3941f7a/</id>
+    <published>2017-03-28T07:28:20.000Z</published>
+    <updated>2017-03-28T07:34:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>记录一些python相关的环境配置问题。其实杂七杂八的还很多，这里记录一些比较难记的东西。</p>
+</blockquote>
+<p><img src="/uploads/WX20170328-152544@2x.png" alt="更换python版本"></p>
+<a id="more"></a>
+<h1 id="查看python安装路径"><a href="#查看python安装路径" class="headerlink" title="查看python安装路径"></a>查看python安装路径</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">which</span> python3</div></pre></td></tr></table></figure>
+<h1 id="更换pycharm"><a href="#更换pycharm" class="headerlink" title="更换pycharm"></a>更换pycharm</h1><p><img src="/uploads/WX20170328-152544@2x.png" alt="更换python版本"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;记录一些python相关的环境配置问题。其实杂七杂八的还很多，这里记录一些比较难记的东西。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/uploads/WX20170328-152544@2x.png&quot; alt=&quot;更换python版本&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
+    
+    
+      <category term="Python" scheme="http://vrast.cn/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello Python 1</title>
+    <link href="http://vrast.cn/posts/957d31e7/"/>
+    <id>http://vrast.cn/posts/957d31e7/</id>
+    <published>2017-03-27T07:41:04.000Z</published>
+    <updated>2017-03-28T09:37:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>因为我的树莓派只要开机风扇就会不停的转为了控制风扇的转速我需要写一些脚本来控制gpio接口。所以作为兴趣就学习了一下python语言，当然python的实际作用远不止此，先看看基础的再深入的了解下吧。MacOS自带的Python是2.7x，但是我使用的是3.x 。当然这两者是有差异的，即使你不懂python也可以从版本号上看出来这个差异。<br><a href="http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html" target="_blank" rel="external">The key differences between Python 2.7.x and Python 3.x with examples</a> &lt;-这篇博客详细说明了2.x与3.x的区别。因为本人是从3.x学习python的所以后面的博文都会以3.x作为案例。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="环境相关"><a href="#环境相关" class="headerlink" title="环境相关"></a>环境相关</h1><ol>
+<li>使用<code>which python3</code>查看当前python安装地址</li>
+<li>Xcode配置系列博文<ul>
+<li><a href="http://www.cnblogs.com/zzy0471/p/5717002.html" target="_blank" rel="external">用VS Code写Python程序</a></li>
+<li><a href="https://code.visualstudio.com/docs/languages/python" target="_blank" rel="external">Python on Visual Studio Code</a></li>
+</ul>
+</li>
+<li><a href="https://www.tutorialspoint.com/python3/python_basic_syntax.htm" target="_blank" rel="external">Python 3 Basic Syntax(原版)</a></li>
+<li><a href="http://www.runoob.com/python3/python3-basic-operators.html" target="_blank" rel="external">Python3 运算符(翻译)</a></li>
+</ol>
+<h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><p>###可更改(mutable)与不可更改(immutable)对象<br>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。<br>不可变类型：变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。<br>可变类型：变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。<br>python 函数的参数传递：<br>不可变类型：类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。<br>可变类型：类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响</p>
+<h2 id="Keyword"><a href="#Keyword" class="headerlink" title="Keyword"></a>Keyword</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">and	exec	not</div><div class="line">as	finally	or</div><div class="line">assert	for	pass</div><div class="line">break	from	print</div><div class="line">class	global	raise</div><div class="line">continue	if	return</div><div class="line">def	import	try</div><div class="line">del	in	while</div><div class="line">elif	is	with</div><div class="line">else	lambda	yield</div><div class="line">except</div></pre></td></tr></table></figure>
+<h2 id="Lines-and-Indentation"><a href="#Lines-and-Indentation" class="headerlink" title="Lines and Indentation"></a>Lines and Indentation</h2><p>Python用缩进代表代码块，同一个代码块的语句必须包含相同的缩进空格数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</div><div class="line">   <span class="keyword">print</span> (<span class="string">"True"</span>)</div><div class="line"></div><div class="line"><span class="keyword">else</span>:</div><div class="line">   <span class="keyword">print</span> (<span class="string">"False"</span>)</div><div class="line"></div><div class="line"><span class="comment">#如果要在当前语句换行直接用\</span></div><div class="line">total = item_one + \</div><div class="line">    item_two + \</div><div class="line">    item_three</div></pre></td></tr></table></figure></p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">print(sys.version) <span class="comment">#查看系统版本</span></div><div class="line"></div><div class="line">print(<span class="string">'helloworld   -0'</span>);print(<span class="string">'helloworld   -1'</span>)</div><div class="line">print(<span class="string">"helloworld   -2"</span>)</div><div class="line">print(<span class="string">"""helloworld   -3</span></div><div class="line"></div><div class="line">    End .</div><div class="line"></div><div class="line">""",end = <span class="string">"&gt;&gt;"</span>)</div><div class="line"></div><div class="line">print(<span class="string">"&lt;&lt;"</span>)</div><div class="line"></div><div class="line"><span class="comment">#Output:</span></div><div class="line"><span class="comment">#3.6.1 (v3.6.1:69c0db5050, Mar 21 2017, 01:21:04) </span></div><div class="line"><span class="comment">#[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)]</span></div><div class="line"><span class="comment">#helloworld   -0</span></div><div class="line"><span class="comment">#helloworld   -1</span></div><div class="line"><span class="comment">#helloworld   -2</span></div><div class="line"><span class="comment">#helloworld   -3</span></div><div class="line"><span class="comment">#    End .</span></div><div class="line"><span class="comment">#&gt;&gt;&lt;&lt;</span></div></pre></td></tr></table></figure>
+<h3 id="Formate-String"><a href="#Formate-String" class="headerlink" title="Formate String"></a>Formate String</h3><p>字符串格式化<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dic = &#123;<span class="number">1</span>:<span class="string">"one"</span>,<span class="number">2</span>:<span class="string">"two"</span>&#125; <span class="comment">#定义字典</span></div><div class="line">print(dic[<span class="number">1</span>])  <span class="comment">#取值</span></div><div class="line"></div><div class="line">print(<span class="string">"%d &lt; %s"</span> % (len(dic),<span class="string">"length"</span>)) <span class="comment">#格式化字符串</span></div><div class="line"><span class="keyword">del</span> dic[<span class="number">1</span>]   <span class="comment">#删除一个key-value</span></div><div class="line">print(len(dic)) <span class="comment">#检测字典长度</span></div></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%c</td>
+<td>格式化字符及其ASCII码</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>格式化字符串</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>格式化整数</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>格式化无符号整型</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>格式化无符号八进制数</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>格式化无符号十六进制数</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>格式化无符号十六进制数（大写）</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>格式化浮点数字，可指定小数点后的精度</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td>%E</td>
+<td>作用同%e，用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td>%g</td>
+<td>%f和%e的简写</td>
+</tr>
+<tr>
+<td>%G</td>
+<td>%f 和 %E 的简写</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>用十六进制数格式化变量的地址</td>
+</tr>
+</tbody>
+</table>
+<p>字符串辅助功能符：<br>|符号 |功能|<br>|—-|—|<br>|*    |定义宽度或者小数点精度|<br>|-|    用做左对齐|<br>|+|    在正数前面显示加号( + )|<br>|<sp>|    在正数前面显示空格|<br>|#    |在八进制数前面显示零(‘0’)，在十六进制前面显示’0x’或者’0X’(取决于用的是’x’还是’X’)|<br>|0    |显示的数字前面填充’0’而不是默认的空格|<br>|%    |’%%’输出一个单一的’%’|<br>|(var)|    映射变量(字典参数)|<br>|m.n.|    m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)|</sp></p>
+<h3 id="字符串的运算"><a href="#字符串的运算" class="headerlink" title="字符串的运算"></a>字符串的运算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python3</span></div><div class="line"></div><div class="line">str = <span class="string">'HelloWorld!'</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> (str)          <span class="comment"># Prints complete string</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">0</span>])       <span class="comment"># Prints first character of the string</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">2</span>:<span class="number">5</span>])     <span class="comment"># Prints characters starting from 3rd to 5th</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">2</span>:])      <span class="comment"># Prints string starting from 3rd character</span></div><div class="line"><span class="keyword">print</span> (str * <span class="number">2</span>)      <span class="comment"># Prints string two times</span></div><div class="line"><span class="keyword">print</span> (str + <span class="string">"TEST"</span>) <span class="comment"># Prints concatenated string</span></div><div class="line"></div><div class="line"><span class="comment">#HelloWorld!</span></div><div class="line"><span class="comment">#H</span></div><div class="line"><span class="comment">#llo</span></div><div class="line"><span class="comment">#lloWorld!</span></div><div class="line"><span class="comment">#HelloWorld!HelloWorld!</span></div><div class="line"><span class="comment">#HelloWorld!TEST</span></div></pre></td></tr></table></figure>
+<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><p>python支持四种类型 int、float、bool、complex(复数类型)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a, b, c, d = <span class="number">20</span>, <span class="number">5.5</span>, <span class="keyword">True</span>, <span class="number">4</span>+<span class="number">3j</span></div><div class="line">print(type(a), type(b), type(c), type(d))</div><div class="line"><span class="comment"># &lt;class 'int'&gt; &lt;class 'float'&gt; &lt;class 'bool'&gt; &lt;class 'complex'&gt;</span></div><div class="line"></div><div class="line">print(isinstance(a, int)) <span class="comment">#True</span></div></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>int</th>
+<th style="text-align:center">float</th>
+<th style="text-align:right">complex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td style="text-align:center">0.0</td>
+<td style="text-align:right">3.14j</td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td style="text-align:center">15.20</td>
+<td style="text-align:right">45.j</td>
+</tr>
+<tr>
+<td>-786</td>
+<td style="text-align:center">-21.9</td>
+<td style="text-align:right">9.322e-36j</td>
+</tr>
+<tr>
+<td>080</td>
+<td style="text-align:center">32.3+e18</td>
+<td style="text-align:right">.876j</td>
+</tr>
+<tr>
+<td>-0490</td>
+<td style="text-align:center">-90.</td>
+<td style="text-align:right">-.6545+0J</td>
+</tr>
+<tr>
+<td>-0x260</td>
+<td style="text-align:center">-32.54e100</td>
+<td style="text-align:right">3e+26J</td>
+</tr>
+<tr>
+<td>0x69</td>
+<td style="text-align:center">70.2-E12</td>
+<td style="text-align:right">4.53e-7j</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>type()不会认为子类是一种父类类型。</li>
+<li>isinstance()会认为子类是一种父类类型。</li>
+<li><a href="https://www.tutorialspoint.com/python3/python_command_line_arguments.htm" target="_blank" rel="external">使用python3接受命令行的多个参数</a></li>
+</ul>
+<h2 id="Tuples-元组"><a href="#Tuples-元组" class="headerlink" title="Tuples(元组)"></a>Tuples(元组)</h2><p>Tuples can be thought of as read-only lists. 元组是只读的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">tuple = ( <span class="string">'abcd'</span>, <span class="number">786</span> , <span class="number">2.23</span>, <span class="string">'john'</span>, <span class="number">70.2</span>  )</div><div class="line">tinytuple = (<span class="number">123</span>, <span class="string">'john'</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (tuple)           <span class="comment"># Prints complete tuple</span></div><div class="line"><span class="keyword">print</span> (tuple[<span class="number">0</span>])        <span class="comment"># Prints first element of the tuple</span></div><div class="line"><span class="keyword">print</span> (tuple[<span class="number">1</span>:<span class="number">3</span>])      <span class="comment"># Prints elements starting from 2nd till 3rd </span></div><div class="line"><span class="keyword">print</span> (tuple[<span class="number">2</span>:])       <span class="comment"># Prints elements starting from 3rd element</span></div><div class="line"><span class="keyword">print</span> (tinytuple * <span class="number">2</span>)   <span class="comment"># Prints tuple two times</span></div><div class="line"><span class="keyword">print</span> (tuple + tinytuple) <span class="comment"># Prints concatenated tuple</span></div><div class="line"></div><div class="line"><span class="comment">#('abcd', 786, 2.23, 'john', 70.2)</span></div><div class="line"><span class="comment">#abcd</span></div><div class="line"><span class="comment">#(786, 2.23)</span></div><div class="line"><span class="comment">#(2.23, 'john', 70.2)</span></div><div class="line"><span class="comment">#(123, 'john', 123, 'john')</span></div><div class="line"><span class="comment">#('abcd', 786, 2.23, 'john', 70.2, 123, 'john')</span></div></pre></td></tr></table></figure>
+<p>无关闭分隔符<br>任意无符号的对象，以逗号隔开，默认为元组，如下实例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'abc'</span>, <span class="number">-4.24e93</span>, <span class="number">18</span>+<span class="number">6.6j</span>, <span class="string">'xyz'</span>;</div><div class="line">x, y = <span class="number">1</span>, <span class="number">2</span>;</div><div class="line"><span class="keyword">print</span> <span class="string">"Value of x , y : "</span>, x,y;</div></pre></td></tr></table></figure></p>
+<h2 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h2><p>通过花括号定义一个字典<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">dict = &#123;&#125;</div><div class="line">dict[<span class="string">'one'</span>] = <span class="string">"This is one"</span></div><div class="line">dict[<span class="number">2</span>]     = <span class="string">"This is two"</span></div><div class="line"></div><div class="line">tinydict = &#123;<span class="string">'name'</span>: <span class="string">'john'</span>,<span class="string">'code'</span>:<span class="number">6734</span>, <span class="string">'dept'</span>: <span class="string">'sales'</span>&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">print</span> (dict[<span class="string">'one'</span>])       <span class="comment"># Prints value for 'one' key</span></div><div class="line"><span class="keyword">print</span> (dict[<span class="number">2</span>])           <span class="comment"># Prints value for 2 key</span></div><div class="line"><span class="keyword">print</span> (tinydict)          <span class="comment"># Prints complete dictionary</span></div><div class="line"><span class="keyword">print</span> (tinydict.keys())   <span class="comment"># Prints all the keys</span></div><div class="line"><span class="keyword">print</span> (tinydict.values()) <span class="comment"># Prints all the values</span></div><div class="line"><span class="comment">#This is one</span></div><div class="line"><span class="comment">#This is two</span></div><div class="line"><span class="comment">#&#123;'name': 'john', 'code': 6734, 'dept': 'sales'&#125;</span></div><div class="line"><span class="comment">#dict_keys(['name', 'code', 'dept'])</span></div><div class="line"><span class="comment">#dict_values(['john', 6734, 'sales'])</span></div></pre></td></tr></table></figure></p>
+<h2 id="Data-Type-Conversion-类型转换"><a href="#Data-Type-Conversion-类型转换" class="headerlink" title="Data Type Conversion(类型转换)"></a>Data Type Conversion(类型转换)</h2><p>Sometimes, you may need to perform conversions between the built-in types. To convert between types, you simply use the type-names as a function. 需要类型转换的时候只需要用类型名称作为一个方法就可以转换</p>
+<table>
+<thead>
+<tr>
+<th>S.No.</th>
+<th>Function &amp; Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>int(x [,base]) Converts x to an integer. The base specifies the base if x is a string.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>float(x) Converts x to a floating-point number.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>complex(real [,imag])Creates a complex number.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>str(x) Converts object x to a string representation.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>repr(x)Converts object x to an expression string.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>eval(str)Evaluates a string and returns an object.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>tuple(s)Converts s to a tuple.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>list(s)Converts s to a list.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>set(s)Converts s to a set.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>dict(d)Creates a dictionary. d must be a sequence of (key,value) tuples.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>frozenset(s)Converts s to a frozen set.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>chr(x)Converts an integer to a character.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>unichr(x)Converts an integer to a Unicode character.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>ord(x)Converts a single character to its integer value.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>hex(x)Converts an integer to a hexadecimal string.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>oct(x)Converts an integer to an octal string.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><h3 id="Decision-Making-amp-amp-Loop"><a href="#Decision-Making-amp-amp-Loop" class="headerlink" title="Decision Making &amp;&amp; Loop"></a>Decision Making &amp;&amp; Loop</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">a = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">""</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> item  <span class="keyword">in</span> a:</div><div class="line">  <span class="keyword">if</span> item == <span class="string">""</span> :</div><div class="line">     print(<span class="string">"The Item is Empty"</span>)</div><div class="line">  <span class="keyword">else</span>:       </div><div class="line">    print(item)</div><div class="line">print(<span class="string">"over"</span>)</div><div class="line"><span class="comment">#a</span></div><div class="line"><span class="comment">#b</span></div><div class="line"><span class="comment">#c</span></div><div class="line"><span class="comment">#The Item is Empty</span></div><div class="line"><span class="comment">#over</span></div></pre></td></tr></table></figure>
+<h3 id="Iterator-and-Generator"><a href="#Iterator-and-Generator" class="headerlink" title="Iterator and Generator"></a>Iterator and Generator</h3><p>这块是伪代码，核心是  iter() 与 next()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line">it = iter(list) <span class="comment"># this builds an iterator object</span></div><div class="line"><span class="keyword">print</span> (next(it)) <span class="comment">#prints next available element in iterator</span></div><div class="line">Iterator object can be traversed using regular <span class="keyword">for</span> statement</div><div class="line">!usr/bin/python3</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> it:</div><div class="line">   <span class="keyword">print</span> (x, end=<span class="string">" "</span>)</div><div class="line"><span class="keyword">or</span> using next() function</div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">   <span class="keyword">try</span>:</div><div class="line">      <span class="keyword">print</span> (next(it))</div><div class="line">   <span class="keyword">except</span> StopIteration:</div><div class="line">      sys.exit() <span class="comment">#you have to import sys module for this</span></div></pre></td></tr></table></figure></p>
+<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>使用可变参数 *args 使用星号修饰<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionA</span><span class="params">(content,*args)</span>:</span></div><div class="line">    print(content)</div><div class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> args:</div><div class="line">        <span class="keyword">print</span> (var)</div><div class="line">    <span class="keyword">return</span> content</div><div class="line"></div><div class="line">functionA(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</div></pre></td></tr></table></figure></p>
+<p>使用lambda匿名函数，后面只可以跟一句话… (我有点想吐槽)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sum = <span class="keyword">lambda</span> arg1, arg2:arg1+arg2</div><div class="line"></div><div class="line">print(<span class="string">"%d %s"</span> % (sum(<span class="number">2</span>,<span class="number">3</span>), <span class="string">" &lt;&lt;&lt;"</span>))</div></pre></td></tr></table></figure></p>
+<h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h2><p>初始化脚本在引用这个包的时候会自动被调用。只有拥有了初始化脚本才会被python认为这是一个包。<br><img src="/uploads/WX20170328-173343@2x.png" alt="创建包的时候自动添加了__init__.py脚本"></p>
+<p><img src="/uploads/WX20170328-173643@2x.png" alt="我在这个脚本里引入这个包,输出结果"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;因为我的树莓派只要开机风扇就会不停的转为了控制风扇的转速我需要写一些脚本来控制gpio接口。所以作为兴趣就学习了一下python语言，当然python的实际作用远不止此，先看看基础的再深入的了解下吧。MacOS自带的Python是2.7x，但是我使用的是3.x 。当然这两者是有差异的，即使你不懂python也可以从版本号上看出来这个差异。&lt;br&gt;&lt;a href=&quot;http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html&quot;&gt;The key differences between Python 2.7.x and Python 3.x with examples&lt;/a&gt; &amp;lt;-这篇博客详细说明了2.x与3.x的区别。因为本人是从3.x学习python的所以后面的博文都会以3.x作为案例。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
+    
+    
+      <category term="Python" scheme="http://vrast.cn/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Lua Script 2</title>
@@ -922,81 +1199,6 @@
     
     
       <category term="微软跨平台" scheme="http://vrast.cn/tags/%E5%BE%AE%E8%BD%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MD5withRSA In C#</title>
-    <link href="http://vrast.cn/posts/f773f5f3/"/>
-    <id>http://vrast.cn/posts/f773f5f3/</id>
-    <published>2017-01-12T03:44:52.000Z</published>
-    <updated>2017-01-12T13:42:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>本章记录关于Java MD5withRSA加密算法的C#实现。由于C#不提供MD5withRSA的内置实现，所以必须依赖其他的第三方库。这里提供一个简单的sample来演绎[bouncycastle]的加密库。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="MD5withRSA是什么？"><a href="#MD5withRSA是什么？" class="headerlink" title="MD5withRSA是什么？"></a>MD5withRSA是什么？</h1><ol>
-<li>先使用MD5加密(不可逆转) 生成密文。</li>
-<li>使用RSA继续加密 上一步的密文。</li>
-</ol>
-<h2 id="MD5是什么？"><a href="#MD5是什么？" class="headerlink" title="MD5是什么？"></a>MD5是什么？</h2><p>Message Digest Algorithm MD5（中文名为消息摘要算法第五版）为计算机安全领域广泛使用的一种散列函数，用以提供消息的完整性保护。该算法的文件号为RFC 1321（R.Rivest,MIT Laboratory for Computer Science and RSA Data Security Inc. April 1992）。 –<a href="http://baike.baidu.com/link?url=hNIwfVhJGcU5tD8CAqbon1Tc9WsA5YYUcYRR0mYa6F8PgsHOwDmswbrhmszud3DmHllrmm0DfHAAevsbMLXKT_" target="_blank" rel="external">来自百度百科</a></p>
-<h2 id="RSA是什么"><a href="#RSA是什么" class="headerlink" title="RSA是什么?"></a>RSA是什么?</h2><p>RSA是目前最有影响力的公钥加密算法，它能够抵抗到目前为止已知的绝大多数密码攻击，已被ISO推荐为公钥数据加密标准。 –<a href="http://baike.baidu.com/link?url=B_ViRIN0m4B7JUU_v4nrz1o78Al5N0KSRofAUZmKgWlR3pfQMr1K9_BDbP1vxlG3700dSk1gnjf7PqgPhJUbPH660i5vMi-Ysuv-RXPjhxnRan7OPzSlRJWXsWbOQT_oOgDGjDnFQ1l2qJJu2NPKZa" target="_blank" rel="external">来自百度百科</a></p>
-<h1 id="MD5withRSA-的使用场景"><a href="#MD5withRSA-的使用场景" class="headerlink" title="MD5withRSA 的使用场景"></a>MD5withRSA 的使用场景</h1><p>如果你在百度上搜索 MD5withRSA 恐怕搜到最多的就是关于建行支付的。对的，这个加密算法常用与支付阶段。主要用途是防篡改。一般来说传递明文 可能被黑客从传输阶段拦截，篡改，此时我们用私钥将MD5加密后的密文再加密与明文一起发送。服务器用公匙将密文解密此时得到md5的密文，然后将明文用md5加密得到密文，匹配这两个密文。如果一致则消息是未被篡改的。</p>
-<h1 id="使用-BouncyCastle-Crypto-dll-演绎签名与验证签名"><a href="#使用-BouncyCastle-Crypto-dll-演绎签名与验证签名" class="headerlink" title="使用 BouncyCastle.Crypto.dll 演绎签名与验证签名"></a>使用 BouncyCastle.Crypto.dll 演绎签名与验证签名</h1><h2 id="加密支持列表"><a href="#加密支持列表" class="headerlink" title="加密支持列表"></a>加密支持列表</h2><p>Current feature list:</p>
-<p>Generation and parsing of PKCS-12 files.<br>X.509: Generators and parsers for V1 and V3 certificates, V2 CRLs and attribute certificates.<br>PBE algorithms supported by PbeUtilities: PBEwithMD2andDES-CBC, PBEwithMD2andRC2-CBC, PBEwithMD5andDES-CBC, PBEwithMD5andRC2-CBC, PBEwithSHA1andDES-CBC, PBEwithSHA1andRC2-CBC, PBEwithSHA-1and128bitRC4, PBEwithSHA-1and40bitRC4, PBEwithSHA-1and3-keyDESEDE-CBC, PBEwithSHA-1and2-keyDESEDE-CBC, PBEwithSHA-1and128bitRC2-CBC, PBEwithSHA-1and40bitRC2-CBC, PBEwithHmacSHA-1, PBEwithHmacSHA-224, PBEwithHmacSHA-256, PBEwithHmacRIPEMD128, PBEwithHmacRIPEMD160, and PBEwithHmacRIPEMD256.<br>Signature algorithms supported by SignerUtilities: MD2withRSA, MD4withRSA, MD5withRSA, RIPEMD128withRSA, RIPEMD160withECDSA, RIPEMD160withRSA, RIPEMD256withRSA, SHA-1withRSA, SHA-224withRSA, SHA-256withRSAandMGF1, SHA-384withRSAandMGF1, SHA-512withRSAandMGF1, SHA-1withDSA, and SHA-1withECDSA.<br>Symmetric key algorithms: AES, Blowfish, Camellia, CAST5, CAST6, ChaCha, DES, DESede, GOST28147, HC-128, HC-256, IDEA, ISAAC, Noekeon, RC2, RC4, RC5-32, RC5-64, RC6, Rijndael, Salsa20, SEED, Serpent, Skipjack, TEA/XTEA, Threefish, Tnepres, Twofish, VMPC and XSalsa20.<br>Symmetric key modes: CBC, CFB, CTS, GOFB, OFB, OpenPGPCFB, and SIC (or CTR).<br>Symmetric key paddings: ISO10126d2, ISO7816d4, PKCS-5/7, TBC, X.923, and Zero Byte.<br>Asymmetric key algorithms: ElGamal, DSA, ECDSA, NaccacheStern and RSA (with blinding).<br>Asymmetric key paddings/encodings: ISO9796d1, OAEP, and PKCS-1.<br>AEAD block cipher modes: CCM, EAX, GCM and OCB.<br>Digests: GOST3411, Keccak, MD2, MD4, MD5, RIPEMD128, RIPEMD160, RIPEMD256, RIPEMD320, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA3, Tiger, and Whirlpool.<br>XOFs: SHAKE.<br>Signer mechanisms: DSA, ECDSA, ECGOST3410, ECNR, GOST3410, ISO9796d2, PSS, RSA, X9.31-1998.<br>Key Agreement: Diffie-Hellman, EC-DH, EC-MQV, J-PAKE, SRP-6a.<br>Macs: CBCBlockCipher, CFBBlockCipher, CMAC, GMAC, GOST28147, HMac, ISO9797 Alg. 3, Poly1305, SipHash, SkeinMac, VMPCMAC.<br>PBE generators: PKCS-12, and PKCS-5 - schemes 1 and 2.<br>OpenPGP (RFC 4880)<br>Cryptographic Message Syntax (CMS, RFC 3852), including streaming API.<br>Online Certificate Status Protocol (OCSP, RFC 2560).<br>Time Stamp Protocol (TSP, RFC 3161).<br>TLS/DTLS client/server up to version 1.2, with support for the most common ciphersuites and extensions, and many less common ones. Non-blocking API available.<br>Elliptic Curve Cryptography: support for generic F2m and Fp curves, high-performance custom implementations for many standardized curves.<br>Reading/writing of PEM files, including RSA and DSA keys, with a variety of encryptions.<br>PKIX certificate path validation</p>
-<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> MD5withRSA Signing</span></div><div class="line"><span class="comment"><span class="doctag">///</span> https://www.vrast.cn</span></div><div class="line"><span class="comment"><span class="doctag">///</span> keyle_xiao 2017.1.12</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="keyword">public</span>  <span class="keyword">class</span> <span class="title">MD5withRSASigning</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> Encoding encoding = Encoding.UTF8;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">string</span> SignerSymbol = <span class="string">"MD5withRSA"</span>;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MD5withRSASigning</span>(<span class="params"></span>) </span>&#123; &#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MD5withRSASigning</span>(<span class="params">Encoding e, <span class="keyword">string</span> s</span>)</span></div><div class="line">	&#123;</div><div class="line">		encoding = e;</div><div class="line">		SignerSymbol = s;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> AsymmetricKeyParameter <span class="title">CreateKEY</span>(<span class="params"><span class="keyword">bool</span> isPrivate, <span class="keyword">string</span> key</span>)</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">byte</span>[] keyInfoByte = Convert.FromBase64String(key);</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (isPrivate)</div><div class="line">			<span class="keyword">return</span> PrivateKeyFactory.CreateKey(keyInfoByte);</div><div class="line">		<span class="keyword">else</span></div><div class="line">			<span class="keyword">return</span> PublicKeyFactory.CreateKey(keyInfoByte);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">Sign</span>(<span class="params"><span class="keyword">string</span> content, <span class="keyword">string</span> privatekey</span>)</span></div><div class="line">	&#123;</div><div class="line">		ISigner sig = SignerUtilities.GetSigner(SignerSymbol);</div><div class="line"></div><div class="line">		sig.Init(<span class="literal">true</span>, CreateKEY(<span class="literal">true</span>, privatekey));</div><div class="line"></div><div class="line">		<span class="keyword">var</span> bytes = encoding.GetBytes(content);</div><div class="line"></div><div class="line">		sig.BlockUpdate(bytes, <span class="number">0</span>, bytes.Length);</div><div class="line">		<span class="keyword">byte</span>[] signature = sig.GenerateSignature();</div><div class="line"></div><div class="line"></div><div class="line">		<span class="comment">/* Base 64 encode the sig so its 8-bit clean */</span></div><div class="line">		<span class="keyword">var</span> signedString = Convert.ToBase64String(signature);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> signedString;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">Verify</span>(<span class="params"><span class="keyword">string</span> content, <span class="keyword">string</span> signData, <span class="keyword">string</span> publickey</span>)</span></div><div class="line">	&#123;</div><div class="line">		ISigner signer = SignerUtilities.GetSigner(SignerSymbol);</div><div class="line"></div><div class="line">		signer.Init(<span class="literal">false</span>, CreateKEY(<span class="literal">false</span>, publickey));</div><div class="line"></div><div class="line">		<span class="keyword">var</span> expectedSig = Convert.FromBase64String(signData);</div><div class="line"></div><div class="line">		<span class="comment">/* Get the bytes to be signed from the string */</span></div><div class="line">		<span class="keyword">var</span> msgBytes = encoding.GetBytes(content);</div><div class="line"></div><div class="line">		<span class="comment">/* Calculate the signature and see if it matches */</span></div><div class="line">		signer.BlockUpdate(msgBytes, <span class="number">0</span>, msgBytes.Length);</div><div class="line">		<span class="keyword">return</span> signer.VerifySignature(expectedSig);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="http://www.bouncycastle.org/csharp/" target="_blank" rel="external">bouncycastle官网</a><br><a href="http://www.cnblogs.com/dj258/p/6049786.html#3589515" target="_blank" rel="external">C# 与JAVA 的RSA 加密解密交互，互通，C#使用BouncyCastle来实现私钥加密，公钥解密的方法</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本章记录关于Java MD5withRSA加密算法的C#实现。由于C#不提供MD5withRSA的内置实现，所以必须依赖其他的第三方库。这里提供一个简单的sample来演绎[bouncycastle]的加密库。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="C#" scheme="http://vrast.cn/categories/C/"/>
-    
-    
-      <category term="MD5withRSA" scheme="http://vrast.cn/tags/MD5withRSA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一次加载所有Shader</title>
-    <link href="http://vrast.cn/posts/8cb143d1/"/>
-    <id>http://vrast.cn/posts/8cb143d1/</id>
-    <published>2017-01-09T13:00:25.000Z</published>
-    <updated>2017-01-12T09:28:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>一次性加载所有的Shader.避免材质上的Shader丢失，5.X需要调用<code>Shader.WarmupAllShaders</code></p>
-</blockquote>
-<a id="more"></a>
-<h1 id="ShaderVariantCollection-Document"><a href="#ShaderVariantCollection-Document" class="headerlink" title="ShaderVariantCollection Document"></a>ShaderVariantCollection Document</h1><p>Description</p>
-<p>ShaderVariantCollection records which shader variants are actually used in each shader.</p>
-<p>This is used for shader preloading (“warmup”), so that a game can make sure “actually required” shader variants are loaded at startup (or level load time), to avoid shader compilation related hiccups later on in the game.</p>
-<p>In Unity, many shaders internally have multiple “variants”, to account for different light modes, lightmaps, shadows and so on. These variants are indentified by a shader pass type, and a set of shader keywords. See ShaderVariant.</p>
-<p>Typical use of ShaderVariantCollection is to record the shader variants used during a play session from the editor (under Graphics Settings), save them out as an asset, and add to the list of preloaded shaders (again in Graphics Settings). Additionally, you could call WarmUp on a ShaderVariantCollection object manually.</p>
-<p>ShaderVariantCollection generally replaces the old Shader.WarmupAllShaders function.</p>
-<h1 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h1><p>对于Unity4.x版本，Shader的AssetBundle加载后只需LoadAll即可完成所有Shader的加载和解析，但对于Unity5.x版本，除执行LoadAllAssets操作外，还需要进行Shader.WarmupAllShaders操作，因为在Unity5.x版本中，Shader的解析和CreateGPUProgram操作是分离的。 – <a href="http://blog.uwa4d.com/archives/LoadingPerformance_Shader.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">摘录自UWA Unity加载模块深度解析（Shader篇)</a></p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="http://blog.csdn.net/ynnmnm/article/details/44674211" target="_blank" rel="external">Unity3D - 图形性能优化：优化着色器加载时间</a><br><a href="http://blog.uwa4d.com/archives/LoadingPerformance_Shader.html" target="_blank" rel="external">Unity加载模块深度解析（Shader篇)</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;一次性加载所有的Shader.避免材质上的Shader丢失，5.X需要调用&lt;code&gt;Shader.WarmupAllShaders&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="Shader" scheme="http://vrast.cn/tags/Shader/"/>
     
   </entry>
   
