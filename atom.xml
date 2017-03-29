@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-03-28T07:34:09.000Z</updated>
+  <updated>2017-03-29T08:15:08.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,27 +16,63 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Python相关的环境问题</title>
-    <link href="http://vrast.cn/posts/b3941f7a/"/>
-    <id>http://vrast.cn/posts/b3941f7a/</id>
-    <published>2017-03-28T07:28:20.000Z</published>
-    <updated>2017-03-28T07:34:09.000Z</updated>
+    <title>Hello Python 2</title>
+    <link href="http://vrast.cn/posts/c74605d/"/>
+    <id>http://vrast.cn/posts/c74605d/</id>
+    <published>2017-03-28T10:55:43.000Z</published>
+    <updated>2017-03-29T08:15:08.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>记录一些python相关的环境配置问题。其实杂七杂八的还很多，这里记录一些比较难记的东西。</p>
+<p>因为准备开始写自动化打包工具了，磨刀不误砍柴功，这里再加深一些Python基础<br><a id="more"></a></p>
 </blockquote>
-<p><img src="/uploads/WX20170328-152544@2x.png" alt="更换python版本"></p>
-<a id="more"></a>
-<h1 id="查看python安装路径"><a href="#查看python安装路径" class="headerlink" title="查看python安装路径"></a>查看python安装路径</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">which</span> python3</div></pre></td></tr></table></figure>
-<h1 id="更换pycharm"><a href="#更换pycharm" class="headerlink" title="更换pycharm"></a>更换pycharm</h1><p><img src="/uploads/WX20170328-152544@2x.png" alt="更换python版本"></p>
+<h1 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h1><p>OOP浅而言之就是继承封装与多态,再要深入的说那可就说不完了。</p>
+<h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><p>定义一个类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></div><div class="line">	num1 = mun2 = <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,arg1,arg2)</span>:</span></div><div class="line">		self.num1 = arg1</div><div class="line">		self.num2 = arg2</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">Calc</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.num1+self.num2</div><div class="line"></div><div class="line"></div><div class="line">a = A(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">print(a.Calc())</div></pre></td></tr></table></figure>
+<h3 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span>:</span></div><div class="line">	__Content = <span class="string">"slef content"</span>  <span class="comment">#使用双下划线开头的私有属性</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"do something"</span>)</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"init method"</span>)</div><div class="line"></div><div class="line"></div><div class="line">t = test()</div><div class="line">t.func()</div><div class="line"></div><div class="line"></div><div class="line">print(t._test__Content)<span class="comment">#只能透过这种方式来访问私有属性</span></div></pre></td></tr></table></figure>
+<h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><p><img src="/uploads/WX20170328-191931@2x.png" alt="ClassB继承ClassA"></p>
+<h2 id="基础重载方法"><a href="#基础重载方法" class="headerlink" title="基础重载方法"></a>基础重载方法</h2><p>下表列出了一些通用的功能，你可以在自己的类重写：<br>|序号|    方法, 描述 &amp; 简单的调用|<br>|—|————————|<br>|1|    <strong>init</strong> ( self [,args…] )构造函数 简单的调用方法: obj = className(args)|<br>|2|    <strong>del</strong>( self ) 析构方法, 删除一个对象 简单的调用方法 : dell obj|<br>|3|    <strong>repr</strong>( self )转化为供解释器读取的形式 简单的调用方法 : repr(obj)|<br>|4|    <strong>str</strong>( self ) 用于将值转化为适于人阅读的形式 简单的调用方法 : str(obj)|<br>|5|    <strong>cmp</strong> ( self, x ) 对象比较 简单的调用方法 : cmp(obj, x)|</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;记录一些python相关的环境配置问题。其实杂七杂八的还很多，这里记录一些比较难记的东西。&lt;/p&gt;
+&lt;p&gt;因为准备开始写自动化打包工具了，磨刀不误砍柴功，这里再加深一些Python基础&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
+    
+    
+      <category term="Python" scheme="http://vrast.cn/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python相关的环境问题</title>
+    <link href="http://vrast.cn/posts/b3941f7a/"/>
+    <id>http://vrast.cn/posts/b3941f7a/</id>
+    <published>2017-03-28T07:28:20.000Z</published>
+    <updated>2017-03-29T08:15:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/31DCA46C-6CBD-4A2B-91A3-457BF9D92B89.png" alt="使用远程调试"></p>
+<blockquote>
+<p>记录一些python相关的环境配置问题,包括使用PyCharm远程调试Python。其实杂七杂八的还很多，这里记录一些比较难记的东西。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="查看python安装路径"><a href="#查看python安装路径" class="headerlink" title="查看python安装路径"></a>查看python安装路径</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">which</span> python3</div></pre></td></tr></table></figure>
+<h1 id="更换pycharm"><a href="#更换pycharm" class="headerlink" title="更换pycharm"></a>更换pycharm</h1><p><img src="/uploads/WX20170328-152544@2x.png" alt="更换python版本"></p>
+<h1 id="远程调试"><a href="#远程调试" class="headerlink" title="远程调试"></a>远程调试</h1><p>使用PyCharm远程调试树莓派上的Py脚本</p>
+<p><img src="/uploads/WX20170329-161333@2x.png" alt="添加树莓派主机信息"></p>
+<p><img src="/uploads/WX20170329-161435@2x.png" alt="添加树莓派调试环境"></p>
+<p><a href="https://www.jetbrains.com/help/pycharm/2017.1/project-and-ide-settings.html?utm_medium=help_link&amp;utm_source=from_product&amp;utm_campaign=PY&amp;utm_content=2017.1" target="_blank" rel="external">官方文档</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/31DCA46C-6CBD-4A2B-91A3-457BF9D92B89.png&quot; alt=&quot;使用远程调试&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录一些python相关的环境配置问题,包括使用PyCharm远程调试Python。其实杂七杂八的还很多，这里记录一些比较难记的东西。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/WX20170328-152544@2x.png&quot; alt=&quot;更换python版本&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -52,7 +88,7 @@
     <link href="http://vrast.cn/posts/957d31e7/"/>
     <id>http://vrast.cn/posts/957d31e7/</id>
     <published>2017-03-27T07:41:04.000Z</published>
-    <updated>2017-03-28T09:37:41.000Z</updated>
+    <updated>2017-03-28T10:51:07.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>因为我的树莓派只要开机风扇就会不停的转为了控制风扇的转速我需要写一些脚本来控制gpio接口。所以作为兴趣就学习了一下python语言，当然python的实际作用远不止此，先看看基础的再深入的了解下吧。MacOS自带的Python是2.7x，但是我使用的是3.x 。当然这两者是有差异的，即使你不懂python也可以从版本号上看出来这个差异。<br><a href="http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html" target="_blank" rel="external">The key differences between Python 2.7.x and Python 3.x with examples</a> &lt;-这篇博客详细说明了2.x与3.x的区别。因为本人是从3.x学习python的所以后面的博文都会以3.x作为案例。</p>
@@ -275,7 +311,7 @@
 <p>使用lambda匿名函数，后面只可以跟一句话… (我有点想吐槽)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sum = <span class="keyword">lambda</span> arg1, arg2:arg1+arg2</div><div class="line"></div><div class="line">print(<span class="string">"%d %s"</span> % (sum(<span class="number">2</span>,<span class="number">3</span>), <span class="string">" &lt;&lt;&lt;"</span>))</div></pre></td></tr></table></figure></p>
 <h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h2><p>初始化脚本在引用这个包的时候会自动被调用。只有拥有了初始化脚本才会被python认为这是一个包。<br><img src="/uploads/WX20170328-173343@2x.png" alt="创建包的时候自动添加了__init__.py脚本"></p>
 <p><img src="/uploads/WX20170328-173643@2x.png" alt="我在这个脚本里引入这个包,输出结果"></p>
-]]></content>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>:</div><div class="line">    fh = open(<span class="string">"testfile"</span>, <span class="string">"w"</span>)</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        fh.write(<span class="string">"这是一个测试文件，用于测试异常!!"</span>)</div><div class="line">    <span class="keyword">finally</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"关闭文件"</span></div><div class="line">        fh.close()</div><div class="line"><span class="keyword">except</span> IOError:</div><div class="line">    <span class="keyword">print</span> <span class="string">"Error: 没有找到文件或读取文件失败"</span></div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -1152,53 +1188,6 @@
     
     
       <category term="Objective-C" scheme="http://vrast.cn/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在MAC平台体验DotnetCore</title>
-    <link href="http://vrast.cn/posts/1f2cd62/"/>
-    <id>http://vrast.cn/posts/1f2cd62/</id>
-    <published>2017-01-15T03:37:45.000Z</published>
-    <updated>2017-01-15T04:37:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>这两天看到有朋友讨论 微软的 .netCore 这个跨平台项目。觉得有点意思，然后简单的了解一下。随后便有了这一篇博文。本文 记录在MACOS下使用 .netCore 开发所需准备与基础知识。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="下载所需环境"><a href="#下载所需环境" class="headerlink" title="下载所需环境"></a>下载所需环境</h2><p><img src="/uploads/QQ20170115-0@2x.jpg" alt=""><br>这里列出的所有安装命令可以在项目主页找到。<a href="https://www.microsoft.com/net/core#macos" target="_blank" rel="external">&gt;&gt; dotnetCore 主页 &lt;&lt;</a> 这里可以找到最新的 SDK 安装包。如果是使用的 MAC 直接使用 homeBrew 进行下载。</p>
-<h3 id="Mac安装前准备"><a href="#Mac安装前准备" class="headerlink" title="Mac安装前准备"></a>Mac安装前准备</h3><p>这里需要安装并且配置 openssl 。如果配置完毕请看下一步。</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">brew update</div><div class="line">brew install openssl</div><div class="line">mkdir -p /usr/local/<span class="class"><span class="keyword">lib</span></span></div><div class="line">ln -s /usr/local/opt/openssl/<span class="class"><span class="keyword">lib</span>/<span class="title">libcrypto</span>.1.0.0.<span class="title">dylib</span> /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">lib</span>/</span></div><div class="line">ln -s /usr/local/opt/openssl/<span class="class"><span class="keyword">lib</span>/<span class="title">libssl</span>.1.0.0.<span class="title">dylib</span> /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">lib</span>/</span></div></pre></td></tr></table></figure>
-<h2 id="安装SDK"><a href="#安装SDK" class="headerlink" title="安装SDK"></a>安装SDK</h2><p><img src="/uploads/QQ20170115-1@2x.jpg" alt="安装SDK"></p>
-<h1 id="DotnetCore-Command"><a href="#DotnetCore-Command" class="headerlink" title="DotnetCore Command"></a>DotnetCore Command</h1><p>核心的命令如下。 其中 restore 命令必须要被执行至少一次。如果被你更改或第一次运行 会自动下载或添加所需依赖。这里做的十分的智能。如果是 VSCode 环境则会主动提示需要执行 restore 命令。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Common Commands:</div><div class="line">  new           Initialize <span class="selector-tag">a</span> basic <span class="selector-class">.NET</span> project ／ 创建一个基础项目</div><div class="line">  restore       Restore dependencies specified <span class="keyword">in</span> the <span class="selector-class">.NET</span> project ／ 初始化依赖项目，会重新检查配置中的依赖项。</div><div class="line">  build         Builds <span class="selector-tag">a</span> <span class="selector-class">.NET</span> project ／ 编译项目</div><div class="line">  publish       Publishes <span class="selector-tag">a</span> <span class="selector-class">.NET</span> project <span class="keyword">for</span> deployment (including the runtime) ／ 发布项目</div><div class="line">  run           Compiles and immediately executes <span class="selector-tag">a</span> <span class="selector-class">.NET</span> project ／ 在Launcher配置的输出环境中运行项目</div><div class="line">  test          Runs unit tests using the test runner specified <span class="keyword">in</span> the project ／ 运行单元测试</div><div class="line">  pack          Creates <span class="selector-tag">a</span> NuGet package ／ 创建一个NuGet包</div></pre></td></tr></table></figure>
-<h2 id="在-Terminal-中-运行-HelloWorld"><a href="#在-Terminal-中-运行-HelloWorld" class="headerlink" title="在 Terminal 中 运行 HelloWorld"></a>在 Terminal 中 运行 HelloWorld</h2><p>我们在控制台中使用 DotnetCore 的命令，创建一个 HelloWorld 程序。用来检测环境是否 配置完毕。</p>
-<p>流程如下：</p>
-<ol>
-<li>输入此命令创建演示用文件夹 <code>mkdir hwapp &amp;&amp; cd hwapp </code></li>
-<li>创建基础项目<br><img src="/uploads/QQ20170115-2@2x.jpg" alt=""></li>
-<li>使用dotnet restore命令初始化依赖<br><img src="/uploads/QQ20170115-3@2x.jpg" alt=""></li>
-<li>使用dotnet run命令执行此项目<br><img src="/uploads/QQ20170115-4@2x.jpg" alt=""></li>
-</ol>
-<h1 id="关于-VSCode"><a href="#关于-VSCode" class="headerlink" title="关于 VSCode"></a>关于 VSCode</h1><p>本来这一章我是想介绍下AST.NET项目的。<br>但是这个东西要使用VSCode开发的话还是不现实。主要的原因是需要复杂的配置，不智能化。添加一个 Controller 都很麻烦。<br>所有的 command 都只能通过配置文件进行，还要手动校验那些配置是可用的 哪些需要更改。如果你是第一次使用vscode肯定要懵圈。<br>如果在 visualstudio 上使用直接可以支持发布到某个特定的平台。一个按钮为你省去所有烦恼。</p>
-<blockquote>
-<p>如果有时间花在配置所有的运行环境，我还是宁愿花时间想想 如何优化自己的代码 。</p>
-</blockquote>
-<h1 id="关于-VisualStudio-for-Mac"><a href="#关于-VisualStudio-for-Mac" class="headerlink" title="关于 VisualStudio for Mac"></a>关于 VisualStudio for Mac</h1><p>前一阵微软弄了个 visualstudio for mac .未来有很大可能会将 .netcore集成到这个 IDE 上。<br>当然我已经试用过了这个 IDE .这个工具其实就是 XamarinStudio 拿来改的。<br>我用XamarinStudio已经用了快3年了。但是没有见过如此不好用的 XamarinStudio FOR VisualStudio 。<br>举个例子 ： 我使用 tab 键 自动完成代码的时候，居然不能识别我正在编辑的字段，丢失了智能提示。<br>希望未来有改善的一天吧。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;这两天看到有朋友讨论 微软的 .netCore 这个跨平台项目。觉得有点意思，然后简单的了解一下。随后便有了这一篇博文。本文 记录在MACOS下使用 .netCore 开发所需准备与基础知识。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="DotNetCore" scheme="http://vrast.cn/categories/DotNetCore/"/>
-    
-    
-      <category term="微软跨平台" scheme="http://vrast.cn/tags/%E5%BE%AE%E8%BD%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0/"/>
     
   </entry>
   
