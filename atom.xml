@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-04-07T10:01:23.000Z</updated>
+  <updated>2017-04-27T09:00:12.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Unity Editor GUI Style</title>
+    <link href="http://vrast.cn/posts/5b0bf452/"/>
+    <id>http://vrast.cn/posts/5b0bf452/</id>
+    <published>2017-04-27T08:54:27.000Z</published>
+    <updated>2017-04-27T09:00:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>这几个Scrollview的属性藏的比较深 这里记录下。<br><a id="more"></a></p>
+</blockquote>
+<p>box<br>button<br>toggle<br>label<br>textField<br>textArea<br>window<br>horizontalSlider<br>horizontalSliderThumb<br>verticalSlider<br>verticalSliderThumb<br>horizontalScrollbar<br>horizontalScrollbarThumb<br>horizontalScrollbarLeftButton<br>horizontalScrollbarRightButton<br>verticalScrollbar<br>verticalScrollbarThumb<br>verticalScrollbarUpButton<br>verticalScrollbarDownButton<br>scrollView</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;这几个Scrollview的属性藏的比较深 这里记录下。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Editor" scheme="http://vrast.cn/categories/Editor/"/>
+    
+    
+      <category term="ScrollView" scheme="http://vrast.cn/tags/ScrollView/"/>
+    
+  </entry>
   
   <entry>
     <title>Shader进阶1</title>
@@ -1062,45 +1089,6 @@
     
     
       <category term="KVO" scheme="http://vrast.cn/tags/KVO/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KVC in iOS</title>
-    <link href="http://vrast.cn/posts/8779cbe4/"/>
-    <id>http://vrast.cn/posts/8779cbe4/</id>
-    <published>2017-03-02T10:24:06.000Z</published>
-    <updated>2017-03-02T12:24:26.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>在 C# 里我们常用 .net reflect 类库配合typeof/getType来反射设置函数与字段等等。在iOS里也有这样的功能，比C#的门槛低的多。只要你合乎规范的定义函数与属性字段，就能方便的使用。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="使用KVC"><a href="#使用KVC" class="headerlink" title="使用KVC"></a>使用KVC</h1><p>下面的函数 我将接通过KVC的接口 setValue forKey &amp;&amp; setValue forKeyPath ，来设置属性 与 调用方法。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Bar.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    Foo* foo = [[Foo alloc]init];</div><div class="line">    foo.bar = [[Bar alloc]init];</div><div class="line"></div><div class="line">    </div><div class="line">    [foo setValue:<span class="string">@"blah blah"</span> forKey:<span class="string">@"stringOnFoo"</span>];</div><div class="line">    [foo setValue:<span class="string">@"testforkeyle"</span> forKeyPath:<span class="string">@"bar.stringOnBar"</span>];</div><div class="line">    [foo valueForKeyPath:<span class="string">@"Log"</span>];<span class="comment">//Just Test log 直接访问了实例方法</span></div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,foo.bar.stringOnBar); <span class="comment">//testforkeyle</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,foo.stringOnFoo); <span class="comment">//blah blah</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用KVC在便利数组上尤为方便，下面是使用@sum函数直接给数组的price属性求和。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[foo.bar.array valueForKeyPath:<span class="string">@"@sum.price"</span>];</div></pre></td></tr></table></figure>
-<h1 id="KVC的其他函数"><a href="#KVC的其他函数" class="headerlink" title="KVC的其他函数"></a>KVC的其他函数</h1><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对于KVC的一些命令 ，如果要操作 NSArray 之类的字典可以方便的调用。类似C#的Linq for Object</span></div><div class="line">@avg</div><div class="line">@count</div><div class="line">@max</div><div class="line">@min</div><div class="line">@sum</div><div class="line">@unionOfArrays/@distinctUnionOfArrays   <span class="comment">//返回一个包含所有数组的数组 / 返回一个不重复的集合元素</span></div><div class="line">@unionOfSets/@distinctUnionOfSets       <span class="comment">//返回一个包含所有集合的集合 / 返回一个不重复的集合元素</span></div><div class="line">@unionOfObjects/@distinctUnionOfObjects <span class="comment">//返回一个包含所有元素的数组 / 返回一个不重复元素的数组</span></div></pre></td></tr></table></figure>
-<h1 id="使用要求"><a href="#使用要求" class="headerlink" title="使用要求"></a>使用要求</h1><ol>
-<li>骆驼命名法,不能数字开头</li>
-<li>不能包含空格</li>
-<li>键必须是ASCII编码的</li>
-<li>使用默认的get/set</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;在 C# 里我们常用 .net reflect 类库配合typeof/getType来反射设置函数与字段等等。在iOS里也有这样的功能，比C#的门槛低的多。只要你合乎规范的定义函数与属性字段，就能方便的使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="KVC" scheme="http://vrast.cn/tags/KVC/"/>
     
   </entry>
   
