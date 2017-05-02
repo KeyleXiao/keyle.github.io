@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-04-27T09:00:12.000Z</updated>
+  <updated>2017-05-02T02:12:50.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,53 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>近况不佳,记以作文以励之</title>
+    <link href="http://vrast.cn/posts/1c99e69f/"/>
+    <id>http://vrast.cn/posts/1c99e69f/</id>
+    <published>2017-05-02T02:01:40.000Z</published>
+    <updated>2017-05-02T02:12:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>严格来说距离上一次写高质量的文章已经相距1月之久。这期间我究竟经历了什么…</p>
+</blockquote>
+<a id="more"></a>
+<p>今天找到公司15分钟，用这个时间来反思下近况，我觉得可能最近再玩下去要悲剧了。理由有三：</p>
+<ol>
+<li>上外的四级考试约在35日之后就要开始了</li>
+<li>TCL的硬件SDK还没有写完，20天要写好Android与iOS的中间键</li>
+<li>周六要准备 3分钟lecture</li>
+</ol>
+<p>说说之前我都玩了些什么：</p>
+<p></p><h1>王者荣耀<h1><p></p>
+<p></p><h1>王者荣耀<h1><p></p>
+<p></p><h1>王者荣耀<h1><p></p>
+<p></p><h1>王者荣耀<h1><br>此处省略一万字…<p></p>
+<p>胜率嘛 ，60% 因为最近去微信去解毒了，没有玩腾讯QQ服。</p>
+<p>我先说说玩游戏不好的地方：</p>
+<ol>
+<li>浪费时间</li>
+<li>影响心情</li>
+</ol>
+<p>当下似乎没有多少时间可以浪费了。马上要变成老腊肉了 我还是滚去学习吧。</p>
+<p>今天反思到这里，再玩游戏要剁手！</p>
+</h1></h1></h1></h1></h1></h1></h1></h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;严格来说距离上一次写高质量的文章已经相距1月之久。这期间我究竟经历了什么…&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Self" scheme="http://vrast.cn/categories/Self/"/>
+    
+    
+      <category term="反思" scheme="http://vrast.cn/tags/%E5%8F%8D%E6%80%9D/"/>
+    
+  </entry>
   
   <entry>
     <title>Unity Editor GUI Style</title>
@@ -1032,63 +1079,6 @@
     
     
       <category term="Grammar" scheme="http://vrast.cn/tags/Grammar/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KVO in iOS</title>
-    <link href="http://vrast.cn/posts/d0d6deab/"/>
-    <id>http://vrast.cn/posts/d0d6deab/</id>
-    <published>2017-03-02T11:20:52.000Z</published>
-    <updated>2017-03-03T08:07:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>如果我更改了一个属性的值，KVO会帮助我们检测这个值的变化，从而通知我们这个值改变了。典型的观察者模式。当然我想起在UNITY3D中，如果检视面板的数值发生改变对应的GameObject发生位移之类的。我曾经实现了一个inspector的编辑器类，值改变直接通知(其实是调用)对应的函数。在iOS这里 一切发生的那么自然。不需要额外实现 这是iOS的特性之一 名曰：KVO 。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>上一篇 KVC 讲到需要遵循的几条几本规则在 KVO 中同样适用。</p>
-<ul>
-<li>骆驼命名法,不能数字开头</li>
-<li>不能包含空格</li>
-<li>键必须是ASCII编码的</li>
-<li>使用默认的get/set</li>
-</ul>
-<p>上一章 只要是针对 object 的元素查询，调用，筛选。本文主要是讲述 KVO 监听(观察者模式) 属性值的变更。</p>
-<h1 id="添加／移除-一个监听"><a href="#添加／移除-一个监听" class="headerlink" title="添加／移除 一个监听"></a>添加／移除 一个监听</h1><p>addObserver 函数签名如下</p>
-<ul>
-<li>addObserver：监听的接受脚本的类</li>
-<li>context：    随便传入任何值都可以，最后取出来的时候需要强转</li>
-<li>forKeyPath:  选择一个需要监听的属性</li>
-<li>options：    可选项</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Bar.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    Foo* foo = [[Foo alloc]init];</div><div class="line">    foo.bar = [[Bar alloc]init];</div><div class="line">    [foo.bar addObserver:foo forKeyPath:<span class="string">@"stringOnBar"</span> options:<span class="number">0</span> context: (<span class="keyword">void</span>*)s];</div><div class="line">    </div><div class="line">    foo.bar.stringOnBar = <span class="string">@"test"</span>;</div><div class="line"></div><div class="line">    [foo.bar removeObserver:foo forKeyPath:<span class="string">@"stringOnBar"</span>];</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>控制台输出如下:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-03</span> <span class="number">15</span>:<span class="number">17</span>:<span class="number">22.085142</span> oc[<span class="number">52721</span>:<span class="number">6279405</span>] helloworld</div><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-03</span> <span class="number">15</span>:<span class="number">17</span>:<span class="number">22.085371</span> oc[<span class="number">52721</span>:<span class="number">6279405</span>] Value Changed : stringOnBar</div><div class="line">Program ended with exit code: <span class="number">0</span></div></pre></td></tr></table></figure></p>
-<h2 id="关于-options-可选项"><a href="#关于-options-可选项" class="headerlink" title="关于 options 可选项"></a>关于 options 可选项</h2><p>上面的代码中 options 是个可选项，这里不需要处理所以填写0，详细的选项如下：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSKeyValueObservingOptionNew</span>     把更改之前的值提供给处理方法</div><div class="line"><span class="built_in">NSKeyValueObservingOptionOld</span>     把更改之后的值提供给处理方法</div><div class="line"><span class="built_in">NSKeyValueObservingOptionInitial</span> 把初始化的值提供给处理方法，一旦注册，立马就会调用一次。通常它会带有新值，而不会带有旧值。</div><div class="line"><span class="built_in">NSKeyValueObservingOptionPrior</span>   分<span class="number">2</span>次调用。在值改变之前和值改变之后。</div><div class="line"><span class="number">0</span>                                不带任何参数进去</div></pre></td></tr></table></figure>
-<p>传递给监听的值在接受函数<code> ofObject:(id)object </code>可以获取到。</p>
-<h2 id="关于监听脚本"><a href="#关于监听脚本" class="headerlink" title="关于监听脚本"></a>关于监听脚本</h2><p>不用担心监听脚本过于复杂。其实是自动生成的 键入 observeValueForKeyPath 则会生成如下代码：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span> *)change context:(<span class="keyword">void</span> *)context</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span>* content = (__bridge <span class="built_in">NSString</span>*)context;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (content) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,content);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"stringOnBar"</span>]) &#123;</div><div class="line">         <span class="built_in">NSLog</span>(<span class="string">@"Value Changed : stringOnBar"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"stringOnFoo"</span>]) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Value Changed : stringOnFoo"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> observeValueForKeyPath:keyPath ofObject:object change:change context:context];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当然结构体里面的内容是我自己些的 😄</p>
-<p>当类 dealloc 的时候需要手动移除监听，否则会报错 … 报错信息如下:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2017-03-03 15:16:02.560251 oc[52593:6273946] *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'An instance 0x1004065e0 of class Bar was deallocated while key value observers were still registered with it. Current observation info: &lt;NSKeyValueObservationInfo 0x100406b90&gt; (</div><div class="line">&lt;NSKeyValueObservance 0x100407e80: Observer: 0x1004045e0, Key path: stringOnBar, Options: &lt;New: NO, Old: NO, Prior: NO&gt; Context: 0x1000030c0, Property: 0x100406ac0&gt;</div><div class="line">)'</div><div class="line">*** First throw call stack:</div><div class="line">(</div><div class="line">	0   CoreFoundation                      0x00007fffa311fe7b __exceptionPreprocess + 171</div><div class="line">	1   libobjc.A.dylib                     0x00007fffb7d09cad objc_exception_throw + 48</div><div class="line">	2   CoreFoundation                      0x00007fffa319e99d +[NSException raise:format:] + 205</div><div class="line">	3   Foundation                          0x00007fffa4aff6e4 NSKVODeallocate + 293</div><div class="line">	4   oc                                  0x000000010000278e -[Foo .cxx_destruct] + 78</div><div class="line">	5   libobjc.A.dylib                     0x00007fffb7d05686 _ZL27object_cxxDestructFromClassP11objc_objectP10objc_class + 127</div><div class="line">	6   libobjc.A.dylib                     0x00007fffb7cfe0c6 objc_destructInstance + 92</div><div class="line">	7   libobjc.A.dylib                     0x00007fffb7cfe059 object_dispose + 22</div><div class="line">	8   oc                                  0x000000010000166e main + 398</div><div class="line">	9   libdyld.dylib                       0x00007fffb85ed255 start + 1</div><div class="line">)</div><div class="line">libc++abi.dylib: terminating with uncaught exception of type NSException</div><div class="line">(lldb)</div></pre></td></tr></table></figure>
-<h1 id="手动KVO"><a href="#手动KVO" class="headerlink" title="手动KVO"></a>手动KVO</h1><p>KVO不是万能的，有时候我们在某些条件下不希望接受到KVO的通知，需要重写如下方法:</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSInteger</span> HP = <span class="number">10</span>;</div><div class="line">+(<span class="built_in">BOOL</span>)automaticallyNotifiesObserversOfStringOnFoo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(HP&gt;<span class="number">100</span>)</div><div class="line">      <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>这里有一个技巧输入 <code>+(BOOL)automatically</code> 之后自动列出可以重写的几个属性的通知。</code></p>
-<p>手动触发KVO也是允许的,下面主要使用到了 <code>willChangeValueForKey ／ didChangeValueForKey</code> 这两个函数。即使禁止了自动通知也可以直接在get函数中触发。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSInteger</span> HP = <span class="number">11</span>;</div><div class="line"></div><div class="line">+(<span class="built_in">BOOL</span>)automaticallyNotifiesObserversOfStringOnFoo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(HP&gt;<span class="number">100</span>)</div><div class="line">      <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)setStringOnFoo:(<span class="built_in">NSString</span> *) inValue</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"stringOnFoo"</span>];</div><div class="line">    stringOnFoo = inValue;</div><div class="line">    [<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"stringOnFoo"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;如果我更改了一个属性的值，KVO会帮助我们检测这个值的变化，从而通知我们这个值改变了。典型的观察者模式。当然我想起在UNITY3D中，如果检视面板的数值发生改变对应的GameObject发生位移之类的。我曾经实现了一个inspector的编辑器类，值改变直接通知(其实是调用)对应的函数。在iOS这里 一切发生的那么自然。不需要额外实现 这是iOS的特性之一 名曰：KVO 。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="KVO" scheme="http://vrast.cn/tags/KVO/"/>
     
   </entry>
   
