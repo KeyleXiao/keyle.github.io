@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-05-02T02:13:27.000Z</updated>
+  <updated>2017-06-21T07:09:43.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SmartDataViewer Project Document</title>
+    <link href="http://vrast.cn/posts/b5b9f139/"/>
+    <id>http://vrast.cn/posts/b5b9f139/</id>
+    <published>2017-06-21T06:34:17.000Z</published>
+    <updated>2017-06-21T07:09:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本文详细记录 SmartDataViewer 项目接口细节 并提供说明。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="为什么要使用-SmartDataViewer-？"><a href="#为什么要使用-SmartDataViewer-？" class="headerlink" title="为什么要使用 SmartDataViewer ？"></a>为什么要使用 SmartDataViewer ？</h1><p>SmartDataViewer 节约程序大量编辑器开发时间，在定义完成基础类型的时候，即可同步生成可视化编辑器。</p>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ol>
+<li>秒速生成编辑器</li>
+<li>支持外联多个类</li>
+<li>支持针对特定字段进行排序与查询</li>
+<li>支持数据导出导入(内建Unity3d Json支持)</li>
+<li>支持开放式编辑器事件,几乎所有的事件与组件渲染 用户可自定义</li>
+<li>通过标签定制编辑器字段显示方式,包括宽度，显示别名，显示排序，导出导入位置等</li>
+</ol>
+<h1 id="正确的打开姿势"><a href="#正确的打开姿势" class="headerlink" title="正确的打开姿势"></a>正确的打开姿势</h1><h2 id="继承-IModel-并且实现一个xxxConfig的容器"><a href="#继承-IModel-并且实现一个xxxConfig的容器" class="headerlink" title="继承 IModel 并且实现一个xxxConfig的容器"></a>继承 IModel 并且实现一个xxxConfig的容器</h2><p>Type 1<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">[Serializable]</div><div class="line">public class DemoConfig : ConfigBase&lt;Demo&gt; &#123; &#125;</div><div class="line"></div><div class="line">[Serializable]</div><div class="line">public class Demo : IModel</div><div class="line">&#123;</div><div class="line">	public Demo()</div><div class="line">	&#123;</div><div class="line">		strList = new List&lt;string&gt;();</div><div class="line">		list = new List&lt;int&gt;();</div><div class="line">		supports = new List&lt;int&gt;();</div><div class="line">		description = string.Empty;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public List&lt;string&gt; strList;</div><div class="line"></div><div class="line">	public List&lt;int&gt; list;</div><div class="line"></div><div class="line">	[ConfigEditorField(outLinkSubClass: "Supports")]</div><div class="line">	public List&lt;int&gt; supports;</div><div class="line"></div><div class="line">	public string description;</div><div class="line"></div><div class="line">	[ConfigEditorField(outLinkSubClass: "Supports")]</div><div class="line">	public int support;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Type 2<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">[Serializable]</div><div class="line">public class SupportsConfig : ConfigBase&lt;Supports&gt; &#123; &#125;</div><div class="line"></div><div class="line">[Serializable]</div><div class="line">public class Supports : IModel</div><div class="line">&#123;</div><div class="line">	public Supports()</div><div class="line">	&#123;</div><div class="line">		boolList = new List&lt;bool&gt;();</div><div class="line">		description = string.Empty;</div><div class="line">		colorList = new List&lt;Color&gt;();</div><div class="line">		curveList = new List&lt;AnimationCurve&gt;();</div><div class="line">		curve = new AnimationCurve();</div><div class="line">		bounds = new Bounds();</div><div class="line">		boundsList = new List&lt;Bounds&gt;();</div><div class="line">	&#125;</div><div class="line">	public Vector2 testPoint;</div><div class="line"></div><div class="line">	public List&lt;bool&gt; boolList;</div><div class="line"></div><div class="line">	public int testID;</div><div class="line"></div><div class="line">	public Bounds bounds;</div><div class="line"></div><div class="line">	public Color PointColor;</div><div class="line"></div><div class="line">	public AnimationCurve curve;</div><div class="line"></div><div class="line">	public List&lt;Color&gt; colorList;</div><div class="line"></div><div class="line">	public List&lt;AnimationCurve&gt; curveList;</div><div class="line"></div><div class="line">	public List&lt;Bounds&gt; boundsList;</div><div class="line"></div><div class="line">	public string description;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h2><h3 id="ConfigEditorAttribute"><a href="#ConfigEditorAttribute" class="headerlink" title="ConfigEditorAttribute"></a>ConfigEditorAttribute</h3><p>容器标签<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> Initializes a new instance of the <span class="doctag">&lt;see cref="T:SmartDataViewer.ConfigEditorAttribute"/&gt;</span> class.</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="editor_title"&gt;</span>当前编辑器显示的名词<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="load_path"&gt;</span>当前编辑器数据文件的位置<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="output_path"&gt;</span>编辑文件导出路径<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="disableSearch"&gt;</span>是否禁用搜索栏<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="disableSave"&gt;</span>是否禁用保存按钮<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="disableCreate"&gt;</span>是否禁用添加按钮<span class="doctag">&lt;/param&gt;</span></span></div></pre></td></tr></table></figure></p>
+<h3 id="ConfigEditorFieldAttribute"><a href="#ConfigEditorFieldAttribute" class="headerlink" title="ConfigEditorFieldAttribute"></a>ConfigEditorFieldAttribute</h3><p>字段标签<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> Initializes a new instance of the <span class="doctag">&lt;see cref="T:SmartDataViewer.ConfigEditorFieldAttribute"/&gt;</span> class.</span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="order"&gt;</span>编辑器字段显示顺序<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="can_editor"&gt;</span>If set to <span class="doctag">&lt;c&gt;</span>true<span class="doctag">&lt;/c&gt;</span> can editor.<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="display"&gt;</span>编辑器中显示别名 不填为字段名<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="width"&gt;</span>编辑器中显示的字段宽度<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="outLinkEditor"&gt;</span>外联到新的编辑器<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="outLinkSubClass"&gt;</span>外联到新的子类型,如果遵循编辑器默认命名规则 只需要填写此项即可<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="outLinkClass"&gt;</span>外联到新的类型<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="visibility"&gt;</span>是否在编辑器中隐藏此字段<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="outLinkDisplay"&gt;</span>将显示外联数据的别名 默认显示外联数据的NickName如果没有则显示ID<span class="doctag">&lt;/param&gt;</span></span></div><div class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="outLinkFilePath"&gt;</span>外联数据的文件位置<span class="doctag">&lt;/param&gt;</span></span></div></pre></td></tr></table></figure></p>
+<h2 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h2><p>点击build按钮 则会在指定路径生成数据编辑器<br><img src="/uploads/A6153579-9537-404D-9007-CE9B85F69BBF.png" alt="通过SmartDataViewer生成的编辑器"></p>
+<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><p><img src="/uploads/B0942117-D7EE-42A8-BE99-7D94014C8E13.png" alt="通过SmartDataViewer生成的编辑器"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文详细记录 SmartDataViewer 项目接口细节 并提供说明。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Document" scheme="http://vrast.cn/categories/Document/"/>
+    
+    
+      <category term="SmartDataViewer" scheme="http://vrast.cn/tags/SmartDataViewer/"/>
+    
+  </entry>
   
   <entry>
     <title>近况不佳,记以作文以励之</title>
@@ -1029,56 +1072,6 @@
     
     
       <category term="Protocal" scheme="http://vrast.cn/tags/Protocal/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>English Grammar 1</title>
-    <link href="http://vrast.cn/posts/c511b8c1/"/>
-    <id>http://vrast.cn/posts/c511b8c1/</id>
-    <published>2017-03-04T12:59:48.000Z</published>
-    <updated>2017-03-06T07:43:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>为什么要学外语 ？如果不感兴趣的你可以不用学，嘿嘿。 本文是我阅读文法俱乐部(旋元佑老师著作)的笔记，无笔记不读书。记录一些关键的信息，一共二十二个章节，我打算分11个笔记记录我阅读的过程。那么我们就开始了 😁</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="五种常见基本句型"><a href="#五种常见基本句型" class="headerlink" title="五种常见基本句型"></a>五种常见基本句型</h1><p>主            动          宾           补<br>S : Subject   V : Verb   O：Object   C: Complement</p>
-<ul>
-<li>S + V </li>
-<li>S + V + O</li>
-<li>S + V + C</li>
-<li>S + V + O + O</li>
-<li>S + V + O + C</li>
-</ul>
-<p>一个完整的句子少不了动词。</p>
-<h1 id="补语"><a href="#补语" class="headerlink" title="补语"></a>补语</h1><p>要了解补语，只需要研究那些解释为“是”的动词。基本句型分五种，是因为有五种特性不同的动词而造成的。<br>在所有的英语动词中，只有解释为“是”的动词是空的,完全没有意义。也只有这种动词才需要补语来补足句子的意思。</p>
-<p>可以独立发生，不牵涉到别的人或物，这种动词就叫“不及物”动词。不及物动词反之。</p>
-<p>一个完整的句子必须能够表达完整的意思。这需要两个以上部分来完成：主语和动词。主语，是这个句子叙述的对象。动词，构成叙述的主要内容。</p>
-<p>在中文翻译中，动词“是”完全不见了！<br>The cat is lovely.        这只猫很可爱。<br>The soup is too hot.      汤太烫了<br>Taroko Gorge is beautiful.xx峡谷很美。</p>
-<p>我们称“是”为连缀动词。跟在这种动词后面的部分，因为代替了动词所扮演的叙述角色，补足了句子使它获得完整的意思，称之为“补语”。</p>
-<p>需要补语的动词有哪些：<br>look , seem , appear , sound , feel . taste , turn , prove , become , make<br>因为这些动词都是空字眼，都还不能构成一个有意义的完整句子，所以需要补语来补足。<br>上面这些动词有一个特点 就是都可以用 is 来替代。</p>
-<blockquote>
-<p>检验 <code>S + V + O + C </code>的技巧，把宾语与补语拿出来中间加一个be动词。看看能不能改成 <code>S + V + C</code></p>
-</blockquote>
-<p>补语的词类应该是名词和形容词比较合理。因为主语或宾语都是名词，所以补语也可以是名词，经由“是”连接表达同等的关系。</p>
-<p>be动词时最纯粹的linking verb，解释为“是”，后面应该有补语才算完整，如果看到be动词后面没有补语，表示这个be动词并不是当作连缀动词使用。如果看到be动词后面没有补语，表示这个be动词并不是当作连缀动词使用，这时候be动词不解释为“是”，而是要解释为“存在”，用在最单纯的“主语+动词(S+V)”的句型中。<br>A is B’s father . 这里be动词必须翻译出来。<br>To be or not to be .that is the question. –哈姆雷特</p>
-<h1 id="双宾语句型"><a href="#双宾语句型" class="headerlink" title="双宾语句型"></a>双宾语句型</h1><p>dog 并不对 him 进行补充,him 与 dog是并列的，所以都是宾语。可以把两个宾语拿出来中间加一个be 哈哈。him is a dog 。骂人就不对了。<br>A’s father gave him a dog.</p>
-<p>dog是对him的补充说明。所以满足 SVOC<br>A’s father called him a dog. </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;为什么要学外语 ？如果不感兴趣的你可以不用学，嘿嘿。 本文是我阅读文法俱乐部(旋元佑老师著作)的笔记，无笔记不读书。记录一些关键的信息，一共二十二个章节，我打算分11个笔记记录我阅读的过程。那么我们就开始了 😁&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="English" scheme="http://vrast.cn/categories/English/"/>
-    
-    
-      <category term="Grammar" scheme="http://vrast.cn/tags/Grammar/"/>
     
   </entry>
   
