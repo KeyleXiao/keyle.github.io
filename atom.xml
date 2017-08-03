@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-07-31T09:57:18.000Z</updated>
+  <updated>2017-08-01T08:35:03.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,15 +16,65 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Rounded Cube</title>
+    <link href="http://vrast.cn/posts/827b1a39/"/>
+    <id>http://vrast.cn/posts/827b1a39/</id>
+    <published>2017-08-01T02:47:55.000Z</published>
+    <updated>2017-08-01T08:35:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:</p>
+<ul>
+<li>Create a cube with a seamless mesh. 创建无缝Mesh的立方体</li>
+<li>Add rounded edges to the cube. 添加圆形边缘的立方体</li>
+<li>Define normals. 定义法线</li>
+<li>Use sub-meshes. 使用子网格</li>
+<li>Create a custom shader. 使用自定义shader</li>
+<li>Combine primitive colliders. 合并原始网格</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<h1 id="Compositing-a-Cube-组合一个立方体"><a href="#Compositing-a-Cube-组合一个立方体" class="headerlink" title="Compositing a Cube 组合一个立方体"></a>Compositing a Cube 组合一个立方体</h1><p>非重点,这里直接写实现思路.接上一章节生产面,只需修改每个面的角度位置.使其拼凑成为一个立方体即可.</p>
+<p><img src="/uploads/QQ20170801-152656.png" alt="使用六个面拼凑一个立方体"></p>
+<h1 id="Creating-Cube-Vertices-创建立方体的顶点"><a href="#Creating-Cube-Vertices-创建立方体的顶点" class="headerlink" title="Creating Cube Vertices 创建立方体的顶点"></a>Creating Cube Vertices 创建立方体的顶点</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a cube with a seamless mesh. 创建无缝Mesh的立方体&lt;/li&gt;
+&lt;li&gt;Add rounded edges to the cube. 添加圆形边缘的立方体&lt;/li&gt;
+&lt;li&gt;Define normals. 定义法线&lt;/li&gt;
+&lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
+&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
+&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Procedural Grid</title>
     <link href="http://vrast.cn/posts/b5aaa1c8/"/>
     <id>http://vrast.cn/posts/b5aaa1c8/</id>
     <published>2017-07-26T03:26:55.000Z</published>
-    <updated>2017-07-31T09:57:18.000Z</updated>
+    <updated>2017-08-01T02:57:37.000Z</updated>
     
-    <content type="html"><![CDATA[<p>此主题分为四个部分讲述Mesh相关技术。 Procedural Grid 为其一，此为本人阅读笔记不作为转载处理，详细还请参看原文。 <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a></p>
+    <content type="html"><![CDATA[<p>此主题分为四个部分讲述Mesh相关技术.本章主题如下:</p>
+<ul>
+<li>Create a grid of points. 创建由点构成的网格. </li>
+<li>Use a coroutine to analyze their placement. 使用协程分析它们的位置信息.</li>
+<li>Define a surface with triangles. 使用三角形来定义表面. </li>
+<li>Automatically generate normals. 自动生成法线. </li>
+<li>Add texture coordinates and tangents. 添加贴图坐标与切线. </li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a></p>
 <a id="more"></a>
-<p>创建由点构成的网格.<br>Create a grid of points.<br>使用协程分析它们的位置信息.<br>Use a coroutine to analyze their placement.<br>使用三角形来定义表面.<br>Define a surface with triangles.<br>自动生成法线.<br>Automatically generate normals.<br>添加贴图坐标与切线.<br>Add texture coordinates and tangents.</p>
 <p>在此教程里我们将创建简单的网格与三角面.</p>
 <p>复杂的外表之下是简单的网格.<br>Beneath complex appearance lies simple geometry.</p>
 <h1 id="Rendering-Things-渲染物体"><a href="#Rendering-Things-渲染物体" class="headerlink" title="Rendering Things 渲染物体"></a>Rendering Things 渲染物体</h1><p>如果你想让某些物体在Unity中可见，要用网格.它可能是从其他程序导入的3D模型.它可能是程序生成的网格.可能是Sprite,UI元素,或者粒子系统.Unity就是如此使用网格.所有的屏幕特效也都是mesh渲染出来的.</p>
@@ -52,7 +102,15 @@
     
     <summary type="html">
     
-      &lt;p&gt;此主题分为四个部分讲述Mesh相关技术。 Procedural Grid 为其一，此为本人阅读笔记不作为转载处理，详细还请参看原文。 &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;此主题分为四个部分讲述Mesh相关技术.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a grid of points. 创建由点构成的网格. &lt;/li&gt;
+&lt;li&gt;Use a coroutine to analyze their placement. 使用协程分析它们的位置信息.&lt;/li&gt;
+&lt;li&gt;Define a surface with triangles. 使用三角形来定义表面. &lt;/li&gt;
+&lt;li&gt;Automatically generate normals. 自动生成法线. &lt;/li&gt;
+&lt;li&gt;Add texture coordinates and tangents. 添加贴图坐标与切线. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
@@ -260,7 +318,7 @@
     <link href="http://vrast.cn/posts/c74605d/"/>
     <id>http://vrast.cn/posts/c74605d/</id>
     <published>2017-03-28T10:55:43.000Z</published>
-    <updated>2017-03-29T08:15:08.000Z</updated>
+    <updated>2017-08-03T03:30:52.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>因为准备开始写自动化打包工具了，磨刀不误砍柴功，这里再加深一些Python基础<br><a id="more"></a></p>
@@ -268,9 +326,39 @@
 <h1 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h1><p>OOP浅而言之就是继承封装与多态,再要深入的说那可就说不完了。</p>
 <h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><p>定义一个类</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></div><div class="line">	num1 = mun2 = <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,arg1,arg2)</span>:</span></div><div class="line">		self.num1 = arg1</div><div class="line">		self.num2 = arg2</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">Calc</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.num1+self.num2</div><div class="line"></div><div class="line"></div><div class="line">a = A(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">print(a.Calc())</div></pre></td></tr></table></figure>
-<h3 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span>:</span></div><div class="line">	__Content = <span class="string">"slef content"</span>  <span class="comment">#使用双下划线开头的私有属性</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"do something"</span>)</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"init method"</span>)</div><div class="line"></div><div class="line"></div><div class="line">t = test()</div><div class="line">t.func()</div><div class="line"></div><div class="line"></div><div class="line">print(t._test__Content)<span class="comment">#只能透过这种方式来访问私有属性</span></div></pre></td></tr></table></figure>
+<h3 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span>:</span></div><div class="line">	__Content = <span class="string">"slef content"</span>  <span class="comment">#使用双下划线开头的私有属性</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"do something"</span>)</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"init method"</span>)</div><div class="line"></div><div class="line"></div><div class="line">t = test()</div><div class="line">t.func()</div><div class="line"> </div><div class="line"></div><div class="line">print(t._test__Content)<span class="comment">#只能透过这种方式来访问私有属性</span></div></pre></td></tr></table></figure>
 <h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><p><img src="/uploads/WX20170328-191931@2x.png" alt="ClassB继承ClassA"></p>
-<h2 id="基础重载方法"><a href="#基础重载方法" class="headerlink" title="基础重载方法"></a>基础重载方法</h2><p>下表列出了一些通用的功能，你可以在自己的类重写：<br>|序号|    方法, 描述 &amp; 简单的调用|<br>|—|————————|<br>|1|    <strong>init</strong> ( self [,args…] )构造函数 简单的调用方法: obj = className(args)|<br>|2|    <strong>del</strong>( self ) 析构方法, 删除一个对象 简单的调用方法 : dell obj|<br>|3|    <strong>repr</strong>( self )转化为供解释器读取的形式 简单的调用方法 : repr(obj)|<br>|4|    <strong>str</strong>( self ) 用于将值转化为适于人阅读的形式 简单的调用方法 : str(obj)|<br>|5|    <strong>cmp</strong> ( self, x ) 对象比较 简单的调用方法 : cmp(obj, x)|</p>
+<h2 id="基础重载方法"><a href="#基础重载方法" class="headerlink" title="基础重载方法"></a>基础重载方法</h2><p>下表列出了一些通用的功能，你可以在自己的类重写：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法描述 &amp; 简单的调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code><strong>init</strong> ( self [,args…] )构造函数 简单的调用方法: obj = className(args)</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code><strong>del</strong>( self ) 析构方法, 删除一个对象 简单的调用方法 : dell obj </code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code><strong>repr</strong>( self )转化为供解释器读取的形式 简单的调用方法 : repr(obj) </code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code><strong>str</strong>( self ) 用于将值转化为适于人阅读的形式 简单的调用方法 : str(obj) </code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code><strong>cmp</strong> ( self, x ) 对象比较 简单的调用方法 : cmp(obj, x) </code></td>
+</tr>
+</tbody>
+</table>
 ]]></content>
     
     <summary type="html">
@@ -328,7 +416,7 @@
     <link href="http://vrast.cn/posts/957d31e7/"/>
     <id>http://vrast.cn/posts/957d31e7/</id>
     <published>2017-03-27T07:41:04.000Z</published>
-    <updated>2017-03-28T10:51:07.000Z</updated>
+    <updated>2017-08-03T03:31:58.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>因为我的树莓派只要开机风扇就会不停的转为了控制风扇的转速我需要写一些脚本来控制gpio接口。所以作为兴趣就学习了一下python语言，当然python的实际作用远不止此，先看看基础的再深入的了解下吧。MacOS自带的Python是2.7x，但是我使用的是3.x 。当然这两者是有差异的，即使你不懂python也可以从版本号上看出来这个差异。<br><a href="http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html" target="_blank" rel="external">The key differences between Python 2.7.x and Python 3.x with examples</a> &lt;-这篇博客详细说明了2.x与3.x的区别。因为本人是从3.x学习python的所以后面的博文都会以3.x作为案例。</p>
@@ -344,7 +432,7 @@
 <li><a href="https://www.tutorialspoint.com/python3/python_basic_syntax.htm" target="_blank" rel="external">Python 3 Basic Syntax(原版)</a></li>
 <li><a href="http://www.runoob.com/python3/python3-basic-operators.html" target="_blank" rel="external">Python3 运算符(翻译)</a></li>
 </ol>
-<h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><p>###可更改(mutable)与不可更改(immutable)对象<br>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。<br>不可变类型：变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。<br>可变类型：变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。<br>python 函数的参数传递：<br>不可变类型：类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。<br>可变类型：类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响</p>
+<h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="可更改-mutable-与不可更改-immutable-对象"><a href="#可更改-mutable-与不可更改-immutable-对象" class="headerlink" title="可更改(mutable)与不可更改(immutable)对象"></a>可更改(mutable)与不可更改(immutable)对象</h3><p>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。<br>不可变类型：变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。<br>可变类型：变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。<br>python 函数的参数传递：<br>不可变类型：类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。<br>可变类型：类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响</p>
 <h2 id="Keyword"><a href="#Keyword" class="headerlink" title="Keyword"></a>Keyword</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">and	exec	not</div><div class="line">as	finally	or</div><div class="line">assert	for	pass</div><div class="line">break	from	print</div><div class="line">class	global	raise</div><div class="line">continue	if	return</div><div class="line">def	import	try</div><div class="line">del	in	while</div><div class="line">elif	is	with</div><div class="line">else	lambda	yield</div><div class="line">except</div></pre></td></tr></table></figure>
 <h2 id="Lines-and-Indentation"><a href="#Lines-and-Indentation" class="headerlink" title="Lines and Indentation"></a>Lines and Indentation</h2><p>Python用缩进代表代码块，同一个代码块的语句必须包含相同的缩进空格数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</div><div class="line">   <span class="keyword">print</span> (<span class="string">"True"</span>)</div><div class="line"></div><div class="line"><span class="keyword">else</span>:</div><div class="line">   <span class="keyword">print</span> (<span class="string">"False"</span>)</div><div class="line"></div><div class="line"><span class="comment">#如果要在当前语句换行直接用\</span></div><div class="line">total = item_one + \</div><div class="line">    item_two + \</div><div class="line">    item_three</div></pre></td></tr></table></figure></p>
 <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">print(sys.version) <span class="comment">#查看系统版本</span></div><div class="line"></div><div class="line">print(<span class="string">'helloworld   -0'</span>);print(<span class="string">'helloworld   -1'</span>)</div><div class="line">print(<span class="string">"helloworld   -2"</span>)</div><div class="line">print(<span class="string">"""helloworld   -3</span></div><div class="line"></div><div class="line">    End .</div><div class="line"></div><div class="line">""",end = <span class="string">"&gt;&gt;"</span>)</div><div class="line"></div><div class="line">print(<span class="string">"&lt;&lt;"</span>)</div><div class="line"></div><div class="line"><span class="comment">#Output:</span></div><div class="line"><span class="comment">#3.6.1 (v3.6.1:69c0db5050, Mar 21 2017, 01:21:04) </span></div><div class="line"><span class="comment">#[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)]</span></div><div class="line"><span class="comment">#helloworld   -0</span></div><div class="line"><span class="comment">#helloworld   -1</span></div><div class="line"><span class="comment">#helloworld   -2</span></div><div class="line"><span class="comment">#helloworld   -3</span></div><div class="line"><span class="comment">#    End .</span></div><div class="line"><span class="comment">#&gt;&gt;&lt;&lt;</span></div></pre></td></tr></table></figure>
@@ -411,7 +499,53 @@
 </tr>
 </tbody>
 </table>
-<p>字符串辅助功能符：<br>|符号 |功能|<br>|—-|—|<br>|*    |定义宽度或者小数点精度|<br>|-|    用做左对齐|<br>|+|    在正数前面显示加号( + )|<br>|<sp>|    在正数前面显示空格|<br>|#    |在八进制数前面显示零(‘0’)，在十六进制前面显示’0x’或者’0X’(取决于用的是’x’还是’X’)|<br>|0    |显示的数字前面填充’0’而不是默认的空格|<br>|%    |’%%’输出一个单一的’%’|<br>|(var)|    映射变量(字典参数)|<br>|m.n.|    m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)|</sp></p>
+<p>字符串辅助功能符：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>定义宽度或者小数点精度</td>
+</tr>
+<tr>
+<td>-</td>
+<td>用做左对齐</td>
+</tr>
+<tr>
+<td>+</td>
+<td>在正数前面显示加号( + )</td>
+</tr>
+<tr>
+<td><sp></sp></td>
+<td>在正数前面显示空格</td>
+</tr>
+<tr>
+<td>#</td>
+<td>在八进制数前面显示零(‘0’)，在十六进制前面显示’0x’或者’0X’(取决于用的是’x’还是’X’)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>显示的数字前面填充’0’而不是默认的空格</td>
+</tr>
+<tr>
+<td>%</td>
+<td>‘%%’输出一个单一的’%’</td>
+</tr>
+<tr>
+<td>(var)</td>
+<td>映射变量(字典参数)</td>
+</tr>
+<tr>
+<td>m.n.</td>
+<td>m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</td>
+</tr>
+</tbody>
+</table>
 <h3 id="字符串的运算"><a href="#字符串的运算" class="headerlink" title="字符串的运算"></a>字符串的运算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python3</span></div><div class="line"></div><div class="line">str = <span class="string">'HelloWorld!'</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> (str)          <span class="comment"># Prints complete string</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">0</span>])       <span class="comment"># Prints first character of the string</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">2</span>:<span class="number">5</span>])     <span class="comment"># Prints characters starting from 3rd to 5th</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">2</span>:])      <span class="comment"># Prints string starting from 3rd character</span></div><div class="line"><span class="keyword">print</span> (str * <span class="number">2</span>)      <span class="comment"># Prints string two times</span></div><div class="line"><span class="keyword">print</span> (str + <span class="string">"TEST"</span>) <span class="comment"># Prints concatenated string</span></div><div class="line"></div><div class="line"><span class="comment">#HelloWorld!</span></div><div class="line"><span class="comment">#H</span></div><div class="line"><span class="comment">#llo</span></div><div class="line"><span class="comment">#lloWorld!</span></div><div class="line"><span class="comment">#HelloWorld!HelloWorld!</span></div><div class="line"><span class="comment">#HelloWorld!TEST</span></div></pre></td></tr></table></figure>
 <h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><p>python支持四种类型 int、float、bool、complex(复数类型)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a, b, c, d = <span class="number">20</span>, <span class="number">5.5</span>, <span class="keyword">True</span>, <span class="number">4</span>+<span class="number">3j</span></div><div class="line">print(type(a), type(b), type(c), type(d))</div><div class="line"><span class="comment"># &lt;class 'int'&gt; &lt;class 'float'&gt; &lt;class 'bool'&gt; &lt;class 'complex'&gt;</span></div><div class="line"></div><div class="line">print(isinstance(a, int)) <span class="comment">#True</span></div></pre></td></tr></table></figure></p>
 <table>
@@ -545,7 +679,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><h3 id="Decision-Making-amp-amp-Loop"><a href="#Decision-Making-amp-amp-Loop" class="headerlink" title="Decision Making &amp;&amp; Loop"></a>Decision Making &amp;&amp; Loop</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">a = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">""</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> item  <span class="keyword">in</span> a:</div><div class="line">  <span class="keyword">if</span> item == <span class="string">""</span> :</div><div class="line">     print(<span class="string">"The Item is Empty"</span>)</div><div class="line">  <span class="keyword">else</span>:       </div><div class="line">    print(item)</div><div class="line">print(<span class="string">"over"</span>)</div><div class="line"><span class="comment">#a</span></div><div class="line"><span class="comment">#b</span></div><div class="line"><span class="comment">#c</span></div><div class="line"><span class="comment">#The Item is Empty</span></div><div class="line"><span class="comment">#over</span></div></pre></td></tr></table></figure>
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><h3 id="Decision-Making-amp-amp-Loop"><a href="#Decision-Making-amp-amp-Loop" class="headerlink" title="Decision Making &amp;&amp; Loop"></a>Decision Making &amp;&amp; Loop</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">a = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">""</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> item  <span class="keyword">in</span> a:</div><div class="line">  <span class="keyword">if</span> item == <span class="string">""</span> :</div><div class="line">     print(<span class="string">"The Item is Empty"</span>)</div><div class="line">  <span class="keyword">else</span>:       </div><div class="line">    print(item)</div><div class="line">print(<span class="string">"over"</span>)</div><div class="line"><span class="comment">#a</span></div><div class="line"><span class="comment">#b </span></div><div class="line"><span class="comment">#c</span></div><div class="line"><span class="comment">#The Item is Empty</span></div><div class="line"><span class="comment">#over</span></div></pre></td></tr></table></figure>
 <h3 id="Iterator-and-Generator"><a href="#Iterator-and-Generator" class="headerlink" title="Iterator and Generator"></a>Iterator and Generator</h3><p>这块是伪代码，核心是  iter() 与 next()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line">it = iter(list) <span class="comment"># this builds an iterator object</span></div><div class="line"><span class="keyword">print</span> (next(it)) <span class="comment">#prints next available element in iterator</span></div><div class="line">Iterator object can be traversed using regular <span class="keyword">for</span> statement</div><div class="line">!usr/bin/python3</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> it:</div><div class="line">   <span class="keyword">print</span> (x, end=<span class="string">" "</span>)</div><div class="line"><span class="keyword">or</span> using next() function</div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">   <span class="keyword">try</span>:</div><div class="line">      <span class="keyword">print</span> (next(it))</div><div class="line">   <span class="keyword">except</span> StopIteration:</div><div class="line">      sys.exit() <span class="comment">#you have to import sys module for this</span></div></pre></td></tr></table></figure></p>
 <h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>使用可变参数 *args 使用星号修饰<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionA</span><span class="params">(content,*args)</span>:</span></div><div class="line">    print(content)</div><div class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> args:</div><div class="line">        <span class="keyword">print</span> (var)</div><div class="line">    <span class="keyword">return</span> content</div><div class="line"></div><div class="line">functionA(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</div></pre></td></tr></table></figure></p>
 <p>使用lambda匿名函数，后面只可以跟一句话… (我有点想吐槽)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sum = <span class="keyword">lambda</span> arg1, arg2:arg1+arg2</div><div class="line"></div><div class="line">print(<span class="string">"%d %s"</span> % (sum(<span class="number">2</span>,<span class="number">3</span>), <span class="string">" &lt;&lt;&lt;"</span>))</div></pre></td></tr></table></figure></p>
@@ -1058,36 +1192,6 @@
     
     
       <category term="Exception" scheme="http://vrast.cn/tags/Exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Extension in iOS</title>
-    <link href="http://vrast.cn/posts/f84fd914/"/>
-    <id>http://vrast.cn/posts/f84fd914/</id>
-    <published>2017-03-06T06:43:32.000Z</published>
-    <updated>2017-03-06T08:04:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 <code>partial</code> 部分类。<br><a id="more"></a></p>
-</blockquote>
-<p>下面的例子直接使用扩展类。不修改原类型 <code>Foo</code>的前提下，给  <code>Foo</code> 添加了一个 <code>GetDescription</code> 实例方法。并且访问了 <code>Foo</code> 的 <code>stringOnFoo</code> 属性。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.stringOnFoo) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,<span class="keyword">self</span>.stringOnFoo);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.stringOnFoo;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">@""</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    fo.stringOnFoo = <span class="string">@"helloworld"</span>;</div><div class="line">    [fo GetDescription];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>扩展类型的时候记得要加上属于自己的前缀，因为在原类型中可能后续会追加与扩展类的重名的方法签名，导致无法调用，即被扩展类的方法覆盖。</p>
-<h1 id="匿名类扩展"><a href="#匿名类扩展" class="headerlink" title="匿名类扩展"></a>匿名类扩展</h1><p>我在这里声明了一个匿名的扩展类型。然后在 Foo.m 中进行了实现。这个接口声明对使用者隐藏了。所以也不用 import 这个匿名头文件，可以直接调用。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span>()</span></div><div class="line">-(<span class="keyword">void</span>)InvokePrivateMethod;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    [fo InvokePrivateMethod];</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 &lt;code&gt;partial&lt;/code&gt; 部分类。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="Extension" scheme="http://vrast.cn/tags/Extension/"/>
     
   </entry>
   
