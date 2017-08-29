@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-08-01T02:57:37.000Z</updated>
+  <updated>2017-08-01T08:35:03.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rounded Cube</title>
+    <link href="http://vrast.cn/posts/827b1a39/"/>
+    <id>http://vrast.cn/posts/827b1a39/</id>
+    <published>2017-08-01T02:47:55.000Z</published>
+    <updated>2017-08-01T08:35:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:</p>
+<ul>
+<li>Create a cube with a seamless mesh. 创建无缝Mesh的立方体</li>
+<li>Add rounded edges to the cube. 添加圆形边缘的立方体</li>
+<li>Define normals. 定义法线</li>
+<li>Use sub-meshes. 使用子网格</li>
+<li>Create a custom shader. 使用自定义shader</li>
+<li>Combine primitive colliders. 合并原始网格</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<h1 id="Compositing-a-Cube-组合一个立方体"><a href="#Compositing-a-Cube-组合一个立方体" class="headerlink" title="Compositing a Cube 组合一个立方体"></a>Compositing a Cube 组合一个立方体</h1><p>非重点,这里直接写实现思路.接上一章节生产面,只需修改每个面的角度位置.使其拼凑成为一个立方体即可.</p>
+<p><img src="/uploads/QQ20170801-152656.png" alt="使用六个面拼凑一个立方体"></p>
+<h1 id="Creating-Cube-Vertices-创建立方体的顶点"><a href="#Creating-Cube-Vertices-创建立方体的顶点" class="headerlink" title="Creating Cube Vertices 创建立方体的顶点"></a>Creating Cube Vertices 创建立方体的顶点</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a cube with a seamless mesh. 创建无缝Mesh的立方体&lt;/li&gt;
+&lt;li&gt;Add rounded edges to the cube. 添加圆形边缘的立方体&lt;/li&gt;
+&lt;li&gt;Define normals. 定义法线&lt;/li&gt;
+&lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
+&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
+&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
   
   <entry>
     <title>Procedural Grid</title>
@@ -118,53 +161,6 @@
     
     
       <category term="SmartDataViewer" scheme="http://vrast.cn/tags/SmartDataViewer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>近况不佳,记以作文以励之</title>
-    <link href="http://vrast.cn/posts/1c99e69f/"/>
-    <id>http://vrast.cn/posts/1c99e69f/</id>
-    <published>2017-05-02T02:01:40.000Z</published>
-    <updated>2017-05-02T02:13:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>严格来说距离上一次写高质量的文章已经相距1月之久。这期间我究竟经历了什么…</p>
-</blockquote>
-<a id="more"></a>
-<p>今天找到公司15分钟，用这个时间来反思下近况，我觉得可能最近再玩下去要悲剧了。理由有三：</p>
-<ol>
-<li>上外的四级考试约在35日之后就要开始了</li>
-<li>TCL的硬件SDK还没有写完，20天要写好Android与iOS的中间键</li>
-<li>周六要准备 3分钟lecture</li>
-</ol>
-<p>说说之前我都玩了些什么：</p>
-<p></p><h1>王者荣耀<h1><p></p>
-<p></p><h1>王者荣耀<h1><p></p>
-<p></p><h1>王者荣耀<h1><p></p>
-<p></p><h1>王者荣耀<h1><br>此处省略一万字…<p></p>
-<p>胜率嘛 ，60% 因为最近去微信去解毒了，没有玩腾讯QQ服。</p>
-<p>我先说说玩游戏不好的地方：</p>
-<ol>
-<li>浪费时间</li>
-<li>影响心情</li>
-</ol>
-<p>当下似乎没有多少时间可以浪费了。马上要变成老腊肉了 我还是滚去学习吧。</p>
-<p>今天反思到这里，再玩游戏要剁手！</p>
-</h1></h1></h1></h1></h1></h1></h1></h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;严格来说距离上一次写高质量的文章已经相距1月之久。这期间我究竟经历了什么…&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Self" scheme="http://vrast.cn/categories/Self/"/>
-    
-    
-      <category term="反思" scheme="http://vrast.cn/tags/%E5%8F%8D%E6%80%9D/"/>
     
   </entry>
   
