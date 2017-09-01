@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-08-01T08:35:03.000Z</updated>
+  <updated>2017-09-01T04:17:03.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,73 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>AndroidStudio Gradle水土不服解决方案</title>
+    <link href="http://vrast.cn/posts/84e9a39b/"/>
+    <id>http://vrast.cn/posts/84e9a39b/</id>
+    <published>2017-09-01T03:50:46.000Z</published>
+    <updated>2017-09-01T04:17:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>因为外星人在中国布下了GFW，导致使用android studio的时候故障频发。集中体现在<br><code>Gradle sync failed xxxxxx 与 AndroidStudio Gradle:Resolvedependencies xxxxxx</code>这两个问题上,本章提供两个解决方案给大家。看本文前你要准备下面几种工具</p>
+<ul>
+<li>brew</li>
+<li>Shadowsocks</li>
+<li>polipo</li>
+<li>sdkman (可选)<a id="more"></a>
+</li>
+</ul>
+</blockquote>
+<h1 id="解决方案一-使用在线更新"><a href="#解决方案一-使用在线更新" class="headerlink" title="解决方案一 使用在线更新"></a>解决方案一 使用在线更新</h1><p>Homebrew 一般是自带的，如果没有自带 建议你装一个。 <a href="https://brew.sh" target="_blank" rel="external">https://brew.sh</a><br>Shadowsocks 是某种不知名的代理<br>polipo 是能将Socks转为http代理的工具</p>
+<h2 id="polipo使用说明"><a href="#polipo使用说明" class="headerlink" title="polipo使用说明"></a>polipo使用说明</h2><p>以下转载自<a href="http://qichunren.github.io/tool/2014/07/15/Convert-shadowsocks-into-http-proxy-on-mac/" target="_blank" rel="external">蕲春人的博客</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">brew install polipo</div><div class="line">然后就是启动polipo程序开机自动启动。</div><div class="line"></div><div class="line">首先要修改自动启动的配置文件 /usr/local/opt/polipo/homebrew.mxcl.polipo.plist，需要给polipo命令加上命令行参数 socksParentProxy=localhost:1080</div><div class="line"></div><div class="line">  <span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line">  <span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">string</span>&gt;</span>homebrew.mxcl.polipo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">true</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">true</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/usr/local/opt/polipo/bin/polipo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>socksParentProxy=localhost:1080<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">array</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">plist</span>&gt;</span></div><div class="line">然后执行以下命令，搞定收工。</div><div class="line"></div><div class="line">ln -sfv /usr/local/opt/polipo/*.plist ~/Library/LaunchAgents</div><div class="line">launchctl load ~/Library/LaunchAgents/homebrew.mxcl.polipo.plist</div><div class="line">polipo进程默认监听8123端口，在命令行使用export http_proxy=http://localhost:8123 就可以使用代理了。</div><div class="line"></div><div class="line">export https_proxy=http://localhost:8123 export ftp_proxy=http://localhost:8123</div></pre></td></tr></table></figure></p>
+<h2 id="AndroidStudio代理配置"><a href="#AndroidStudio代理配置" class="headerlink" title="AndroidStudio代理配置"></a>AndroidStudio代理配置</h2><p>这里你直接在Preferences搜索proxy即可<br><img src="/uploads/QQ20170901-115902.png" alt="配置详情"></p>
+<h1 id="解决方案二"><a href="#解决方案二" class="headerlink" title="解决方案二"></a>解决方案二</h1><p>我使用的是方案一，同时使用了方案二，直接用sdkman来更新本地gradle版本。<br>这两种方案是兼容的，你可以选择使用本地还是在线更新。</p>
+<p><img src="/uploads/QQ20170901-120202.png" alt="配置详情"></p>
+<h2 id="sdkman配置"><a href="#sdkman配置" class="headerlink" title="sdkman配置"></a>sdkman配置</h2><ol>
+<li><p>在terminal中使用如下脚本安装sdkman.  –<a href="http://sdkman.io" target="_blank" rel="external">官网</a></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -s <span class="string">"https://get.sdkman.io"</span> <span class="string">| bash</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>下载安装完毕重启terminal<br>使用此命令下载指定的gradle版本</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdk <span class="keyword">install</span> gradle <span class="number">2.1</span>(版本号)</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前所有的gradle版本信息<br>前面有<code>*</code>符号的为当前本地下载的版本。<code>&gt;</code>符号指向的为当前使用的版本。</p>
+</li>
+</ol>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdk <span class="built_in">list</span> gradle</div></pre></td></tr></table></figure>
+<p><img src="/uploads/QQ20170901-120809@2x.png" alt="配置详情"></p>
+<ol>
+<li><p>更换当前gradle版本<br>使用此命令可以更换当前环境变量重的gradle版本</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdk <span class="keyword">use</span> gradle <span class="number">4.1</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>查看gradle路径(重要)<br>使用下面的命令可以看到当前sdk使用的gradle版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> <span class="variable">$GRADLE_HOME</span></div></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;因为外星人在中国布下了GFW，导致使用android studio的时候故障频发。集中体现在&lt;br&gt;&lt;code&gt;Gradle sync failed xxxxxx 与 AndroidStudio Gradle:Resolvedependencies xxxxxx&lt;/code&gt;这两个问题上,本章提供两个解决方案给大家。看本文前你要准备下面几种工具&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;brew&lt;/li&gt;
+&lt;li&gt;Shadowsocks&lt;/li&gt;
+&lt;li&gt;polipo&lt;/li&gt;
+&lt;li&gt;sdkman (可选)
+    
+    </summary>
+    
+      <category term="Android Studio" scheme="http://vrast.cn/categories/Android-Studio/"/>
+    
+    
+      <category term="Gradle" scheme="http://vrast.cn/tags/Gradle/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Rounded Cube</title>
     <link href="http://vrast.cn/posts/827b1a39/"/>
     <id>http://vrast.cn/posts/827b1a39/</id>
     <published>2017-08-01T02:47:55.000Z</published>
-    <updated>2017-08-01T08:35:03.000Z</updated>
+    <updated>2017-09-01T04:16:36.000Z</updated>
     
     <content type="html"><![CDATA[<p>上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:</p>
 <ul>
@@ -32,7 +94,7 @@
 <li>Combine primitive colliders. 合并原始网格</li>
 </ul>
 <p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
-<h1 id="Compositing-a-Cube-组合一个立方体"><a href="#Compositing-a-Cube-组合一个立方体" class="headerlink" title="Compositing a Cube 组合一个立方体"></a>Compositing a Cube 组合一个立方体</h1><p>非重点,这里直接写实现思路.接上一章节生产面,只需修改每个面的角度位置.使其拼凑成为一个立方体即可.</p>
+<h1 id="请假-本章节未完成-这两周忙着上线-暂时先搁置"><a href="#请假-本章节未完成-这两周忙着上线-暂时先搁置" class="headerlink" title="请假 本章节未完成 这两周忙着上线 暂时先搁置"></a>请假 本章节未完成 这两周忙着上线 暂时先搁置</h1><h1 id="Compositing-a-Cube-组合一个立方体"><a href="#Compositing-a-Cube-组合一个立方体" class="headerlink" title="Compositing a Cube 组合一个立方体"></a>Compositing a Cube 组合一个立方体</h1><p>非重点,这里直接写实现思路.接上一章节生产面,只需修改每个面的角度位置.使其拼凑成为一个立方体即可.</p>
 <p><img src="/uploads/QQ20170801-152656.png" alt="使用六个面拼凑一个立方体"></p>
 <h1 id="Creating-Cube-Vertices-创建立方体的顶点"><a href="#Creating-Cube-Vertices-创建立方体的顶点" class="headerlink" title="Creating Cube Vertices 创建立方体的顶点"></a>Creating Cube Vertices 创建立方体的顶点</h1>]]></content>
     
@@ -1145,36 +1207,6 @@
     
     
       <category term="Exception" scheme="http://vrast.cn/tags/Exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Extension in iOS</title>
-    <link href="http://vrast.cn/posts/f84fd914/"/>
-    <id>http://vrast.cn/posts/f84fd914/</id>
-    <published>2017-03-06T06:43:32.000Z</published>
-    <updated>2017-03-06T08:04:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 <code>partial</code> 部分类。<br><a id="more"></a></p>
-</blockquote>
-<p>下面的例子直接使用扩展类。不修改原类型 <code>Foo</code>的前提下，给  <code>Foo</code> 添加了一个 <code>GetDescription</code> 实例方法。并且访问了 <code>Foo</code> 的 <code>stringOnFoo</code> 属性。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Foo.h"</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Foo</span> (<span class="title">Print</span>)</span></div><div class="line">-(<span class="built_in">NSString</span>*)GetDescription</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.stringOnFoo) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,<span class="keyword">self</span>.stringOnFoo);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.stringOnFoo;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">@""</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    fo.stringOnFoo = <span class="string">@"helloworld"</span>;</div><div class="line">    [fo GetDescription];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>扩展类型的时候记得要加上属于自己的前缀，因为在原类型中可能后续会追加与扩展类的重名的方法签名，导致无法调用，即被扩展类的方法覆盖。</p>
-<h1 id="匿名类扩展"><a href="#匿名类扩展" class="headerlink" title="匿名类扩展"></a>匿名类扩展</h1><p>我在这里声明了一个匿名的扩展类型。然后在 Foo.m 中进行了实现。这个接口声明对使用者隐藏了。所以也不用 import 这个匿名头文件，可以直接调用。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span>()</span></div><div class="line">-(<span class="keyword">void</span>)InvokePrivateMethod;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    Foo* fo = [[Foo alloc]init];</div><div class="line">    [fo InvokePrivateMethod];</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;通过扩展类来增强类的扩展性。非常好用的一个增强类功能的方式，可以参考C#的 &lt;code&gt;partial&lt;/code&gt; 部分类。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="Extension" scheme="http://vrast.cn/tags/Extension/"/>
     
   </entry>
   
