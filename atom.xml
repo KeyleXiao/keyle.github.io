@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-09-01T04:17:03.000Z</updated>
+  <updated>2017-09-05T08:31:31.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AndroidStudio 堆内存爆炸导致无法打包</title>
+    <link href="http://vrast.cn/posts/831cd9e6/"/>
+    <id>http://vrast.cn/posts/831cd9e6/</id>
+    <published>2017-09-05T08:11:54.000Z</published>
+    <updated>2017-09-05T08:31:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>最近忙着项目上线，因为要接入优酷云的Android SDK所以Gradle用的比较多，期间遇到很多奇怪的问题，所幸一一解决。这里我总结记录下一些解决方案，以供大家参考。</p>
+<ul>
+<li>Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸</li>
+<li>Gradle download failing Gradle升级失败</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h1 id="Android-Studio-Gradle-build-failing-Java-Heap-Space-堆内存爆炸"><a href="#Android-Studio-Gradle-build-failing-Java-Heap-Space-堆内存爆炸" class="headerlink" title="Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸"></a>Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸</h1><p>我现在的项目导出工程有超过5G大小，很幸运的爆炸了.在 <a href="https://stackoverflow.com/questions/41645747/android-studio-gradle-build-failing-java-heap-space" target="_blank" rel="external">StackOverflow</a> 上有人遇到和我相同的问题，也提供了解决方案。</p>
+<p>在工程根目录 <code>gradle.properties</code> 添加如下代码<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org<span class="selector-class">.gradle</span><span class="selector-class">.jvmargs</span>=-XX\:MaxHeapSize\=<span class="number">256</span>m -Xmx256m</div></pre></td></tr></table></figure></p>
+<p>StackOverflow并未提供关于此参数的解释，正确的用法是此参数限定了Gradle的性能，最高可用内存。因为我的项目比较大 我改为2G<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org<span class="selector-class">.gradle</span><span class="selector-class">.jvmargs</span>=-XX\:MaxHeapSize\=<span class="number">2048</span>m -Xmx2048m</div></pre></td></tr></table></figure></p>
+<h1 id="Gradle-download-failing-Gradle升级失败"><a href="#Gradle-download-failing-Gradle升级失败" class="headerlink" title="Gradle download failing Gradle升级失败"></a>Gradle download failing Gradle升级失败</h1><p>关于这个问题 我在<a href="https://vrast.cn/posts/84e9a39b/">上一篇文章</a> 中写道可以 <a href="https://vrast.cn/posts/84e9a39b/">使用代理</a> 与 <a href="http://sdkman.io" target="_blank" rel="external">SDKMan</a> 来解决。<br>但是，仍旧没有解决问题的可以参照我现在的新办法。</p>
+<ol>
+<li>using Android Studio Import your UnityProject</li>
+<li>open <code>gradle-wrapper.properties</code> and replace “distributionUrl” with “https\://services.gradle.org/distributions/gradle-2.14.1-all.zip”</li>
+<li>click “Sync Now”<br>这个问题出在升级的版本上，目前没有找到很好的办法解决这个问题。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;最近忙着项目上线，因为要接入优酷云的Android SDK所以Gradle用的比较多，期间遇到很多奇怪的问题，所幸一一解决。这里我总结记录下一些解决方案，以供大家参考。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸&lt;/li&gt;
+&lt;li&gt;Gradle download failing Gradle升级失败&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Android Studio" scheme="http://vrast.cn/categories/Android-Studio/"/>
+    
+    
+      <category term="Gradle" scheme="http://vrast.cn/tags/Gradle/"/>
+    
+  </entry>
   
   <entry>
     <title>AndroidStudio Gradle水土不服解决方案</title>
@@ -1177,36 +1222,6 @@
     
     
       <category term="ExcFoundation framework" scheme="http://vrast.cn/tags/ExcFoundation-framework/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Exception in iOS</title>
-    <link href="http://vrast.cn/posts/372264d9/"/>
-    <id>http://vrast.cn/posts/372264d9/</id>
-    <published>2017-03-06T08:59:21.000Z</published>
-    <updated>2017-03-06T13:23:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>每一种语言都有自己的异常处理机制，几乎都类似有一个 Exception 类型，和一个 throw 的动作。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="使用NSExpection系统"><a href="#使用NSExpection系统" class="headerlink" title="使用NSExpection系统"></a>使用NSExpection系统</h1><p>通过Expection的 exceptionWithName 定义一个异常说明。使用 @throw 抛出这个异常<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSException</span>* ex =[<span class="built_in">NSException</span> exceptionWithName:<span class="string">@"error happen ..."</span> reason:<span class="string">@"haha.."</span> userInfo:<span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">@try</span> &#123;</div><div class="line">        <span class="keyword">@throw</span> ex;</div><div class="line">    &#125; <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"catch expection %@"</span>,exception.name);</div><div class="line">    &#125; <span class="keyword">@finally</span> &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"finally ..."</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>控制台输出如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-06</span> <span class="number">17</span>:<span class="number">16</span>:<span class="number">29.790786</span> oc[<span class="number">56297</span>:<span class="number">1862847</span>] catch expection error happen ...</div><div class="line"><span class="number">2017</span><span class="number">-03</span><span class="number">-06</span> <span class="number">17</span>:<span class="number">16</span>:<span class="number">29.791746</span> oc[<span class="number">56297</span>:<span class="number">1862847</span>] finally ...</div><div class="line">Program ended with exit code: <span class="number">0</span></div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;每一种语言都有自己的异常处理机制，几乎都类似有一个 Exception 类型，和一个 throw 的动作。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="Exception" scheme="http://vrast.cn/tags/Exception/"/>
     
   </entry>
   
