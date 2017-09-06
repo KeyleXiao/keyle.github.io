@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-09-06T08:00:07.000Z</updated>
+  <updated>2017-09-06T09:40:12.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,23 +20,34 @@
     <link href="http://vrast.cn/posts/bc9c7b23/"/>
     <id>http://vrast.cn/posts/bc9c7b23/</id>
     <published>2017-09-06T04:03:22.000Z</published>
-    <updated>2017-09-06T08:00:07.000Z</updated>
+    <updated>2017-09-06T09:40:12.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>现在项目接入UniwebView同时需要接入其他SDk,所以这里记录一下UniwebView的重编译过程。仅供参考。有点东西想吐槽，这个插件是中国人写的但是文档并不友好。最后呼吁支持正版，花点钱支持一下这个项目。哈哈</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p><a href="http://uniwebview.onevcat.com/manual" target="_blank" rel="external">Document Link</a></p>
+<h2 id="解决方案如下"><a href="#解决方案如下" class="headerlink" title="解决方案如下"></a>解决方案如下</h2><ol>
+<li>解压 Assets/UniWebView/Source.zip 下脚本，复制到新工程中</li>
+</ol>
+<p><img src="/uploads/QQ20170906-173407.png" alt="创建PluginLibrary"></p>
+<p>因为采用AndroidStudio Labrary打包的方式所以可以直接导出 aar的包，省去了很多麻烦。最终的unity工程直接添加aar进行编译</p>
+<ol>
+<li><p>在Unity工程中的Build.Gradle脚本的<code>dependencies</code>下添加:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">compile</span>(<span class="attribute">name</span>: <span class="string">'uniwebview-release'</span>, <span class="attribute">ext</span>: <span class="string">'aar'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除在unity工程的libs下与aar之中重复的jar包。</p>
+</li>
+</ol>
+<h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p><a href="http://uniwebview.onevcat.com/manual" target="_blank" rel="external">Document Link</a></p>
 <ol>
 <li>You need the SDK of Android installed. Please refer to the Android developer site for more information.</li>
 <li>You need Apache Ant installed to compile java from command line. This tool is installed on Mac by default, you can run which ant in terminal to confirm if it is installed. If not, please refer to this post or the ant’s official site for more information to install it.</li>
 <li>Download the UniWebView’s customize compile script package from here and unzip it to a folder (we will call it “compile folder” later). This package is for Unix based system (such as Mac), but you can adapt it for Windows if needed easily.</li>
 <li>And of course, you need the source code of UniWebView Android, which is bundled with this package under the folder /Assets/UniWebView/Source/Android/ after you import it.</li>
 </ol>
-<h2 id="Tips-我并没有采用ant构建而是使用Gradle构建Labrary-下面是查看本机ant环境的小技巧"><a href="#Tips-我并没有采用ant构建而是使用Gradle构建Labrary-下面是查看本机ant环境的小技巧" class="headerlink" title="Tips 我并没有采用ant构建而是使用Gradle构建Labrary 下面是查看本机ant环境的小技巧"></a>Tips 我并没有采用ant构建而是使用Gradle构建Labrary 下面是查看本机ant环境的小技巧</h2><p>这里我检查了下本机Ant是否存在<code>which ant</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">keyle</span>@<span class="keyword">keyles</span>-<span class="keyword">MacBook</span>-<span class="keyword">Pro</span>  ~/keylexiao/source/_posts  which ant</div><div class="line">ant not found</div></pre></td></tr></table></figure></p>
+<h2 id="我并没有采用ant构建而是使用Gradle构建Labrary-下面是查看本机ant环境的小技巧"><a href="#我并没有采用ant构建而是使用Gradle构建Labrary-下面是查看本机ant环境的小技巧" class="headerlink" title="我并没有采用ant构建而是使用Gradle构建Labrary 下面是查看本机ant环境的小技巧"></a>我并没有采用ant构建而是使用Gradle构建Labrary 下面是查看本机ant环境的小技巧</h2><p>这里我检查了下本机Ant是否存在<code>which ant</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">keyle</span>@<span class="keyword">keyles</span>-<span class="keyword">MacBook</span>-<span class="keyword">Pro</span>  ~/keylexiao/source/_posts  which ant</div><div class="line">ant not found</div></pre></td></tr></table></figure></p>
 <p>如果像我一样没有ant就用 <a href="http://sdkman.io/" target="_blank" rel="external">SDKMan</a> 安装一下</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">keyle@keyles-MacBook-Pro  ~/keylexiao/source/_posts  sdk install ant</div><div class="line"></div><div class="line">Downloading: ant <span class="number">1.10</span><span class="number">.1</span></div><div class="line"></div><div class="line">In progress...</div><div class="line"></div><div class="line">######################################################################## <span class="number">100.0</span>%</div><div class="line"></div><div class="line">Installing: ant <span class="number">1.10</span><span class="number">.1</span></div><div class="line">Done installing!</div><div class="line"></div><div class="line">Setting ant <span class="number">1.10</span><span class="number">.1</span> <span class="keyword">as</span> default.</div></pre></td></tr></table></figure>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>因为我不需要构建</p>
 ]]></content>
     
     <summary type="html">
