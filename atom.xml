@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-09-06T09:40:12.000Z</updated>
+  <updated>2017-10-13T03:23:46.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>庆祝会英语的宝狄上线</title>
+    <link href="http://vrast.cn/posts/39b36a57/"/>
+    <id>http://vrast.cn/posts/39b36a57/</id>
+    <published>2017-10-13T02:43:08.000Z</published>
+    <updated>2017-10-13T03:23:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本项目在10.8 360平台首发，求下载 求转发 求关注。</p>
+</blockquote>
+<pre><code>本章记录一些UNITY3D开发应用类程序的经验。
+</code></pre><a id="more"></a>
+<ol>
+<li>使用 Android Studio 需要提前部署所需平台环境，如果你的网络环境不友好 BUILD TOOLS 不是很好下载就要在网上找代理。推荐购买 VPN 。</li>
+<li>如果使用插件 请单独建 Plugins 工程，注意xml配置的统一。</li>
+<li>使用 aar 而非 jar 包 ,aar 可以包含多个 jar 包与 layout文件。</li>
+<li>发布前检查宏定义。</li>
+<li>检查splash裁切方式。</li>
+<li>使用第三方一定要找到客服的联系方式 最好加上QQ。实在不行用邮件。</li>
+<li>做好充分的测试，使用新账户以用户的流程测试。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本项目在10.8 360平台首发，求下载 求转发 求关注。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;本章记录一些UNITY3D开发应用类程序的经验。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="PROJECT" scheme="http://vrast.cn/categories/PROJECT/"/>
+    
+    
+      <category term="PROJECT" scheme="http://vrast.cn/tags/PROJECT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信二维码支付接入流程</title>
+    <link href="http://vrast.cn/posts/cec4451/"/>
+    <id>http://vrast.cn/posts/cec4451/</id>
+    <published>2017-09-08T09:47:39.000Z</published>
+    <updated>2017-10-13T02:58:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>这阵子天天接SDK，没事出来分享下一些经验 主要是微信支付相关。使用二维码支付能在极短的时间内完成支付流程。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="注册商户平台"><a href="#注册商户平台" class="headerlink" title="注册商户平台"></a>注册商户平台</h1><p> <a href="https://pay.weixin.qq.com/index.php/core/home/login?return_url=%2F" target="_blank" rel="external">🔗 注册链接</a></p>
+<p><img src="/uploads/QQ20171013-105237.png" alt="这里使用商户二维码支付，可以移交给服务器同学了"><br><a href="https://pay.weixin.qq.com/guide/qrcode_payment.shtml" target="_blank" rel="external">服务器文档在这里</a></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>我这边让服务器同学接入了php版本的服务端，转发到c++服务器，这里推荐大家尽量避免tencent的代码改动。通过转发与代理的方式接入服务器是最快的。客户端发送订单请求给服务器，服务器将对应的请求给tencent，返回的一串key可以拼接到tencent给的url中，最后将这串url发送给客户端(需要加密)，客户端再请求微信直接刷出二维码。用户支付完毕，tencent会通知商户，服务器再发送支付成功的消息给客户端。支付流程结束！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;这阵子天天接SDK，没事出来分享下一些经验 主要是微信支付相关。使用二维码支付能在极短的时间内完成支付流程。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="SDK" scheme="http://vrast.cn/categories/SDK/"/>
+    
+    
+      <category term="Tencent" scheme="http://vrast.cn/tags/Tencent/"/>
+    
+  </entry>
   
   <entry>
     <title>UniwebView Recompile</title>
@@ -283,7 +354,7 @@
     <link href="http://vrast.cn/posts/b5b9f139/"/>
     <id>http://vrast.cn/posts/b5b9f139/</id>
     <published>2017-06-21T06:34:17.000Z</published>
-    <updated>2017-06-21T07:20:14.000Z</updated>
+    <updated>2017-10-13T03:01:35.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>本文详细记录 SmartDataViewer 项目接口细节 并提供说明</p>
@@ -294,7 +365,7 @@
 <li>秒速生成编辑器</li>
 <li>支持外联多个类</li>
 <li>支持针对特定字段进行排序与查询</li>
-<li>支持数据导出导入(内建Unity3d Json支持)</li>
+<li>支持数据导出导入(内建UNITY3D Json支持)</li>
 <li>支持开放式编辑器事件,几乎所有的事件与组件渲染 用户可自定义</li>
 <li>通过标签定制编辑器字段显示方式,包括宽度，显示别名，显示排序，导出导入位置等</li>
 </ol>
@@ -1125,100 +1196,6 @@
     
     
       <category term="English" scheme="http://vrast.cn/tags/English/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于学习,工作与生活</title>
-    <link href="http://vrast.cn/posts/b0ffa5e0/"/>
-    <id>http://vrast.cn/posts/b0ffa5e0/</id>
-    <published>2017-03-11T13:33:38.000Z</published>
-    <updated>2017-03-13T05:07:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>近期我的生活看似有规律实则一团乱麻。需要做的事情我也正在做，需要达成的目标也正在继续中。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="关于今天上课我所遇到的问题，我做了如下的总结"><a href="#关于今天上课我所遇到的问题，我做了如下的总结" class="headerlink" title="关于今天上课我所遇到的问题，我做了如下的总结"></a>关于今天上课我所遇到的问题，我做了如下的总结</h1><p>3月11日。今天早上上听力课，发现自己不懂的句子真的很多，发现了，原来不是那么容易。下午则上高综又被语法和单词形态碾压一边。有点头疼。关于原因我自身反省了一下，我自身认为有以下几点我确实有问题：</p>
-<ol>
-<li>没有做课前预习</li>
-<li>词汇量积累不够</li>
-<li>语法懂得少</li>
-<li>过于注重平时的训练，没有把上课的事情放在心上</li>
-</ol>
-<p>回忆今天上课过程中的问题：</p>
-<ol>
-<li>注意力没集中</li>
-<li>没有带笔，全部依赖电脑记录</li>
-</ol>
-<h1 id="规避上面的问题"><a href="#规避上面的问题" class="headerlink" title="规避上面的问题"></a>规避上面的问题</h1><ol>
-<li>预习课本，现在上课的压力并不大，两本书各一个unit</li>
-<li>准备纸和笔</li>
-<li>做好每日学习计划</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;近期我的生活看似有规律实则一团乱麻。需要做的事情我也正在做，需要达成的目标也正在继续中。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="http://vrast.cn/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="计划与时间管理" scheme="http://vrast.cn/tags/%E8%AE%A1%E5%88%92%E4%B8%8E%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Use COCOAPODS in XCode</title>
-    <link href="http://vrast.cn/posts/6fc31101/"/>
-    <id>http://vrast.cn/posts/6fc31101/</id>
-    <published>2017-03-09T09:15:01.000Z</published>
-    <updated>2017-03-15T10:01:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>以前常用VS的 Nuget管理项目的外部类库与一些小插件。在xocde里有类似的东西，它就是Cocopods。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="如何安装Cocopods"><a href="#如何安装Cocopods" class="headerlink" title="如何安装Cocopods"></a>如何安装Cocopods</h1><p><a href="https://vrast.cn/posts/35d56e26/">MACOS开发环境配置</a></p>
-<h1 id="Get-Start"><a href="#Get-Start" class="headerlink" title="Get Start"></a>Get Start</h1><p><a href="https://cocoapods.org" target="_blank" rel="external">原文直接来自官网</a></p>
-<p>上面的内容是在pods里搜索，在xcode的项目目录的一个叫<code>Podfile</code>的文件中列出依赖项<br>Search for pods (above). Then list the dependencies in a text file named Podfile in your Xcode project directory:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">platform :ios, <span class="string">'8.0'</span></div><div class="line">use_frameworks!</div><div class="line"></div><div class="line">target <span class="string">'MyApp'</span> <span class="keyword">do</span></div><div class="line">  pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.6'</span></div><div class="line">  pod <span class="string">'ORStackView'</span>, <span class="string">'~&gt; 3.0'</span></div><div class="line">  pod <span class="string">'SwiftyJSON'</span>, <span class="string">'~&gt; 2.3'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>提示：CocoaPods提供了一个<code>pod init</code>命令来创建一个灵活的默认<code>Podfile</code>，你会用到它的。<br>Tip: CocoaPods provides a pod init command to create a Podfile with smart defaults. You should use it.</p>
-<p>现在你可以在项目里安装依赖项了<br>Now you can install the dependencies in your project:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pod install</div></pre></td></tr></table></figure>
-<p>确保在构建项目时始终打开Xcode工作区(xcworkspace文件)而不是项目文件：<br>Make sure to always open the Xcode workspace instead of the project file when building your project:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ open App.xcworkspace</div></pre></td></tr></table></figure>
-<p>现在您可以导入依赖关系，例如：<br>Now you can import your dependencies e.g.:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Reachability/Reachability.h&gt;</span></span></div></pre></td></tr></table></figure></p>
-<h1 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">Usage:</div><div class="line"></div><div class="line">    $ pod COMMAND</div><div class="line"></div><div class="line">      CocoaPods, the Cocoa library package manager.</div><div class="line"></div><div class="line">Commands:</div><div class="line"></div><div class="line">    + <span class="keyword">cache</span>      Manipulate the CocoaPods <span class="keyword">cache</span></div><div class="line">    + env        Display pod environment</div><div class="line">    + init       Generate a Podfile <span class="keyword">for</span> the <span class="keyword">current</span> <span class="keyword">directory</span></div><div class="line">    + <span class="keyword">install</span>    <span class="keyword">Install</span> <span class="keyword">project</span> dependencies according <span class="keyword">to</span> <span class="keyword">versions</span> <span class="keyword">from</span> a</div><div class="line">                 Podfile.lock</div><div class="line">    + ipc        Inter-process communication</div><div class="line">    + lib        Develop pods</div><div class="line">    + <span class="keyword">list</span>       <span class="keyword">List</span> pods</div><div class="line">    + outdated   <span class="keyword">Show</span> outdated <span class="keyword">project</span> dependencies</div><div class="line">    + repo       Manage spec-repositories</div><div class="line">    + setup      Setup the CocoaPods environment</div><div class="line">    + spec       Manage pod specs</div><div class="line">    + <span class="keyword">update</span>     <span class="keyword">Update</span> outdated <span class="keyword">project</span> dependencies <span class="keyword">and</span> <span class="keyword">create</span> <span class="keyword">new</span></div><div class="line">                 Podfile.lock</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">    <span class="comment">--silent     Show nothing</span></div><div class="line">    <span class="comment">--version    Show the version of the tool</span></div><div class="line">    <span class="comment">--verbose    Show more debugging information</span></div><div class="line">    <span class="comment">--no-ansi    Show output without ANSI codes</span></div><div class="line">    <span class="comment">--help       Show help banner of specified command</span></div><div class="line">	<span class="keyword">from</span> /<span class="keyword">Library</span>/Ruby/Gems/<span class="number">2.0</span><span class="number">.0</span>/gems/cocoapods<span class="number">-1.2</span><span class="number">.0</span>/lib/cocoapods/command.rb:<span class="number">47</span>:<span class="keyword">in</span> <span class="string">`run'</span></div><div class="line">	from /Library/Ruby/Gems/2.0.0/gems/cocoapods-1.2.0/bin/pod:55:in `&lt;top (<span class="keyword">required</span>)&gt;<span class="string">'</span></div><div class="line">	from /usr/local/bin/pod:23:in `load'</div><div class="line">	<span class="keyword">from</span> /usr/<span class="keyword">local</span>/<span class="keyword">bin</span>/pod:<span class="number">23</span>:<span class="keyword">in</span> <span class="string">`&lt;main&gt;'</span></div></pre></td></tr></table></figure>
-<h1 id="为自己的开源项目添加pod支持"><a href="#为自己的开源项目添加pod支持" class="headerlink" title="为自己的开源项目添加pod支持"></a>为自己的开源项目添加pod支持</h1><p><a href="http://www.jianshu.com/p/d7d1942dd3f1" target="_blank" rel="external">iOS开发– 创建podspec文件，为自己的项目添加pod支持</a></p>
-<h1 id="Setup报错"><a href="#Setup报错" class="headerlink" title="Setup报错"></a>Setup报错</h1><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --<span class="keyword">global</span> <span class="keyword">http</span>.postBuffer <span class="number">24288000</span></div><div class="line">$ git config --<span class="keyword">list</span></div></pre></td></tr></table></figure>
-<p>若输出 http.postbuffer=24288000, 就 OK了</p>
-<p><a href="http://blog.csdn.net/wangyanchang21/article/details/51437934" target="_blank" rel="external">cocoapods:常见错误总结</a></p>
-<h1 id="可视化CocoaPods"><a href="#可视化CocoaPods" class="headerlink" title="可视化CocoaPods"></a>可视化CocoaPods</h1><p>我使用 <a href="http://alcatraz.io" target="_blank" rel="external">alcatraz</a>来可视化CocoaPods操作。因为有时候用命令行不是很方便。</p>
-<p>安装命令如下：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/supermarin/Alcatraz/deploy/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure></p>
-<p>卸载命令如下：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rm -rf <span class="regexp">~/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins/Alcatraz.xcplugin</div><div class="line">rm -rf <span class="regexp">~/Library/</span>Application\ Support/Alcatraz</div></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/XVimProject/XVim/blob/master/INSTALL_Xcode8.md" target="_blank" rel="external">XCode  8.X 需要 usign 才能使用插件</a></p>
-<h1 id="解决插件升级不能使用的问题"><a href="#解决插件升级不能使用的问题" class="headerlink" title="解决插件升级不能使用的问题"></a>解决插件升级不能使用的问题</h1><p>在xcode版本更新的之后，或者从package manager新下载了插件，有时候不可用。这时候就需要找到下面目录<br><code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code><br>然后找到新下载的插件 ShowContent 。打开plist文件，在DVTPlugInCompatibilityUUIDs列表中新增一串ID。</p>
-<p>下面是这串ID的获取方法：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults <span class="keyword">read</span> <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/</span>Info DVTPlugInCompatibilityUUID</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;以前常用VS的 Nuget管理项目的外部类库与一些小插件。在xocde里有类似的东西，它就是Cocopods。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="Cocopods" scheme="http://vrast.cn/tags/Cocopods/"/>
     
   </entry>
   
