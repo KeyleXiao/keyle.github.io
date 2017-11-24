@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-10-13T10:17:23.000Z</updated>
+  <updated>2017-11-24T10:00:12.397Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,105 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rounded Cube 2</title>
+    <link href="http://vrast.cn/posts/ef6c9166/"/>
+    <id>http://vrast.cn/posts/ef6c9166/</id>
+    <published>2017-11-24T09:35:24.000Z</published>
+    <updated>2017-11-24T10:00:12.397Z</updated>
+    
+    <content type="html"><![CDATA[<p>接上回 Rounded Cube 1.本章主题如下:</p>
+<ul>
+<li>Define normals. 定义法线</li>
+<li>Use sub-meshes. 使用子网格</li>
+<li>Create a custom shader. 使用自定义shader</li>
+<li>Combine primitive colliders. 合并原始网格</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<h1 id="Rounding-the-Cube-圆形方块"><a href="#Rounding-the-Cube-圆形方块" class="headerlink" title="Rounding the Cube 圆形方块"></a>Rounding the Cube 圆形方块</h1><p>先设置一个<code>roundness</code>参数，并且添加法线字段。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Vector3[] normals;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    …</div><div class="line">    vertices = <span class="keyword">new</span> Vector3[cornerVertices + edgeVertices + faceVertices];</div><div class="line">    normals = <span class="keyword">new</span> Vector3[vertices.Length];</div><div class="line"></div><div class="line">    …</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们添加如下方法来计算对于每个顶点的法线<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		…</div><div class="line">    <span class="keyword">int</span> v = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt;= ySize; y++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, y, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt;= zSize; z++) &#123;</div><div class="line">            SetVertex(v++, xSize, y, z);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = xSize - <span class="number">1</span>; x &gt;= <span class="number">0</span>; x--) &#123;</div><div class="line">            SetVertex(v++, x, y, zSize);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> z = zSize - <span class="number">1</span>; z &gt; <span class="number">0</span>; z--) &#123;</div><div class="line">            SetVertex(v++, <span class="number">0</span>, y, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, ySize, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, <span class="number">0</span>, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/04-inner-cube.png" alt="想象另外一个立方体在里面"></p>
+<blockquote>
+<p>未完待续</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接上回 Rounded Cube 1.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Define normals. 定义法线&lt;/li&gt;
+&lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
+&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
+&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rounded Cube 1</title>
+    <link href="http://vrast.cn/posts/827b1a39/"/>
+    <id>http://vrast.cn/posts/827b1a39/</id>
+    <published>2017-11-20T15:47:55.000Z</published>
+    <updated>2017-11-24T09:36:56.446Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:</p>
+<ul>
+<li>Create a cube with a seamless mesh. 创建无缝Mesh的立方体</li>
+<li>Add rounded edges to the cube. 添加圆形边缘的立方体</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<h1 id="Compositing-a-Cube-组合-方式-一个立方体"><a href="#Compositing-a-Cube-组合-方式-一个立方体" class="headerlink" title="Compositing a Cube 组合(方式)一个立方体"></a>Compositing a Cube 组合(方式)一个立方体</h1><p>非重点,这里直接写实现思路.接上一章节生产面,只需修改每个面的角度位置.使其拼凑成为一个立方体即可.</p>
+<p><img src="/uploads/QQ20170801-152656.png" alt="使用六个面拼凑一个立方体"></p>
+<h1 id="Creating-Cube-Vertices-创建立方体的顶点"><a href="#Creating-Cube-Vertices-创建立方体的顶点" class="headerlink" title="Creating Cube Vertices 创建立方体的顶点"></a>Creating Cube Vertices 创建立方体的顶点</h1><h2 id="计算所需定点数量"><a href="#计算所需定点数量" class="headerlink" title="计算所需定点数量"></a>计算所需定点数量</h2><p>之前计算单个面的时候使用 <code>(#x + 1)(#y + 1)</code> 如下算法，那么可计算6个面的时候是不是可以直接套用单面的计算方式：<code>2((#x + 1)(#y + 1) + (#x + 1)(#z + 1) + (#y + 1)(#z + 1))</code> 结论是否定的，其中角顶点与边顶点都被重复计算了。</p>
+<p><img src="/uploads/02-vertex-overlap.png" alt="顶点被重复计算次数的用颜色区分"></p>
+<p>这其实也不是什么大问题。事实上顶点重复是非常常见的，譬如我们通常用网格创建锐角。所以我们可以创建6个面(的顶点)合并到单个数组里。<br>但是这不是我们打算做的，因为我们已经知道如何创建网格。我们的cube不需要有重复的顶点，这种做法很有趣。<br>我们需要多少顶点呢？让我们按类型分解，首先8个角顶点，这很简单。有12条边，每四条在同向。因为我们不包括角，每个边都有一个等于相应大小的顶点减去一个顶点。或者，把它看作四组x、y和z边。</p>
+<p><code>4(#x + #y + #z - 3)</code></p>
+<p>其余的顶点是那些位于面部边缘的顶点。这是相当于一个重复的顶点，其体积缩小了2</p>
+<p><code>2((#x - 1)(#y - 1) + (#x - 1)(#z - 1) + (#y - 1)(#z - 1))</code></p>
+<p>这样计算出的结果就是最终所需顶点数</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> IEnumerator <span class="title">Generate</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		GetComponent&lt;MeshFilter&gt;().mesh = mesh = <span class="keyword">new</span> Mesh();</div><div class="line">		mesh.name = <span class="string">"Procedural Cube"</span>;</div><div class="line">		WaitForSeconds wait = <span class="keyword">new</span> WaitForSeconds(<span class="number">0.05</span>f);</div><div class="line"></div><div class="line">		<span class="keyword">int</span> cornerVertices = <span class="number">8</span>;</div><div class="line">		<span class="keyword">int</span> edgeVertices = (xSize + ySize + zSize - <span class="number">3</span>) * <span class="number">4</span>;</div><div class="line">		<span class="keyword">int</span> faceVertices = (</div><div class="line">			(xSize - <span class="number">1</span>) * (ySize - <span class="number">1</span>) +</div><div class="line">			(xSize - <span class="number">1</span>) * (zSize - <span class="number">1</span>) +</div><div class="line">			(ySize - <span class="number">1</span>) * (zSize - <span class="number">1</span>)) * <span class="number">2</span>;</div><div class="line">		vertices = <span class="keyword">new</span> Vector3[cornerVertices + edgeVertices + faceVertices];</div><div class="line"></div><div class="line">		<span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>现在定位一个面上的第一行顶点就像定位网格上的第一行顶点。(参考章节.1)<br>基础的算法是从x(0,0)开始，计算算一圈的点</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> v = <span class="number">0</span>; <span class="comment">//索引</span></div><div class="line"><span class="comment">//算出X轴线的点</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= xSize; x++)</div><div class="line">&#123;</div><div class="line">    Vertices[v++] = <span class="keyword">new</span> Vector3(x, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">&#125;</div><div class="line"><span class="comment">//算出y轴线的点</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt;= zSize; z++)</div><div class="line">&#123;</div><div class="line">    Vertices[v++] = <span class="keyword">new</span> Vector3(xSize, <span class="number">0</span>, z);</div><div class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">&#125;</div><div class="line"><span class="comment">//x轴线背后的点</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x = (<span class="keyword">int</span>)xSize - <span class="number">1</span>; x &gt;= <span class="number">0</span>; x--)</div><div class="line">&#123;</div><div class="line">    Vertices[v++] = <span class="keyword">new</span> Vector3(x, <span class="number">0</span>, zSize);</div><div class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">&#125;</div><div class="line"><span class="comment">//z轴线背后的点</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> z = (<span class="keyword">int</span>)zSize - <span class="number">1</span>; z &gt; <span class="number">0</span>; z--)</div><div class="line">&#123;</div><div class="line">    Vertices[v++] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, z);</div><div class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由以上基础我们可以直接绘制出第0层至顶层的点<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> v = <span class="number">0</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt;= ySize; y++)</div><div class="line">&#123;</div><div class="line">    <span class="comment">//算出X轴线的点</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= xSize; x++)</div><div class="line">    &#123;</div><div class="line">        Vertices[v++] = <span class="keyword">new</span> Vector3(x, y, <span class="number">0</span>);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//算出y轴线的点</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt;= zSize; z++)</div><div class="line">    &#123;</div><div class="line">        Vertices[v++] = <span class="keyword">new</span> Vector3(xSize, y, z);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//x轴线背后的点</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = (<span class="keyword">int</span>)xSize - <span class="number">1</span>; x &gt;= <span class="number">0</span>; x--)</div><div class="line">    &#123;</div><div class="line">        Vertices[v++] = <span class="keyword">new</span> Vector3(x, y, zSize);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//z轴线背后的点</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = (<span class="keyword">int</span>)zSize - <span class="number">1</span>; z &gt; <span class="number">0</span>; z--)</div><div class="line">    &#123;</div><div class="line">        Vertices[v++] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, y, z);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//顶层内部的点</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++)</div><div class="line">    &#123;</div><div class="line">        Vertices[v++] = <span class="keyword">new</span> Vector3(x, ySize, z);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//底层内部的点</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++)</div><div class="line">    &#123;</div><div class="line">        Vertices[v++] = <span class="keyword">new</span> Vector3(x, <span class="number">0</span>, z);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> wait;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="Add-rounded-edges-to-the-cube-添加圆形边缘的立方体"><a href="#Add-rounded-edges-to-the-cube-添加圆形边缘的立方体" class="headerlink" title="Add rounded edges to the cube. 添加圆形边缘的立方体"></a>Add rounded edges to the cube. 添加圆形边缘的立方体</h1><p>和上一章类似，我们这样绘制四边形<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span></span></div><div class="line"><span class="title">SetQuad</span> (<span class="params"><span class="keyword">int</span>[] triangles, <span class="keyword">int</span> i, <span class="keyword">int</span> v00, <span class="keyword">int</span> v10, <span class="keyword">int</span> v01, <span class="keyword">int</span> v11</span>) &#123;</div><div class="line">    triangles[i] = v00;</div><div class="line">    triangles[i + <span class="number">1</span>] = triangles[i + <span class="number">4</span>] = v01;</div><div class="line">    triangles[i + <span class="number">2</span>] = triangles[i + <span class="number">3</span>] = v10;</div><div class="line">    triangles[i + <span class="number">5</span>] = v11;</div><div class="line">    <span class="keyword">return</span> i + <span class="number">6</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/03-quad.png" alt="四边形图解"></p>
+<p>与顶点不同，三角形的数目等于六个面的总和。他们是否使用共享顶点并不重要。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateTriangles</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">int</span> quads = (<span class="keyword">int</span>)(xSize * ySize + xSize * zSize + ySize * zSize) * <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span>[] triangles = <span class="keyword">new</span> <span class="keyword">int</span>[quads * <span class="number">6</span>];</div><div class="line">    mesh.triangles = triangles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>创建横向的三角方式与创建网格的做法相同。至此为止位置不同的是顶点在下一行的偏移相当全部的环形顶点之和。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateTriangles</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">int</span> quads = (xSize * ySize + xSize * zSize + ySize * zSize) * <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span>[] triangles = <span class="keyword">new</span> <span class="keyword">int</span>[quads * <span class="number">6</span>];</div><div class="line">    <span class="keyword">int</span> ring = (xSize + zSize) * <span class="number">2</span>; <span class="comment">//计算环偏移</span></div><div class="line">    <span class="keyword">int</span> t = <span class="number">0</span>, v = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; ySize; y++, v++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; ring - <span class="number">1</span>; q++, v++) &#123;</div><div class="line">            t = SetQuad(triangles, t, v, v + <span class="number">1</span>, v + ring, v + ring + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        t = SetQuad(triangles, t, v, v - ring + <span class="number">1</span>, v + ring, v + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    t = CreateTopFace(triangles, t, ring);</div><div class="line">    t = CreateBottomFace(triangles, t, ring);</div><div class="line">    mesh.triangles = triangles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>很不幸顶部与底部的面并不简单。顶点的布局就像是一个网格被环包围。</p>
+<p><img src="/uploads/03-cap.png" alt="盖子就像在环里的网格"></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">CreateTopFace</span> (<span class="params"><span class="keyword">int</span>[] triangles, <span class="keyword">int</span> t, <span class="keyword">int</span> ring</span>) </span>&#123;</div><div class="line">    <span class="keyword">int</span> v = ring * ySize;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; xSize - <span class="number">1</span>; x++, v++) &#123;</div><div class="line">        t = SetQuad(triangles, t, v, v + <span class="number">1</span>, v + ring - <span class="number">1</span>, v + ring);</div><div class="line">    &#125;</div><div class="line">    t = SetQuad(triangles, t, v, v + <span class="number">1</span>, v + ring - <span class="number">1</span>, v + <span class="number">2</span>);</div><div class="line"></div><div class="line">    <span class="keyword">int</span> vMin = ring * (ySize + <span class="number">1</span>) - <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> vMid = vMin + <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> vMax = v + <span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize - <span class="number">1</span>; z++, vMin--, vMid++, vMax++) &#123;</div><div class="line">        t = SetQuad(triangles, t, vMin, vMid, vMin - <span class="number">1</span>, vMid + xSize - <span class="number">1</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize - <span class="number">1</span>; x++, vMid++) &#123;</div><div class="line">            t = SetQuad(</div><div class="line">                triangles, t,</div><div class="line">                vMid, vMid + <span class="number">1</span>, vMid + xSize - <span class="number">1</span>, vMid + xSize);</div><div class="line">        &#125;</div><div class="line">        t = SetQuad(triangles, t, vMid, vMax, vMid + xSize - <span class="number">1</span>, vMax + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> vTop = vMin - <span class="number">2</span>;</div><div class="line">    t = SetQuad(triangles, t, vMin, vMid, vTop + <span class="number">1</span>, vTop);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize - <span class="number">1</span>; x++, vTop--, vMid++) &#123;</div><div class="line">        t = SetQuad(triangles, t, vMid, vMid + <span class="number">1</span>, vTop, vTop - <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    t = SetQuad(triangles, t, vMid, vTop - <span class="number">2</span>, vTop, vTop - <span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> t;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">CreateBottomFace</span> (<span class="params"><span class="keyword">int</span>[] triangles, <span class="keyword">int</span> t, <span class="keyword">int</span> ring</span>) </span>&#123;</div><div class="line">    <span class="keyword">int</span> v = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> vMid = vertices.Length - (xSize - <span class="number">1</span>) * (zSize - <span class="number">1</span>);</div><div class="line">    t = SetQuad(triangles, t, ring - <span class="number">1</span>, vMid, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize - <span class="number">1</span>; x++, v++, vMid++) &#123;</div><div class="line">        t = SetQuad(triangles, t, vMid, vMid + <span class="number">1</span>, v, v + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    t = SetQuad(triangles, t, vMid, v + <span class="number">2</span>, v, v + <span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">int</span> vMin = ring - <span class="number">2</span>;</div><div class="line">    vMid -= xSize - <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> vMax = v + <span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize - <span class="number">1</span>; z++, vMin--, vMid++, vMax++) &#123;</div><div class="line">        t = SetQuad(triangles, t, vMin, vMid + xSize - <span class="number">1</span>, vMin + <span class="number">1</span>, vMid);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize - <span class="number">1</span>; x++, vMid++) &#123;</div><div class="line">            t = SetQuad(</div><div class="line">                triangles, t,</div><div class="line">                vMid + xSize - <span class="number">1</span>, vMid + xSize, vMid, vMid + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        t = SetQuad(triangles, t, vMid + xSize - <span class="number">1</span>, vMax + <span class="number">1</span>, vMid, vMax);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> vTop = vMin - <span class="number">1</span>;</div><div class="line">    t = SetQuad(triangles, t, vTop + <span class="number">1</span>, vTop, vTop + <span class="number">2</span>, vMid);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize - <span class="number">1</span>; x++, vTop--, vMid++) &#123;</div><div class="line">        t = SetQuad(triangles, t, vTop, vTop - <span class="number">1</span>, vMid, vMid + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    t = SetQuad(triangles, t, vTop, vTop - <span class="number">1</span>, vMid, vTop - <span class="number">2</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> t;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a cube with a seamless mesh. 创建无缝Mesh的立方体&lt;/li&gt;
+&lt;li&gt;Add rounded edges to the cube. 添加圆形边缘的立方体&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
   
   <entry>
     <title>庆祝会英语的宝狄上线</title>
@@ -243,49 +342,6 @@
     
     
       <category term="Gradle" scheme="http://vrast.cn/tags/Gradle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rounded Cube</title>
-    <link href="http://vrast.cn/posts/827b1a39/"/>
-    <id>http://vrast.cn/posts/827b1a39/</id>
-    <published>2017-08-01T02:47:55.000Z</published>
-    <updated>2017-09-01T04:16:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:</p>
-<ul>
-<li>Create a cube with a seamless mesh. 创建无缝Mesh的立方体</li>
-<li>Add rounded edges to the cube. 添加圆形边缘的立方体</li>
-<li>Define normals. 定义法线</li>
-<li>Use sub-meshes. 使用子网格</li>
-<li>Create a custom shader. 使用自定义shader</li>
-<li>Combine primitive colliders. 合并原始网格</li>
-</ul>
-<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
-<h1 id="请假-本章节未完成-这两周忙着上线-暂时先搁置"><a href="#请假-本章节未完成-这两周忙着上线-暂时先搁置" class="headerlink" title="请假 本章节未完成 这两周忙着上线 暂时先搁置"></a>请假 本章节未完成 这两周忙着上线 暂时先搁置</h1><h1 id="Compositing-a-Cube-组合一个立方体"><a href="#Compositing-a-Cube-组合一个立方体" class="headerlink" title="Compositing a Cube 组合一个立方体"></a>Compositing a Cube 组合一个立方体</h1><p>非重点,这里直接写实现思路.接上一章节生产面,只需修改每个面的角度位置.使其拼凑成为一个立方体即可.</p>
-<p><img src="/uploads/QQ20170801-152656.png" alt="使用六个面拼凑一个立方体"></p>
-<h1 id="Creating-Cube-Vertices-创建立方体的顶点"><a href="#Creating-Cube-Vertices-创建立方体的顶点" class="headerlink" title="Creating Cube Vertices 创建立方体的顶点"></a>Creating Cube Vertices 创建立方体的顶点</h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一章讲到Mesh的工作原理以及顶点与三角形的算法.本章主题如下:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Create a cube with a seamless mesh. 创建无缝Mesh的立方体&lt;/li&gt;
-&lt;li&gt;Add rounded edges to the cube. 添加圆形边缘的立方体&lt;/li&gt;
-&lt;li&gt;Define normals. 定义法线&lt;/li&gt;
-&lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
-&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
-&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
-    
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
     
   </entry>
   
@@ -1148,57 +1204,6 @@
     
     
       <category term="GCD" scheme="http://vrast.cn/tags/GCD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>当下 工作之余的学习</title>
-    <link href="http://vrast.cn/posts/44494be0/"/>
-    <id>http://vrast.cn/posts/44494be0/</id>
-    <published>2017-03-11T13:55:53.000Z</published>
-    <updated>2017-03-20T13:46:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>我在YouTube的频道上看了一个关于英语的讲座，对我来说有一些感触。我在这里记录下来<br><a href="https://www.youtube.com/watch?v=BENA8QSPmLY" target="_blank" rel="external">视频连接如下</a></p>
-</blockquote>
-<a id="more"></a>
-<h1 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h1><ol>
-<li>下意识学习语言需要沟通</li>
-<li>靠阅读练习听力是失败的</li>
-<li>学东西不能熬夜需要休息</li>
-<li>学外语是生理训练的过程</li>
-<li>兴奋快乐好奇学的比较快</li>
-<li>从跟你有关联的内容开始</li>
-<li>把外语当成工具每天说用</li>
-</ol>
-<h1 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h1><ol>
-<li>大量去听是基本功</li>
-<li>练好语感(泡脑子，节奏 旋律)</li>
-<li>学会外语思维</li>
-<li>泡脑子，节奏 旋律</li>
-<li>先窄后宽,听到能猜到下句为止。</li>
-<li>身体语言(不同的地域有差异)</li>
-<li>注意力放在核心</li>
-<li>混合已经会的词汇去用</li>
-<li>语言家长</li>
-<li>模仿面部</li>
-<li>外语声音直接连接到心目中的画面</li>
-</ol>
-<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p>合理的态度，要求和母语相比不要太苛刻</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;我在YouTube的频道上看了一个关于英语的讲座，对我来说有一些感触。我在这里记录下来&lt;br&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=BENA8QSPmLY&quot;&gt;视频连接如下&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="http://vrast.cn/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="English" scheme="http://vrast.cn/tags/English/"/>
     
   </entry>
   
