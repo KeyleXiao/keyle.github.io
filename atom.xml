@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-11-24T10:00:12.397Z</updated>
+  <updated>2017-11-25T16:08:32.204Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,27 +16,183 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Rounded Cube 2</title>
-    <link href="http://vrast.cn/posts/ef6c9166/"/>
-    <id>http://vrast.cn/posts/ef6c9166/</id>
-    <published>2017-11-24T09:35:24.000Z</published>
-    <updated>2017-11-24T10:00:12.397Z</updated>
+    <title>Rounded Cube 5</title>
+    <link href="http://vrast.cn/posts/710804c5/"/>
+    <id>http://vrast.cn/posts/710804c5/</id>
+    <published>2017-11-25T15:59:47.000Z</published>
+    <updated>2017-11-25T16:08:32.204Z</updated>
     
-    <content type="html"><![CDATA[<p>接上回 Rounded Cube 1.本章主题如下:</p>
+    <content type="html"><![CDATA[<p>接上回 Rounded Cube 4.本章主题如下:</p>
 <ul>
-<li>Define normals. 定义法线</li>
+<li>Combine primitive colliders. 合并原始网格</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<p>圆滑的立方体碰撞并不是圆滑的，所以就有了本章节来解决这个问题。添加如下方法：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Generate</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    GetComponent&lt;MeshFilter&gt;().mesh = mesh = <span class="keyword">new</span> Mesh();</div><div class="line">    mesh.name = <span class="string">"Procedural Cube"</span>;</div><div class="line">    CreateVertices();</div><div class="line">    CreateTriangles();</div><div class="line">    CreateColliders();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateColliders</span> (<span class="params"></span>) </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一步添加一个cube碰撞器<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateColliders</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		gameObject.AddComponent&lt;BoxCollider&gt;();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/07-one-collider.png" alt="单个盒子碰撞器"></p>
+<p>事实证明，Unity足够智能的定位和缩放碰撞器，使其与我们网格的边界框匹配。 现在，我们必须缩放碰撞器，使其与两个相对面的平坦侧面相匹配。 由于这三个面对都需要完成，我们最终得到三个相交的块。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateColliders</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		AddBoxCollider(xSize, ySize - roundness * <span class="number">2</span>, zSize - roundness * <span class="number">2</span>);</div><div class="line">		AddBoxCollider(xSize - roundness * <span class="number">2</span>, ySize, zSize - roundness * <span class="number">2</span>);</div><div class="line">		AddBoxCollider(xSize - roundness * <span class="number">2</span>, ySize - roundness * <span class="number">2</span>, zSize);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">AddBoxCollider</span> (<span class="params"><span class="keyword">float</span> x, <span class="keyword">float</span> y, <span class="keyword">float</span> z</span>) </span>&#123;</div><div class="line">		BoxCollider c = gameObject.AddComponent&lt;BoxCollider&gt;();</div><div class="line">		c.size = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/07-box-colliders.png" alt="平坦区域的盒子碰撞"></p>
+<p>我们可以用胶囊来填充棱角。我们需要给他们正确的方向，把他们定位在每一个边缘的中心。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">AddCapsuleCollider</span> (<span class="params"><span class="keyword">int</span> direction, <span class="keyword">float</span> x, <span class="keyword">float</span> y, <span class="keyword">float</span> z</span>) </span>&#123;</div><div class="line">		CapsuleCollider c = gameObject.AddComponent&lt;CapsuleCollider&gt;();</div><div class="line">		c.center = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line">		c.direction = direction;</div><div class="line">		c.radius = roundness;</div><div class="line">		c.height = c.center[direction] * <span class="number">2</span>f;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>我们每边需要一个胶囊，总共有十二个胶囊。 我创建了最小，最大和最大的矢量，以使放置更容易。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateColliders</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		AddBoxCollider(xSize, ySize - roundness * <span class="number">2</span>, zSize - roundness * <span class="number">2</span>);</div><div class="line">		AddBoxCollider(xSize - roundness * <span class="number">2</span>, ySize, zSize - roundness * <span class="number">2</span>);</div><div class="line">		AddBoxCollider(xSize - roundness * <span class="number">2</span>, ySize - roundness * <span class="number">2</span>, zSize);</div><div class="line"></div><div class="line">		Vector3 min = Vector3.one * roundness;</div><div class="line">		Vector3 half = <span class="keyword">new</span> Vector3(xSize, ySize, zSize) * <span class="number">0.5</span>f; </div><div class="line">		Vector3 max = <span class="keyword">new</span> Vector3(xSize, ySize, zSize) - min;</div><div class="line"></div><div class="line">		AddCapsuleCollider(<span class="number">0</span>, half.x, min.y, min.z);</div><div class="line">		AddCapsuleCollider(<span class="number">0</span>, half.x, min.y, max.z);</div><div class="line">		AddCapsuleCollider(<span class="number">0</span>, half.x, max.y, min.z);</div><div class="line">		AddCapsuleCollider(<span class="number">0</span>, half.x, max.y, max.z);</div><div class="line">		</div><div class="line">		AddCapsuleCollider(<span class="number">1</span>, min.x, half.y, min.z);</div><div class="line">		AddCapsuleCollider(<span class="number">1</span>, min.x, half.y, max.z);</div><div class="line">		AddCapsuleCollider(<span class="number">1</span>, max.x, half.y, min.z);</div><div class="line">		AddCapsuleCollider(<span class="number">1</span>, max.x, half.y, max.z);</div><div class="line">		</div><div class="line">		AddCapsuleCollider(<span class="number">2</span>, min.x, min.y, half.z);</div><div class="line">		AddCapsuleCollider(<span class="number">2</span>, min.x, max.y, half.z);</div><div class="line">		AddCapsuleCollider(<span class="number">2</span>, max.x, min.y, half.z);</div><div class="line">		AddCapsuleCollider(<span class="number">2</span>, max.x, max.y, half.z);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/07-all-colliders.png" alt="为接下来的动作做准备"></p>
+<p>剩下要做的就是在圆角立方体上加一个刚体，恭喜你，看完了本章教程。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接上回 Rounded Cube 4.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rounded Cube 4</title>
+    <link href="http://vrast.cn/posts/60f3453/"/>
+    <id>http://vrast.cn/posts/60f3453/</id>
+    <published>2017-11-25T15:13:25.000Z</published>
+    <updated>2017-11-25T16:09:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>接上回 Rounded Cube 3.本章主题如下:</p>
+<ul>
+<li>Create a custom shader. 使用自定义shader</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<p>虽然我们现在可以区分面，但我们仍然没有纹理坐标。 假设我们想在整个立方体上显示一个网格模式，以便我们可以看到单个四边形。 我们怎样才能做到这一点？</p>
+<p><img src="/uploads/06-grid-texture.png" alt="贴图(纹理)覆盖四边形"></p>
+<p>我们可以使用自定义着色器来找出如何应用纹理，而不是将UV坐标存储在网格中。 这是一个刚创建的着色器。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">Shader <span class="string">"Custom/Rounded Cube Grid"</span> &#123;</div><div class="line">	Properties &#123;</div><div class="line">		_Color (<span class="string">"Color"</span>, Color) = (<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">		_MainTex (<span class="string">"Albedo (RGB)"</span>, <span class="number">2</span>D) = <span class="string">"white"</span> &#123;&#125;</div><div class="line">		_Glossiness (<span class="string">"Smoothness"</span>, Range(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">0.5</span></div><div class="line">		_Metallic (<span class="string">"Metallic"</span>, Range(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">0.0</span></div><div class="line">	&#125;</div><div class="line">	SubShader &#123;</div><div class="line">		Tags &#123; <span class="string">"RenderType"</span>=<span class="string">"Opaque"</span> &#125;</div><div class="line">		LOD <span class="number">200</span></div><div class="line">		</div><div class="line">		CGPROGRAM</div><div class="line">		<span class="meta">#<span class="meta-keyword">pragma</span> surface surf Standard fullforwardshadows</span></div><div class="line">		<span class="meta">#<span class="meta-keyword">pragma</span> target 3.0</span></div><div class="line"></div><div class="line">		sampler2D _MainTex;</div><div class="line"></div><div class="line">		<span class="keyword">struct</span> Input &#123;</div><div class="line">			float2 uv_MainTex;</div><div class="line">		&#125;;</div><div class="line"></div><div class="line">		half _Glossiness;</div><div class="line">		half _Metallic;</div><div class="line">		fixed4 _Color;</div><div class="line"></div><div class="line">		<span class="function"><span class="keyword">void</span> <span class="title">surf</span> (<span class="params">Input IN, inout SurfaceOutputStandard o</span>) </span>&#123;</div><div class="line">			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;</div><div class="line">			o.Albedo = c.rgb;</div><div class="line">			o.Metallic = _Metallic;</div><div class="line">			o.Smoothness = _Glossiness;</div><div class="line">			o.Alpha = c.a;</div><div class="line">		&#125;</div><div class="line">		ENDCG</div><div class="line">	&#125; </div><div class="line">	FallBack <span class="string">"Diffuse"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是默认的表面着色器。 重要的是它定义了一个输入结构，它要求主纹理的坐标。 这些坐标在surf函数中使用，为每个渲染片段调用。 由于我们没有这样的坐标，我们必须用其他的东西替换uv_MainTex。– Google这段翻译的真好</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Input &#123;</div><div class="line">        float2 cubeUV;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    …</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">surf</span> (<span class="params">Input IN, inout SurfaceOutputStandard o</span>) </span>&#123;</div><div class="line">        fixed4 c = tex2D(_MainTex, IN.cubeUV) * _Color;</div><div class="line">        o.Albedo = c.rgb;</div><div class="line">        o.Metallic = _Metallic;</div><div class="line">        o.Smoothness = _Glossiness;</div><div class="line">        o.Alpha = c.a;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于每个顶点定义了UV，所以我们必须添加一个每个顶点调用的函数。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">CGPROGRAM</div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> surface surf Standard fullforwardshadows vertex:vert</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> target 3.0</span></div><div class="line"></div><div class="line">    sampler2D _MainTex;</div><div class="line"></div><div class="line">    <span class="keyword">struct</span> Input &#123;</div><div class="line">        float2 cubeUV;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    half _Glossiness;</div><div class="line">    half _Metallic;</div><div class="line">    fixed4 _Color;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">vert</span> (<span class="params">inout appdata_full v, <span class="keyword">out</span> Input o</span>) </span>&#123;</div><div class="line">        UNITY_INITIALIZE_OUTPUT(Input, o);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">surf</span> (<span class="params">Input IN, inout SurfaceOutputStandard o</span>) </span>&#123;</div><div class="line">        fixed4 c = tex2D(_MainTex, IN.cubeUV) * _Color;</div><div class="line">        o.Albedo = c.rgb;</div><div class="line">        o.Metallic = _Metallic;</div><div class="line">        o.Smoothness = _Glossiness;</div><div class="line">        o.Alpha = c.a;</div><div class="line">    &#125;</div><div class="line">ENDCG</div></pre></td></tr></table></figure>
+<p>为了检查我们的着色器是否工作，直接使用顶点位置的XY坐标作为UV。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vert</span> (<span class="params">inout appdata_full v, <span class="keyword">out</span> Input o</span>) </span>&#123;</div><div class="line">        UNITY_INITIALIZE_OUTPUT(Input, o);</div><div class="line">        o.cubeUV = v.vertex.xy;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/06-grid-xy.png" alt="使用xy作为UV"><br><img src="/uploads/06-material-x.png" alt="使用xy作为UV"></p>
+<p>这对于Z面来说是合理的，但其他的却是一团糟。 我们需要为它们使用不同的顶点坐标。 所以我们有一个选择，我们可以通过添加关键字枚举着色器属性来支持。</p>
+<blockquote>
+<p>这里划重点了 使用关键枚举来决定渲染不同的面，背后的工作原理是：枚举对应的宏定义</p>
+</blockquote>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Properties &#123;</div><div class="line">    _Color (<span class="string">"Color"</span>, Color) = (<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    _MainTex (<span class="string">"Albedo (RGB)"</span>, <span class="number">2</span>D) = <span class="string">"white"</span> &#123;&#125;</div><div class="line">    _Glossiness (<span class="string">"Smoothness"</span>, Range(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">0.5</span></div><div class="line">    _Metallic (<span class="string">"Metallic"</span>, Range(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">0.0</span></div><div class="line">    [KeywordEnum(X, Y, Z)] _Faces (<span class="string">"Faces"</span>, Float) = <span class="number">0</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以通过定义关键字义，使我们能够为每个选项编写不同的代码。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vert</span> (<span class="params">inout appdata_full v, <span class="keyword">out</span> Input o</span>) </span>&#123;</div><div class="line">			UNITY_INITIALIZE_OUTPUT(Input, o);</div><div class="line">			<span class="meta">#<span class="meta-keyword">if</span> defined(_FACES_X)</span></div><div class="line">				o.cubeUV = v.vertex.yz;</div><div class="line">			<span class="meta">#<span class="meta-keyword">elif</span> defined(_FACES_Y)</span></div><div class="line">				o.cubeUV = v.vertex.xz;</div><div class="line">			<span class="meta">#<span class="meta-keyword">elif</span> defined(_FACES_Z)</span></div><div class="line">				o.cubeUV = v.vertex.xy;</div><div class="line">			<span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">		&#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/06-grid-faces.png" alt="每种材质使用不同的坐标"></p>
+<p>刚开始看起来不错，但网格线不适合实际四边形。 更糟糕的是，当我们使用世界空间顶点位置时，移动或旋转立方体时会变得很奇怪。</p>
+<p>在四舍五入之前，我们需要原始立方体的顶点位置。 如果我们可以将它们存储在网格中，我们可以将它们传递给着色器。 由于我们不使用顶点颜色，因此我们可以使用顶点颜色通道来达到此目的。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Color32[] cubeUV;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">int</span> cornerVertices = <span class="number">8</span>;</div><div class="line">    <span class="keyword">int</span> edgeVertices = (xSize + ySize + zSize - <span class="number">3</span>) * <span class="number">4</span>;</div><div class="line">    <span class="keyword">int</span> faceVertices = (</div><div class="line">        (xSize - <span class="number">1</span>) * (ySize - <span class="number">1</span>) +</div><div class="line">        (xSize - <span class="number">1</span>) * (zSize - <span class="number">1</span>) +</div><div class="line">        (ySize - <span class="number">1</span>) * (zSize - <span class="number">1</span>)) * <span class="number">2</span>;</div><div class="line">    vertices = <span class="keyword">new</span> Vector3[cornerVertices + edgeVertices + faceVertices];</div><div class="line">    normals = <span class="keyword">new</span> Vector3[vertices.Length];</div><div class="line">    cubeUV = <span class="keyword">new</span> Color32[vertices.Length];</div><div class="line"></div><div class="line">    …</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">    mesh.colors32 = cubeUV;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    …</div><div class="line"></div><div class="line">    normals[i] = (vertices[i] - inner).normalized;</div><div class="line">    vertices[i] = inner + normals[i] * roundness;</div><div class="line">    cubeUV[i] = <span class="keyword">new</span> Color32((<span class="keyword">byte</span>)x, (<span class="keyword">byte</span>)y, (<span class="keyword">byte</span>)z, <span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们必须使用Color32来代替通常的Color类型，因为顶点颜色组件被存储为单个字节。 整个颜色是四个字节，与单个浮点大小相同。</p>
+<p>如果我们使用常规颜色，那么Unity将从0-1浮点数转换为0-255字节，截断该范围之外的所有内容。 通过直接转换为字节，我们可以处理多达255的多维数据集，这应该是足够的。</p>
+<p>在着色器方面，我们现在可以使用顶点颜色而不是其位置。 当着色器将顶点颜色通道解释为0-1范围内的值时，我们必须通过乘以255来撤消此转换。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vert</span> (<span class="params">inout appdata_full v, <span class="keyword">out</span> Input o</span>) </span>&#123;</div><div class="line">    UNITY_INITIALIZE_OUTPUT(Input, o);</div><div class="line">    <span class="meta">#<span class="meta-keyword">if</span> defined(_FACES_X)</span></div><div class="line">        o.cubeUV = v.color.yz * <span class="number">255</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">elif</span> defined(_FACES_Y)</span></div><div class="line">        o.cubeUV = v.color.xz * <span class="number">255</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">elif</span> defined(_FACES_Z)</span></div><div class="line">        o.cubeUV = v.color.xy * <span class="number">255</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/06-grid-cube.png" alt="网格使用原始立方体位置"></p>
+<p>我们终于有了一个功能性的网格纹理。 请注意，每对面之一的UV坐标是镜像的，但这不是重点，因为我们使用的是对称纹理。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接上回 Rounded Cube 3.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rounded Cube 3</title>
+    <link href="http://vrast.cn/posts/986ba1f0/"/>
+    <id>http://vrast.cn/posts/986ba1f0/</id>
+    <published>2017-11-25T14:56:00.000Z</published>
+    <updated>2017-11-25T16:08:32.205Z</updated>
+    
+    <content type="html"><![CDATA[<p>接上回 Rounded Cube 2.本章主题如下:</p>
+<ul>
 <li>Use sub-meshes. 使用子网格</li>
 <li>Create a custom shader. 使用自定义shader</li>
 <li>Combine primitive colliders. 合并原始网格</li>
 </ul>
 <p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
-<h1 id="Rounding-the-Cube-圆形方块"><a href="#Rounding-the-Cube-圆形方块" class="headerlink" title="Rounding the Cube 圆形方块"></a>Rounding the Cube 圆形方块</h1><p>先设置一个<code>roundness</code>参数，并且添加法线字段。</p>
+<p>现在我们已经有了一个没有重复顶点的圆滑立方体，现在需要使用多个材质。这时候就需用到子网格。我们把网格分成三对相对的面。 这意味着我们需要三个数组和三个三角形索引。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateTriangles</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">int</span>[] trianglesZ = <span class="keyword">new</span> <span class="keyword">int</span>[(xSize * ySize) * <span class="number">12</span>];</div><div class="line">    <span class="keyword">int</span>[] trianglesX = <span class="keyword">new</span> <span class="keyword">int</span>[(ySize * zSize) * <span class="number">12</span>];</div><div class="line">    <span class="keyword">int</span>[] trianglesY = <span class="keyword">new</span> <span class="keyword">int</span>[(xSize * zSize) * <span class="number">12</span>];</div><div class="line">    <span class="keyword">int</span> ring = (xSize + zSize) * <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> tZ = <span class="number">0</span>, tX = <span class="number">0</span>, tY = <span class="number">0</span>, v = <span class="number">0</span>;</div><div class="line">    …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们要把环回路分为四段，在Z和X的数组之间交替。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; ySize; y++, v++) &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; xSize; q++, v++) &#123;</div><div class="line">        tZ = SetQuad(trianglesZ, tZ, v, v + <span class="number">1</span>, v + ring, v + ring + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; zSize; q++, v++) &#123;</div><div class="line">        tX = SetQuad(trianglesX, tX, v, v + <span class="number">1</span>, v + ring, v + ring + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; xSize; q++, v++) &#123;</div><div class="line">        tZ = SetQuad(trianglesZ, tZ, v, v + <span class="number">1</span>, v + ring, v + ring + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; zSize - <span class="number">1</span>; q++, v++) &#123;</div><div class="line">        tX = SetQuad(trianglesX, tX, v, v + <span class="number">1</span>, v + ring, v + ring + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    tX = SetQuad(trianglesX, tX, v, v - ring + <span class="number">1</span>, v + ring, v + <span class="number">1</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>顶面和底面只用Y数组。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tY = CreateTopFace(trianglesY, tY, ring);</div><div class="line">tY = CreateBottomFace(trianglesY, tY, ring);</div></pre></td></tr></table></figure>
+<p>我们创建三个子网格取代分配mesh.triangles。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mesh.subMeshCount = <span class="number">3</span>;</div><div class="line">mesh.SetTriangles(trianglesZ, <span class="number">0</span>);</div><div class="line">mesh.SetTriangles(trianglesX, <span class="number">1</span>);</div><div class="line">mesh.SetTriangles(trianglesY, <span class="number">2</span>);</div></pre></td></tr></table></figure>
+<p><img src="/uploads/05-only-z.png" alt="只展示了两个面"></p>
+<p>我们的网格现在被切成三块，只有第一块被实际渲染。 我们必须为网格渲染器分配额外的材质，即每个子网格一个。 这就是为什么有一个材质数组。</p>
+<p><img src="/uploads/05-colored-faces.png" alt="三块子网格"><br><img src="/uploads/05-materials.png" alt="一组三材质"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接上回 Rounded Cube 2.本章主题如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
+&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
+&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rounded Cube 2</title>
+    <link href="http://vrast.cn/posts/ef6c9166/"/>
+    <id>http://vrast.cn/posts/ef6c9166/</id>
+    <published>2017-11-24T09:35:24.000Z</published>
+    <updated>2017-11-25T14:56:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>接上回 Rounded Cube 1.本章主题如下:</p>
+<ul>
+<li>Define normals. 定义法线</li>
+</ul>
+<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
+<h1 id="Rounding-the-Cube-圆形方块"><a href="#Rounding-the-Cube-圆形方块" class="headerlink" title="Rounding the Cube 圆形方块"></a>Rounding the Cube 圆形方块</h1><p>先设置一个<code>roundness</code>参数(数值)，并且添加法线字段。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Vector3[] normals;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    …</div><div class="line">    vertices = <span class="keyword">new</span> Vector3[cornerVertices + edgeVertices + faceVertices];</div><div class="line">    normals = <span class="keyword">new</span> Vector3[vertices.Length];</div><div class="line"></div><div class="line">    …</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>我们添加如下方法来计算对于每个顶点的法线<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		…</div><div class="line">    <span class="keyword">int</span> v = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt;= ySize; y++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, y, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt;= zSize; z++) &#123;</div><div class="line">            SetVertex(v++, xSize, y, z);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = xSize - <span class="number">1</span>; x &gt;= <span class="number">0</span>; x--) &#123;</div><div class="line">            SetVertex(v++, x, y, zSize);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> z = zSize - <span class="number">1</span>; z &gt; <span class="number">0</span>; z--) &#123;</div><div class="line">            SetVertex(v++, <span class="number">0</span>, y, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, ySize, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, <span class="number">0</span>, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>嗯。然后我们如何定位顶点呢？想象一下一个小一点的cube在原cube内部。这两cube之间的距离等于圆滑程度(值)。你可以想象圆粘在小立方体的角落上，它的半径就等于平滑值，所以内部的cube牢牢的抓住(外部的cube).</p>
+<p>对于外部立方体上的任何点，在内部立方体中都有一个最靠近它的点.我们可以用这个来确定圆形cube的法线向量。</p>
 <p><img src="/uploads/04-inner-cube.png" alt="想象另外一个立方体在里面"></p>
-<blockquote>
-<p>未完待续</p>
-</blockquote>
+<p>圆形cube表面的点可以被起始于内部并且沿着法线方向移动的量等于圆滑值的点所达到。 –我的理解<br>圆形立方体的表面点可以从内点开始，沿着法线方向移动，其量等于圆度. – 百度翻译<br>The surface points of the rounded cube can then be found by starting at the inner point and moving along the normal by an amount equal to the roundness. – 原文</p>
+<p>下面是参考代码，并未计算出内部的点<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    Vector3 inner = vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line"></div><div class="line">    normals[i] = (vertices[i] - inner).normalized;</div><div class="line">    vertices[i] = inner + normals[i] * roundness;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在找到内部的点，开始检查x轴的坐标。如果小于圆滑值就在内部cube的左侧并且在内部x坐标就是简单的圆滑值。如果我们超出了立方体的x大小减去圆滑值，那么我们就在右边。在所有其他情况下，我们在内cube，点共享相同的x坐标范围</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    Vector3 inner = vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (x &lt; roundness) &#123;</div><div class="line">        inner.x = roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">x &gt; xSize - roundness</span>) </span>&#123;</div><div class="line">        inner.x = xSize - roundness;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    normals[i] = (vertices[i] - inner).normalized;</div><div class="line">    vertices[i] = inner + normals[i] * roundness;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/04-rounded-x.png" alt="一维四舍五入相当平滑"></p>
+<p>到目前为止，结果看起来并不圆润，但我们已经在正负X方向上获得了正常值。 对Y坐标进行同样的检查。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (x &lt; roundness) &#123;</div><div class="line">        inner.x = roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">x &gt; xSize - roundness</span>) </span>&#123;</div><div class="line">        inner.x = xSize - roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (y &lt; roundness) &#123;</div><div class="line">        inner.y = roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">y &gt; ySize - roundness</span>) </span>&#123;</div><div class="line">        inner.y = ySize - roundness;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/04-rounded-xy.png" alt="在两个纬度上处理圆滑"></p>
+<p>现在看起来好点了！ 圆角和法线在XY平面上工作。 剩下的就是检查Z坐标。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (x &lt; roundness) &#123;</div><div class="line">    inner.x = roundness;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">x &gt; xSize - roundness</span>) </span>&#123;</div><div class="line">    inner.x = xSize - roundness;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (y &lt; roundness) &#123;</div><div class="line">    inner.y = roundness;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">y &gt; ySize - roundness</span>) </span>&#123;</div><div class="line">    inner.y = ySize - roundness;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (z &lt; roundness) &#123;</div><div class="line">    inner.z = roundness;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">z &gt; zSize - roundness</span>) </span>&#123;</div><div class="line">    inner.z = zSize - roundness;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/04-rounded-xyz.png" alt="完全圆滑"></p>
+<p>我们终于有了一个完全圆润的立方体。</p>
 ]]></content>
     
     <summary type="html">
@@ -44,9 +200,6 @@
       &lt;p&gt;接上回 Rounded Cube 1.本章主题如下:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Define normals. 定义法线&lt;/li&gt;
-&lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
-&lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
-&lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
     
@@ -1086,124 +1239,6 @@
     
     
       <category term="Lua" scheme="http://vrast.cn/tags/Lua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Install Lua on MACOS</title>
-    <link href="http://vrast.cn/posts/2b34f5ba/"/>
-    <id>http://vrast.cn/posts/2b34f5ba/</id>
-    <published>2017-03-22T08:13:11.000Z</published>
-    <updated>2017-03-22T11:18:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>简单记录下LUA在macOS上的安装。Lua的解释引擎很小 所以安装也很方便，我直接在 lua.org 上下载了lua的源码在macOS上进行编译。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="Install-Lua"><a href="#Install-Lua" class="headerlink" title="Install Lua"></a>Install Lua</h1><p><a href="http://www.lua.org/download.html" target="_blank" rel="external">下载页面</a></p>
-<p>下载的文件叫做 lua-5.3.4.tar 。直接解压 cd 到 文件夹下的 src 目录。然后执行下面命令安装完毕。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">make</span> macosx</div><div class="line"><span class="keyword">cd</span> ..</div><div class="line">sudo <span class="keyword">make</span> install</div></pre></td></tr></table></figure></p>
-<h1 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h1><p>使用lua命令直接进入lua脚本编辑模式<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> keyle@keyles-MacBook-Pro  ~  lua</div><div class="line">Lua <span class="number">5.3</span><span class="number">.4</span>  Copyright (C) <span class="number">1994</span><span class="number">-2017</span> Lua.org, PUC-Rio</div></pre></td></tr></table></figure></p>
-<h1 id="Environment-Setting"><a href="#Environment-Setting" class="headerlink" title="Environment Setting"></a>Environment Setting</h1><p>我使用 sublime text3 作为编辑器，当然可以直接使用vscode，或者Xamarin Studio.<br>这里贴出 sublime text3 的配置方法。</p>
-<ol>
-<li><p>进入如下目录<br>~/Library/Application Support/Sublime Text 3/Packages/User</p>
-</li>
-<li><p>添加配置信息 <code>lua_setting.sublime-build</code></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;    </div><div class="line">  <span class="attr">"cmd"</span>: [<span class="string">"/usr/local/bin/lua"</span>, <span class="string">"$file"</span>],   </div><div class="line">  <span class="attr">"file_regex"</span>: <span class="string">"^(?:lua:)?[\t ](...*?):([0-9]*):?([0-9]*)"</span>,  </div><div class="line">  <span class="attr">"selector"</span>: <span class="string">"source.lua"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>编译时选择 Lua 即可在命令行看到编译结果。</p>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;简单记录下LUA在macOS上的安装。Lua的解释引擎很小 所以安装也很方便，我直接在 lua.org 上下载了lua的源码在macOS上进行编译。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
-    
-    
-      <category term="Lua" scheme="http://vrast.cn/tags/Lua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>句子的构成</title>
-    <link href="http://vrast.cn/posts/e62162e2/"/>
-    <id>http://vrast.cn/posts/e62162e2/</id>
-    <published>2017-03-20T13:45:03.000Z</published>
-    <updated>2017-03-22T13:07:11.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>记录一些关于句子构成的语法。以前上学的时候没有用心学现在回头看应该还来的及吧。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="主语"><a href="#主语" class="headerlink" title="主语"></a>主语</h1><ol>
-<li>名词作主语</li>
-<li>代词作主语</li>
-<li>动名词作主语或不定式作主语(动词不能做主语，需变成动名词或不定式)，不定式或动名词作主语有时候造成句子过长这时候用代词it作主语，动名词移到句尾一般改成不定式。</li>
-</ol>
-<h1 id="从句"><a href="#从句" class="headerlink" title="从句"></a>从句</h1><h2 id="名词性从句作主语"><a href="#名词性从句作主语" class="headerlink" title="名词性从句作主语"></a>名词性从句作主语</h2><p>例句：他不学习令我生气<br>翻译：that he doesn’t study makes me angry.<br>这里不能翻译成 he doesn’t study makes me angry.的原因是 <code>he doesn’t study </code>是个句子。句子是不能充当主语的。</p>
-<h2 id="从句种类"><a href="#从句种类" class="headerlink" title="从句种类"></a>从句种类</h2><p>从句可充当 宾 ， 主 ， 表  ，从 ， 同(位语)</p>
-<h3 id="that引导"><a href="#that引导" class="headerlink" title="that引导"></a>that引导</h3><p>任何一个主语起首的句子冠以that即为that从句。</p>
-<h3 id="whether引导"><a href="#whether引导" class="headerlink" title="whether引导"></a>whether引导</h3><p>能用yes/no回答的句子(一般疑问句)，可以使用 whether<br>问句一般有助动词，这时候需要特殊处理：</p>
-<h4 id="be动词"><a href="#be动词" class="headerlink" title="be动词"></a>be动词</h4><p>主语/动词还原，句首冠以 whether引导</p>
-<h4 id="一般助动词"><a href="#一般助动词" class="headerlink" title="一般助动词"></a>一般助动词</h4><p>主语/助动词还原，句首冠以 whether引导</p>
-<h4 id="do-does-did等助动词"><a href="#do-does-did等助动词" class="headerlink" title="do,does,did等助动词"></a>do,does,did等助动词</h4><p>主语/动词还原,将 do,does,did 去掉，后面的单词依据人称和时态变化。</p>
-<h3 id="疑问词引导"><a href="#疑问词引导" class="headerlink" title="疑问词引导"></a>疑问词引导</h3><h4 id="be动词-1"><a href="#be动词-1" class="headerlink" title="be动词"></a>be动词</h4><p>主语/be动词还原，前面保留疑问</p>
-<h4 id="一般助动词-1"><a href="#一般助动词-1" class="headerlink" title="一般助动词"></a>一般助动词</h4><p>主语/助动词还原，前面保留疑问</p>
-<h4 id="do-does-did等助动词-1"><a href="#do-does-did等助动词-1" class="headerlink" title="do,does,did等助动词"></a>do,does,did等助动词</h4><p>主语/助动词还原，前面保留疑问,将 do,does,did 去掉，后面的单词依据人称和时态变化。</p>
-<h1 id="需要记忆的概念"><a href="#需要记忆的概念" class="headerlink" title="需要记忆的概念"></a>需要记忆的概念</h1><p>以下的概念均搜集来自百度百科。</p>
-<h2 id="不定式-infinitive"><a href="#不定式-infinitive" class="headerlink" title="不定式[infinitive]"></a>不定式[infinitive]</h2><p>在语法中，动词不定式是指动词的一种不带词形变化从而不指示人称、数量、时态的形式。它之所以被叫做不定式，是因为动词不被限定，或者说不被词形变化所局限。不定式属于非谓语动词。</p>
-<h2 id="非谓语动词-the-Non-Finite-Verbs"><a href="#非谓语动词-the-Non-Finite-Verbs" class="headerlink" title="非谓语动词[the Non-Finite Verbs]"></a>非谓语动词[the Non-Finite Verbs]</h2><p>非谓语动词，又叫非限定动词，非谓语动词是指在句子中不是谓语的动词，主要包括不定式、动名词和分词（现在分词和过去分词），即动词的非谓语形式。非谓语动词除了不能独立作谓语外，可以承担句子的其他成分。</p>
-<h2 id="助动词"><a href="#助动词" class="headerlink" title="助动词"></a>助动词</h2><p>最常用的助动词有：be， have， has， do， does， shall， did， will， should， would等。助动词可以协助主要动词构成时态或者语态，也可构成疑问句和否定句，构成否定句时与否定副词not连用。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;记录一些关于句子构成的语法。以前上学的时候没有用心学现在回头看应该还来的及吧。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="http://vrast.cn/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="语法" scheme="http://vrast.cn/tags/%E8%AF%AD%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GCD in iOS</title>
-    <link href="http://vrast.cn/posts/71d7254d/"/>
-    <id>http://vrast.cn/posts/71d7254d/</id>
-    <published>2017-03-16T07:39:11.000Z</published>
-    <updated>2017-03-22T11:14:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>如果想用Thread的话，就试试GCD吧。</p>
-</blockquote>
-<p>我找了几篇写的比较好的GCD介绍：<br><a href="http://blog.csdn.net/totogo2010/article/details/8016129" target="_blank" rel="external">iOS多线程编程之Grand Central Dispatch(GCD)介绍和使用</a></p>
-<p><a href="https://www.objc.io/issues/2-concurrency/low-level-concurrency-apis/" target="_blank" rel="external">Low-Level Concurrency APIs</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;如果想用Thread的话，就试试GCD吧。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;我找了几篇写的比较好的GCD介绍：&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/totogo2010/article/details/801
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://vrast.cn/categories/iOS/"/>
-    
-    
-      <category term="GCD" scheme="http://vrast.cn/tags/GCD/"/>
     
   </entry>
   
