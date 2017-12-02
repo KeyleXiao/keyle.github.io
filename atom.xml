@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-11-25T16:08:32.204Z</updated>
+  <updated>2017-12-02T15:07:42.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,82 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git FAQ</title>
+    <link href="http://vrast.cn/posts/1e42cd7e/"/>
+    <id>http://vrast.cn/posts/1e42cd7e/</id>
+    <published>2017-12-02T12:37:23.000Z</published>
+    <updated>2017-12-02T15:07:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天有朋友问了我三个问题：</p>
+<ul>
+<li>策划或者美术可能没有commit前先pull的习惯，先commit上去，然后push不上。Git提醒pull，然后报错，一般除了程序，甚至没使用过Git的程序就有点不知所措了。应该要讲下出错时候要stash的问题。</li>
+<li>策划pull出错时候， 万一revert，然后push强推,把之前别人提交的东西冲掉了。我们有用过回滚，然后强推上去。可以再讲下怎么强推</li>
+<li>怎么stash，怎么stash apply，apply失败后怎么弄。commit的顺序最好也要重点强调下</li>
+</ul>
+<p>在篇中我会解答，如果还有其他问题 请给我留言，我会追加叙述。求关注 求转发。把爱传出去 笑～</p>
+<a id="more"></a>
+<h1 id="在解答第一个问题之前我们先了解一下什么是-stash-存储-非程序人员跳过此条说明"><a href="#在解答第一个问题之前我们先了解一下什么是-stash-存储-非程序人员跳过此条说明" class="headerlink" title="在解答第一个问题之前我们先了解一下什么是 stash (存储) (非程序人员跳过此条说明)"></a>在解答第一个问题之前我们先了解一下什么是 stash (存储) (非程序人员跳过此条说明)</h1><p><a href="https://stackoverflow.com/questions/10959928/what-does-commit-your-changes-or-stash-them-mean#10959956" target="_blank" rel="external">What does “commit your changes or stash them” mean?</a></p>
+<p>stash意味着你有未提交的更改，将会在拉取代码的时候防止本地的修改被覆盖。顺便说一句如果你想知道更多关于Git stash 的问题只需要提问：how do I solve the problem where Git tells me to commit or stash (如何解决Git告诉我commit或stash的问题)</p>
+<p>通过git stash将工作区恢复到上次提交的内容，同时备份本地所做的修改，之后就可以正常git pull了，git pull完成后，执行git stash pop将之前本地做的修改应用到当前工作区。</p>
+<p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。<br>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。<br>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。<br>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>
+<h1 id="Pull-与-Fetch-区别-基本概念"><a href="#Pull-与-Fetch-区别-基本概念" class="headerlink" title="Pull 与 Fetch 区别 (基本概念)"></a>Pull 与 Fetch 区别 (基本概念)</h1><ol>
+<li>每次commit都会有一个记录。</li>
+<li>本地的所有commit在没有push之前，都是存在本地。别人是更新不到你的commit记录的。</li>
+<li>所谓更新就是拿到别人的Commit数据。</li>
+<li>如果你更新到别人的commit里也有你本次commit修改的数据 就会产生冲突，就需要合并。</li>
+<li>Pull 的意思是 下载比自己更新的commit数据，并且开始合并，可能马上就有从冲突文件。</li>
+<li>Fetch 的意思是 下载比自己更新的commit数据，放在那里(不合并到当前commit)，可以看看是否有必要更新到最近commit。</li>
+</ol>
+<h1 id="先解释下报错信息"><a href="#先解释下报错信息" class="headerlink" title="先解释下报错信息"></a>先解释下报错信息</h1><p>你本地的修改和Git存储上的冲突了，现在有两种方式来解决：</p>
+<ol>
+<li>commit 先提交本地的修改，commit的原因是为了可追溯，通过本地branches就能拿到N+1个版本的修改。防止丢失</li>
+<li>stash 备份本地的修改 ，仍旧是防止丢失，且可以有多个版本 很灵活</li>
+</ol>
+<h2 id="演示Stash如何使用-规避文件修改被冲掉"><a href="#演示Stash如何使用-规避文件修改被冲掉" class="headerlink" title="演示Stash如何使用 规避文件修改被冲掉"></a>演示Stash如何使用 规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>Stash</code> 这些个文件吧。</p>
+<p><img src="/uploads/gulpfile.png" alt="机制的B君做了如下操作"><br><img src="/uploads/QQ20171202-213806@2x.png" alt="Stash了勾选后的将本地修改在这里"></p>
+<p>B君 : 点击<apply stash=""> 可将指定的Stash文件与更新后的文件合并。</apply></p>
+<blockquote>
+<h2>Stash 简单理解就是备份本地修改,且可以备份多次。什么?又冲突了？用Stash啊！</h2>
+
+
+</blockquote>
+<h2 id="使用commit来规避文件修改被冲掉"><a href="#使用commit来规避文件修改被冲掉" class="headerlink" title="使用commit来规避文件修改被冲掉"></a>使用commit来规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>commit</code> 这些个文件吧。</p>
+<p><img src="/uploads/1040FC64-815A-4DD3-B703-52AD31B022D0.png" alt="这个Push Change不用勾选，反正勾选也上传不了但是不影响commit。"><br><img src="/uploads/A2A598E1-86FF-4380-A3CE-FFE532E83E0D.png" alt="现在pull也可以合并本地文件"></p>
+<blockquote>
+<h2>commit 简单理解就是保存本次修改,且可以被追溯。什么你只会Stash？直接commit也行啊！</h2>
+
+
+
+
+</blockquote>
+<h1 id="如何强推？"><a href="#如何强推？" class="headerlink" title="如何强推？"></a>如何强推？</h1><p>理解了上面的之后。发现 用Stash 或者Commit都可以实现强推。</p>
+<p><img src="/uploads/BDCE2D9F-7600-48C7-9528-1FFCC155445C.png" alt="现在commit肯定不行 因为被修改过了，sourcetree的机制是 点击按钮 默认commit，然后push"></p>
+<p><img src="/uploads/QQ20171202-223641.png" alt="必然是失败的，点击OK,现在本地branch已经有了此次commit痕迹了(可追溯)"></p>
+<p>现在点击pull/或者Apply Stash 处理好，上传吧。</p>
+<h1 id="出了莫名其妙的问题如何补救？"><a href="#出了莫名其妙的问题如何补救？" class="headerlink" title="出了莫名其妙的问题如何补救？"></a>出了莫名其妙的问题如何补救？</h1><p>有些朋友一看到一堆报错和本地紊乱的修改就慌了。别怕 可以直接回到存档(commit)点去复活。</p>
+<p><img src="/uploads/A56FB26C-1A89-4106-BC16-9D41A9114255.png" alt="直接回到某个commit的状态"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天有朋友问了我三个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;策划或者美术可能没有commit前先pull的习惯，先commit上去，然后push不上。Git提醒pull，然后报错，一般除了程序，甚至没使用过Git的程序就有点不知所措了。应该要讲下出错时候要stash的问题。&lt;/li&gt;
+&lt;li&gt;策划pull出错时候， 万一revert，然后push强推,把之前别人提交的东西冲掉了。我们有用过回滚，然后强推上去。可以再讲下怎么强推&lt;/li&gt;
+&lt;li&gt;怎么stash，怎么stash apply，apply失败后怎么弄。commit的顺序最好也要重点强调下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在篇中我会解答，如果还有其他问题 请给我留言，我会追加叙述。求关注 求转发。把爱传出去 笑～&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FAQ" scheme="http://vrast.cn/categories/FAQ/"/>
+    
+    
+      <category term="Git" scheme="http://vrast.cn/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Rounded Cube 5</title>
@@ -1146,92 +1222,6 @@
     
       &lt;blockquote&gt;
 &lt;p&gt;这一篇记录一些关于Lua的更深入一些的东西主要是table的使用。但是不涉及IO,Debug，垃圾回收,OOP,数据库访问。这些东西我觉得可以单独放在一个专题写。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
-    
-    
-      <category term="Lua" scheme="http://vrast.cn/tags/Lua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Lua Script 1</title>
-    <link href="http://vrast.cn/posts/32bf7061/"/>
-    <id>http://vrast.cn/posts/32bf7061/</id>
-    <published>2017-03-22T08:50:24.000Z</published>
-    <updated>2017-03-24T08:32:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>总结Lua基础语法，与简单运用 这里并不涉及深入内容<br><a id="more"></a></p>
-</blockquote>
-<p><a href="http://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="external">推荐一个快速学习LUA的网站</a> ，这个网站的内容写的短有些细节忽略了。有时间最好还是要看下面推荐的书<br>推荐书籍 Programming in Lua third edition.pdf</p>
-<h1 id="总结一点学习编程语言的技巧"><a href="#总结一点学习编程语言的技巧" class="headerlink" title="总结一点学习编程语言的技巧"></a>总结一点学习编程语言的技巧</h1><ol>
-<li><p>学习一个新的语言难免会涉及到大量的内置限定词。这时候就需要使用一个合适的开发工具(重要)，智能提示可以帮助我们快速输入和记忆这些重要且不好记忆的文法。</p>
-</li>
-<li><p>类比之前的语言 总是可以找到大量的特性的，这时候就免去的重复的记忆</p>
-</li>
-</ol>
-<h1 id="关于lua语言一些难搞的概念"><a href="#关于lua语言一些难搞的概念" class="headerlink" title="关于lua语言一些难搞的概念"></a>关于lua语言一些难搞的概念</h1><p>这个可以放到最后看</p>
-<ol>
-<li><a href="http://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="external">迭代器</a></li>
-</ol>
-<h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><p>我在桌面新建了一个 a.lua 脚本 ， 第一行代码是让这个脚本去寻找解释器</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#!/usr/<span class="keyword">local</span>/bin/lua</div><div class="line"><span class="built_in">print</span>(<span class="string">"hello world"</span>);</div></pre></td></tr></table></figure>
-<p>因为权限问题 我先给脚本授权，然后直接调用了这个脚本<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">keyle@keyles-MacBook-Pro  ~/Desktop  chmod a+x /Users/keyle/Desktop/<span class="selector-tag">a</span><span class="selector-class">.lua</span></div><div class="line">keyle@keyles-MacBook-Pro  ~/Desktop  ./<span class="selector-tag">a</span><span class="selector-class">.lua</span></div><div class="line">hello world</div></pre></td></tr></table></figure></p>
-<h1 id="保留关键字"><a href="#保留关键字" class="headerlink" title="保留关键字"></a>保留关键字</h1><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">and</span>	<span class="keyword">break</span>	<span class="keyword">do</span>	<span class="keyword">else</span></div><div class="line"><span class="keyword">elseif</span>	<span class="keyword">end</span>	<span class="keyword">false</span>	<span class="keyword">for</span></div><div class="line"><span class="function"><span class="keyword">function</span>	<span class="title">if</span>	<span class="title">in</span>	<span class="title">local</span></span></div><div class="line"><span class="title">nil</span>	<span class="title">not</span>	<span class="title">or</span>	<span class="title">repeat</span></div><div class="line"><span class="title">return</span>	<span class="title">then</span>	<span class="title">true</span>	<span class="title">until</span></div><div class="line"><span class="title">while</span></div></pre></td></tr></table></figure>
-<h1 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a>基础数据类型</h1><p>nil、boolean、number、string、userdata、function、thread和table</p>
-<h2 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h2><p>最后一个输出结果 type(nil) 之后 得到了一个 string。<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="string">"Hello world"</span>))</span>      --&gt;</span> string</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="number">10.4</span>*<span class="number">3</span>))</span>             --&gt;</span> number</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="built_in">print</span>))</span>              --&gt;</span> <span class="keyword">function</span></div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(type))</span>               --&gt;</span> <span class="keyword">function</span></div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="literal">true</span>))</span>               --&gt;</span> boolean</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(nil))</span>                --&gt;</span> nil</div><div class="line"><span class="built_in">print</span><span class="function"><span class="params">(type(type(X)))</span>            --&gt;</span> string</div></pre></td></tr></table></figure></p>
-<h3 id="nil的特性"><a href="#nil的特性" class="headerlink" title="nil的特性"></a>nil的特性</h3><p>使用nil 可以删除table里面的key-value<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tab1 = &#123; key1 = <span class="string">"val1"</span>, key2 = <span class="string">"val2"</span>, <span class="string">"val3"</span> &#125;</div><div class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(tab1) <span class="keyword">do</span></div><div class="line">    <span class="built_in">print</span>(k .. <span class="string">" - "</span> .. v)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="built_in">print</span>(<span class="string">""</span>)</div><div class="line">tab1.key1 = <span class="keyword">nil</span></div><div class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(tab1) <span class="keyword">do</span></div><div class="line">    <span class="built_in">print</span>(k .. <span class="string">" - "</span> .. v)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p><code>key1 - val1</code>已经被删除了。在table里如果默认没有声明 key ，则默认从1开始自增<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> - val3</div><div class="line">key1 - val1</div><div class="line">key2 - val2</div><div class="line"></div><div class="line"><span class="number">1</span> - val3</div><div class="line">key2 - val2</div></pre></td></tr></table></figure></p>
-<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>boolean 类型只有两个可选值：true（真） 和 false（假），Lua 把 false 和 nil 看作是”假”，其他的都为”真”<br>在其他语言也是如此</p>
-<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>Lua 默认只有一种 number 类型 – double（双精度）类型（默认类型可以修改 luaconf.h 里的定义）</p>
-<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>字符串由一对双引号或单引号来表示。也可以用 2 个方括号 “[[]]” 来表示”一块”字符串。<br>在lua里使用<code>#</code>来计算字符串长度。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">print</span><span class="params">(#<span class="string">"123"</span>)</span></span></div></pre></td></tr></table></figure></p>
-<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><ol>
-<li>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字或者是字符串。</li>
-<li>在 Lua 里表的默认初始索引一般以 1 开始。</li>
-<li>table 不会固定长度大小，有新数据添加时 table 长度会自动增长，没初始的 table 都是 nil。<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 创建一个空的 table</span></div><div class="line"><span class="keyword">local</span> tbl1 = &#123;&#125;</div><div class="line"> </div><div class="line"><span class="comment">-- 直接初始表</span></div><div class="line"><span class="keyword">local</span> tbl2 = &#123;<span class="string">"apple"</span>, <span class="string">"pear"</span>, <span class="string">"orange"</span>, <span class="string">"grape"</span>&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(tbl2) <span class="keyword">do</span></div><div class="line">	<span class="built_in">print</span>(i,v)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>输出结果：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> ⚙  keyle@keyles-MacBook-Pro  ~/Desktop  ./a.lua</div><div class="line"><span class="number">1</span>	apple</div><div class="line"><span class="number">2</span>	pear</div><div class="line"><span class="number">3</span>	orange</div><div class="line"><span class="number">4</span>	grape</div></pre></td></tr></table></figure></p>
-<h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><ul>
-<li>支持作为变量传递</li>
-<li>支持以匿名的方式使用</li>
-<li>支持多个返回值</li>
-</ul>
-<h3 id="多个返回值"><a href="#多个返回值" class="headerlink" title="多个返回值"></a>多个返回值</h3><p>支持多个返回值，比如string.find，其返回匹配串”开始和结束的下标”（如果不存在匹配串返回nil）。<br>举个例子：返回字符串的开始|结束下表<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">s, e = <span class="built_in">string</span>.find(<span class="string">"just test for you"</span>, <span class="string">"test"</span>) </div><div class="line"><span class="built_in">print</span>(s, e)</div><div class="line"></div><div class="line"><span class="comment">--测试函数的多个返回值</span></div><div class="line">func1  =  <span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">			<span class="keyword">return</span> <span class="string">"keyle"</span>,<span class="string">"666"</span></div><div class="line">		  <span class="keyword">end</span></div><div class="line"><span class="built_in">print</span>(func1())</div></pre></td></tr></table></figure></p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">6</span>	<span class="number">9</span></div><div class="line">keyle	<span class="number">666</span></div></pre></td></tr></table></figure>
-<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>lua支持不固定参数的传入<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">func1  =  <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span></div><div class="line">			<span class="keyword">local</span> args = &#123;...&#125;</div><div class="line">			<span class="keyword">local</span> result = <span class="number">0</span></div><div class="line"></div><div class="line">			<span class="keyword">for</span> i=<span class="number">1</span>,#args <span class="keyword">do</span></div><div class="line">				result = result + args[i]</div><div class="line">			<span class="keyword">end</span></div><div class="line"></div><div class="line">			<span class="keyword">return</span> result,#args</div><div class="line">		  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(func1(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>))</div><div class="line"><span class="comment">-- 返回结果 15	5</span></div></pre></td></tr></table></figure></p>
-<h2 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h2><p>lua使用的是协程（coroutine） 与 unity3d的机制几乎一样。 这个也好理解。</p>
-<h2 id="userdata"><a href="#userdata" class="headerlink" title="userdata"></a>userdata</h2><p>userdata 是一种用户自定义数据，用于表示一种由应用程序或 C/C++ 语言库所创建的类型，可以将任意 C/C++ 的任意数据类型的数据（通常是 struct 和 指针）存储到 Lua 变量中调用。ulua就是通过扩展userdata来实现调用unity3d的各种属性。</p>
-<h1 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h1><ul>
-<li>Lua 变量有三种类型：全局变量、局部变量、表中的域。</li>
-<li>Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量。</li>
-<li>局部变量的作用域为从声明位置开始到所在语句块结束。</li>
-<li>变量的默认值均为 nil。<br>尽可能使用局部变量，因为访问速度快<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">do</span> </div><div class="line">	<span class="keyword">local</span> a = <span class="number">123</span></div><div class="line">	<span class="built_in">print</span>(a)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="comment">--超出了作用域 print -&gt; nil</span></div><div class="line"><span class="built_in">print</span>(a)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h1><p>简单形象的赋值方式，第二第三两行是交换两个变量的值。免去写交换算法了<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a, b = <span class="number">10</span>, <span class="number">2</span> * x           <span class="comment">--&gt; a=10; b=2*x</span></div><div class="line">x, y = y, x                <span class="comment">-- swap 'x' for 'y'</span></div><div class="line">a[i], a[j] = a[j], a[i]    <span class="comment">-- swap 'a[i]' for 'a[j]'</span></div></pre></td></tr></table></figure></p>
-<p>左右两边要对称,如果不对称参看下文<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">当变量个数和值的个数不一致时，Lua会一直以变量个数为基础采取以下策略：</div><div class="line"><span class="selector-tag">a</span>. 变量个数 &gt; 值的个数             按变量个数补足nil</div><div class="line"><span class="selector-tag">b</span>. 变量个数 &lt; 值的个数             多余的值会被忽略</div></pre></td></tr></table></figure></p>
-<p>这里直接使用 [table].key 的方式取出了 “321”<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">a = &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">9</span>&#125;</div><div class="line">a[<span class="string">"key"</span>] = <span class="string">"321"</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(a.key)</div><div class="line"><span class="built_in">print</span>(a[<span class="number">1</span>])</div><div class="line"><span class="built_in">print</span>(a[<span class="number">4</span>]) </div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"-----"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(a) <span class="keyword">do</span></div><div class="line">	<span class="built_in">print</span>(i,v)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>控制台输出 ：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">321</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">9</span></div><div class="line">-----</div><div class="line"><span class="number">1</span>	<span class="number">3</span></div><div class="line"><span class="number">2</span>	<span class="number">2</span></div><div class="line"><span class="number">3</span>	<span class="number">1</span></div><div class="line"><span class="number">4</span>	<span class="number">9</span></div></pre></td></tr></table></figure></p>
-<h1 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h1><p>其他的方式类似 for while所有一样都一样，下面这个do while循环这里取个例子</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">repeat</span></div><div class="line">   statements</div><div class="line"><span class="keyword">until</span>( condition )</div></pre></td></tr></table></figure>
-<p>输出1 – 10<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">i</span> = <span class="number">1</span></div><div class="line"><span class="keyword">while</span> true</div><div class="line">do</div><div class="line">	<span class="keyword">if</span>(<span class="built_in">i</span>&gt;<span class="number">10</span>) then</div><div class="line">		<span class="keyword">break</span></div><div class="line">	<span class="keyword">end</span></div><div class="line">	print(<span class="built_in">i</span>)</div><div class="line">	<span class="built_in">i</span>=<span class="built_in">i</span>+<span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<h1 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h1><ol>
-<li>不允许类似 a ++ , a/=1 之类的写法</li>
-<li>不允许类似c#里的&amp;&amp;(and)符号，这里需要用 and</li>
-<li>使用 .. 连接字符串 .. </li>
-<li><code>#</code>用来计算字符或者table长度 </li>
-<li>~=这是个不等于符</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;总结Lua基础语法，与简单运用 这里并不涉及深入内容&lt;br&gt;
     
     </summary>
     
