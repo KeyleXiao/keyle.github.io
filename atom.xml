@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-12-02T15:07:42.000Z</updated>
+  <updated>2017-12-03T02:19:43.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/1e42cd7e/"/>
     <id>http://vrast.cn/posts/1e42cd7e/</id>
     <published>2017-12-02T12:37:23.000Z</published>
-    <updated>2017-12-02T15:07:42.000Z</updated>
+    <updated>2017-12-03T02:19:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>今天有朋友问了我三个问题：</p>
 <ul>
@@ -47,7 +47,7 @@
 <li>commit 先提交本地的修改，commit的原因是为了可追溯，通过本地branches就能拿到N+1个版本的修改。防止丢失</li>
 <li>stash 备份本地的修改 ，仍旧是防止丢失，且可以有多个版本 很灵活</li>
 </ol>
-<h2 id="演示Stash如何使用-规避文件修改被冲掉"><a href="#演示Stash如何使用-规避文件修改被冲掉" class="headerlink" title="演示Stash如何使用 规避文件修改被冲掉"></a>演示Stash如何使用 规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>Stash</code> 这些个文件吧。</p>
+<h2 id="演示-Stash如何使用-规避文件修改被冲掉"><a href="#演示-Stash如何使用-规避文件修改被冲掉" class="headerlink" title="演示-Stash如何使用 规避文件修改被冲掉"></a>演示-Stash如何使用 规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>Stash</code> 这些个文件吧。</p>
 <p><img src="/uploads/gulpfile.png" alt="机制的B君做了如下操作"><br><img src="/uploads/QQ20171202-213806@2x.png" alt="Stash了勾选后的将本地修改在这里"></p>
 <p>B君 : 点击<apply stash=""> 可将指定的Stash文件与更新后的文件合并。</apply></p>
 <blockquote>
@@ -55,7 +55,7 @@
 
 
 </blockquote>
-<h2 id="使用commit来规避文件修改被冲掉"><a href="#使用commit来规避文件修改被冲掉" class="headerlink" title="使用commit来规避文件修改被冲掉"></a>使用commit来规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>commit</code> 这些个文件吧。</p>
+<h2 id="演示-使用commit来规避文件修改被冲掉"><a href="#演示-使用commit来规避文件修改被冲掉" class="headerlink" title="演示-使用commit来规避文件修改被冲掉"></a>演示-使用commit来规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>commit</code> 这些个文件吧。</p>
 <p><img src="/uploads/1040FC64-815A-4DD3-B703-52AD31B022D0.png" alt="这个Push Change不用勾选，反正勾选也上传不了但是不影响commit。"><br><img src="/uploads/A2A598E1-86FF-4380-A3CE-FFE532E83E0D.png" alt="现在pull也可以合并本地文件"></p>
 <blockquote>
 <h2>commit 简单理解就是保存本次修改,且可以被追溯。什么你只会Stash？直接commit也行啊！</h2>
