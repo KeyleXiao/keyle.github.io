@@ -1,0 +1,13 @@
+{
+  "version": "0.0.0",
+  "path": "http://download.bodhiworld.com/dreamheroes/download/game_resource/",
+  "login_ip": "172.16.51.3",
+  "login_port": "30004",
+  "ios_update_url":"",
+  "android_update_url":"",
+  "server_status_url":"",
+  "server_status":0,
+  "server_status_description":"",
+  "force_update_description":""
+}
+
