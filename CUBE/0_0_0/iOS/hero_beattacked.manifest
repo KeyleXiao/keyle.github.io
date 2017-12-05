@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4186088378
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c8893a18521bfade616d4549ae6d8d1d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/Hero_beattacked.mp3
+Dependencies: []

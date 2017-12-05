@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2118020821
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6bc8dbd4f37d31be98264c1282588a0b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/skill_summon.ogg
+Dependencies: []

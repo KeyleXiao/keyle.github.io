@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1858081614
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 50d324f9d5248f00675f62482d6cd5d2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Config/TileConfig_Wood_0007.txt
+Dependencies: []

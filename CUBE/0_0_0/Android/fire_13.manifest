@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2518336244
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2b58eb9b0939ef9e3d7c8d12a2d61cf5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Config/RefreshEnemy_Fire_13.txt
+- Assets/Resources/Config/TileConfig_Fire_13.txt
+- Assets/Resources/Config/MapBehaviourMonster_Fire_13.txt
+- Assets/Resources/Config/TileGroupPoint_Fire_13.txt
+Dependencies: []

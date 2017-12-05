@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1215230601
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f699eedf158277bd703090cc96c33b09
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/healing_last.ogg
+Dependencies: []

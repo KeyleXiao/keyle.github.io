@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2802230141
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 08614b4821ebe4908d82da889e8b30a9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/slowtime_last.ogg
+Dependencies: []

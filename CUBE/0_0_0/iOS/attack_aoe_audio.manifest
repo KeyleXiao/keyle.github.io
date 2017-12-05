@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 4122090500
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 662e0262fc7584a28826b9a1165d0c1c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/Hero_AttackAOESkill.wav
+- Assets/Resources/AudioClips/Hero_BuffSkill.wav
+Dependencies: []

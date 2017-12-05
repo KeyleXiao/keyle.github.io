@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2489026348
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fcec494e01f1fe26e5a0ab45e3ee684e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Config/TileConfig_Wood_0002.txt
+- Assets/Resources/Config/MapBehaviourMonster_Wood_0002.txt
+- Assets/Resources/Config/TileGroupPoint_Wood_0002.txt
+- Assets/Resources/Config/RefreshEnemy_Wood_0002.txt
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3428472912
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2dc741db4d4735abcf2662c45480a13d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/skill_stoneshoot.ogg
+Dependencies: []

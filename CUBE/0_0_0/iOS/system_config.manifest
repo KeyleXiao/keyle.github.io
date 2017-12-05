@@ -1,0 +1,53 @@
+ManifestFileVersion: 0
+CRC: 2510628856
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c4c8b1d70ba01e57781c0fa9bc65cb35
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Config/Pokedex.txt
+- Assets/Resources/Config/MapBehaviour.txt
+- Assets/Resources/Config/Prop.txt
+- Assets/Resources/Config/Goods.txt
+- Assets/Resources/Config/AttributeSpell.txt
+- Assets/Resources/Config/PointChart.txt
+- Assets/Resources/Config/ChapterDefault.txt
+- Assets/Resources/Config/MapTag.txt
+- Assets/Resources/Config/Chapter.txt
+- Assets/Resources/Config/SceneItem.txt
+- Assets/Resources/Config/Monster.txt
+- Assets/Resources/Config/EnemyProp.txt
+- Assets/Resources/Config/ComboGrade.txt
+- Assets/Resources/Config/Level.txt
+- Assets/Resources/Config/AppendEffect.txt
+- Assets/Resources/Config/InteractiveProp.txt
+- Assets/Resources/Config/Attribute.txt
+- Assets/Resources/Config/Spell.txt
+- Assets/Resources/Config/Tag.txt
+- Assets/Resources/Config/Stage.txt
+- Assets/Resources/Config/Item.txt
+- Assets/Resources/Config/MapInfo.txt
+- Assets/Resources/Config/Lang.txt
+- Assets/Resources/Config/AntiData.txt
+- Assets/Resources/Config/Effect.txt
+- Assets/Resources/Config/ColorEliminate.txt
+- Assets/Resources/Config/ItemType.txt
+- Assets/Resources/Config/Guide.txt
+- Assets/Resources/Config/CameraParams.txt
+- Assets/Resources/Config/GroupEvent.txt
+- Assets/Resources/Config/Audio.txt
+- Assets/Resources/Config/AI.txt
+- Assets/Resources/Config/MapComposition.txt
+- Assets/Resources/Config/Hero.txt
+- Assets/Resources/Config/MapCompositionTag.txt
+- Assets/Resources/Config/InteractiveItem.txt
+- Assets/Resources/Config/Dropbox.txt
+- Assets/Resources/Config/Suit.txt
+Dependencies: []

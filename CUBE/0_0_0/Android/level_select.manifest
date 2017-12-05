@@ -1,0 +1,75 @@
+ManifestFileVersion: 0
+CRC: 596237989
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6fdfb072f7b11664825524b743a5a20d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fbf9fc1eea8cabf23fa2f1a6caaeab5d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 91bae5b3a5f95a24b9ca532badde9667, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bc8b61d5af20eb34b888a863def36b3c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Art/model/Level/Level_Wood_hardest.fbx
+- Assets/Resources/Art/model/Level/Materials/Level_Wood.mat
+- Assets/Resources/Art/Prefabs/Level/Level_Line_main.prefab
+- Assets/Resources/Art/model/Level/Materials/Level_Wood_hardest.mat
+- Assets/Resources/Art/model/Level/Level_Wood_hard.fbx
+- Assets/Resources/Art/model/Level/Materials/Level_Fire.mat
+- Assets/Resources/Art/Prefabs/Level/Level_Wood_main.prefab
+- Assets/Resources/Art/model/Level/Materials/Level_Water_hardest.mat
+- Assets/Resources/Art/model/Level/Level_Wood.fbx
+- Assets/Resources/Art/Prefabs/Level/Level_Task_main.prefab
+- Assets/Resources/Art/model/Level/Materials/Level_Fire_material.mat
+- Assets/Resources/Art/model/Level/Materials/Level_Water_hard.mat
+- Assets/Resources/Art/model/Level/Materials/Level_Fire _hardest.mat
+- Assets/Resources/Art/Prefabs/Level/Level_Wood_main_hard.prefab
+- Assets/Resources/Art/model/Level/Level_Task.fbx
+- Assets/Resources/Art/model/Level/Materials/Level_Fire _hard.mat
+- Assets/Resources/Art/model/Level/Materials/Level_Water.mat
+- Assets/Resources/Art/model/Level/Level_Task_Ani.anim
+- Assets/Resources/Art/model/Level/Level_Task.controller
+- Assets/Resources/Art/model/Level/Materials/Level_Water_material.mat
+- Assets/Resources/Art/model/Level/Materials/Level_Wood_hard.mat
+- Assets/Resources/Art/model/Level/Materials/DottedLine_material.mat
+- Assets/Resources/Art/model/Level/Materials/Level_Wood_material.mat
+- Assets/Resources/Art/Prefabs/Level/Level_Wood_main_hardest.prefab
+Dependencies: []

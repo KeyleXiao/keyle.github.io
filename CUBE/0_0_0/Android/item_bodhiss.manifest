@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3910211314
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5b2f4e9c63a3ea78f0eb08fe3f99ddc3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/Item_BodhiSS.mp3
+Dependencies: []

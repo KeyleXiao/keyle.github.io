@@ -1,0 +1,313 @@
+ManifestFileVersion: 0
+CRC: 3542570940
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: level_select
+      Dependencies: {}
+    Info_1:
+      Name: fire_13
+      Dependencies: {}
+    Info_2:
+      Name: water_3
+      Dependencies: {}
+    Info_3:
+      Name: level_10
+      Dependencies: {}
+    Info_4:
+      Name: hero_shootskill
+      Dependencies: {}
+    Info_5:
+      Name: level_12
+      Dependencies: {}
+    Info_6:
+      Name: level_11
+      Dependencies: {}
+    Info_7:
+      Name: wood_5
+      Dependencies: {}
+    Info_8:
+      Name: wood_11
+      Dependencies: {}
+    Info_9:
+      Name: item_americancaptainss
+      Dependencies: {}
+    Info_10:
+      Name: wood_4
+      Dependencies: {}
+    Info_11:
+      Name: system_config
+      Dependencies: {}
+    Info_12:
+      Name: water_8
+      Dependencies: {}
+    Info_13:
+      Name: fire_7
+      Dependencies: {}
+    Info_14:
+      Name: wood_3
+      Dependencies: {}
+    Info_15:
+      Name: wood_10
+      Dependencies: {}
+    Info_16:
+      Name: eat_coin
+      Dependencies: {}
+    Info_17:
+      Name: level_9
+      Dependencies: {}
+    Info_18:
+      Name: wood_13
+      Dependencies: {}
+    Info_19:
+      Name: water_9
+      Dependencies: {}
+    Info_20:
+      Name: fire_9
+      Dependencies: {}
+    Info_21:
+      Name: water_2
+      Dependencies: {}
+    Info_22:
+      Name: water_14
+      Dependencies: {}
+    Info_23:
+      Name: fire_12
+      Dependencies: {}
+    Info_24:
+      Name: water_5
+      Dependencies: {}
+    Info_25:
+      Name: wood_6
+      Dependencies: {}
+    Info_26:
+      Name: water_6
+      Dependencies: {}
+    Info_27:
+      Name: healing_last
+      Dependencies: {}
+    Info_28:
+      Name: wood_7
+      Dependencies: {}
+    Info_29:
+      Name: water_10
+      Dependencies: {}
+    Info_30:
+      Name: wood_8
+      Dependencies: {}
+    Info_31:
+      Name: lightshield_last
+      Dependencies: {}
+    Info_32:
+      Name: fire_11
+      Dependencies: {}
+    Info_33:
+      Name: water_13
+      Dependencies: {}
+    Info_34:
+      Name: fire_2
+      Dependencies: {}
+    Info_35:
+      Name: attack_awake_chuizi
+      Dependencies: {}
+    Info_36:
+      Name: wood_0
+      Dependencies: {}
+    Info_37:
+      Name: fire_5
+      Dependencies: {}
+    Info_38:
+      Name: resource
+      Dependencies: {}
+    Info_39:
+      Name: fire_10
+      Dependencies: {}
+    Info_40:
+      Name: wood_14
+      Dependencies: {}
+    Info_41:
+      Name: slowtime_last
+      Dependencies: {}
+    Info_42:
+      Name: water_4
+      Dependencies: {}
+    Info_43:
+      Name: wood_15
+      Dependencies: {}
+    Info_44:
+      Name: attack_finsh
+      Dependencies: {}
+    Info_45:
+      Name: fire_4
+      Dependencies: {}
+    Info_46:
+      Name: fire_14
+      Dependencies: {}
+    Info_47:
+      Name: attack_finsh_chuizi
+      Dependencies: {}
+    Info_48:
+      Name: attack_awake
+      Dependencies: {}
+    Info_49:
+      Name: level_6
+      Dependencies: {}
+    Info_50:
+      Name: wood_9
+      Dependencies: {}
+    Info_51:
+      Name: lightshield
+      Dependencies: {}
+    Info_52:
+      Name: water_1
+      Dependencies: {}
+    Info_53:
+      Name: 100002
+      Dependencies: {}
+    Info_54:
+      Name: level_8
+      Dependencies: {}
+    Info_55:
+      Name: water_7
+      Dependencies: {}
+    Info_56:
+      Name: level_3
+      Dependencies: {}
+    Info_57:
+      Name: skill_rush
+      Dependencies: {}
+    Info_58:
+      Name: 100003
+      Dependencies: {}
+    Info_59:
+      Name: skill_firefall
+      Dependencies: {}
+    Info_60:
+      Name: item_wolfss
+      Dependencies: {}
+    Info_61:
+      Name: fire_8
+      Dependencies: {}
+    Info_62:
+      Name: skill_beweaken
+      Dependencies: {}
+    Info_63:
+      Name: 100004
+      Dependencies: {}
+    Info_64:
+      Name: attack_aoe_audio
+      Dependencies: {}
+    Info_65:
+      Name: water_12
+      Dependencies: {}
+    Info_66:
+      Name: water_11
+      Dependencies: {}
+    Info_67:
+      Name: fire_1
+      Dependencies: {}
+    Info_68:
+      Name: skill_fireballshoot
+      Dependencies: {}
+    Info_69:
+      Name: level_1
+      Dependencies: {}
+    Info_70:
+      Name: fire_15
+      Dependencies: {}
+    Info_71:
+      Name: fire_6
+      Dependencies: {}
+    Info_72:
+      Name: skill_melee
+      Dependencies: {}
+    Info_73:
+      Name: item_beattacked
+      Dependencies: {}
+    Info_74:
+      Name: bgm_zz
+      Dependencies: {}
+    Info_75:
+      Name: skill_floweratk
+      Dependencies: {}
+    Info_76:
+      Name: level_2
+      Dependencies: {}
+    Info_77:
+      Name: level_4
+      Dependencies: {}
+    Info_78:
+      Name: level_5
+      Dependencies: {}
+    Info_79:
+      Name: fire_3
+      Dependencies: {}
+    Info_80:
+      Name: bgm_zdsl
+      Dependencies: {}
+    Info_81:
+      Name: hero_aoeskill
+      Dependencies: {}
+    Info_82:
+      Name: item_bodhiss
+      Dependencies: {}
+    Info_83:
+      Name: level_7
+      Dependencies: {}
+    Info_84:
+      Name: water_15
+      Dependencies: {}
+    Info_85:
+      Name: bgm_zhu
+      Dependencies: {}
+    Info_86:
+      Name: skill_woodmanatk
+      Dependencies: {}
+    Info_87:
+      Name: 100001
+      Dependencies: {}
+    Info_88:
+      Name: wood_1a
+      Dependencies: {}
+    Info_89:
+      Name: wood_12
+      Dependencies: {}
+    Info_90:
+      Name: wood_2
+      Dependencies: {}
+    Info_91:
+      Name: wood_1
+      Dependencies: {}
+    Info_92:
+      Name: windonwind_last
+      Dependencies: {}
+    Info_93:
+      Name: skill_weaveatk
+      Dependencies: {}
+    Info_94:
+      Name: skill_summon
+      Dependencies: {}
+    Info_95:
+      Name: win_audio
+      Dependencies: {}
+    Info_96:
+      Name: skill_furystart
+      Dependencies: {}
+    Info_97:
+      Name: bg
+      Dependencies: {}
+    Info_98:
+      Name: waterheart_last
+      Dependencies: {}
+    Info_99:
+      Name: hero_beattacked
+      Dependencies: {}
+    Info_100:
+      Name: skill_bestronger
+      Dependencies: {}
+    Info_101:
+      Name: skill_stoneshoot
+      Dependencies: {}
+    Info_102:
+      Name: bgm_sl
+      Dependencies: {}

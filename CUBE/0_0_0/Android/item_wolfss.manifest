@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2137306491
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c8312a3e76202ffefdc9ea6cc1fd9382
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/AudioClips/Item_WolfSS.mp3
+Dependencies: []

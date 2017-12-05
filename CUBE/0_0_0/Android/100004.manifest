@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3814745746
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bfabb8e61c8b592eebc3eb4b4f0b9a67
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Config/MapBehaviourMonster_100004.txt
+- Assets/Resources/Config/TileConfig_100004.txt
+- Assets/Resources/Config/RefreshEnemy_100004.txt
+- Assets/Resources/Config/TileGroupPoint_100004.txt
+Dependencies: []

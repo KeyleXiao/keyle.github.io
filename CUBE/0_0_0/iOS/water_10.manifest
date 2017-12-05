@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 199151903
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f50c29b86b87d43d09747834fedf6187
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Config/TileConfig_Water_10.txt
+- Assets/Resources/Config/MapBehaviourMonster_Water_10.txt
+- Assets/Resources/Config/TileGroupPoint_Water_10.txt
+- Assets/Resources/Config/RefreshEnemy_Water_10.txt
+Dependencies: []
