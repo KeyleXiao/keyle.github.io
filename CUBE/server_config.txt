@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "path": "http://download.bodhiworld.com/dreamheroes/download/game_resource/",
+  "path": "https://vrast.cn/cube/",
   "login_ip": "172.16.51.3",
   "login_port": "30004",
   "ios_update_url":"",
