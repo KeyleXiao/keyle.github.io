@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-12-05T17:09:15.206Z</updated>
+  <updated>2017-12-07T12:52:53.162Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,210 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>High-level NavMesh Building Components</title>
+    <link href="http://vrast.cn/posts/98dfcd51/"/>
+    <id>http://vrast.cn/posts/98dfcd51/</id>
+    <published>2017-12-07T12:49:15.000Z</published>
+    <updated>2017-12-07T12:52:53.162Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>高级 NavMesh 组件说明文档</p>
+</blockquote>
+<p>NavMesh Surface 脚本 ，在此之前 我看了网络上的一篇介绍 <a href="http://forum.china.unity3d.com/thread-25421-1-1.html" target="_blank" rel="external">进击的新版NavMesh系统：看我飞檐走壁</a> 效果非常好。我一边测试一边记录关于Surface的用法。</p>
+<p>NavMesh Surcefa组件表示特定NavMeshAgent类型的可行走区域，并定义应该构建NavMesh的场景的一部分。</p>
+<p>NavMesh Surface组件不在标准Unity安装中; 有关如何访问它的信息，<a href="https://docs.unity3d.com/Manual/class-NavMeshSurface.html" target="_blank" rel="external">请参阅高级NavMesh构建组件的文档</a>。</p>
+<p>要使用NavMesh Surface组件，导航到GameObject&gt; AI&gt; NavMesh Surface。 这将创建一个空的GameObject，并附带一个NavMesh Surface组件。 一个场景可以包含多个NavMesh表面。</p>
+<a id="more"></a>
+<p><img src="/uploads/class-NavMeshSurface-0.png" alt="嗯 就是这货了"></p>
+<p><img src="/uploads/QQ20171207-161002@2x.png" alt="针对与这个组件的使用说明"></p>
+<p><img src="/uploads/QQ20171207-162319.png" alt="NavMesh Surface参数说明"></p>
+<blockquote>
+<p>NavMesh Off-Link &amp;  Off-mesh-Link 我们通常用第一种。在两个不可行走区域之间 使用跨越点+动画 实现定点跳跃。</p>
+</blockquote>
+<p><img src="/uploads/QQ20171207-194954.png" alt="Off Link"><br><img src="/uploads/QQ20171207-195557.png" alt="Off Link"></p>
+<blockquote>
+<p>NavMesh Modifier &amp; NavMesh Modifier Volume 在烘培之前修改区域是否行走</p>
+</blockquote>
+<p>先说 NavMesh Modifier volume,你可以在烘培之前选定区域设置区域类型，例子将某个Agent设置成该区域不能行走。</p>
+<p><img src="/uploads/class-NavMesh-ModifierVolume-4.svg" alt="NavMesh Modifier Volume效果图"></p>
+<!-- more -->
+<p><img src="/uploads/QQ20171207-193142@2x.png" alt="NavMesh Modifier Volume使用方法"></p>
+<p>如果知道了 NavMesh Modifier Volume 那么可以猜得到  NavMesh Modifier 就是给附着这个脚本的mesh上的区域设置区域类型。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;高级 NavMesh 组件说明文档&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;NavMesh Surface 脚本 ，在此之前 我看了网络上的一篇介绍 &lt;a href=&quot;http://forum.china.unity3d.com/thread-25421-1-1.html&quot;&gt;进击的新版NavMesh系统：看我飞檐走壁&lt;/a&gt; 效果非常好。我一边测试一边记录关于Surface的用法。&lt;/p&gt;
+&lt;p&gt;NavMesh Surcefa组件表示特定NavMeshAgent类型的可行走区域，并定义应该构建NavMesh的场景的一部分。&lt;/p&gt;
+&lt;p&gt;NavMesh Surface组件不在标准Unity安装中; 有关如何访问它的信息，&lt;a href=&quot;https://docs.unity3d.com/Manual/class-NavMeshSurface.html&quot;&gt;请参阅高级NavMesh构建组件的文档&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;要使用NavMesh Surface组件，导航到GameObject&amp;gt; AI&amp;gt; NavMesh Surface。 这将创建一个空的GameObject，并附带一个NavMesh Surface组件。 一个场景可以包含多个NavMesh表面。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="Navigation" scheme="http://vrast.cn/tags/Navigation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Building a NavMesh</title>
+    <link href="http://vrast.cn/posts/33160c87/"/>
+    <id>http://vrast.cn/posts/33160c87/</id>
+    <published>2017-12-07T05:50:59.000Z</published>
+    <updated>2017-12-07T08:58:46.123Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>创建导航网格与Unity2017面板详细参数说明。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="创建Navmesh-与-Agent-设置"><a href="#创建Navmesh-与-Agent-设置" class="headerlink" title="创建Navmesh 与 Agent 设置"></a>创建Navmesh 与 Agent 设置</h1><p><img src="/uploads/NavMeshSetupObject.svg" alt="设置网格"></p>
+<p><img src="/uploads/NavMeshSetupBake.svg" alt="设置网格烘焙"></p>
+<blockquote>
+<p>一些你需要知道的参数</p>
+</blockquote>
+<ul>
+<li>Agent半径定义了Agentd的中心可以靠近墙壁或窗台的距离。</li>
+<li><p>Agent Radius defines how close the agent center can get to a wall or a ledge.</p>
+</li>
+<li><p>Agent高度定义Agent可以到达的空间有多低。</p>
+</li>
+<li><p>Agent Height defines how low the spaces are that the agent can reach.</p>
+</li>
+<li><p>最大坡度定义了Agent人走上坡道的坡度。</p>
+</li>
+<li><p>Max Slope defines how steep the ramps are that the agent walk up.</p>
+</li>
+<li><p>台阶高度定义了Agent可以踩踏的障碍物的高度。</p>
+</li>
+<li>Step Height defines how high obstructions are that the agent can step on.</li>
+</ul>
+<p><img src="/uploads/NavMeshAsset.svg" alt="烘培好的网格会在Scene的同名目录内"></p>
+<blockquote>
+<p>Navmesh bake 高级烘焙设置</p>
+</blockquote>
+<h1 id="Min-Region-Area"><a href="#Min-Region-Area" class="headerlink" title="Min Region Area"></a>Min Region Area</h1><p><img src="/uploads/NavMeshMinRegion.svg" alt="最小烘焙区域，最小区域高级构建设置允许您清除小的未连接的NavMesh区域。 比表面积小于指定值的NavMesh区域将被移除。"></p>
+<h1 id="更小的代理半径"><a href="#更小的代理半径" class="headerlink" title="更小的代理半径"></a>更小的代理半径</h1><p>Voxel Size<br><img src="/uploads/QQ20171207-143312@2x.png" alt="体素尺寸"></p>
+<p>手动更改体素允许您更改烘烤过程的准确性。</p>
+<p>NavMesh烘焙过程使用体素化从任意级别的几何构建NavMesh。 在算法的第一遍中，场景被光栅化成体素，然后提取步行表面，最后将步进表面变成导航网格。 体素大小描述了由此产生的NavMesh如何准确地表示场景几何。</p>
+<p>默认精度设置为每个Agent半径有3个体素，即整个Agent宽度为6个体素。 这是精度和烘烤速度之间的良好折衷。 将体素大小减半会使内存使用量增加4倍，而构建场景需要花费4倍的时间。</p>
+<p>NavMesh烘烤系统也将减小体素的大小。 如果您的其他Agent维度保持不变，则可能不需要增加NavMesh构建分辨率。</p>
+<p>最简单的方法如下：</p>
+<p>将Agent半径设置为实际Agent半径。<br>打开手动体素大小，这将采取当前体素大小和“冻结”。<br>手动设置更小的Agent半径，因为您已经选中了手动体素大小，体素大小不会改变。</p>
+<h1 id="更精确的NavMesh"><a href="#更精确的NavMesh" class="headerlink" title="更精确的NavMesh"></a>更精确的NavMesh</h1><p>如果你的关卡有很多紧凑的点，你可能希望通过缩小体素来提高准确性。 体素大小下的标签显示体素大小和代理半径之间的关系。 一个合理的范围是2-8之间，进一步缩小体素比通常会导致非常长的构建时间。</p>
+<p>当您在游戏中有意建造走廊时，请注意，除了代理人半径之外，您还应该至少保留4 * 像素大小的空间，尤其是在走廊处于角度的情况下。<br>如果您需要小于NavMesh烘烤支持的走廊，请考虑使用“Off-Link”跨越点。 这些还有额外的好处，可以在使用时检测到，例如可以播放特定的动画。</p>
+<p>More Accurate NavMesh</p>
+<p>If your level has a lot of tight spots, you may want to increase the accuracy by making the voxel smaller. The label under the Voxel Size shows the relation between the voxel size and Agent Radius. A good range is something between 2–8, going further than that generally results really long build times.</p>
+<p>When you intentionally build tight corridors in your game, please note that you should leave at least 4 * voxelSize clearance in addition to the agent radius, especially if the corridors are at angles.</p>
+<p>If you need smaller corridors than the NavMesh baking can support, please consider using Off-Mesh Links. These have the additional benefit that you can detect when they are being used and can, for example, play a specific animation.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;创建导航网格与Unity2017面板详细参数说明。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="Navigation" scheme="http://vrast.cn/tags/Navigation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Navigation System In Unity</title>
+    <link href="http://vrast.cn/posts/671463f1/"/>
+    <id>http://vrast.cn/posts/671463f1/</id>
+    <published>2017-12-07T02:50:56.000Z</published>
+    <updated>2017-12-07T08:08:03.795Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>时间仓促，大部分采用google机器翻译来不及全部校对翻译成中文资料 本篇作为笔记。感兴趣的可以看下。这篇是记录Unity3D寻路的官方文档阅读体验。</p>
+</blockquote>
+<p>The Navigation System allows you to create characters which can navigate the game world. It gives your characters the ability to understand that they need to take stairs to reach second floor, or to jump to get over a ditch. The Unity NavMesh system consists of the following pieces:</p>
+<p>Unity3d的寻路系统大概有下面几个部分：</p>
+<p>NavMesh（导航网格的缩写）是描述游戏世界的步行表面的数据结构，并且允许从游戏世界中的一个步行位置到另一个步行路径找到路径。 数据结构是烘焙的网格里获取的。</p>
+<p>NavMesh (short for Navigation Mesh) is a data structure which describes the walkable surfaces of the game world and allows to find path from one walkable location to another in the game world. The data structure is built, or baked, automatically from your level geometry.</p>
+<p>NavMesh Agent组件帮助您创建角色，在向目标移动时避开彼此。Agent使用NavMesh理解游戏世界，他们知道如何避免彼此以及移动障碍物。<br>离网链接组件允许您合并无法使用可走行的曲面表示的导航快捷方式。 例如，跳过沟渠或栅栏，或者在走过它之前打开门，都可以被描述为“Off-mesh”链接。</p>
+<p>NavMesh Agent component help you to create characters which avoid each other while moving towards their goal. Agents reason about the game world using the NavMesh and they know how to avoid each other as well as moving obstacles.<br>Off-Mesh Link component allows you to incorporate navigation shortcuts which cannot be represented using a walkable surface. For example, jumping over a ditch or a fence, or opening a door before walking through it, can be all described as Off-mesh links.</p>
+<p>NavMesh障碍组件允许您描述Agent在航行世界时应避免的移动障碍。 物理系统控制的一个桶或一个箱子是一个障碍的好例子。 当障碍物移动时，障碍物尽力避开它，但是一旦障碍物变得静止，它将在导航网上挖一个洞，使得障碍物可以改变它们的路径来绕过障碍物，或者如果障碍物妨碍路径 方式，Agent可以找到不同的路线。</p>
+<p>NavMesh Obstacle component allows you to describe moving obstacles the agents should avoid while navigating the world. A barrel or a crate controlled by the physics system is a good example of an obstacle. While the obstacle is moving the agents do their best to avoid it, but once the obstacle becomes stationary it will carve a hole in the navmesh so that the agents can change their paths to steer around it, or if the stationary obstacle is blocking the path way, the agents can find a different route.</p>
+<a id="more"></a>
+<h1 id="Inner-Workings-of-the-Navigation-System-Navigation的工作原理"><a href="#Inner-Workings-of-the-Navigation-System-Navigation的工作原理" class="headerlink" title="Inner Workings of the Navigation System / Navigation的工作原理"></a>Inner Workings of the Navigation System / Navigation的工作原理</h1><p>当你想智能地移动你的游戏中的角色（或者在AI圈子中被称为Agent）时，你必须解决两个问题：如何推理关卡以找到目的地，然后如何移动到那里。 这两个问题紧密结合在一起，但性质却截然不同。 关于层次的推理问题更加全局化和静态化，因为它考虑了整个场景。 移动到目的地更具局部性和动态性，只考虑移动的方向，以及如何防止与其他移动Agent发生冲突。</p>
+<p>When you want to intelligently move characters in your game (or agents as they are called in AI circles), you have to solve two problems: how to reason about the level to find the destination, then how to move there. These two problems are tightly coupled, but quite different in nature. The problem of reasoning about the level is more global and static, in that it takes into account the whole scene. Moving to the destination is more local and dynamic, it only considers the direction to move and how to prevent collisions with other moving agents.</p>
+<p><img src="/uploads/NavMeshUnderstandingAreas.png" alt="可行走区域"></p>
+<p>导航系统需要自己的数据来表示游戏场景中的可行走区域。 步行区域定义了Agent可以站立和移动的场景中的地点。 在Unity中，Agent被描述为圆柱体。 通过测试Agent站点的位置，可以从场景中的几何结构自动建立可行走区域。 然后，位置连接到场景几何图形上的表面。 这个表面被称为导航网格（简称NavMesh）。</p>
+<p>The navigation system needs its own data to represent the walkable areas in a game scene. The walkable areas define the places in the scene where the agent can stand and move. In Unity the agents are described as cylinders. The walkable area is built automatically from the geometry in the scene by testing the locations where the agent can stand. Then the locations are connected to a surface laying on top of the scene geometry. This surface is called the navigation mesh (NavMesh for short).</p>
+<p>NavMesh将这个曲面存储为凸多边形。 凸多边形是一个有用的表示，因为我们知道多边形内的任意两点之间没有障碍物。 除了多边形边界之外，我们还存储有关哪些多边形是彼此相邻的信息。 这使我们能够推断整个步行区域。</p>
+<p>The NavMesh stores this surface as convex polygons. Convex polygons are a useful representation, since we know that there are no obstructions between any two points inside a polygon. In addition to the polygon boundaries, we store information about which polygons are neighbours to each other. This allows us to reason about the whole walkable area.</p>
+<p><img src="/uploads/NavMeshUnderstandingPath.png" alt="寻路"></p>
+<p>要查找场景中两个位置之间的路径，我们首先需要将起始位置和目标位置映射到最近的多边形。 然后我们从开始位置开始搜索，访问所有邻居，直到到达目的地多边形。 跟踪访问的多边形允许我们找到从开始到目的地的多边形序列。 寻找路径的常见算法是Unity <em>使用的A </em>（发音为“A star”）。</p>
+<p>To find path between two locations in the scene, we first need to map the start and destination locations to their nearest polygons. Then we start searching from the start location, visiting all the neighbours until we reach the destination polygon. Tracing the visited polygons allows us to find the sequence of polygons which will lead from the start to the destination. A common algorithm to find the path is A* (pronounced “A star”), which is what Unity uses.</p>
+<p><img src="/uploads/NavMeshUnderstandingCorridor.png" alt="跟随路径"></p>
+<p>描述从开始到目的地多边形路径的多边形序列称为走廊。 Agent将通过总是转向走廊的下一个可见角落而到达目的地。 如果你有一个简单的游戏，只有一个Agent在场景中移动，那么一次性找到走廊的所有角落并使角色沿连接角的线段移动是很好的。</p>
+<p>The sequence of polygons which describe the path from the start to the destination polygon is called a corridor. The agent will reach the destination by always steering towards the next visible corner of the corridor. If you have a simple game where only one agent moves in the scene, it is fine to find all the corners of the corridor in one swoop and animate the character to move along the line segments connecting the corners.</p>
+<p>在处理同时移动的多个Agent时，他们需要在避开对方时偏离原来的路径。 尝试使用由线段组成的路径来纠正这种偏差变得非常困难且容易出错。</p>
+<p>When dealing with multiple agents moving at the same time, they will need to deviate from the original path when avoiding each other. Trying to correct such deviations using a path consisting of line segments soon becomes very difficult and error prone.</p>
+<p><img src="/uploads/NavMeshUnderstandingMove.png" alt="Navmesh理解移动方式"></p>
+<p>由于每个框架内的Agent移动都很小，所以我们可以利用多边形的连通性来固定走廊，我们需要绕行。 然后我们很快找到下一个可见的角落转向。<br>Since the agent movement in each frame is quite small, we can use the connectivity of the polygons to fix up the corridor in case we need to take a little detour. Then we quickly find the next visible corner to steer towards.</p>
+<h1 id="Avoiding-Obstacles-规避障碍"><a href="#Avoiding-Obstacles-规避障碍" class="headerlink" title="Avoiding Obstacles / 规避障碍"></a>Avoiding Obstacles / 规避障碍</h1><p><img src="/uploads/NavMeshUnderstandingAvoid.png" alt="NavMesh理解规避"></p>
+<p>转向逻辑取下一个角的位置，并根据这个数字找出到达目的地所需的方向和速度（或速度）。 使用所需的速度移动Agent可能会导致与其他Agent发生冲突。</p>
+<p>The steering logic takes the position of the next corner and based on that figures out a desired direction and speed (or velocity) needed to reach the destination. Using the desired velocity to move the agent can lead to collision with other agents.</p>
+<p>障碍规避选择新的速度，该速度在向期望的方向移动和防止将来与其他Agent和导航网格的边缘的碰撞之间平衡。 Unity使用交互的度障碍（RVO）来预测和防止碰撞。<br>Obstacle avoidance chooses a new velocity which balances between moving in the desired direction and preventing future collisions with other agents and edges of the navigation mesh. Unity is using reciprocal velocity obstacles (RVO) to predict and prevent collisions.</p>
+<h1 id="Moving-the-Agent-移动Agent"><a href="#Moving-the-Agent-移动Agent" class="headerlink" title="Moving the Agent / 移动Agent"></a>Moving the Agent / 移动Agent</h1><p>最后在转向和避障后计算最终速度。 在Unity中，Agent使用简单的动态模型进行模拟，该模型还考虑了加速度，以便更自然，更流畅地移动。<br>Finally after steering and obstacle avoidance the final velocity is calculated. In Unity the agents are simulated using a simple dynamic model, which also takes into account acceleration to allow more natural and smooth movement.</p>
+<p>在这个阶段，可以将模拟Agent的速度提供给Mecanim动画系统，以移动角色，或者让导航系统处理。<br>At this stage it is possible to feed the velocity from the simulated agent to the Mecanim animation system to move the character, or let the navigation system take care of that.</p>
+<p>一旦使用任一方法移动Agent，模拟的Agent位置将被移动，并被限制在NavMesh内。 这最后一小步对于强大的导航非常重要。<br>Once the agent has been moved using either method, the simulated agent location is moved and constrained to NavMesh. This last small step is important for robust navigation.</p>
+<h1 id="Global-and-Local"><a href="#Global-and-Local" class="headerlink" title="Global and Local"></a>Global and Local</h1><p><img src="/uploads/NavMeshUnderstandingLoop.png" alt="理解Navmesh的循环"></p>
+<p>关于导航最重要的事情之一是全局导航和本地导航之间的区别。</p>
+<p>One of the most important things to understand about navigation is the difference between global and local navigation.</p>
+<p>全局导航是用来查找全局各地的走廊。 在全局范围内寻找路径是一项代价高昂的操作，需要相当多的处理能力和内存。</p>
+<p>Global navigation is used to find the corridor across the world. Finding a path across the world is a costly operation requiring quite a lot of processing power and memory.</p>
+<p>描述路径的多边形的线性列表是用于转向的灵活的数据结构，并且可以随着Agent的位置移动而在本地调整。 本地(Local)导航试图找出如何有效地移动到下一个角落，而不会与其他Agent或移动对象发生冲突。</p>
+<p>The linear list of polygons describing the path is a flexible data structure for steering, and it can be locally adjusted as the agent’s position moves. Local navigation tries to figure out how to efficiently move towards the next corner without colliding with other agents or moving objects.</p>
+<h1 id="Two-Cases-for-Obstacles-两个障碍案例"><a href="#Two-Cases-for-Obstacles-两个障碍案例" class="headerlink" title="Two Cases for Obstacles / 两个障碍案例"></a>Two Cases for Obstacles / 两个障碍案例</h1><p>导航的许多应用需要其他类型的障碍，而不仅仅是其他Agent。 这些可能是射击游戏或车辆中常见的箱子和桶。 障碍物可以通过局部避障或全局寻路来处理。</p>
+<p>Many applications of navigation require other types of obstacles rather than just other agents. These could be the usual crates and barrels in a shooter game, or vehicles. The obstacles can be handled using local obstacle avoidance or global pathfinding.</p>
+<p>当障碍物移动时，最好使用避免局部障碍物来处理。 这样Agent可以预测性地避免障碍。 当障碍物静止时，可以考虑阻挡所有Agent人的路径，障碍物应该影响全局导航，即导航网格。</p>
+<p>When an obstacle is moving, it is best handled using local obstacles avoidance. This way the agent can predictively avoid the obstacle. When the obstacle becomes stationary, and can be considered to block the path of all agents, the obstacles should affect the global navigation, that is, the navigation mesh.</p>
+<p>改变NavMesh被称为雕刻(carving)。 该过程检测障碍物的哪些部分接触NavMesh并将孔雕刻到NavMesh中。 这在计算上是昂贵的操作，这又是另一个令人信服的原因，为什么移动障碍物应该使用避免碰撞来处理。</p>
+<p>Changing the NavMesh is called carving. The process detects which parts of the obstacle touches the NavMesh and carves holes into the NavMesh. This is computationally expensive operation, which is yet another compelling reason, why moving obstacles should be handled using collision avoidance.</p>
+<h1 id="Describing-Off-mesh-Links-关于Off-mesh（跨网格链接）"><a href="#Describing-Off-mesh-Links-关于Off-mesh（跨网格链接）" class="headerlink" title="Describing Off-mesh Links / 关于Off-mesh（跨网格链接）"></a>Describing Off-mesh Links / 关于Off-mesh（跨网格链接）</h1><p><img src="/uploadsNavMeshUnderstandingOffmesh.png" alt="理解offmesh"></p>
+<p>NavMesh多边形之间的连接使用路径查找系统内的链接进行描述。 有时需要让Agent人跨越不可行走的地方，例如跳过围栏或穿过关闭的门。 这些案件需要知道行动的地点。</p>
+<p>The connections between the NavMesh polygons are described using links inside the pathfinding system. Sometimes it is necessary to let the agent to navigate across places which are not walkable, for example, jumping over a fence, or traversing through a closed door. These cases need to know the location of the action.</p>
+<p>这些动作可以使用Off-Mesh链接进行注释，通过指定的链接告诉探路者路线存在。 这个链接可以在路径后面访问，并且可以执行特殊的动作。</p>
+<p>These actions can be annotated using Off-Mesh Links which tell the pathfinder that a route exists through the specified link. This link can be later accessed when following the path, and the special action can be executed.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;时间仓促，大部分采用google机器翻译来不及全部校对翻译成中文资料 本篇作为笔记。感兴趣的可以看下。这篇是记录Unity3D寻路的官方文档阅读体验。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The Navigation System allows you to create characters which can navigate the game world. It gives your characters the ability to understand that they need to take stairs to reach second floor, or to jump to get over a ditch. The Unity NavMesh system consists of the following pieces:&lt;/p&gt;
+&lt;p&gt;Unity3d的寻路系统大概有下面几个部分：&lt;/p&gt;
+&lt;p&gt;NavMesh（导航网格的缩写）是描述游戏世界的步行表面的数据结构，并且允许从游戏世界中的一个步行位置到另一个步行路径找到路径。 数据结构是烘焙的网格里获取的。&lt;/p&gt;
+&lt;p&gt;NavMesh (short for Navigation Mesh) is a data structure which describes the walkable surfaces of the game world and allows to find path from one walkable location to another in the game world. The data structure is built, or baked, automatically from your level geometry.&lt;/p&gt;
+&lt;p&gt;NavMesh Agent组件帮助您创建角色，在向目标移动时避开彼此。Agent使用NavMesh理解游戏世界，他们知道如何避免彼此以及移动障碍物。&lt;br&gt;离网链接组件允许您合并无法使用可走行的曲面表示的导航快捷方式。 例如，跳过沟渠或栅栏，或者在走过它之前打开门，都可以被描述为“Off-mesh”链接。&lt;/p&gt;
+&lt;p&gt;NavMesh Agent component help you to create characters which avoid each other while moving towards their goal. Agents reason about the game world using the NavMesh and they know how to avoid each other as well as moving obstacles.&lt;br&gt;Off-Mesh Link component allows you to incorporate navigation shortcuts which cannot be represented using a walkable surface. For example, jumping over a ditch or a fence, or opening a door before walking through it, can be all described as Off-mesh links.&lt;/p&gt;
+&lt;p&gt;NavMesh障碍组件允许您描述Agent在航行世界时应避免的移动障碍。 物理系统控制的一个桶或一个箱子是一个障碍的好例子。 当障碍物移动时，障碍物尽力避开它，但是一旦障碍物变得静止，它将在导航网上挖一个洞，使得障碍物可以改变它们的路径来绕过障碍物，或者如果障碍物妨碍路径 方式，Agent可以找到不同的路线。&lt;/p&gt;
+&lt;p&gt;NavMesh Obstacle component allows you to describe moving obstacles the agents should avoid while navigating the world. A barrel or a crate controlled by the physics system is a good example of an obstacle. While the obstacle is moving the agents do their best to avoid it, but once the obstacle becomes stationary it will carve a hole in the navmesh so that the agents can change their paths to steer around it, or if the stationary obstacle is blocking the path way, the agents can find a different route.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="Navigation" scheme="http://vrast.cn/tags/Navigation/"/>
+    
+  </entry>
   
   <entry>
     <title>Unity3D 自动化测试</title>
@@ -828,395 +1032,6 @@
     
     
       <category term="SublimeText3" scheme="http://vrast.cn/tags/SublimeText3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello Python 2</title>
-    <link href="http://vrast.cn/posts/c74605d/"/>
-    <id>http://vrast.cn/posts/c74605d/</id>
-    <published>2017-03-28T10:55:43.000Z</published>
-    <updated>2017-08-03T03:30:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>因为准备开始写自动化打包工具了，磨刀不误砍柴功，这里再加深一些Python基础<br><a id="more"></a></p>
-</blockquote>
-<h1 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h1><p>OOP浅而言之就是继承封装与多态,再要深入的说那可就说不完了。</p>
-<h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><p>定义一个类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></div><div class="line">	num1 = mun2 = <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,arg1,arg2)</span>:</span></div><div class="line">		self.num1 = arg1</div><div class="line">		self.num2 = arg2</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">Calc</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.num1+self.num2</div><div class="line"></div><div class="line"></div><div class="line">a = A(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">print(a.Calc())</div></pre></td></tr></table></figure>
-<h3 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span>:</span></div><div class="line">	__Content = <span class="string">"slef content"</span>  <span class="comment">#使用双下划线开头的私有属性</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"do something"</span>)</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		print(<span class="string">"init method"</span>)</div><div class="line"></div><div class="line"></div><div class="line">t = test()</div><div class="line">t.func()</div><div class="line"> </div><div class="line"></div><div class="line">print(t._test__Content)<span class="comment">#只能透过这种方式来访问私有属性</span></div></pre></td></tr></table></figure>
-<h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><p><img src="/uploads/WX20170328-191931@2x.png" alt="ClassB继承ClassA"></p>
-<h2 id="基础重载方法"><a href="#基础重载方法" class="headerlink" title="基础重载方法"></a>基础重载方法</h2><p>下表列出了一些通用的功能，你可以在自己的类重写：</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>方法描述 &amp; 简单的调用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><code><strong>init</strong> ( self [,args…] )构造函数 简单的调用方法: obj = className(args)</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td><code><strong>del</strong>( self ) 析构方法, 删除一个对象 简单的调用方法 : dell obj </code></td>
-</tr>
-<tr>
-<td>3</td>
-<td><code><strong>repr</strong>( self )转化为供解释器读取的形式 简单的调用方法 : repr(obj) </code></td>
-</tr>
-<tr>
-<td>4</td>
-<td><code><strong>str</strong>( self ) 用于将值转化为适于人阅读的形式 简单的调用方法 : str(obj) </code></td>
-</tr>
-<tr>
-<td>5</td>
-<td><code><strong>cmp</strong> ( self, x ) 对象比较 简单的调用方法 : cmp(obj, x) </code></td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;因为准备开始写自动化打包工具了，磨刀不误砍柴功，这里再加深一些Python基础&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
-    
-    
-      <category term="Python" scheme="http://vrast.cn/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python相关的环境问题</title>
-    <link href="http://vrast.cn/posts/b3941f7a/"/>
-    <id>http://vrast.cn/posts/b3941f7a/</id>
-    <published>2017-03-28T07:28:20.000Z</published>
-    <updated>2017-05-08T04:15:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/uploads/WX20170329-161333@2x.png" alt="使用远程调试"></p>
-<blockquote>
-<p>记录一些python相关的环境配置问题,包括使用PyCharm远程调试Python。其实杂七杂八的还很多，这里记录一些比较难记的东西。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="查看python安装路径"><a href="#查看python安装路径" class="headerlink" title="查看python安装路径"></a>查看python安装路径</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">which</span> python3</div></pre></td></tr></table></figure>
-<h1 id="更换pycharm"><a href="#更换pycharm" class="headerlink" title="更换pycharm"></a>更换pycharm</h1><p><img src="/uploads/WX20170328-152544@2x.png" alt="更换python版本"></p>
-<h1 id="远程调试"><a href="#远程调试" class="headerlink" title="远程调试"></a>远程调试</h1><p>使用PyCharm远程调试树莓派上的Py脚本</p>
-<p><img src="/uploads/WX20170329-161333@2x.png" alt="添加树莓派主机信息"></p>
-<p><img src="/uploads/WX20170329-161435@2x.png" alt="添加树莓派调试环境"></p>
-<p><a href="https://www.jetbrains.com/help/pycharm/2017.1/project-and-ide-settings.html?utm_medium=help_link&amp;utm_source=from_product&amp;utm_campaign=PY&amp;utm_content=2017.1" target="_blank" rel="external">官方文档</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/uploads/WX20170329-161333@2x.png&quot; alt=&quot;使用远程调试&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;记录一些python相关的环境配置问题,包括使用PyCharm远程调试Python。其实杂七杂八的还很多，这里记录一些比较难记的东西。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
-    
-    
-      <category term="Python" scheme="http://vrast.cn/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello Python 1</title>
-    <link href="http://vrast.cn/posts/957d31e7/"/>
-    <id>http://vrast.cn/posts/957d31e7/</id>
-    <published>2017-03-27T07:41:04.000Z</published>
-    <updated>2017-08-03T03:31:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>因为我的树莓派只要开机风扇就会不停的转为了控制风扇的转速我需要写一些脚本来控制gpio接口。所以作为兴趣就学习了一下python语言，当然python的实际作用远不止此，先看看基础的再深入的了解下吧。MacOS自带的Python是2.7x，但是我使用的是3.x 。当然这两者是有差异的，即使你不懂python也可以从版本号上看出来这个差异。<br><a href="http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html" target="_blank" rel="external">The key differences between Python 2.7.x and Python 3.x with examples</a> &lt;-这篇博客详细说明了2.x与3.x的区别。因为本人是从3.x学习python的所以后面的博文都会以3.x作为案例。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="环境相关"><a href="#环境相关" class="headerlink" title="环境相关"></a>环境相关</h1><ol>
-<li>使用<code>which python3</code>查看当前python安装地址</li>
-<li>Xcode配置系列博文<ul>
-<li><a href="http://www.cnblogs.com/zzy0471/p/5717002.html" target="_blank" rel="external">用VS Code写Python程序</a></li>
-<li><a href="https://code.visualstudio.com/docs/languages/python" target="_blank" rel="external">Python on Visual Studio Code</a></li>
-</ul>
-</li>
-<li><a href="https://www.tutorialspoint.com/python3/python_basic_syntax.htm" target="_blank" rel="external">Python 3 Basic Syntax(原版)</a></li>
-<li><a href="http://www.runoob.com/python3/python3-basic-operators.html" target="_blank" rel="external">Python3 运算符(翻译)</a></li>
-</ol>
-<h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="可更改-mutable-与不可更改-immutable-对象"><a href="#可更改-mutable-与不可更改-immutable-对象" class="headerlink" title="可更改(mutable)与不可更改(immutable)对象"></a>可更改(mutable)与不可更改(immutable)对象</h3><p>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。<br>不可变类型：变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。<br>可变类型：变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。<br>python 函数的参数传递：<br>不可变类型：类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。<br>可变类型：类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响</p>
-<h2 id="Keyword"><a href="#Keyword" class="headerlink" title="Keyword"></a>Keyword</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">and	exec	not</div><div class="line">as	finally	or</div><div class="line">assert	for	pass</div><div class="line">break	from	print</div><div class="line">class	global	raise</div><div class="line">continue	if	return</div><div class="line">def	import	try</div><div class="line">del	in	while</div><div class="line">elif	is	with</div><div class="line">else	lambda	yield</div><div class="line">except</div></pre></td></tr></table></figure>
-<h2 id="Lines-and-Indentation"><a href="#Lines-and-Indentation" class="headerlink" title="Lines and Indentation"></a>Lines and Indentation</h2><p>Python用缩进代表代码块，同一个代码块的语句必须包含相同的缩进空格数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</div><div class="line">   <span class="keyword">print</span> (<span class="string">"True"</span>)</div><div class="line"></div><div class="line"><span class="keyword">else</span>:</div><div class="line">   <span class="keyword">print</span> (<span class="string">"False"</span>)</div><div class="line"></div><div class="line"><span class="comment">#如果要在当前语句换行直接用\</span></div><div class="line">total = item_one + \</div><div class="line">    item_two + \</div><div class="line">    item_three</div></pre></td></tr></table></figure></p>
-<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">print(sys.version) <span class="comment">#查看系统版本</span></div><div class="line"></div><div class="line">print(<span class="string">'helloworld   -0'</span>);print(<span class="string">'helloworld   -1'</span>)</div><div class="line">print(<span class="string">"helloworld   -2"</span>)</div><div class="line">print(<span class="string">"""helloworld   -3</span></div><div class="line"></div><div class="line">    End .</div><div class="line"></div><div class="line">""",end = <span class="string">"&gt;&gt;"</span>)</div><div class="line"></div><div class="line">print(<span class="string">"&lt;&lt;"</span>)</div><div class="line"></div><div class="line"><span class="comment">#Output:</span></div><div class="line"><span class="comment">#3.6.1 (v3.6.1:69c0db5050, Mar 21 2017, 01:21:04) </span></div><div class="line"><span class="comment">#[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)]</span></div><div class="line"><span class="comment">#helloworld   -0</span></div><div class="line"><span class="comment">#helloworld   -1</span></div><div class="line"><span class="comment">#helloworld   -2</span></div><div class="line"><span class="comment">#helloworld   -3</span></div><div class="line"><span class="comment">#    End .</span></div><div class="line"><span class="comment">#&gt;&gt;&lt;&lt;</span></div></pre></td></tr></table></figure>
-<h3 id="Formate-String"><a href="#Formate-String" class="headerlink" title="Formate String"></a>Formate String</h3><p>字符串格式化<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dic = &#123;<span class="number">1</span>:<span class="string">"one"</span>,<span class="number">2</span>:<span class="string">"two"</span>&#125; <span class="comment">#定义字典</span></div><div class="line">print(dic[<span class="number">1</span>])  <span class="comment">#取值</span></div><div class="line"></div><div class="line">print(<span class="string">"%d &lt; %s"</span> % (len(dic),<span class="string">"length"</span>)) <span class="comment">#格式化字符串</span></div><div class="line"><span class="keyword">del</span> dic[<span class="number">1</span>]   <span class="comment">#删除一个key-value</span></div><div class="line">print(len(dic)) <span class="comment">#检测字典长度</span></div></pre></td></tr></table></figure></p>
-<table>
-<thead>
-<tr>
-<th>占位符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>%c</td>
-<td>格式化字符及其ASCII码</td>
-</tr>
-<tr>
-<td>%s</td>
-<td>格式化字符串</td>
-</tr>
-<tr>
-<td>%d</td>
-<td>格式化整数</td>
-</tr>
-<tr>
-<td>%u</td>
-<td>格式化无符号整型</td>
-</tr>
-<tr>
-<td>%o</td>
-<td>格式化无符号八进制数</td>
-</tr>
-<tr>
-<td>%x</td>
-<td>格式化无符号十六进制数</td>
-</tr>
-<tr>
-<td>%X</td>
-<td>格式化无符号十六进制数（大写）</td>
-</tr>
-<tr>
-<td>%f</td>
-<td>格式化浮点数字，可指定小数点后的精度</td>
-</tr>
-<tr>
-<td>%e</td>
-<td>用科学计数法格式化浮点数</td>
-</tr>
-<tr>
-<td>%E</td>
-<td>作用同%e，用科学计数法格式化浮点数</td>
-</tr>
-<tr>
-<td>%g</td>
-<td>%f和%e的简写</td>
-</tr>
-<tr>
-<td>%G</td>
-<td>%f 和 %E 的简写</td>
-</tr>
-<tr>
-<td>%p</td>
-<td>用十六进制数格式化变量的地址</td>
-</tr>
-</tbody>
-</table>
-<p>字符串辅助功能符：</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>*</td>
-<td>定义宽度或者小数点精度</td>
-</tr>
-<tr>
-<td>-</td>
-<td>用做左对齐</td>
-</tr>
-<tr>
-<td>+</td>
-<td>在正数前面显示加号( + )</td>
-</tr>
-<tr>
-<td><sp></sp></td>
-<td>在正数前面显示空格</td>
-</tr>
-<tr>
-<td>#</td>
-<td>在八进制数前面显示零(‘0’)，在十六进制前面显示’0x’或者’0X’(取决于用的是’x’还是’X’)</td>
-</tr>
-<tr>
-<td>0</td>
-<td>显示的数字前面填充’0’而不是默认的空格</td>
-</tr>
-<tr>
-<td>%</td>
-<td>‘%%’输出一个单一的’%’</td>
-</tr>
-<tr>
-<td>(var)</td>
-<td>映射变量(字典参数)</td>
-</tr>
-<tr>
-<td>m.n.</td>
-<td>m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字符串的运算"><a href="#字符串的运算" class="headerlink" title="字符串的运算"></a>字符串的运算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python3</span></div><div class="line"></div><div class="line">str = <span class="string">'HelloWorld!'</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> (str)          <span class="comment"># Prints complete string</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">0</span>])       <span class="comment"># Prints first character of the string</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">2</span>:<span class="number">5</span>])     <span class="comment"># Prints characters starting from 3rd to 5th</span></div><div class="line"><span class="keyword">print</span> (str[<span class="number">2</span>:])      <span class="comment"># Prints string starting from 3rd character</span></div><div class="line"><span class="keyword">print</span> (str * <span class="number">2</span>)      <span class="comment"># Prints string two times</span></div><div class="line"><span class="keyword">print</span> (str + <span class="string">"TEST"</span>) <span class="comment"># Prints concatenated string</span></div><div class="line"></div><div class="line"><span class="comment">#HelloWorld!</span></div><div class="line"><span class="comment">#H</span></div><div class="line"><span class="comment">#llo</span></div><div class="line"><span class="comment">#lloWorld!</span></div><div class="line"><span class="comment">#HelloWorld!HelloWorld!</span></div><div class="line"><span class="comment">#HelloWorld!TEST</span></div></pre></td></tr></table></figure>
-<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><p>python支持四种类型 int、float、bool、complex(复数类型)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a, b, c, d = <span class="number">20</span>, <span class="number">5.5</span>, <span class="keyword">True</span>, <span class="number">4</span>+<span class="number">3j</span></div><div class="line">print(type(a), type(b), type(c), type(d))</div><div class="line"><span class="comment"># &lt;class 'int'&gt; &lt;class 'float'&gt; &lt;class 'bool'&gt; &lt;class 'complex'&gt;</span></div><div class="line"></div><div class="line">print(isinstance(a, int)) <span class="comment">#True</span></div></pre></td></tr></table></figure></p>
-<table>
-<thead>
-<tr>
-<th>int</th>
-<th style="text-align:center">float</th>
-<th style="text-align:right">complex</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td style="text-align:center">0.0</td>
-<td style="text-align:right">3.14j</td>
-<td></td>
-</tr>
-<tr>
-<td>100</td>
-<td style="text-align:center">15.20</td>
-<td style="text-align:right">45.j</td>
-</tr>
-<tr>
-<td>-786</td>
-<td style="text-align:center">-21.9</td>
-<td style="text-align:right">9.322e-36j</td>
-</tr>
-<tr>
-<td>080</td>
-<td style="text-align:center">32.3+e18</td>
-<td style="text-align:right">.876j</td>
-</tr>
-<tr>
-<td>-0490</td>
-<td style="text-align:center">-90.</td>
-<td style="text-align:right">-.6545+0J</td>
-</tr>
-<tr>
-<td>-0x260</td>
-<td style="text-align:center">-32.54e100</td>
-<td style="text-align:right">3e+26J</td>
-</tr>
-<tr>
-<td>0x69</td>
-<td style="text-align:center">70.2-E12</td>
-<td style="text-align:right">4.53e-7j</td>
-</tr>
-</tbody>
-</table>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>type()不会认为子类是一种父类类型。</li>
-<li>isinstance()会认为子类是一种父类类型。</li>
-<li><a href="https://www.tutorialspoint.com/python3/python_command_line_arguments.htm" target="_blank" rel="external">使用python3接受命令行的多个参数</a></li>
-</ul>
-<h2 id="Tuples-元组"><a href="#Tuples-元组" class="headerlink" title="Tuples(元组)"></a>Tuples(元组)</h2><p>Tuples can be thought of as read-only lists. 元组是只读的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">tuple = ( <span class="string">'abcd'</span>, <span class="number">786</span> , <span class="number">2.23</span>, <span class="string">'john'</span>, <span class="number">70.2</span>  )</div><div class="line">tinytuple = (<span class="number">123</span>, <span class="string">'john'</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (tuple)           <span class="comment"># Prints complete tuple</span></div><div class="line"><span class="keyword">print</span> (tuple[<span class="number">0</span>])        <span class="comment"># Prints first element of the tuple</span></div><div class="line"><span class="keyword">print</span> (tuple[<span class="number">1</span>:<span class="number">3</span>])      <span class="comment"># Prints elements starting from 2nd till 3rd </span></div><div class="line"><span class="keyword">print</span> (tuple[<span class="number">2</span>:])       <span class="comment"># Prints elements starting from 3rd element</span></div><div class="line"><span class="keyword">print</span> (tinytuple * <span class="number">2</span>)   <span class="comment"># Prints tuple two times</span></div><div class="line"><span class="keyword">print</span> (tuple + tinytuple) <span class="comment"># Prints concatenated tuple</span></div><div class="line"></div><div class="line"><span class="comment">#('abcd', 786, 2.23, 'john', 70.2)</span></div><div class="line"><span class="comment">#abcd</span></div><div class="line"><span class="comment">#(786, 2.23)</span></div><div class="line"><span class="comment">#(2.23, 'john', 70.2)</span></div><div class="line"><span class="comment">#(123, 'john', 123, 'john')</span></div><div class="line"><span class="comment">#('abcd', 786, 2.23, 'john', 70.2, 123, 'john')</span></div></pre></td></tr></table></figure>
-<p>无关闭分隔符<br>任意无符号的对象，以逗号隔开，默认为元组，如下实例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'abc'</span>, <span class="number">-4.24e93</span>, <span class="number">18</span>+<span class="number">6.6j</span>, <span class="string">'xyz'</span>;</div><div class="line">x, y = <span class="number">1</span>, <span class="number">2</span>;</div><div class="line"><span class="keyword">print</span> <span class="string">"Value of x , y : "</span>, x,y;</div></pre></td></tr></table></figure></p>
-<h2 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h2><p>通过花括号定义一个字典<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">dict = &#123;&#125;</div><div class="line">dict[<span class="string">'one'</span>] = <span class="string">"This is one"</span></div><div class="line">dict[<span class="number">2</span>]     = <span class="string">"This is two"</span></div><div class="line"></div><div class="line">tinydict = &#123;<span class="string">'name'</span>: <span class="string">'john'</span>,<span class="string">'code'</span>:<span class="number">6734</span>, <span class="string">'dept'</span>: <span class="string">'sales'</span>&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">print</span> (dict[<span class="string">'one'</span>])       <span class="comment"># Prints value for 'one' key</span></div><div class="line"><span class="keyword">print</span> (dict[<span class="number">2</span>])           <span class="comment"># Prints value for 2 key</span></div><div class="line"><span class="keyword">print</span> (tinydict)          <span class="comment"># Prints complete dictionary</span></div><div class="line"><span class="keyword">print</span> (tinydict.keys())   <span class="comment"># Prints all the keys</span></div><div class="line"><span class="keyword">print</span> (tinydict.values()) <span class="comment"># Prints all the values</span></div><div class="line"><span class="comment">#This is one</span></div><div class="line"><span class="comment">#This is two</span></div><div class="line"><span class="comment">#&#123;'name': 'john', 'code': 6734, 'dept': 'sales'&#125;</span></div><div class="line"><span class="comment">#dict_keys(['name', 'code', 'dept'])</span></div><div class="line"><span class="comment">#dict_values(['john', 6734, 'sales'])</span></div></pre></td></tr></table></figure></p>
-<h2 id="Data-Type-Conversion-类型转换"><a href="#Data-Type-Conversion-类型转换" class="headerlink" title="Data Type Conversion(类型转换)"></a>Data Type Conversion(类型转换)</h2><p>Sometimes, you may need to perform conversions between the built-in types. To convert between types, you simply use the type-names as a function. 需要类型转换的时候只需要用类型名称作为一个方法就可以转换</p>
-<table>
-<thead>
-<tr>
-<th>S.No.</th>
-<th>Function &amp; Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>int(x [,base]) Converts x to an integer. The base specifies the base if x is a string.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>float(x) Converts x to a floating-point number.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>complex(real [,imag])Creates a complex number.</td>
-</tr>
-<tr>
-<td>4</td>
-<td>str(x) Converts object x to a string representation.</td>
-</tr>
-<tr>
-<td>5</td>
-<td>repr(x)Converts object x to an expression string.</td>
-</tr>
-<tr>
-<td>6</td>
-<td>eval(str)Evaluates a string and returns an object.</td>
-</tr>
-<tr>
-<td>7</td>
-<td>tuple(s)Converts s to a tuple.</td>
-</tr>
-<tr>
-<td>8</td>
-<td>list(s)Converts s to a list.</td>
-</tr>
-<tr>
-<td>9</td>
-<td>set(s)Converts s to a set.</td>
-</tr>
-<tr>
-<td>10</td>
-<td>dict(d)Creates a dictionary. d must be a sequence of (key,value) tuples.</td>
-</tr>
-<tr>
-<td>11</td>
-<td>frozenset(s)Converts s to a frozen set.</td>
-</tr>
-<tr>
-<td>12</td>
-<td>chr(x)Converts an integer to a character.</td>
-</tr>
-<tr>
-<td>13</td>
-<td>unichr(x)Converts an integer to a Unicode character.</td>
-</tr>
-<tr>
-<td>14</td>
-<td>ord(x)Converts a single character to its integer value.</td>
-</tr>
-<tr>
-<td>15</td>
-<td>hex(x)Converts an integer to a hexadecimal string.</td>
-</tr>
-<tr>
-<td>16</td>
-<td>oct(x)Converts an integer to an octal string.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><h3 id="Decision-Making-amp-amp-Loop"><a href="#Decision-Making-amp-amp-Loop" class="headerlink" title="Decision Making &amp;&amp; Loop"></a>Decision Making &amp;&amp; Loop</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">a = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">""</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> item  <span class="keyword">in</span> a:</div><div class="line">  <span class="keyword">if</span> item == <span class="string">""</span> :</div><div class="line">     print(<span class="string">"The Item is Empty"</span>)</div><div class="line">  <span class="keyword">else</span>:       </div><div class="line">    print(item)</div><div class="line">print(<span class="string">"over"</span>)</div><div class="line"><span class="comment">#a</span></div><div class="line"><span class="comment">#b </span></div><div class="line"><span class="comment">#c</span></div><div class="line"><span class="comment">#The Item is Empty</span></div><div class="line"><span class="comment">#over</span></div></pre></td></tr></table></figure>
-<h3 id="Iterator-and-Generator"><a href="#Iterator-and-Generator" class="headerlink" title="Iterator and Generator"></a>Iterator and Generator</h3><p>这块是伪代码，核心是  iter() 与 next()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line">it = iter(list) <span class="comment"># this builds an iterator object</span></div><div class="line"><span class="keyword">print</span> (next(it)) <span class="comment">#prints next available element in iterator</span></div><div class="line">Iterator object can be traversed using regular <span class="keyword">for</span> statement</div><div class="line">!usr/bin/python3</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> it:</div><div class="line">   <span class="keyword">print</span> (x, end=<span class="string">" "</span>)</div><div class="line"><span class="keyword">or</span> using next() function</div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">   <span class="keyword">try</span>:</div><div class="line">      <span class="keyword">print</span> (next(it))</div><div class="line">   <span class="keyword">except</span> StopIteration:</div><div class="line">      sys.exit() <span class="comment">#you have to import sys module for this</span></div></pre></td></tr></table></figure></p>
-<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>使用可变参数 *args 使用星号修饰<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionA</span><span class="params">(content,*args)</span>:</span></div><div class="line">    print(content)</div><div class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> args:</div><div class="line">        <span class="keyword">print</span> (var)</div><div class="line">    <span class="keyword">return</span> content</div><div class="line"></div><div class="line">functionA(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</div></pre></td></tr></table></figure></p>
-<p>使用lambda匿名函数，后面只可以跟一句话… (我有点想吐槽)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sum = <span class="keyword">lambda</span> arg1, arg2:arg1+arg2</div><div class="line"></div><div class="line">print(<span class="string">"%d %s"</span> % (sum(<span class="number">2</span>,<span class="number">3</span>), <span class="string">" &lt;&lt;&lt;"</span>))</div></pre></td></tr></table></figure></p>
-<h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h2><p>初始化脚本在引用这个包的时候会自动被调用。只有拥有了初始化脚本才会被python认为这是一个包。<br><img src="/uploads/WX20170328-173343@2x.png" alt="创建包的时候自动添加了__init__.py脚本"></p>
-<p><img src="/uploads/WX20170328-173643@2x.png" alt="我在这个脚本里引入这个包,输出结果"></p>
-<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>:</div><div class="line">    fh = open(<span class="string">"testfile"</span>, <span class="string">"w"</span>)</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        fh.write(<span class="string">"这是一个测试文件，用于测试异常!!"</span>)</div><div class="line">    <span class="keyword">finally</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"关闭文件"</span></div><div class="line">        fh.close()</div><div class="line"><span class="keyword">except</span> IOError:</div><div class="line">    <span class="keyword">print</span> <span class="string">"Error: 没有找到文件或读取文件失败"</span></div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;因为我的树莓派只要开机风扇就会不停的转为了控制风扇的转速我需要写一些脚本来控制gpio接口。所以作为兴趣就学习了一下python语言，当然python的实际作用远不止此，先看看基础的再深入的了解下吧。MacOS自带的Python是2.7x，但是我使用的是3.x 。当然这两者是有差异的，即使你不懂python也可以从版本号上看出来这个差异。&lt;br&gt;&lt;a href=&quot;http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html&quot;&gt;The key differences between Python 2.7.x and Python 3.x with examples&lt;/a&gt; &amp;lt;-这篇博客详细说明了2.x与3.x的区别。因为本人是从3.x学习python的所以后面的博文都会以3.x作为案例。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Script" scheme="http://vrast.cn/categories/Script/"/>
-    
-    
-      <category term="Python" scheme="http://vrast.cn/tags/Python/"/>
     
   </entry>
   
