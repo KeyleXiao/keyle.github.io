@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-12-08T03:10:38.000Z</updated>
+  <updated>2017-12-15T15:03:56.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决NavmeshAgent寻路边界的判定</title>
+    <link href="http://vrast.cn/posts/e53ade9f/"/>
+    <id>http://vrast.cn/posts/e53ade9f/</id>
+    <published>2017-12-15T14:36:00.000Z</published>
+    <updated>2017-12-15T15:03:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>今天群里有兄弟问: “我看到navmeshagent里面有个方法叫什么获取网格边缘点的，我打算首先判断目标点在不在网格上。在的话正常逻辑，不在的话判断当前agent的位置有没有到那个边缘点 “ 。我想这样应该能解决这个问题。</p>
+</blockquote>
+<p><img src="/uploads/FC9B64C1057D31F1B4692EF0EC22A08B.jpg" alt="解决边界点的判定"></p>
+<a id="more"></a>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">1</span>))</div><div class="line">&#123;</div><div class="line">    NavMeshHit hit;</div><div class="line">    NavMesh.Raycast(transform.position, target.position, <span class="keyword">out</span> hit, <span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (hit.hit)</div><div class="line">    &#123;</div><div class="line">        NavMeshPath path = <span class="keyword">new</span> NavMeshPath();</div><div class="line">        <span class="keyword">if</span> (agent.CalculatePath(hit.position, path))</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">var</span> pos = path.corners[path.corners.Length - <span class="number">1</span>];</div><div class="line">            <span class="keyword">var</span> o = GameObject.CreatePrimitive(PrimitiveType.Sphere);</div><div class="line">            o.transform.localScale = Vector3.one * <span class="number">0.1</span>f;</div><div class="line">            o.transform.position = pos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;今天群里有兄弟问: “我看到navmeshagent里面有个方法叫什么获取网格边缘点的，我打算首先判断目标点在不在网格上。在的话正常逻辑，不在的话判断当前agent的位置有没有到那个边缘点 “ 。我想这样应该能解决这个问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/uploads/FC9B64C1057D31F1B4692EF0EC22A08B.jpg&quot; alt=&quot;解决边界点的判定&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="NavmeshAgent" scheme="http://vrast.cn/tags/NavmeshAgent/"/>
+    
+  </entry>
   
   <entry>
     <title>High-level NavMesh Building Components</title>
@@ -1001,37 +1031,6 @@
     
     
       <category term="shader 图形学" scheme="http://vrast.cn/tags/shader-%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设置SublimeText忽略项</title>
-    <link href="http://vrast.cn/posts/da870f2b/"/>
-    <id>http://vrast.cn/posts/da870f2b/</id>
-    <published>2017-04-05T10:58:57.000Z</published>
-    <updated>2017-04-06T10:28:11.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>今天用sublimetext3编辑shader的时候遇到一个问题，总是显示出 *.meta 文件，随后上网搜了下解决方法。</p>
-</blockquote>
-<p> <img src="/uploads/WX20170405-185935@2x.png" alt="添加忽略项目"></p>
-<a id="more"></a>
-<p>preferences -&gt; Setting 添加如下信息<br><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">"file_exclude_patterns"</span>: [<span class="comment">"*.pyc"</span>, <span class="comment">"*.pyo"</span>, <span class="comment">"*.exe"</span>, <span class="comment">"*.dll"</span>, <span class="comment">"*.obj"</span>,<span class="comment">"*.o"</span>, <span class="comment">"*.a"</span>, <span class="comment">"*.lib"</span>, <span class="comment">"*.so"</span>, <span class="comment">"*.dylib"</span>, <span class="comment">"*.ncb"</span>, <span class="comment">"*.sdf"</span>, <span class="comment">"*.suo"</span>, <span class="comment">"*.pdb"</span>, <span class="comment">"*.idb"</span>, <span class="comment">".DS_Store"</span>, <span class="comment">"*.class"</span>, <span class="comment">"*.psd"</span>, <span class="comment">"*.db"</span>, <span class="comment">"*.sublime-workspace"</span>,<span class="comment">"*.meta"</span>,<span class="comment">"*.mat"</span>]</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;今天用sublimetext3编辑shader的时候遇到一个问题，总是显示出 *.meta 文件，随后上网搜了下解决方法。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt; &lt;img src=&quot;/uploads/WX20170405-185935@2x.png&quot; alt=&quot;添加忽略项目&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="http://vrast.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="SublimeText3" scheme="http://vrast.cn/tags/SublimeText3/"/>
     
   </entry>
   
