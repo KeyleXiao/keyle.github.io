@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2017-12-17T11:42:34.163Z</updated>
+  <updated>2017-12-22T03:38:46.000Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>三维向量曲线平滑算法</title>
+    <link href="http://vrast.cn/posts/7a035f20/"/>
+    <id>http://vrast.cn/posts/7a035f20/</id>
+    <published>2017-12-22T02:37:36.000Z</published>
+    <updated>2017-12-22T03:38:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>在网上看到一个平滑算法，很好用，经过我测试 效率很高，Chaikin 函数调用2-3次会获得一个相对较好的曲线。<a href="http://graphics.cs.ucdavis.edu/education/CAGDNotes/Chaikins-Algorithm/Chaikins-Algorithm.html" target="_blank" rel="external">算法链接</a></p>
+</blockquote>
+<a id="more"></a>
+<p>平滑算法如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line">[RequireComponent(<span class="keyword">typeof</span>(LineRenderer))]</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SmoothAlgorithm</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> minRadius = <span class="number">1.5</span>f;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> maxRadius = <span class="number">3.5</span>f;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">25</span>;</div><div class="line">    <span class="keyword">private</span> LineRenderer lr;</div><div class="line">    <span class="keyword">private</span> Vector3[] points;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        lr = GetComponent&lt;LineRenderer&gt;();</div><div class="line">        GenerateRandomPath();</div><div class="line">        SetLR(points);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">GenerateRandomPath</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        points = <span class="keyword">new</span> Vector3[num];</div><div class="line"></div><div class="line">        <span class="keyword">float</span> angle = <span class="number">360.0</span>f / num;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)</div><div class="line">        &#123;</div><div class="line">            points[i] = Quaternion.AngleAxis((angle * i), Vector3.forward) * Vector3.up * Random.Range(minRadius, maxRadius);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetLR</span>(<span class="params">Vector3[] pts</span>)</span></div><div class="line">    &#123;</div><div class="line">        lr.SetVertexCount(pts.Length);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pts.Length; i++)</div><div class="line">        &#123;</div><div class="line">            lr.SetPosition(i, pts[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Space))</div><div class="line">        &#123;</div><div class="line">            points = Chaikin(points);</div><div class="line">            SetLR(points);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.G))</div><div class="line">        &#123;</div><div class="line">            GenerateRandomPath();</div><div class="line">            SetLR(points);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function">Vector3[] <span class="title">Chaikin</span>(<span class="params">Vector3[] pts</span>)</span></div><div class="line">    &#123;</div><div class="line">        Vector3[] newPts = <span class="keyword">new</span> Vector3[(pts.Length - <span class="number">2</span>) * <span class="number">2</span> + <span class="number">2</span>];</div><div class="line">        newPts[<span class="number">0</span>] = pts[<span class="number">0</span>];</div><div class="line">        newPts[newPts.Length - <span class="number">1</span>] = pts[pts.Length - <span class="number">1</span>];</div><div class="line"></div><div class="line">        <span class="keyword">int</span> j = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pts.Length - <span class="number">2</span>; i++)</div><div class="line">        &#123;</div><div class="line">            newPts[j] = pts[i] + (pts[i + <span class="number">1</span>] - pts[i]) * <span class="number">0.75</span>f;</div><div class="line">            newPts[j + <span class="number">1</span>] = pts[i + <span class="number">1</span>] + (pts[i + <span class="number">2</span>] - pts[i + <span class="number">1</span>]) * <span class="number">0.25</span>f;</div><div class="line">            j += <span class="number">2</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> newPts;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;在网上看到一个平滑算法，很好用，经过我测试 效率很高，Chaikin 函数调用2-3次会获得一个相对较好的曲线。&lt;a href=&quot;http://graphics.cs.ucdavis.edu/education/CAGDNotes/Chaikins-Algorithm/Chaikins-Algorithm.html&quot;&gt;算法链接&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Math" scheme="http://vrast.cn/categories/Math/"/>
+    
+    
+      <category term="算法" scheme="http://vrast.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用物理检测范围与距离内的目标</title>
     <link href="http://vrast.cn/posts/e0406d64/"/>
     <id>http://vrast.cn/posts/e0406d64/</id>
     <published>2017-12-16T16:30:27.000Z</published>
-    <updated>2017-12-17T11:42:34.163Z</updated>
+    <updated>2017-12-17T11:43:39.078Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>分享一个技围检测脚本，用来判定范围内是否有目标，或者是线性范围内是否可见目标。</p>
@@ -990,33 +1019,6 @@
     
     
       <category term="SmartDataViewer" scheme="http://vrast.cn/tags/SmartDataViewer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Unity Editor GUI Style</title>
-    <link href="http://vrast.cn/posts/5b0bf452/"/>
-    <id>http://vrast.cn/posts/5b0bf452/</id>
-    <published>2017-04-27T08:54:27.000Z</published>
-    <updated>2017-04-27T09:00:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>这几个Scrollview的属性藏的比较深 这里记录下。<br><a id="more"></a></p>
-</blockquote>
-<p>box<br>button<br>toggle<br>label<br>textField<br>textArea<br>window<br>horizontalSlider<br>horizontalSliderThumb<br>verticalSlider<br>verticalSliderThumb<br>horizontalScrollbar<br>horizontalScrollbarThumb<br>horizontalScrollbarLeftButton<br>horizontalScrollbarRightButton<br>verticalScrollbar<br>verticalScrollbarThumb<br>verticalScrollbarUpButton<br>verticalScrollbarDownButton<br>scrollView</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;这几个Scrollview的属性藏的比较深 这里记录下。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Editor" scheme="http://vrast.cn/categories/Editor/"/>
-    
-    
-      <category term="ScrollView" scheme="http://vrast.cn/tags/ScrollView/"/>
     
   </entry>
   
