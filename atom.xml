@@ -345,7 +345,7 @@
     <link href="http://vrast.cn/posts/1d932b40/"/>
     <id>http://vrast.cn/posts/1d932b40/</id>
     <published>2017-12-05T16:33:39.000Z</published>
-    <updated>2017-12-05T17:09:15.206Z</updated>
+    <updated>2018-01-03T08:33:32.286Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>今天凌晨开始写这篇文章，想写这个主题很久了。相信每个资深开发都经历过每次公司要发版本之前都会有一堆bug闪现。真让人苦恼。很高兴 Unity technology 于 今年的六一儿童节更新了自动化测试的特性。这下终于不用再导入第三方自动化测试插件了。当然本章节会相对完整的快速概述其重要部分。如果你还想知道更多, Unity3D 已经提供了比较完善的<a href="https://docs.unity3d.com/Manual/testing-editortestsrunner.html" target="_blank" rel="external">文档</a>。</p>
