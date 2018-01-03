@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-01-03T10:04:18.000Z</updated>
+  <updated>2018-01-03T10:46:26.936Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/6f00466c/"/>
     <id>http://vrast.cn/posts/6f00466c/</id>
     <published>2018-01-03T09:03:16.000Z</published>
-    <updated>2018-01-03T10:04:18.000Z</updated>
+    <updated>2018-01-03T10:46:26.936Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>元旦期间玩了缺氧，感觉十分的好玩。属于深度沙盒经营类游戏。既然好玩那就要知其所以然，今天抽空看了看源码，大概列出如下使用到的工具或技术。算是一个记录，也开阔一下视野。如果你还有什么补充欢迎给我留言。</p>
@@ -34,6 +34,12 @@
 <h2 id="噪声"><a href="#噪声" class="headerlink" title="噪声"></a>噪声</h2><p>libnoise.dll 用于随机算法(噪声)  <a href="http://libnoise.sourceforge.net" target="_blank" rel="external">项目地址</a></p>
 <h2 id="Png读写"><a href="#Png读写" class="headerlink" title="Png读写"></a>Png读写</h2><p>Pngcs 用来对png图读写的工具 <a href="https://github.com/leonbloy/pngcs" target="_blank" rel="external">Pngcs项目地址</a><br>我猜主场景的图片应该在不停的读写，这样比生成10000*10000的贴图效率高的多。</p>
 <h1 id="内部引用插件列表"><a href="#内部引用插件列表" class="headerlink" title="内部引用插件列表"></a>内部引用插件列表</h1><h2 id="Node-Editor-Framework"><a href="#Node-Editor-Framework" class="headerlink" title="Node_Editor_Framework"></a>Node_Editor_Framework</h2><p>节点编辑器 经过源码比对 klei 拿这个源码自己改了一版，不过确实使用了这个项目 <a href="https://github.com/Seneral/Node_Editor_Framework" target="_blank" rel="external">项目地址</a></p>
+<h2 id="fmod-studio"><a href="#fmod-studio" class="headerlink" title="fmod.studio"></a>fmod.studio</h2><p>Unity内置了Audio功能，并且底层也是用FMOD来实现的，为什么还要不辞劳苦学习使用FMOD插件来进行音效的管理？<br>-<a href="https://www.jianshu.com/p/586a5d465827" target="_blank" rel="external">FMOD学习 - 简书</a></p>
+<h2 id="TMPro"><a href="#TMPro" class="headerlink" title="TMPro"></a>TMPro</h2><p>Mesh字体插件 <a href="https://www.assetstore.unity3d.com/en/#!/content/84126" target="_blank" rel="external">AssetStore地址</a></p>
+<h2 id="图形学插件"><a href="#图形学插件" class="headerlink" title="图形学插件"></a>图形学插件</h2><h3 id="Delaunay"><a href="#Delaunay" class="headerlink" title="Delaunay"></a>Delaunay</h3><p>三角形破裂算法 在github上搜这个关键字就好了</p>
+<h3 id="ClipperLib"><a href="#ClipperLib" class="headerlink" title="ClipperLib"></a>ClipperLib</h3><p>多边形偏移裁切算法 <a href="http://www.angusj.com/delphi/clipper.php" target="_blank" rel="external">项目地址</a></p>
+<h3 id="MIConvexHull"><a href="#MIConvexHull" class="headerlink" title="MIConvexHull"></a>MIConvexHull</h3><p>可以生成2、3维的最小凸包。可以进行狄洛尼三角剖分，生成Voronoi多边形。<br><a href="https://github.com/DesignEngrLab/MIConvexHull" target="_blank" rel="external">项目地址</a></p>
+<h3 id="Voronoi-Tree"><a href="#Voronoi-Tree" class="headerlink" title="Voronoi Tree"></a>Voronoi Tree</h3><p>泰森多边形<br><a href="https://en.m.wikipedia.org/wiki/Voronoi_diagram" target="_blank" rel="external">算法简介</a></p>
 ]]></content>
     
     <summary type="html">
