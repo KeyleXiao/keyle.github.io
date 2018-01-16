@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-01-03T10:53:07.537Z</updated>
+  <updated>2018-01-16T01:35:25.133Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SNFramework</title>
+    <link href="http://vrast.cn/posts/f326c5ce/"/>
+    <id>http://vrast.cn/posts/f326c5ce/</id>
+    <published>2018-01-16T01:31:33.000Z</published>
+    <updated>2018-01-16T01:35:25.133Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SNFramework"><a href="#SNFramework" class="headerlink" title="SNFramework"></a>SNFramework</h1><p>SmartNotificationFramework/EventBus for Unity3d</p>
+<h1 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h1><p>2015年 我在淘米写了一套 <a href="http://www.cnblogs.com/Keyle/p/4843934.html" target="_blank" rel="external">消息传递机制</a> 当然这一套在我的上家公司也得到验证。<br>2016年 我在世纪创意基于2015年一版的消息传递进行了封装但是当时赶项目也没有引入。我称之为 <a href="https://gitee.com/keyle/SmartNotificationFramework" target="_blank" rel="external">SmartNotificationFramework</a> 我希望它能达到足够的灵活，在我看来它工作的还不错，但是太简陋。<br>2018年 也就是今年我终于得空并且集中时间大量重构与完成了大部分的单元测试。SNFramework 是我正在使用的消息传递机制。它已经有了初步的理想功能，如消息上下分隔离，消息被阅读成功自动释放(即指执行一次)，广播消息等。</p>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/KeyleXiao/SNFramework" target="_blank" rel="external">https://github.com/KeyleXiao/SNFramework</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SNFramework&quot;&gt;&lt;a href=&quot;#SNFramework&quot; class=&quot;headerlink&quot; title=&quot;SNFramework&quot;&gt;&lt;/a&gt;SNFramework&lt;/h1&gt;&lt;p&gt;SmartNotificationFramework/EventBu
+    
+    </summary>
+    
+      <category term="OpenSource" scheme="http://vrast.cn/categories/OpenSource/"/>
+    
+    
+      <category term="SNFramework" scheme="http://vrast.cn/tags/SNFramework/"/>
+    
+  </entry>
   
   <entry>
     <title>分析缺氧(Oxygen not included)中所用到的技术</title>
@@ -915,72 +940,6 @@
 &lt;li&gt;Gradle download failing Gradle升级失败&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Android Studio" scheme="http://vrast.cn/categories/Android-Studio/"/>
-    
-    
-      <category term="Gradle" scheme="http://vrast.cn/tags/Gradle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AndroidStudio Gradle水土不服解决方案</title>
-    <link href="http://vrast.cn/posts/84e9a39b/"/>
-    <id>http://vrast.cn/posts/84e9a39b/</id>
-    <published>2017-09-01T03:50:46.000Z</published>
-    <updated>2017-10-13T03:30:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>因为外星人在中国布下了GFW，导致使用android studio的时候故障频发。集中体现在<br><code>Gradle sync failed xxxxxx 与 AndroidStudio Gradle:Resolvedependencies xxxxxx</code>这两个问题上,本章提供两个解决方案给大家。看本文前你要准备下面几种工具</p>
-<ul>
-<li>brew</li>
-<li>Shadowsocks</li>
-<li>polipo</li>
-<li>sdkman (可选)<br>本章节有三种解决方案 ，我使用的是第三种<a id="more"></a>
-</li>
-</ul>
-</blockquote>
-<h1 id="解决方案一-使用在线更新"><a href="#解决方案一-使用在线更新" class="headerlink" title="解决方案一 使用在线更新"></a>解决方案一 使用在线更新</h1><p>Homebrew 一般是自带的，如果没有自带 建议你装一个。 <a href="https://brew.sh" target="_blank" rel="external">https://brew.sh</a><br>Shadowsocks 是某种不知名的代理<br>polipo 是能将Socks转为http代理的工具</p>
-<h2 id="polipo使用说明"><a href="#polipo使用说明" class="headerlink" title="polipo使用说明"></a>polipo使用说明</h2><p>以下转载自<a href="http://qichunren.github.io/tool/2014/07/15/Convert-shadowsocks-into-http-proxy-on-mac/" target="_blank" rel="external">蕲春人的博客</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">brew install polipo</div><div class="line">然后就是启动polipo程序开机自动启动。</div><div class="line"></div><div class="line">首先要修改自动启动的配置文件 /usr/local/opt/polipo/homebrew.mxcl.polipo.plist，需要给polipo命令加上命令行参数 socksParentProxy=localhost:1080</div><div class="line"></div><div class="line">  <span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line">  <span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">string</span>&gt;</span>homebrew.mxcl.polipo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">true</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">true</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/usr/local/opt/polipo/bin/polipo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>socksParentProxy=localhost:1080<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">array</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">plist</span>&gt;</span></div><div class="line">然后执行以下命令，搞定收工。</div><div class="line"></div><div class="line">ln -sfv /usr/local/opt/polipo/*.plist ~/Library/LaunchAgents</div><div class="line">launchctl load ~/Library/LaunchAgents/homebrew.mxcl.polipo.plist</div><div class="line">polipo进程默认监听8123端口，在命令行使用export http_proxy=http://localhost:8123 就可以使用代理了。</div><div class="line"></div><div class="line">export https_proxy=http://localhost:8123 export ftp_proxy=http://localhost:8123</div></pre></td></tr></table></figure></p>
-<h2 id="AndroidStudio代理配置"><a href="#AndroidStudio代理配置" class="headerlink" title="AndroidStudio代理配置"></a>AndroidStudio代理配置</h2><p>这里你直接在Preferences搜索proxy即可<br><img src="/uploads/QQ20170901-115902.png" alt="配置详情"></p>
-<h1 id="解决方案二-使用离线gradle"><a href="#解决方案二-使用离线gradle" class="headerlink" title="解决方案二 使用离线gradle"></a>解决方案二 使用离线gradle</h1><p>我使用的是方案一，同时使用了方案二，直接用sdkman来更新本地gradle版本。<br>这两种方案是兼容的，你可以选择使用本地还是在线更新。</p>
-<p><img src="/uploads/QQ20170901-120202.png" alt="配置详情"></p>
-<h2 id="sdkman配置"><a href="#sdkman配置" class="headerlink" title="sdkman配置"></a>sdkman配置</h2><ol>
-<li><p>在terminal中使用如下脚本安装sdkman.  –<a href="http://sdkman.io" target="_blank" rel="external">官网</a></p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -s <span class="string">"https://get.sdkman.io"</span> <span class="string">| bash</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>下载安装完毕重启terminal<br>使用此命令下载指定的gradle版本</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdk <span class="keyword">install</span> gradle <span class="number">2.1</span>(版本号)</div></pre></td></tr></table></figure>
-</li>
-<li><p>查看当前所有的gradle版本信息<br>前面有<code>*</code>符号的为当前本地下载的版本。<code>&gt;</code>符号指向的为当前使用的版本。</p>
-</li>
-</ol>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdk <span class="built_in">list</span> gradle</div></pre></td></tr></table></figure>
-<p><img src="/uploads/QQ20170901-120809@2x.png" alt="配置详情"></p>
-<ol>
-<li><p>更换当前gradle版本<br>使用此命令可以更换当前环境变量重的gradle版本</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdk <span class="keyword">use</span> gradle <span class="number">4.1</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>查看gradle路径(重要)<br>使用下面的命令可以看到当前sdk使用的gradle版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> <span class="variable">$GRADLE_HOME</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="解决方案三-黑科技"><a href="#解决方案三-黑科技" class="headerlink" title="解决方案三 黑科技"></a>解决方案三 黑科技</h1><p> 更新gradle版本到 2.14.1<br> distributionUrl=https\://services.gradle.org/distributions/gradle- 2.14.1-all.zip</p>
-<p>请统一如下配置：<br>Compile Sdk Version 设置到: API 23:Android 6.0(Marshmallow)<br>Build Tools Version 设置到： 25.0.0</p>
-<p>完美解决！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;因为外星人在中国布下了GFW，导致使用android studio的时候故障频发。集中体现在&lt;br&gt;&lt;code&gt;Gradle sync failed xxxxxx 与 AndroidStudio Gradle:Resolvedependencies xxxxxx&lt;/code&gt;这两个问题上,本章提供两个解决方案给大家。看本文前你要准备下面几种工具&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;brew&lt;/li&gt;
-&lt;li&gt;Shadowsocks&lt;/li&gt;
-&lt;li&gt;polipo&lt;/li&gt;
-&lt;li&gt;sdkman (可选)&lt;br&gt;本章节有三种解决方案 ，我使用的是第三种
     
     </summary>
     
