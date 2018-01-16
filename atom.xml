@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-01-16T01:35:25.133Z</updated>
+  <updated>2018-01-16T01:35:52.131Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/f326c5ce/"/>
     <id>http://vrast.cn/posts/f326c5ce/</id>
     <published>2018-01-16T01:31:33.000Z</published>
-    <updated>2018-01-16T01:35:25.133Z</updated>
+    <updated>2018-01-16T01:35:52.131Z</updated>
     
     <content type="html"><![CDATA[<h1 id="SNFramework"><a href="#SNFramework" class="headerlink" title="SNFramework"></a>SNFramework</h1><p>SmartNotificationFramework/EventBus for Unity3d</p>
 <h1 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h1><p>2015年 我在淘米写了一套 <a href="http://www.cnblogs.com/Keyle/p/4843934.html" target="_blank" rel="external">消息传递机制</a> 当然这一套在我的上家公司也得到验证。<br>2016年 我在世纪创意基于2015年一版的消息传递进行了封装但是当时赶项目也没有引入。我称之为 <a href="https://gitee.com/keyle/SmartNotificationFramework" target="_blank" rel="external">SmartNotificationFramework</a> 我希望它能达到足够的灵活，在我看来它工作的还不错，但是太简陋。<br>2018年 也就是今年我终于得空并且集中时间大量重构与完成了大部分的单元测试。SNFramework 是我正在使用的消息传递机制。它已经有了初步的理想功能，如消息上下分隔离，消息被阅读成功自动释放(即指执行一次)，广播消息等。</p>
