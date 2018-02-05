@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-02-01T06:56:39.935Z</updated>
+  <updated>2018-02-05T03:29:44.018Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/5fd2bd44/"/>
     <id>http://vrast.cn/posts/5fd2bd44/</id>
     <published>2018-02-01T01:45:57.000Z</published>
-    <updated>2018-02-01T06:56:39.935Z</updated>
+    <updated>2018-02-05T03:29:44.018Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>分析 SpellCasting 源码。最后造一个轮子，用来做Spell控制。 笑。内容比较多我这里会分多个章节阐述原理。我看了好多遍目录结构发现它现在的内容远比我想象的要多。本篇作为个人笔记 后续写一些造轮子的心得干货 。</p>
@@ -33,6 +33,9 @@
 <h3 id="Spell-Action"><a href="#Spell-Action" class="headerlink" title="Spell Action"></a>Spell Action</h3><p>The spell action is what the node contains. During the life cycle, when a node is reached the action is activated. It’s this action that will have any number of different implementations.<br>Spell就是具体实现施法代码的地方，位于node容器内</p>
 <h3 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h3><p>A link is what ties two nodes together and creates the actual flow.<br>将两个节点连在一起</p>
 <h3 id="Spell-Link-Actions"><a href="#Spell-Link-Actions" class="headerlink" title="Spell Link Actions"></a>Spell Link Actions</h3><p>Links can have different actions on them that help to control the flow. Think of them as gates that prevent a flow from continuing.<br>链接两个Actiond的纽带，可以看做两个Action过渡的大门</p>
+<blockquote>
+<p>未完待续</p>
+</blockquote>
 ]]></content>
     
     <summary type="html">
