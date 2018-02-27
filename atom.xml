@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-02-05T03:29:44.018Z</updated>
+  <updated>2018-01-16T05:57:48.212Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,44 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Spell插件分析1</title>
-    <link href="http://vrast.cn/posts/5fd2bd44/"/>
-    <id>http://vrast.cn/posts/5fd2bd44/</id>
-    <published>2018-02-01T01:45:57.000Z</published>
-    <updated>2018-02-05T03:29:44.018Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>分析 SpellCasting 源码。最后造一个轮子，用来做Spell控制。 笑。内容比较多我这里会分多个章节阐述原理。我看了好多遍目录结构发现它现在的内容远比我想象的要多。本篇作为个人笔记 后续写一些造轮子的心得干货 。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="节点组成"><a href="#节点组成" class="headerlink" title="节点组成"></a>节点组成</h2><p>Spell树形结构有2n+N个节点组成。所谓的2就是起点加终点。<br>StartNodes : 允许多个。<br>EndNodes : 允许多个。EndNodes 就像普通节点一样处理，给当前Spell销毁创造一个机会 ,EndNode一定会被调用即使cancel这个spell也会调用</p>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><p>Spells are made up of special parts that determine the flow and results of the spell. Understanding these components will help you control the flow.</p>
-<h3 id="Spell"><a href="#Spell" class="headerlink" title="Spell"></a>Spell</h3><p>Container that holds all the nodes and links. This represents the template that spell instances will be created from.</p>
-<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>Individual graph node in a spell that is a container. Its purpose is to hold a single action and help provide flow control within the spell.<br>Node就是Spell的容器</p>
-<h3 id="Spell-Action"><a href="#Spell-Action" class="headerlink" title="Spell Action"></a>Spell Action</h3><p>The spell action is what the node contains. During the life cycle, when a node is reached the action is activated. It’s this action that will have any number of different implementations.<br>Spell就是具体实现施法代码的地方，位于node容器内</p>
-<h3 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h3><p>A link is what ties two nodes together and creates the actual flow.<br>将两个节点连在一起</p>
-<h3 id="Spell-Link-Actions"><a href="#Spell-Link-Actions" class="headerlink" title="Spell Link Actions"></a>Spell Link Actions</h3><p>Links can have different actions on them that help to control the flow. Think of them as gates that prevent a flow from continuing.<br>链接两个Actiond的纽带，可以看做两个Action过渡的大门</p>
-<blockquote>
-<p>未完待续</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;分析 SpellCasting 源码。最后造一个轮子，用来做Spell控制。 笑。内容比较多我这里会分多个章节阐述原理。我看了好多遍目录结构发现它现在的内容远比我想象的要多。本篇作为个人笔记 后续写一些造轮子的心得干货 。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="代码分析" scheme="http://vrast.cn/categories/%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
-    
-  </entry>
   
   <entry>
     <title>SNFramework</title>
@@ -939,6 +901,51 @@
     
     
       <category term="UniwebView" scheme="http://vrast.cn/tags/UniwebView/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AndroidStudio 堆内存爆炸导致无法打包</title>
+    <link href="http://vrast.cn/posts/831cd9e6/"/>
+    <id>http://vrast.cn/posts/831cd9e6/</id>
+    <published>2017-09-05T08:11:54.000Z</published>
+    <updated>2017-09-05T08:32:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>最近忙着项目上线，因为要接入优酷云的Android SDK所以Gradle用的比较多，期间遇到很多奇怪的问题，所幸一一解决。这里我总结记录下一些解决方案，以供大家参考。</p>
+<ul>
+<li>Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸</li>
+<li>Gradle download failing Gradle升级失败</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h1 id="Android-Studio-Gradle-build-failing-Java-Heap-Space-堆内存爆炸"><a href="#Android-Studio-Gradle-build-failing-Java-Heap-Space-堆内存爆炸" class="headerlink" title="Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸"></a>Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸</h1><p>我现在的项目导出工程有超过5G大小，很幸运的爆炸了.在 <a href="https://stackoverflow.com/questions/41645747/android-studio-gradle-build-failing-java-heap-space" target="_blank" rel="external">StackOverflow</a> 上有人遇到和我相同的问题，也提供了解决方案。</p>
+<p>在工程根目录 <code>gradle.properties</code> 添加如下代码<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org<span class="selector-class">.gradle</span><span class="selector-class">.jvmargs</span>=-XX\:MaxHeapSize\=<span class="number">256</span>m -Xmx256m</div></pre></td></tr></table></figure></p>
+<p>StackOverflow并未提供关于此参数的解释，正确的用法是此参数限定了Gradle的性能，最高可用内存。因为我的项目比较大 我改为2G<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org<span class="selector-class">.gradle</span><span class="selector-class">.jvmargs</span>=-XX\:MaxHeapSize\=<span class="number">2048</span>m -Xmx2048m</div></pre></td></tr></table></figure></p>
+<h1 id="Gradle-download-failing-Gradle升级失败"><a href="#Gradle-download-failing-Gradle升级失败" class="headerlink" title="Gradle download failing Gradle升级失败"></a>Gradle download failing Gradle升级失败</h1><p>关于这个问题 我在<a href="https://vrast.cn/posts/84e9a39b/">上一篇文章</a> 中写道可以 <a href="https://vrast.cn/posts/84e9a39b/">使用代理</a> 与 <a href="http://sdkman.io" target="_blank" rel="external">SDKMan</a> 来解决。<br>但是，仍旧没有解决问题的可以参照我现在的新办法。</p>
+<ol>
+<li>using Android Studio Import your UnityProject</li>
+<li>open <code>gradle-wrapper.properties</code> and replace “distributionUrl” with “https\://services.gradle.org/distributions/gradle-2.14.1-all.zip”</li>
+<li>click “Sync Now”<br>这个问题出在升级的版本上，目前没有找到很好的办法解决这个问题。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;最近忙着项目上线，因为要接入优酷云的Android SDK所以Gradle用的比较多，期间遇到很多奇怪的问题，所幸一一解决。这里我总结记录下一些解决方案，以供大家参考。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Android Studio - Gradle build failing - Java Heap Space 堆内存爆炸&lt;/li&gt;
+&lt;li&gt;Gradle download failing Gradle升级失败&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Android Studio" scheme="http://vrast.cn/categories/Android-Studio/"/>
+    
+    
+      <category term="Gradle" scheme="http://vrast.cn/tags/Gradle/"/>
     
   </entry>
   
