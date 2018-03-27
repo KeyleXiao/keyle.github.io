@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-03-09T11:07:23.840Z</updated>
+  <updated>2018-03-27T01:52:39.284Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编辑器扩展-分割条</title>
+    <link href="http://vrast.cn/posts/8d62e7c3/"/>
+    <id>http://vrast.cn/posts/8d62e7c3/</id>
+    <published>2018-03-27T01:40:57.000Z</published>
+    <updated>2018-03-27T01:52:39.284Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>可拖动分割条在 Unity3D 的编辑器结构中一般都属于最外层结构，因为它是基于 GUI 组件，计算位置的时候必须要很精确，所以跟Layout 流式布局混编会比较乱。这里也推荐作为最外层结构使用。</p>
+</blockquote>
+<p><img src="/uploads/2018427047.png" alt="可拖动的分割条"><br><a id="more"></a></p>
+<h1 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h1><p>下面是我写的一个演示例子 你可以在Unity中直接运行。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//   		Copyright 2017 KeyleXiao.</span></div><div class="line"><span class="comment">//     		Contact : Keyle_xiao@hotmail.com </span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//     		Licensed under the Apache License, Version 2.0 (the "License");</span></div><div class="line"><span class="comment">//     		you may not use this file except in compliance with the License.</span></div><div class="line"><span class="comment">//     		You may obtain a copy of the License at</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//     		http://www.apache.org/licenses/LICENSE-2.0</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//     		Unless required by applicable law or agreed to in writing, software</span></div><div class="line"><span class="comment">//     		distributed under the License is distributed on an "AS IS" BASIS,</span></div><div class="line"><span class="comment">//     		WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div><div class="line"><span class="comment">//     		See the License for the specific language governing permissions and</span></div><div class="line"><span class="comment">//     		limitations under the License.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">using</span>  UnityEditor;</div><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">SmartDataViewer.Editor</span></div><div class="line">&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExportWizard</span>:<span class="title">EditorWindow</span></div><div class="line">    &#123;</div><div class="line">        [MenuItem(<span class="string">"SmartDataViewer/ExportWizard"</span>)]</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OpenView</span>(<span class="params"></span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">var</span> w = CreateInstance&lt;ExportWizard &gt;();</div><div class="line">            </div><div class="line">            w.minSize = <span class="keyword">new</span> Vector2(<span class="number">350</span>,<span class="number">250</span>);</div><div class="line">            w.maxSize = w.minSize;</div><div class="line">            Vector2 pos =<span class="keyword">new</span> Vector2( Screen.width/<span class="number">2</span>-w.minSize.x,Screen.height/<span class="number">2</span>-w.minSize.y);</div><div class="line">            w.position = <span class="keyword">new</span> Rect(pos,w.minSize);</div><div class="line">            </div><div class="line">            w.ShowUtility();</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">private</span> <span class="keyword">object</span> rawData &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InitRawData</span>(<span class="params"><span class="keyword">object</span> data</span>)</span></div><div class="line">        &#123;</div><div class="line">            rawData = data;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">private</span> Vector2 scrollPos = Vector2.zero;</div><div class="line">        <span class="keyword">float</span> currentScrollViewWidth;</div><div class="line">        <span class="keyword">bool</span> resize = <span class="literal">false</span>;</div><div class="line">        Rect cursorChangeRect;</div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">OnEnable</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.position = <span class="keyword">new</span> Rect(<span class="number">200</span>,<span class="number">200</span>,<span class="number">400</span>,<span class="number">300</span>);</div><div class="line">            currentScrollViewWidth = <span class="keyword">this</span>.position.width/<span class="number">2</span>;</div><div class="line">            cursorChangeRect = <span class="keyword">new</span> Rect(currentScrollViewWidth,<span class="number">0</span>,<span class="number">4</span>f,<span class="keyword">this</span>.position.height);</div><div class="line">        &#125;</div><div class="line">     </div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">OnGUI</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            GUILayout.BeginHorizontal();</div><div class="line">            </div><div class="line">            scrollPos = GUILayout.BeginScrollView(scrollPos,GUILayout.Width(currentScrollViewWidth));</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++)</div><div class="line">                GUILayout.Label(<span class="string">"test content"</span>);</div><div class="line">            GUILayout.EndScrollView();</div><div class="line">                 </div><div class="line">            ResizeScrollView();</div><div class="line">            </div><div class="line">            GUILayout.Label(<span class="string">"right part"</span>);</div><div class="line">            GUILayout.EndHorizontal();</div><div class="line">            Repaint();</div><div class="line">        &#125;</div><div class="line">     </div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ResizeScrollView</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            GUI.DrawTexture(cursorChangeRect,EditorGUIUtility.whiteTexture);</div><div class="line">            EditorGUIUtility.AddCursorRect(cursorChangeRect,MouseCursor.ResizeHorizontal);</div><div class="line">         </div><div class="line">            <span class="keyword">if</span>( Event.current.type == EventType.MouseDown &amp;&amp; cursorChangeRect.Contains(Event.current.mousePosition))&#123;</div><div class="line">                resize = <span class="literal">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(resize)&#123;</div><div class="line">                currentScrollViewWidth = Event.current.mousePosition.x;</div><div class="line">                cursorChangeRect.Set(currentScrollViewWidth,cursorChangeRect.y,cursorChangeRect.width,cursorChangeRect.height);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(Event.current.type == EventType.MouseUp)</div><div class="line">                resize = <span class="literal">false</span>;        </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p>这里的GUI仅仅是做了一个表现，最核心的其实是 <code>cursorChangeRect</code> 因为你即使不要这个 GUI 也能在这个 Rect 的位置进行拖动。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GUI.DrawTexture(cursorChangeRect,EditorGUIUtility.whiteTexture);</div></pre></td></tr></table></figure></p>
+<p>在鼠标移动的同时将鼠标当前 x 轴的位置赋前面的一个layout，就会推动后面一个layout. (流式布局)</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;可拖动分割条在 Unity3D 的编辑器结构中一般都属于最外层结构，因为它是基于 GUI 组件，计算位置的时候必须要很精确，所以跟Layout 流式布局混编会比较乱。这里也推荐作为最外层结构使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/uploads/2018427047.png&quot; alt=&quot;可拖动的分割条&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="UNITY3D编辑器" scheme="http://vrast.cn/tags/UNITY3D%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>UNITY性能优化参考篇</title>
@@ -69,6 +102,35 @@
     
     
       <category term="性能优化" scheme="http://vrast.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity new API</title>
+    <link href="http://vrast.cn/posts/76c9e56/"/>
+    <id>http://vrast.cn/posts/76c9e56/</id>
+    <published>2018-02-26T11:17:08.000Z</published>
+    <updated>2018-02-27T07:19:38.124Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>这里记录一些Unity3D的API 以备不时之需。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Application-lowMemory-低内存检测-5-6"><a href="#Application-lowMemory-低内存检测-5-6" class="headerlink" title="Application.lowMemory 低内存检测 5.6+"></a>Application.lowMemory 低内存检测 5.6+</h1><p>当Andorid或者iOS内存过低会调用此函数。用来处理内存释放 <a href="https://docs.unity3d.com/ScriptReference/Application-lowMemory.html" target="_blank" rel="external">官网文档</a><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"></div><div class="line"><span class="keyword">class</span> <span class="title">LowMemoryTrigger</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">    List&lt;Texture2D&gt; _textures;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        _textures = <span class="keyword">new</span> List&lt;Texture2D&gt;();</div><div class="line">        Application.lowMemory += OnLowMemory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// allocate textures until we run out of memory</span></div><div class="line">        _textures.Add(<span class="keyword">new</span> Texture2D(<span class="number">256</span>, <span class="number">256</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnLowMemory</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// release all cached textures</span></div><div class="line">        _textures = <span class="keyword">new</span> List&lt;Texture2D&gt;();</div><div class="line">        Resources.UnloadUnusedAssets();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;这里记录一些Unity3D的API 以备不时之需。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITYAPI" scheme="http://vrast.cn/categories/UNITYAPI/"/>
+    
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
     
   </entry>
   
@@ -877,87 +939,6 @@
     
     
       <category term="PROJECT" scheme="http://vrast.cn/tags/PROJECT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微信二维码支付接入流程</title>
-    <link href="http://vrast.cn/posts/cec4451/"/>
-    <id>http://vrast.cn/posts/cec4451/</id>
-    <published>2017-09-08T09:47:39.000Z</published>
-    <updated>2017-10-13T02:58:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>这阵子天天接SDK，没事出来分享下一些经验 主要是微信支付相关。使用二维码支付能在极短的时间内完成支付流程。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="注册商户平台"><a href="#注册商户平台" class="headerlink" title="注册商户平台"></a>注册商户平台</h1><p> <a href="https://pay.weixin.qq.com/index.php/core/home/login?return_url=%2F" target="_blank" rel="external">🔗 注册链接</a></p>
-<p><img src="/uploads/QQ20171013-105237.png" alt="这里使用商户二维码支付，可以移交给服务器同学了"><br><a href="https://pay.weixin.qq.com/guide/qrcode_payment.shtml" target="_blank" rel="external">服务器文档在这里</a></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>我这边让服务器同学接入了php版本的服务端，转发到c++服务器，这里推荐大家尽量避免tencent的代码改动。通过转发与代理的方式接入服务器是最快的。客户端发送订单请求给服务器，服务器将对应的请求给tencent，返回的一串key可以拼接到tencent给的url中，最后将这串url发送给客户端(需要加密)，客户端再请求微信直接刷出二维码。用户支付完毕，tencent会通知商户，服务器再发送支付成功的消息给客户端。支付流程结束！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;这阵子天天接SDK，没事出来分享下一些经验 主要是微信支付相关。使用二维码支付能在极短的时间内完成支付流程。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="SDK" scheme="http://vrast.cn/categories/SDK/"/>
-    
-    
-      <category term="Tencent" scheme="http://vrast.cn/tags/Tencent/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UniwebView Recompile</title>
-    <link href="http://vrast.cn/posts/bc9c7b23/"/>
-    <id>http://vrast.cn/posts/bc9c7b23/</id>
-    <published>2017-09-06T04:03:22.000Z</published>
-    <updated>2017-09-06T09:40:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>现在项目接入UniwebView同时需要接入其他SDk,所以这里记录一下UniwebView的重编译过程。仅供参考。有点东西想吐槽，这个插件是中国人写的但是文档并不友好。最后呼吁支持正版，花点钱支持一下这个项目。哈哈</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="解决方案如下"><a href="#解决方案如下" class="headerlink" title="解决方案如下"></a>解决方案如下</h2><ol>
-<li>解压 Assets/UniWebView/Source.zip 下脚本，复制到新工程中</li>
-</ol>
-<p><img src="/uploads/QQ20170906-173407.png" alt="创建PluginLibrary"></p>
-<p>因为采用AndroidStudio Labrary打包的方式所以可以直接导出 aar的包，省去了很多麻烦。最终的unity工程直接添加aar进行编译</p>
-<ol>
-<li><p>在Unity工程中的Build.Gradle脚本的<code>dependencies</code>下添加:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">compile</span>(<span class="attribute">name</span>: <span class="string">'uniwebview-release'</span>, <span class="attribute">ext</span>: <span class="string">'aar'</span>)</div></pre></td></tr></table></figure>
-</li>
-<li><p>删除在unity工程的libs下与aar之中重复的jar包。</p>
-</li>
-</ol>
-<h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p><a href="http://uniwebview.onevcat.com/manual" target="_blank" rel="external">Document Link</a></p>
-<ol>
-<li>You need the SDK of Android installed. Please refer to the Android developer site for more information.</li>
-<li>You need Apache Ant installed to compile java from command line. This tool is installed on Mac by default, you can run which ant in terminal to confirm if it is installed. If not, please refer to this post or the ant’s official site for more information to install it.</li>
-<li>Download the UniWebView’s customize compile script package from here and unzip it to a folder (we will call it “compile folder” later). This package is for Unix based system (such as Mac), but you can adapt it for Windows if needed easily.</li>
-<li>And of course, you need the source code of UniWebView Android, which is bundled with this package under the folder /Assets/UniWebView/Source/Android/ after you import it.</li>
-</ol>
-<h2 id="我并没有采用ant构建而是使用Gradle构建Labrary-下面是查看本机ant环境的小技巧"><a href="#我并没有采用ant构建而是使用Gradle构建Labrary-下面是查看本机ant环境的小技巧" class="headerlink" title="我并没有采用ant构建而是使用Gradle构建Labrary 下面是查看本机ant环境的小技巧"></a>我并没有采用ant构建而是使用Gradle构建Labrary 下面是查看本机ant环境的小技巧</h2><p>这里我检查了下本机Ant是否存在<code>which ant</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">keyle</span>@<span class="keyword">keyles</span>-<span class="keyword">MacBook</span>-<span class="keyword">Pro</span>  ~/keylexiao/source/_posts  which ant</div><div class="line">ant not found</div></pre></td></tr></table></figure></p>
-<p>如果像我一样没有ant就用 <a href="http://sdkman.io/" target="_blank" rel="external">SDKMan</a> 安装一下</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">keyle@keyles-MacBook-Pro  ~/keylexiao/source/_posts  sdk install ant</div><div class="line"></div><div class="line">Downloading: ant <span class="number">1.10</span><span class="number">.1</span></div><div class="line"></div><div class="line">In progress...</div><div class="line"></div><div class="line">######################################################################## <span class="number">100.0</span>%</div><div class="line"></div><div class="line">Installing: ant <span class="number">1.10</span><span class="number">.1</span></div><div class="line">Done installing!</div><div class="line"></div><div class="line">Setting ant <span class="number">1.10</span><span class="number">.1</span> <span class="keyword">as</span> default.</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;现在项目接入UniwebView同时需要接入其他SDk,所以这里记录一下UniwebView的重编译过程。仅供参考。有点东西想吐槽，这个插件是中国人写的但是文档并不友好。最后呼吁支持正版，花点钱支持一下这个项目。哈哈&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="SDK" scheme="http://vrast.cn/categories/SDK/"/>
-    
-    
-      <category term="UniwebView" scheme="http://vrast.cn/tags/UniwebView/"/>
     
   </entry>
   
