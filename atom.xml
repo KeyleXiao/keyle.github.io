@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-03-27T01:52:39.284Z</updated>
+  <updated>2018-04-08T06:17:28.733Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>protobuf中使用继承</title>
+    <link href="http://vrast.cn/posts/67edd270/"/>
+    <id>http://vrast.cn/posts/67edd270/</id>
+    <published>2018-04-08T06:06:57.000Z</published>
+    <updated>2018-04-08T06:17:28.733Z</updated>
+    
+    <content type="html"><![CDATA[<p>前两天有一个问题一直困扰我。使用protobuf .net版本的时候序列化类，基类的字段会丢失。随后我问了下朋友无一例外他们都使用的是组合而非继承。我也在反思是否这个做法本身就有问题。我昨天Google的时候发现有人遇到相同的问题，遂在本篇中记录。</p>
+<a id="more"></a>
+<p><a href="https://stackoverflow.com/questions/6109868/protobuf-net-base-class-properties-is-not-included-when-serializing-derived-clas" target="_blank" rel="external">ProtoBuf.net Base class properties is not included when serializing derived class</a> 这个就是我遇到的问题，一摸一样。<br>解决方案如下：如果是子类想要在序列化的时候带上基类的信息请使用【ProtoInclude】，填写上想要包含的类型即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前两天有一个问题一直困扰我。使用protobuf .net版本的时候序列化类，基类的字段会丢失。随后我问了下朋友无一例外他们都使用的是组合而非继承。我也在反思是否这个做法本身就有问题。我昨天Google的时候发现有人遇到相同的问题，遂在本篇中记录。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="protobuf" scheme="http://vrast.cn/tags/protobuf/"/>
+    
+  </entry>
   
   <entry>
     <title>编辑器扩展-分割条</title>
@@ -900,45 +925,6 @@
     
     
       <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>庆祝会英语的宝狄上线</title>
-    <link href="http://vrast.cn/posts/39b36a57/"/>
-    <id>http://vrast.cn/posts/39b36a57/</id>
-    <published>2017-10-13T02:43:08.000Z</published>
-    <updated>2017-10-13T10:17:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>本项目在10.8 360平台首发，求下载 求转发 求关注。</p>
-</blockquote>
-<p><img src="/uploads/8461507863792_.pic_hd.jpg" alt="会英语的宝狄"><br><a href="http://zhushou.360.cn/search/index/?kw=%E4%BC%9A%E8%8B%B1%E8%AF%AD%E7%9A%84%E5%AE%9D%E7%8B%84" target="_blank" rel="external">电脑端下载链接-Link</a></p>
-<a id="more"></a>
-<h2 id="给开发者分享一些经验"><a href="#给开发者分享一些经验" class="headerlink" title="给开发者分享一些经验"></a>给开发者分享一些经验</h2><ol>
-<li>使用 Android Studio 需要提前部署所需平台环境，如果你的网络环境不友好 BUILD TOOLS 不是很好下载就要在网上找代理。推荐购买 VPN 。</li>
-<li>如果使用插件 请单独建 Plugins 工程，注意xml配置的统一。</li>
-<li>使用 aar 而非 jar 包 ,aar 可以包含多个 jar 包与 layout文件。</li>
-<li>发布前检查宏定义。</li>
-<li>检查splash裁切方式。</li>
-<li>使用第三方一定要找到客服的联系方式 最好加上QQ。实在不行用邮件。</li>
-<li>做好充分的测试，使用新账户以用户的流程测试。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本项目在10.8 360平台首发，求下载 求转发 求关注。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/8461507863792_.pic_hd.jpg&quot; alt=&quot;会英语的宝狄&quot;&gt;&lt;br&gt;&lt;a href=&quot;http://zhushou.360.cn/search/index/?kw=%E4%BC%9A%E8%8B%B1%E8%AF%AD%E7%9A%84%E5%AE%9D%E7%8B%84&quot;&gt;电脑端下载链接-Link&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PROJECT" scheme="http://vrast.cn/categories/PROJECT/"/>
-    
-    
-      <category term="PROJECT" scheme="http://vrast.cn/tags/PROJECT/"/>
     
   </entry>
   
