@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-04-23T09:59:24.730Z</updated>
+  <updated>2018-04-24T02:18:20.614Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,22 +16,18 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>LipSync插件调研</title>
+    <title>LipSync插件调研1</title>
     <link href="http://vrast.cn/posts/a08d0c34/"/>
     <id>http://vrast.cn/posts/a08d0c34/</id>
     <published>2018-04-23T02:52:44.000Z</published>
-    <updated>2018-04-23T09:59:24.730Z</updated>
+    <updated>2018-04-24T02:18:20.614Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>本文类比现有UNITY3D的多种LipSync插件功能。本篇并不讲详细使用步骤，只是将若干插件逐一列举，描述其功能。</p>
+<p>这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只是将若干插件逐一列举，描述其功能。</p>
 </blockquote>
 <p>评测的插件列表如下：</p>
 <ol>
 <li>SALSA With RandomEyes</li>
-<li>UniLip - synchronizing</li>
-<li>EasyTalk</li>
-<li>Simple Unity LipSync</li>
-<li>LipSync Pro</li>
 </ol>
 <p>评测的方向：</p>
 <ul>
@@ -73,15 +69,11 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;本文类比现有UNITY3D的多种LipSync插件功能。本篇并不讲详细使用步骤，只是将若干插件逐一列举，描述其功能。&lt;/p&gt;
+&lt;p&gt;这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只是将若干插件逐一列举，描述其功能。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;评测的插件列表如下：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;SALSA With RandomEyes&lt;/li&gt;
-&lt;li&gt;UniLip - synchronizing&lt;/li&gt;
-&lt;li&gt;EasyTalk&lt;/li&gt;
-&lt;li&gt;Simple Unity LipSync&lt;/li&gt;
-&lt;li&gt;LipSync Pro&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;评测的方向：&lt;/p&gt;
 &lt;ul&gt;
