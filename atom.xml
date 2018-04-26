@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-04-24T02:18:20.614Z</updated>
+  <updated>2018-04-25T08:32:33.086Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,29 +16,65 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>LipSync插件调研2</title>
+    <link href="http://vrast.cn/posts/3bc1c7b4/"/>
+    <id>http://vrast.cn/posts/3bc1c7b4/</id>
+    <published>2018-04-24T03:41:33.000Z</published>
+    <updated>2018-04-25T08:32:33.086Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只讨论其功能实现。</p>
+</blockquote>
+<p>本篇评测的工具实现方式都相近,插件列表如下：</p>
+<p><strong>LipSync Pro【U3D】</strong><br><strong>EasyTalk【U3D】</strong><br><del><strong>Lipsync Tool【美术用】</strong></del><br><del><strong>Face and lips</strong></del></p>
+<blockquote>
+<p>备注：Lipsync Tool不参加本次评测的原因有三 1.Demo下载后只有英语语言模型，不提供其他语言下载 2.主要是美术用在maya或3dmax做插件 3.价格巨贵，最便宜5500$.</p>
+</blockquote>
+<p>评测的方向： 1. 嘴型同步   2.面部表情<br>评测角度：   1. 实现方式   2. 可用性<br><a id="more"></a></p>
+<h1 id="一般有语音层的-LipSync-工具结构都相似"><a href="#一般有语音层的-LipSync-工具结构都相似" class="headerlink" title="一般有语音层的 LipSync 工具结构都相似"></a>一般有语音层的 LipSync 工具结构都相似</h1><p><img src="/uploads/QQ20180424.jpeg" alt="LipSync工具在流程上都类似 1.导入转码，转换成便于语音识别层使用的格式 2.识别(需要语言与声学模型支持) 3.特定格式的数据导出 4.根据数据源进行口型融合(口型事先映射好了)"><br><img src="/uploads/QQSample1.png" alt="EasyTalk语音识别工具"><br><img src="/uploads/QQSample2.png" alt="Face and lips不参加本次评测是其非主流应用方式，需要美术通过MikuMikuDance编辑器制作动作等，应用方向请参考【极乐净土】 "><br><img src="/uploads/QQSample3.png" alt="LipSyncPro插件稳定性有待提高：在进行测试的期间此插件在mac上有代码级别的问题。1.4.1版本代码bug 手动修复后WIN7能跑，1.4.2最新版修复了前版本的bug但是在mac上运行仍旧有其他bug导致不能解析音频。【目前mac版本不能解析音频bug正在查】"><br><img src="/uploads/hs_err_pid2167.png" alt="Lipsync Tool不参加本次评测的原因有三 1.Demo下载后只有英语语言模型，不提供其他语言下载 2.主要是美术用在maya或3dmax做插件 3.价格巨贵，最便宜5500$."></p>
+<h2 id="语音识别层介绍"><a href="#语音识别层介绍" class="headerlink" title="语音识别层介绍"></a>语音识别层介绍</h2><h3 id="在LipSyncPro中的CMUSphinx语音识别层"><a href="#在LipSyncPro中的CMUSphinx语音识别层" class="headerlink" title="在LipSyncPro中的CMUSphinx语音识别层"></a>在LipSyncPro中的CMUSphinx语音识别层</h3><p>在介绍实现方式之前我们先深入一下<strong>语音识别层</strong>，原因是此类型插件都使用了语音识别出的数据作为驱动口型的<strong>数据源</strong>。</p>
+<p><strong>CMUSphinx</strong> 是一个开源组件 作为<strong>语音识别层</strong>层的核心 ,下文是简介</p>
+<p>[CMU Sphinx, also called Sphinx in short, is the general term to describe a group of speech recognition systems developed at Carnegie Mellon University. These include a series of speech recognizers (Sphinx 2 - 4) and an acoustic model trainer (SphinxTrain).</p>
+<p>In 2000, the Sphinx group at Carnegie Mellon committed to open source several speech recognizer components, including Sphinx 2 and later Sphinx 3 (in 2001). The speech decoders come with acoustic models and sample applications. The available resources include in addition software for acoustic model training, Language model compilation and a public domain pronunciation dictionary, cmudict.</p>
+<p>Sphinx encompasses a number of software systems, described below.   —来自维基百科](<a href="https://en.wikipedia.org/wiki/CMU_Sphinx" target="_blank" rel="external">https://en.wikipedia.org/wiki/CMU_Sphinx</a>)</p>
+<h3 id="在CMUSphinx之上使用语音训练创建语言模型"><a href="#在CMUSphinx之上使用语音训练创建语言模型" class="headerlink" title="在CMUSphinx之上使用语音训练创建语言模型"></a>在CMUSphinx之上使用语音训练创建语言模型</h3><blockquote>
+<p><strong>CMUSphinx</strong> 使用的语言库是可以自己训练的 <a href="https://cmusphinx.github.io/wiki/tutoriallm/" target="_blank" rel="external">Building a language model</a>。工程量比较大，如果没有做好充足准备(资源)不建议自己训练语言库。我们自己训练的库是需要优化的，不是做完就能用，良好的语音模型拥有更高的识别率，在高识别率的前提下我们最终得到的口型会更加准确。下面例举了一些做语言训练需要的资源</p>
+</blockquote>
+<p><strong>1.真人进行训练</strong><br>训练之前，假设你有充足的数据：</p>
+<p>用于单个人的指令应用，至少需要一小时录音，<br>用于很多人指令应用，需要200个录音人，每人5小时<br>用于单个人的听写，需要10小时他的录音<br>用于多个人的听写，需要200个说话人，每人50小时的录音<br>同时你要有这门语言的语音学知识，以及你有足够的比如一个月的时间，来训练模型</p>
+<p><strong>2.使用机器学习</strong><br>1.您必须为指定的语言收集音频材料。实际上这不是这么复杂的事情。有声书本、电影和播客提供足够的录音构建良好的声学模型。<br>2.语音学习需要您构建一个框架,用于跟踪错误的发音。包括代不正确的发音和得分。这里可以使用 cmusphinx 的机器学习。</p>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p><a href="https://en.wikipedia.org/wiki/CMU_Sphinx" target="_blank" rel="external">🔗 CMUSphinx介绍</a><br><a href="http://sox.sourceforge.net" target="_blank" rel="external">🔗 SOX音频处理库</a><br><a href="https://cmusphinx.github.io/wiki/tutoriallm/" target="_blank" rel="external">🔗 Building a language model</a><br><a href="https://www.cnblogs.com/lijieqiong/p/4817373.html" target="_blank" rel="external">🔗【sphinx】中文声学模型训练</a><br><a href="https://blog.csdn.net/zouxy09/article/details/7941585" target="_blank" rel="external">🔗 语音识别的基础知识与CMUsphinx介绍</a><br><a href="http://www.annosoft.com/prices" target="_blank" rel="external">🔗 Lipsync Tool官网 annosoft价格表</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只讨论其功能实现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本篇评测的工具实现方式都相近,插件列表如下：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;LipSync Pro【U3D】&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;EasyTalk【U3D】&lt;/strong&gt;&lt;br&gt;&lt;del&gt;&lt;strong&gt;Lipsync Tool【美术用】&lt;/strong&gt;&lt;/del&gt;&lt;br&gt;&lt;del&gt;&lt;strong&gt;Face and lips&lt;/strong&gt;&lt;/del&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;备注：Lipsync Tool不参加本次评测的原因有三 1.Demo下载后只有英语语言模型，不提供其他语言下载 2.主要是美术用在maya或3dmax做插件 3.价格巨贵，最便宜5500$.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;评测的方向： 1. 嘴型同步   2.面部表情&lt;br&gt;评测角度：   1. 实现方式   2. 可用性&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>LipSync插件调研1</title>
     <link href="http://vrast.cn/posts/a08d0c34/"/>
     <id>http://vrast.cn/posts/a08d0c34/</id>
     <published>2018-04-23T02:52:44.000Z</published>
-    <updated>2018-04-24T02:18:20.614Z</updated>
+    <updated>2018-04-24T03:42:47.155Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只是将若干插件逐一列举，描述其功能。</p>
+<p>这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只讨论其功能实现。</p>
 </blockquote>
-<p>评测的插件列表如下：</p>
-<ol>
-<li>SALSA With RandomEyes</li>
-</ol>
-<p>评测的方向：</p>
-<ul>
-<li>嘴型同步</li>
-<li>面部表情</li>
-</ul>
-<p>评测角度：</p>
-<ol>
-<li>实现方式</li>
-<li>可用性</li>
-</ol>
+<p>本篇评测的插件列表如下：<br><strong> SALSA With RandomEyes </strong> </p>
+<p>评测的方向： 1. 嘴型同步   2.面部表情<br>评测角度：   1. 实现方式   2. 可用性</p>
 <a id="more"></a>
 <h1 id="SALSA-With-RandomEyes"><a href="#SALSA-With-RandomEyes" class="headerlink" title="SALSA With RandomEyes"></a>SALSA With RandomEyes</h1><p>插件包含 SALSA与RandomEyes 两部分。这里与后文并不关注RandomEyes相关话题。</p>
 <h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="美术：使用-blend-shape-制作-三口型"><a href="#美术：使用-blend-shape-制作-三口型" class="headerlink" title="美术：使用 blend shape 制作 三口型"></a>美术：使用 blend shape 制作 三口型</h3><p>在分析了插件包内的 boxHead.fbx 文件之后看到了如下层级结构：</p>
@@ -69,22 +105,10 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只是将若干插件逐一列举，描述其功能。&lt;/p&gt;
+&lt;p&gt;这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只讨论其功能实现。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;评测的插件列表如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;SALSA With RandomEyes&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;评测的方向：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;嘴型同步&lt;/li&gt;
-&lt;li&gt;面部表情&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;评测角度：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;实现方式&lt;/li&gt;
-&lt;li&gt;可用性&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;本篇评测的插件列表如下：&lt;br&gt;&lt;strong&gt; SALSA With RandomEyes &lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;评测的方向： 1. 嘴型同步   2.面部表情&lt;br&gt;评测角度：   1. 实现方式   2. 可用性&lt;/p&gt;
     
     </summary>
     
@@ -892,55 +916,6 @@
 &lt;li&gt;Use sub-meshes. 使用子网格&lt;/li&gt;
 &lt;li&gt;Create a custom shader. 使用自定义shader&lt;/li&gt;
 &lt;li&gt;Combine primitive colliders. 合并原始网格&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="翻译" scheme="http://vrast.cn/categories/%E7%BF%BB%E8%AF%91/"/>
-    
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rounded Cube 2</title>
-    <link href="http://vrast.cn/posts/ef6c9166/"/>
-    <id>http://vrast.cn/posts/ef6c9166/</id>
-    <published>2017-11-24T09:35:24.000Z</published>
-    <updated>2017-11-25T14:56:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>接上回 Rounded Cube 1.本章主题如下:</p>
-<ul>
-<li>Define normals. 定义法线</li>
-</ul>
-<p>此为本人阅读笔记不作为转载处理,详细还请参看原文. <a href="http://catlikecoding.com/unity/tutorials/" target="_blank" rel="external">原文地址</a><br><a id="more"></a></p>
-<h1 id="Rounding-the-Cube-圆形方块"><a href="#Rounding-the-Cube-圆形方块" class="headerlink" title="Rounding the Cube 圆形方块"></a>Rounding the Cube 圆形方块</h1><p>先设置一个<code>roundness</code>参数(数值)，并且添加法线字段。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Vector3[] normals;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    …</div><div class="line">    vertices = <span class="keyword">new</span> Vector3[cornerVertices + edgeVertices + faceVertices];</div><div class="line">    normals = <span class="keyword">new</span> Vector3[vertices.Length];</div><div class="line"></div><div class="line">    …</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们添加如下方法来计算对于每个顶点的法线<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateVertices</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		…</div><div class="line">    <span class="keyword">int</span> v = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt;= ySize; y++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, y, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt;= zSize; z++) &#123;</div><div class="line">            SetVertex(v++, xSize, y, z);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = xSize - <span class="number">1</span>; x &gt;= <span class="number">0</span>; x--) &#123;</div><div class="line">            SetVertex(v++, x, y, zSize);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> z = zSize - <span class="number">1</span>; z &gt; <span class="number">0</span>; z--) &#123;</div><div class="line">            SetVertex(v++, <span class="number">0</span>, y, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, ySize, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = <span class="number">1</span>; z &lt; zSize; z++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; xSize; x++) &#123;</div><div class="line">            SetVertex(v++, x, <span class="number">0</span>, z);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mesh.vertices = vertices;</div><div class="line">    mesh.normals = normals;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>嗯。然后我们如何定位顶点呢？想象一下一个小一点的cube在原cube内部。这两cube之间的距离等于圆滑程度(值)。你可以想象圆粘在小立方体的角落上，它的半径就等于平滑值，所以内部的cube牢牢的抓住(外部的cube).</p>
-<p>对于外部立方体上的任何点，在内部立方体中都有一个最靠近它的点.我们可以用这个来确定圆形cube的法线向量。</p>
-<p><img src="/uploads/04-inner-cube.png" alt="想象另外一个立方体在里面"></p>
-<p>圆形cube表面的点可以被起始于内部并且沿着法线方向移动的量等于圆滑值的点所达到。 –我的理解<br>圆形立方体的表面点可以从内点开始，沿着法线方向移动，其量等于圆度. – 百度翻译<br>The surface points of the rounded cube can then be found by starting at the inner point and moving along the normal by an amount equal to the roundness. – 原文</p>
-<p>下面是参考代码，并未计算出内部的点<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    Vector3 inner = vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line"></div><div class="line">    normals[i] = (vertices[i] - inner).normalized;</div><div class="line">    vertices[i] = inner + normals[i] * roundness;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>现在找到内部的点，开始检查x轴的坐标。如果小于圆滑值就在内部cube的左侧并且在内部x坐标就是简单的圆滑值。如果我们超出了立方体的x大小减去圆滑值，那么我们就在右边。在所有其他情况下，我们在内cube，点共享相同的x坐标范围</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetVertex</span> (<span class="params"><span class="keyword">int</span> i, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z</span>) </span>&#123;</div><div class="line">    Vector3 inner = vertices[i] = <span class="keyword">new</span> Vector3(x, y, z);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (x &lt; roundness) &#123;</div><div class="line">        inner.x = roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">x &gt; xSize - roundness</span>) </span>&#123;</div><div class="line">        inner.x = xSize - roundness;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    normals[i] = (vertices[i] - inner).normalized;</div><div class="line">    vertices[i] = inner + normals[i] * roundness;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/uploads/04-rounded-x.png" alt="一维四舍五入相当平滑"></p>
-<p>到目前为止，结果看起来并不圆润，但我们已经在正负X方向上获得了正常值。 对Y坐标进行同样的检查。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (x &lt; roundness) &#123;</div><div class="line">        inner.x = roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">x &gt; xSize - roundness</span>) </span>&#123;</div><div class="line">        inner.x = xSize - roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (y &lt; roundness) &#123;</div><div class="line">        inner.y = roundness;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">y &gt; ySize - roundness</span>) </span>&#123;</div><div class="line">        inner.y = ySize - roundness;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><img src="/uploads/04-rounded-xy.png" alt="在两个纬度上处理圆滑"></p>
-<p>现在看起来好点了！ 圆角和法线在XY平面上工作。 剩下的就是检查Z坐标。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (x &lt; roundness) &#123;</div><div class="line">    inner.x = roundness;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">x &gt; xSize - roundness</span>) </span>&#123;</div><div class="line">    inner.x = xSize - roundness;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (y &lt; roundness) &#123;</div><div class="line">    inner.y = roundness;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">y &gt; ySize - roundness</span>) </span>&#123;</div><div class="line">    inner.y = ySize - roundness;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (z &lt; roundness) &#123;</div><div class="line">    inner.z = roundness;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">else</span> <span class="title">if</span> (<span class="params">z &gt; zSize - roundness</span>) </span>&#123;</div><div class="line">    inner.z = zSize - roundness;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/uploads/04-rounded-xyz.png" alt="完全圆滑"></p>
-<p>我们终于有了一个完全圆润的立方体。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;接上回 Rounded Cube 1.本章主题如下:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Define normals. 定义法线&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;此为本人阅读笔记不作为转载处理,详细还请参看原文. &lt;a href=&quot;http://catlikecoding.com/unity/tutorials/&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;
     
