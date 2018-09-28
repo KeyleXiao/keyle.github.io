@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-09-19T08:07:26.571Z</updated>
+  <updated>2018-09-20T07:20:39.128Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,476 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Math Symbols in Markdown</title>
+    <link href="http://vrast.cn/posts/183fa821/"/>
+    <id>http://vrast.cn/posts/183fa821/</id>
+    <published>2018-09-20T06:29:47.000Z</published>
+    <updated>2018-09-20T07:20:39.128Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前输入数学公式的一直用截图 自觉用户体验很差，最近发现用的这个主题带了好用的数学函数辅助，便一发不可收拾。顺便推荐一下我用的主题是<a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="external">maupassant-hexo github</a> ,这里记录一下数学符的用法。</p>
+<a id="more"></a>
+<h1 id="maupassant-hexo的数学函数开启方式"><a href="#maupassant-hexo的数学函数开启方式" class="headerlink" title="maupassant-hexo的数学函数开启方式"></a>maupassant-hexo的数学函数开启方式</h1><p>其他的主题可能方式不一样 具体需要对照文档</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Math Equation</div><div class="line"></div><div class="line">Add</div><div class="line"></div><div class="line">mathjax: true</div><div class="line">in Hexo's _config.yml.</div><div class="line"></div><div class="line">In the post which you would like to use math equation, add mathjax: true in the front-matter. For example:</div><div class="line"></div><div class="line">title: Test Math</div><div class="line">date: 2016-04-05 14:16:00</div><div class="line">categories: math</div><div class="line">mathjax: true</div><div class="line">---</div><div class="line">The default math delimiters are $$...$$ and \\[...\\] for displayed mathematics, and $...$ and \\(...\\) for in-line mathematics.</div><div class="line"></div><div class="line">However, if your post contains dollar signs ($), and they appear often in non-mathematical parts, in other words, you want to use $ as dollar sign not inline math delimiter, please add</div><div class="line"></div><div class="line">mathjax2: true</div><div class="line">in Hexo's _config.yml instead of mathjax: true. Correspondingly, add mathjax2: true to the front-matter of the post in which you would like to use math equation.</div><div class="line"></div><div class="line">See the example.</div></pre></td></tr></table></figure>
+<p><img src="/uploads/QQ20180920-143741.png" alt="添加标签则可用"></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$</div><div class="line">    \\beta</div><div class="line">    \\alpha</div><div class="line">$</div></pre></td></tr></table></figure>
+<p>效果如下：<br>$<br>    \beta<br>    \alpha<br>$ </p>
+<p>或者这样以居中显示：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\\[\\beta \\alpha\\]</div></pre></td></tr></table></figure></p>
+<p>\[\beta \alpha\]</p>
+<h1 id="数学符"><a href="#数学符" class="headerlink" title="数学符"></a>数学符</h1><p>上面演示的 $\beta$ 之类的数学符号列表如下：</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\cos$</td>
+<td>\cos</td>
+</tr>
+<tr>
+<td>$\sin$</td>
+<td>\sin</td>
+</tr>
+<tr>
+<td>$\lim$</td>
+<td>\lim</td>
+</tr>
+<tr>
+<td>$\exp$</td>
+<td>\exp</td>
+</tr>
+<tr>
+<td>$\to$</td>
+<td>\to</td>
+</tr>
+<tr>
+<td>$\infty$</td>
+<td>\infty</td>
+</tr>
+<tr>
+<td>$\equiv$</td>
+<td>\equiv</td>
+</tr>
+<tr>
+<td>$\bmod$</td>
+<td>\bmod</td>
+</tr>
+<tr>
+<td>$\times$</td>
+<td>\times</td>
+</tr>
+</tbody>
+</table>
+<h2 id="幂与指数"><a href="#幂与指数" class="headerlink" title="幂与指数"></a>幂与指数</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$k_{n+1}$</td>
+<td>k_{n+1}</td>
+</tr>
+<tr>
+<td>$n^2$</td>
+<td>n^2</td>
+</tr>
+<tr>
+<td>$k_n^2$</td>
+<td>k_n^2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分数与二项式"><a href="#分数与二项式" class="headerlink" title="分数与二项式"></a>分数与二项式</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\frac{n!}{k!(n-k)!}$</td>
+<td>\frac{n!}{k!(n-k)!}</td>
+</tr>
+<tr>
+<td>$\binom{n}{k}$</td>
+<td>\binom{n}{k}</td>
+</tr>
+<tr>
+<td>$\frac{\frac{x}{1}}{x - y}$</td>
+<td>\frac{\frac{x}{1}}{x - y}</td>
+</tr>
+<tr>
+<td>$^3/_7$</td>
+<td>^3/_7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="根"><a href="#根" class="headerlink" title="根"></a>根</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sqrt{k}$</td>
+<td>\sqrt{k}</td>
+</tr>
+<tr>
+<td>$\sqrt[n]{k}$</td>
+<td>\sqrt[n]{k}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="运算必须符"><a href="#运算必须符" class="headerlink" title="运算必须符"></a>运算必须符</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sum_{i=1}^{10} t_i$</td>
+<td>\sum_{i=1}^{10} t_i</td>
+</tr>
+<tr>
+<td>$\int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x$</td>
+<td>\int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x</td>
+</tr>
+<tr>
+<td>$\sum$</td>
+<td>\sum</td>
+</tr>
+<tr>
+<td>$\prod$</td>
+<td>\prod</td>
+</tr>
+<tr>
+<td>$\coprod$</td>
+<td>\coprod</td>
+</tr>
+<tr>
+<td>$\bigoplus$</td>
+<td>\bigoplus</td>
+</tr>
+<tr>
+<td>$\bigotimes$</td>
+<td>\bigotimes</td>
+</tr>
+<tr>
+<td>$\bigodot$</td>
+<td>\bigodot</td>
+</tr>
+<tr>
+<td>$\bigcup$</td>
+<td>\bigcup</td>
+</tr>
+<tr>
+<td>$\bigcap$</td>
+<td>\bigcap</td>
+</tr>
+<tr>
+<td>$\biguplus$</td>
+<td>\biguplus</td>
+</tr>
+<tr>
+<td>$\bigsqcup$</td>
+<td>\bigsqcup</td>
+</tr>
+<tr>
+<td>$\bigvee$</td>
+<td>\bigvee</td>
+</tr>
+<tr>
+<td>$\bigwedge$</td>
+<td>\bigwedge</td>
+</tr>
+<tr>
+<td>$\int$</td>
+<td>\int</td>
+</tr>
+<tr>
+<td>$\oint$</td>
+<td>\oint</td>
+</tr>
+<tr>
+<td>$\iint$</td>
+<td>\iint</td>
+</tr>
+<tr>
+<td>$\iiint$</td>
+<td>\iiint</td>
+</tr>
+<tr>
+<td>$\idotsint$</td>
+<td>\idotsint</td>
+</tr>
+<tr>
+<td>$\sum_{\substack{0&lt;i&lt;m\0&lt;j&lt;n}} P(i, j)$</td>
+<td>\sum_{\substack{0&lt;i&lt;m\0&lt;j&lt;n}} P(i, j)</td>
+</tr>
+<tr>
+<td>$\int\limits_a^b$</td>
+<td>\int\limits_a^b</td>
+</tr>
+<tr>
+<td>$a’$ $a^{\prime}$</td>
+<td>a` a^{\prime}</td>
+</tr>
+<tr>
+<td>$a’’$</td>
+<td>a’’</td>
+</tr>
+<tr>
+<td>$\hat{a}$</td>
+<td>hat{a}</td>
+</tr>
+<tr>
+<td>$\bar{a}$</td>
+<td>\bar{a}</td>
+</tr>
+<tr>
+<td>$\grave{a}$</td>
+<td>\grave{a}</td>
+</tr>
+<tr>
+<td>$\acute{a}$</td>
+<td>\acute{a}</td>
+</tr>
+<tr>
+<td>$\dot{a}$</td>
+<td>\dot{a}</td>
+</tr>
+<tr>
+<td>$\ddot{a}$</td>
+<td>\ddot{a}</td>
+</tr>
+<tr>
+<td>$\not{a}$</td>
+<td>\not{a}</td>
+</tr>
+<tr>
+<td>$\mathring{a}$</td>
+<td>\mathring{a}</td>
+</tr>
+<tr>
+<td>$\overrightarrow{AB}$</td>
+<td>\overrightarrow{AB}</td>
+</tr>
+<tr>
+<td>$\overleftarrow{AB}$</td>
+<td>\overleftarrow{AB}</td>
+</tr>
+<tr>
+<td>$a’’’$</td>
+<td>a’’’</td>
+</tr>
+<tr>
+<td>$\overline{aaa}$</td>
+<td>\overline{aaa}</td>
+</tr>
+<tr>
+<td>$\check{a}$</td>
+<td>\check{a}</td>
+</tr>
+<tr>
+<td>$\vec{a}$</td>
+<td>\vec{a}</td>
+</tr>
+<tr>
+<td>$\underline{a}$</td>
+<td>\underline{a}</td>
+</tr>
+<tr>
+<td>$\color{red}x$</td>
+<td>\color{red}x</td>
+</tr>
+<tr>
+<td>$\pm$</td>
+<td>\pm</td>
+</tr>
+<tr>
+<td>$\mp$</td>
+<td>\mp</td>
+</tr>
+<tr>
+<td>$\int y \mathrm{d}x$</td>
+<td>\int y \mathrm{d}x</td>
+</tr>
+<tr>
+<td>$\,$</td>
+<td>\,</td>
+</tr>
+<tr>
+<td>$\:$</td>
+<td>\:</td>
+</tr>
+<tr>
+<td>$\;$</td>
+<td>\;</td>
+</tr>
+<tr>
+<td>$!$</td>
+<td>!</td>
+</tr>
+<tr>
+<td>$\int y\, \mathrm{d}x$</td>
+<td>\int y\, \mathrm{d}x</td>
+</tr>
+<tr>
+<td>$\dots$</td>
+<td>\dots</td>
+</tr>
+<tr>
+<td>$\ldots$</td>
+<td>\ldots</td>
+</tr>
+<tr>
+<td>$\cdots$</td>
+<td>\cdots</td>
+</tr>
+<tr>
+<td>$\vdots$</td>
+<td>\vdots</td>
+</tr>
+<tr>
+<td>$\ddots$</td>
+<td>\ddots</td>
+</tr>
+</tbody>
+</table>
+<h2 id="括弧"><a href="#括弧" class="headerlink" title="括弧"></a>括弧</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$(a) $</td>
+<td>(a)</td>
+</tr>
+<tr>
+<td>$[a]  $</td>
+<td>[a]</td>
+</tr>
+<tr>
+<td>$a  $</td>
+<td>{a}</td>
+</tr>
+<tr>
+<td>$\langle f \rangle  $</td>
+<td>\langle f \rangle</td>
+</tr>
+<tr>
+<td>$\lfloor f \rfloor $</td>
+<td>\lfloor f \rfloor</td>
+</tr>
+<tr>
+<td>$\lceil f \rceil$</td>
+<td>\lceil f \rceil</td>
+</tr>
+<tr>
+<td>$\ulcorner f \urcorner$</td>
+<td>\ulcorner f \urcorner</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://csrgxtu.github.io/2015/03/20/Writing-Mathematic-Fomulars-in-Markdown/" target="_blank" rel="external">🔗 Writing Mathematic Fomulars in Markdown – Archer Reilly</a></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=fcrespo82.markdown-table-formatter#overview" target="_blank" rel="external">🔗 Markdown Table Formatter</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前输入数学公式的一直用截图 自觉用户体验很差，最近发现用的这个主题带了好用的数学函数辅助，便一发不可收拾。顺便推荐一下我用的主题是&lt;a href=&quot;https://github.com/tufu9441/maupassant-hexo&quot;&gt;maupassant-hexo github&lt;/a&gt; ,这里记录一下数学符的用法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Markdown" scheme="http://vrast.cn/categories/Markdown/"/>
+    
+    
+      <category term="Math" scheme="http://vrast.cn/tags/Math/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UNITY3D Playables API实践(下)</title>
+    <link href="http://vrast.cn/posts/323c9fde/"/>
+    <id>http://vrast.cn/posts/323c9fde/</id>
+    <published>2018-09-19T09:33:28.000Z</published>
+    <updated>2018-09-27T13:28:36.400Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>上篇给大家介绍了 “Playables API” 的使用方法与背后的意义，本篇将会进一步带大家深入其中。 本篇重点还是会放到  “Playables API” 上，不会对 <strong>Timeline</strong> 进行集中讲解，但是搞明白了 “Playables API” 也就意味着理解了 <strong>Timeline</strong> 最复杂的部分，到时候学起来也会非常的快。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="快速回顾"><a href="#快速回顾" class="headerlink" title="快速回顾"></a>快速回顾</h1><p>在本篇开始前我们先快速的回顾一下上篇的内容：</p>
+<ol>
+<li><p>“Playables API” 的意义 ？<br>答：替换Legacy动画系统，并兼容Timeline 。</p>
+</li>
+<li><p>如何创建 “Playables 树 ？</p>
+</li>
+</ol>
+<p>答：五行代码就可以快速创建！</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">playableGraph = PlayableGraph.Create(<span class="string">"test graph"</span>);</div><div class="line"><span class="keyword">var</span> playableOutput = AnimationPlayableOutput.Create(playableGraph, <span class="string">"test Animation"</span>,_animator = GetComponent&lt;Animator&gt;());</div><div class="line"></div><div class="line"><span class="keyword">var</span> clipPlayable = AnimationClipPlayable.Create(playableGraph, clip);</div><div class="line">playableOutput.SetSourcePlayable(clipPlayable);</div><div class="line"></div><div class="line">playableGraph.Play();</div></pre></td></tr></table></figure>
+<ol>
+<li>没有图形化界面时我们该如何记忆节点链接方式 ？<br>答：右输入(数量) 左输出(数量)，根节点有左边口，普通节点两边有 。</li>
+</ol>
+<h1 id="正文：更复杂的API运用方式"><a href="#正文：更复杂的API运用方式" class="headerlink" title="正文：更复杂的API运用方式"></a>正文：更复杂的API运用方式</h1><h2 id="使用-Animation-Layer"><a href="#使用-Animation-Layer" class="headerlink" title="使用 Animation Layer"></a>使用 Animation Layer</h2><p>上一篇我们提到使用 XXXMixerPlayable 可以用来融合多个动画/音频等。那么想在一个角色的身上同时播两个或多个互不干扰的动画该如何处理呢？ </p>
+<p>想必大家都想到了，没错，就是使用 Animation Layer (动画层) 的技术。在 Animator 中常使用 Avatar Mask 来设置不同部位的遮罩，让其他部分的动画各司其职。</p>
+<p>现在我们来看一看 Animation Layer 技术如何在 “Playerable API” 中使用吧。</p>
+<p><img src="/uploads/bodylowermask.png" alt="第一步先制作遮罩，关闭身体上半的动画控制"></p>
+<p>代码案例如下，您可以看见这里与上一篇我们讲到的 <strong>AnimationMixerPlayable</strong> 是不是保持了高度一致 ？ 这可不是架构的功劳，而是得益于代码风格的统一。无论是在 <strong>AnimationMixerPlayable</strong> 或 <strong>AnimationLayerMixerPlayable</strong> 其中都有统一的静态函数 <code>Create</code> ,良好的代码风格能让阅读者轻松掌握代码规律，从而减少阅读时间 。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> AnimationClip clip1;</div><div class="line"><span class="keyword">public</span> AnimationClip clip2;</div><div class="line"><span class="keyword">private</span> Animator _animator;</div><div class="line"><span class="keyword">private</span> AnimationLayerMixerPlayable mixerPlayable;</div><div class="line"><span class="keyword">public</span>  <span class="keyword">float</span> weight = <span class="number">.5</span>f;</div><div class="line"></div><div class="line"><span class="keyword">public</span> AvatarMask LowerMask;</div><div class="line"></div><div class="line"><span class="keyword">public</span> PlayableGraph playableGraph;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    playableGraph = PlayableGraph.Create(<span class="string">"test graph"</span>);</div><div class="line">    <span class="keyword">var</span> playableOutput = AnimationPlayableOutput.Create(playableGraph, <span class="string">"test Animation"</span>,_animator = GetComponent&lt;Animator&gt;());</div><div class="line"></div><div class="line">    mixerPlayable = AnimationLayerMixerPlayable.Create(playableGraph, <span class="number">2</span>);</div><div class="line">    mixerPlayable.SetLayerMaskFromAvatarMask(<span class="number">1</span>,LowerMask);<span class="comment">//设置遮罩到1层</span></div><div class="line">    </div><div class="line">    playableOutput.SetSourcePlayable(mixerPlayable);</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip1);</div><div class="line">    <span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line">    </div><div class="line">    mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>,<span class="number">1</span>);<span class="comment">//设置权重1</span></div><div class="line">    mixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable2,<span class="number">0</span>,<span class="number">1</span>);<span class="comment">//设置权重1</span></div><div class="line">    </div><div class="line">    playableGraph.Play();</div><div class="line">    </div><div class="line">    GraphVisualizerClient.Show(playableGraph);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>请注意上面有一些不同与之前的看到的 <strong>AnimationMixerPlayable</strong> ，这里连接的两个动画权重均为1.为什么不是 0.5 与 0.5 ?<br>因为现在是同时播放不同于融合。融合需要两种动画过渡权重，而分层则是将模型分为两个区间，0区间播放Clip1，1区间播放Clip2，这是完全同步又独立的。</p>
+<p><img src="/uploads/QQ20180927-105649-HD.gif" alt="效果图：上身播放跳跃，下身播放跑动"></p>
+<h2 id="动态添加动画"><a href="#动态添加动画" class="headerlink" title="动态添加动画"></a>动态添加动画</h2><p>之前我们使用<strong>Animator</strong>的时候需要将所有使用到的动画都加入其中。现在我们使用 <strong>ConnectInput &amp; DisconnectInput</strong> API 就能轻易的切换动画。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (Input.GetKeyUp(KeyCode.A))</div><div class="line">    &#123;</div><div class="line">        mixerPlayable.DisconnectInput(<span class="number">0</span>);</div><div class="line">        <span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip3);</div><div class="line">        mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/uploads/QQ20180927-120130-HD.gif" alt="效果图：上身切换到胜利动画，下身播放跑动"></p>
+<h3 id="动态切换的优化"><a href="#动态切换的优化" class="headerlink" title="动态切换的优化"></a>动态切换的优化</h3><p>刚才我们实现了动态的切换动画。效果是达到了，可是动画是硬过渡。如果现在只有<code>Connect  &amp; Disconnect</code>接口那么API真的无法帮我们达到动画的融合过渡！<br>现在我们现在来优化一下这段动画硬切的过程，使其达到融合过渡的效果(淡入淡出)。</p>
+<h4 id="方式一-使用AnimationMixerPlayable-API"><a href="#方式一-使用AnimationMixerPlayable-API" class="headerlink" title="方式一 使用AnimationMixerPlayable API"></a>方式一 使用AnimationMixerPlayable API</h4><p>使用动画融合节点控制权重实现动画融合，使用这种方式需要实现一个自定义Playable，以list作为容器才能实现复用，否则就是hardcode了 。下面代码展示了最简方式使用融合节点。<br><img src="/uploads/QQ20180927-163146-HD.gif" alt="效果图：上身融合跳跃与胜利动画"></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mixerPlayable = AnimationMixerPlayable.Create(layerMixerPlayable.GetGraph(),<span class="number">2</span>);</div><div class="line"><span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip1);</div><div class="line"><span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line"><span class="keyword">var</span> clipPlayable3 = AnimationClipPlayable.Create(playableGraph, clip3);</div><div class="line"></div><div class="line">mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">mixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable3,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line"></div><div class="line">layerMixerPlayable.ConnectInput(<span class="number">0</span>,mixerPlayable,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">layerMixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable2,<span class="number">0</span>,<span class="number">1</span>);</div></pre></td></tr></table></figure>
+<h4 id="方式二-使用Animator"><a href="#方式二-使用Animator" class="headerlink" title="方式二 使用Animator"></a>方式二 使用Animator</h4><p><img src="/uploads/QQ20180927-170717.png" alt="效果图：创建融合状态机"><br>同样的我们使用融合状态机实现这个过渡效果。这种方式(Animator+PlayableAPI))让策划或者美术配置也是一种不错的选择。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">animatorController = AnimatorControllerPlayable.Create(layerMixerPlayable.GetGraph(), animationController);</div><div class="line"></div><div class="line"><span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line"></div><div class="line">layerMixerPlayable.ConnectInput(<span class="number">0</span>,animatorController,<span class="number">0</span>,<span class="number">1</span>);</div></pre></td></tr></table></figure>
+<p><img src="/uploads/QQ20180927-170915-HD.gif" alt="效果图：上身融合跳跃与胜利动画"></p>
+<h4 id="方式三-纯Playable-API"><a href="#方式三-纯Playable-API" class="headerlink" title="方式三 纯Playable API"></a>方式三 纯Playable API</h4><p>下面我们要介绍的这种过渡模式是纯代码实现，类似与lengcy api里的Animation CrossFade. 原理就是利用<code>Connect  &amp; Disconnect</code> 动态开关节点实现过渡，完毕后重新连接回来。具体实现方式可参考 <strong>方式一</strong></p>
+<h2 id="使用Bone-IK"><a href="#使用Bone-IK" class="headerlink" title="使用Bone IK"></a>使用Bone IK</h2><p><del> 现在我们再来看看更高级的用法 骨骼IK动画。如果我们需要做一些更逼真的效果IK技术是少不了的。为了方便展示 我们在这边Clone一下代码。</del></p>
+<p>在我写本篇的时候我发现官方在 2018.8.29日 发过关于Playable API 调用IK动画的范例，这里就再重复的赘述。下面是原文链接 <a href="http://forum.china.unity3d.com/thread-32814-1-1.html" target="_blank" rel="external">🔗 [技术] 详解Animation C# Jobs</a></p>
+<p>您可以直接克隆下面的代码范例中检验效果。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Clone https:<span class="comment">//github.com/KeyleXiao/animation-jobs-samples.git</span></div></pre></td></tr></table></figure>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>总体而言Playable API提供了更低层的操作方式，对于使用者的要求更高。如果您现在想要在项目中实践建议先不要用高级特性(ik部分)，因为这部分的功能目前还是实验性功能，API的相关文档并不完善。使用动画的控制API进行 Lengcy Animation的替换工作还是很有意义，不仅在与效率，与Timeline结合使用更能发挥出事半功倍的效果。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;上篇给大家介绍了 “Playables API” 的使用方法与背后的意义，本篇将会进一步带大家深入其中。 本篇重点还是会放到  “Playables API” 上，不会对 &lt;strong&gt;Timeline&lt;/strong&gt; 进行集中讲解，但是搞明白了 “Playables API” 也就意味着理解了 &lt;strong&gt;Timeline&lt;/strong&gt; 最复杂的部分，到时候学起来也会非常的快。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="ANIMATION" scheme="http://vrast.cn/tags/ANIMATION/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GPUSkinning</title>
     <link href="http://vrast.cn/posts/fa938638/"/>
     <id>http://vrast.cn/posts/fa938638/</id>
     <published>2018-09-17T08:04:05.000Z</published>
-    <updated>2018-09-19T08:07:26.571Z</updated>
+    <updated>2018-09-21T07:32:22.331Z</updated>
     
     <content type="html"><![CDATA[<p>GPUSkinning 教程大纲(UNITY3D)<br>节一. 原理</p>
 <ol>
@@ -39,7 +504,9 @@
 <a id="more"></a>
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="动画：骨骼动画的运作方式"><a href="#动画：骨骼动画的运作方式" class="headerlink" title="动画：骨骼动画的运作方式"></a>动画：骨骼动画的运作方式</h2><p>让们从轻松一点的内容开始本篇教程吧。</p>
 <p>　　在的游戏中，骨骼动画的基础是关键帧技术，们先重温一下关键帧技术。</p>
-<p>比较有代表性的是<strong>帧动画</strong>：们将一段较长的动作分解成几个关键帧，然后基于此进行动画的制作。即使现在们使用的工具更新换代，制作动画的思路还是大致如此，拆分与过渡。所有的工具都是帮们自动完善其中的细节。<br>　　<video controls="controls" width="580"><br>  <source src="http://oxjpewuqo.bkt.clouddn.com/Pose2Pose.mp4" type="video/mp4"><br>    Your browser does not support the video tag.<br>  </video>  </p>
+<p>比较有代表性的是<strong>帧动画</strong>：们将一段较长的动作分解成几个关键帧，然后基于此进行动画的制作。即使现在们使用的工具更新换代，制作动画的思路还是大致如此，拆分与过渡。所有的工具都是帮们自动完善其中的细节。</p>
+<embed src="http://player.youku.com/player.php/sid/XMzgzMjMzNjg4NA==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
+
 <p><strong>Skinned Mesh</strong>：中文一般称作骨骼蒙皮动画，正如其名，这种动画中包含骨骼（ Bone ）和蒙皮 (Skinned Mesh) 两个部分， Bone 的层次结构和关节动画类似， Mesh 则和关节动画不同：关节动画中是使用多个分散的 Mesh, 而 Skinned Mesh 中 Mesh 是一个整体，也就是说只有一个 Mesh, 实际上如果没有骨骼让 Mesh 运动变形， Mesh 就和静态模型一样了。 Skinned Mesh 技术的精华在于蒙皮，所谓的皮并不是模型的贴图（也许会有人这么想过吧），而是 Mesh 本身，蒙皮是指将 Mesh 中的顶点附着（绑定）在骨骼之上，而且每个顶点可以被多个骨骼所控制，这样在关节处的顶点由于同时受到父子骨骼的拉扯而改变位置就消除了裂缝。 Skinned Mesh 这个词从字面上理解似乎是有皮的模型，哦，如果贴图是皮，那么普通静态模型不也都有吗？所以觉得应该理解为具有蒙皮信息的 Mesh 或可当做皮肤用的 Mesh ，这个皮肤就是 Mesh 。而为了有皮肤功能， Mesh 还需要蒙皮信息，即 Skin 数据，没有 Skin 数据就是一个普通的静态 Mesh 了。Skin 数据决定顶点如何绑定到骨骼上。顶点的 Skin 数据包括顶点受哪些骨骼影响以及这些骨骼影响该顶点时的权重(weight) ，另外</p>
 <p><strong>Bone</strong>:对于每块骨骼还需要骨骼偏移矩阵 (BoneOffsetMatrix) 用来将顶点从 Mesh 空间变换到骨骼空间。骨骼控制蒙皮运动，而骨骼本身的运动呢？当然是动画数据了。每个关键帧中包含时间和骨骼运动信息，运动信息可以用一个矩阵直接表示骨骼新的变换，也可用四元数表示骨骼的旋转，也可以随便自己定义什么只要能让骨骼动就行。除了使用编辑设定好的动画帧数据，也可以使用物理计算对骨骼进行实时控制。</p>
 <p><strong>UNITY3D中的Skinned Mesh Renderer组件</strong>:UNITY3D在导入模型的时候自动会给模型附加<strong>蒙皮网格(Skinned Mesh Renderer)</strong>，使用Unity骨骼人物的主要优势是可以使骨骼受到物理影响，譬如使用角色布娃娃。如下图所示<strong>Skinned Mesh Renderer</strong>会自动关联其对应的骨骼。</p>
@@ -121,7 +588,7 @@
     <link href="http://vrast.cn/posts/5df16bd2/"/>
     <id>http://vrast.cn/posts/5df16bd2/</id>
     <published>2018-09-07T07:01:13.000Z</published>
-    <updated>2018-09-13T07:22:49.238Z</updated>
+    <updated>2018-09-21T07:31:55.476Z</updated>
     
     <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Playables API 推出已经一年有余(2017–07–04 New in Unity 2017.1)。即使你没时间其他的新功能， 也应该看看这个 <code>Playable API</code> .做过大型游戏的同学无论你是做过 2D或3D 只要使用过 Animaiton Controller,或多或少体会过被 蜘蛛网(复杂状态机过渡) 支配的恐惧。当下有了 <code>Playable API</code> 可供使用，我们能轻易的向 Legacy animation API 的使用习惯靠拢 — 高效及易于定制。</p>
 <p><img src="/uploads/WX20180907-152657.png" alt="一个简单的状态机，当然这不是我们想要的。"></p>
@@ -161,8 +628,7 @@
 <h2 id="创建最基础的两动画融合"><a href="#创建最基础的两动画融合" class="headerlink" title="创建最基础的两动画融合"></a>创建最基础的两动画融合</h2><p><img src="/uploads/WX20180911-171707@2x.png" alt="这里我们新增了几行代码，值得注意的是截图所示mixer节点中有两个重要的属性 inputcount 与 outputcount ，顾名思义。我们既可以从 PlayableGraph 的级别指定两个AnimationClip连接到mixer上，可以使用mixer 直接去进行链接点设置。"><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">playableGraph = PlayableGraph.Create(<span class="string">"test graph"</span>);</div><div class="line"><span class="keyword">var</span> playableOutput = AnimationPlayableOutput.Create(playableGraph, <span class="string">"test Animation"</span>,_animator = GetComponent&lt;Animator&gt;());</div><div class="line"></div><div class="line">mixerPlayable = AnimationMixerPlayable.Create(playableGraph, <span class="number">2</span>);</div><div class="line">playableOutput.SetSourcePlayable(mixerPlayable);</div><div class="line"></div><div class="line"><span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip1);</div><div class="line"><span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line"></div><div class="line"><span class="comment">//playableGraph.Connect(clipPlayable1,0,mixerPlayable,0);</span></div><div class="line"><span class="comment">//playableGraph.Connect(clipPlayable2, 0, mixerPlayable, 1);</span></div><div class="line"><span class="comment">//上面的两行与下面的两行代码是等价的</span></div><div class="line">mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>);</div><div class="line">mixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable2,<span class="number">0</span>);</div><div class="line"></div><div class="line">weight = Mathf.Clamp01(weight);</div><div class="line">mixerPlayable.SetInputWeight(<span class="number">0</span>, <span class="number">1.0</span>f-weight);<span class="comment">//分别设置两个数据端口的权重</span></div><div class="line">mixerPlayable.SetInputWeight(<span class="number">1</span>, weight);</div><div class="line"></div><div class="line">playableGraph.Play();</div><div class="line">GraphVisualizerClient.Show(playableGraph);</div></pre></td></tr></table></figure></p>
 <h2 id="混合使用-AnimationClip-与-AnimatorController"><a href="#混合使用-AnimationClip-与-AnimatorController" class="headerlink" title="混合使用 AnimationClip 与 AnimatorController"></a>混合使用 AnimationClip 与 AnimatorController</h2><p>修改上文【创建最基础的两动画融合】所提供的代码块 即可。AnimatorController 可以看作是一颗子树，它可以轻易的使用<strong>mixerPlayable</strong>与其他的clip进行融合，这一切的便利归功于UNITY重写的通用动画调用层。</p>
 <p>在视频中您可以观察最左侧在融合权重的变化下两颗树的融合情况：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> clipPlayable2 = AnimatorControllerPlayable.Create(playableGraph, controller);</div></pre></td></tr></table></figure></p>
-<video controls="controls" width="680"><br>  <source src="http://oxjpewuqo.bkt.clouddn.com/horseRun.mp4" type="video/mp4"><br>Your browser does not support the video tag.<br></video>
-
+<embed src="http://player.youku.com/player.php/sid/XMzgzMjMzNTM4NA==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
 
 
 <h2 id="增加-PlayableGraph-的输出口-类型"><a href="#增加-PlayableGraph-的输出口-类型" class="headerlink" title="增加 PlayableGraph 的输出口(类型)"></a>增加 PlayableGraph 的输出口(类型)</h2><p>看到这里我们应该慢慢的有一些概念了</p>
@@ -181,8 +647,7 @@
 <h2 id="控制树的时间"><a href="#控制树的时间" class="headerlink" title="控制树的时间"></a>控制树的时间</h2><p>因为 XXXPlayable 都是继承自同接口，以下函数同样适用于其他类型。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">float</span> time;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    playableGraph = PlayableGraph.Create();</div><div class="line"></div><div class="line">    clipPlayable = AnimationPlayableUtilities.PlayClip(GetComponent&lt;Animator&gt;(), clip, <span class="keyword">out</span> playableGraph);</div><div class="line">    clipPlayable.Pause();</div><div class="line"></div><div class="line">    playableGraph.Play();</div><div class="line">    GraphVisualizerClient.Show(playableGraph);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    weight = Mathf.Clamp01(weight);</div><div class="line">    clipPlayable.SetTime(time);    <span class="comment">//控制播放进度,无上限超出部分自动循环动画</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在视频中您可以观察时间的前进与后退直接作用于当前动画节点：</p>
-<video controls="controls" width="680"><br>  <source src="http://oxjpewuqo.bkt.clouddn.com/QQ20180912-171656-HD.mp4" type="video/mp4"><br>Your browser does not support the video tag.<br></video>
-
+<embed src="http://player.youku.com/player.php/sid/XMzgzMjMzNzQwMA==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
 
 
 <h2 id="使用-PlayableBehaviour"><a href="#使用-PlayableBehaviour" class="headerlink" title="使用 PlayableBehaviour"></a>使用 PlayableBehaviour</h2><p>顾名思义 <strong>PlayableBehaviour</strong> 就是自己定义的Playable行为，我们实现了一个 <strong>PlayQueuePlayable</strong> 并且制定一些特殊的逻辑在其中（循环播放clip）。</p>
@@ -912,131 +1377,6 @@
     
     
       <category term="Navigation" scheme="http://vrast.cn/tags/Navigation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Unity3D 自动化测试</title>
-    <link href="http://vrast.cn/posts/1d932b40/"/>
-    <id>http://vrast.cn/posts/1d932b40/</id>
-    <published>2017-12-05T16:33:39.000Z</published>
-    <updated>2018-01-03T08:33:32.286Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>今天凌晨开始写这篇文章，想写这个主题很久了。相信每个资深开发都经历过每次公司要发版本之前都会有一堆bug闪现。真让人苦恼。很高兴 Unity technology 于 今年的六一儿童节更新了自动化测试的特性。这下终于不用再导入第三方自动化测试插件了。当然本章节会相对完整的快速概述其重要部分。如果你还想知道更多, Unity3D 已经提供了比较完善的<a href="https://docs.unity3d.com/Manual/testing-editortestsrunner.html" target="_blank" rel="external">文档</a>。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="适用于多种平台的自动化测试"><a href="#适用于多种平台的自动化测试" class="headerlink" title="适用于多种平台的自动化测试"></a>适用于多种平台的自动化测试</h1><p>TestRunner 适用于 Standalone, Android, or iOS 等平台。你可以在 Window &gt; Test Runner 找到此项功能。</p>
-<p>TestRunner 使用了Unity一体化的单元测试库。开源的.net语言库。更多的信息在 <a href="http://nunit.org" target="_blank" rel="external">nunit 官网</a> 和 <a href="https://github.com/nunit/docs/wiki/NUnit-Documentation" target="_blank" rel="external">NUnit GitHub文档</a>.</p>
-<p>UnityTestAttribute是Unity Test Runner的标准NUnit库的主要补充。 这是一种单元测试，允许您从测试中跳过框架（允许后台任务完成）。 当以编辑模式运行时，以Play模式运行并在EditorApplication.update回调循环中执行UnityTestAttribute作为协同程序。</p>
-<h1 id="已知问题和限制"><a href="#已知问题和限制" class="headerlink" title="已知问题和限制"></a>已知问题和限制</h1><p>以下是Unity Test Runner的已知问题和局限性：</p>
-<p>WebGL和WSA平台不支持UnityTestAttribute。<br>测试运行者目前不支持AOT平台。<br>UnityTest不支持参数化测试（ValueSource除外）。<br>在命令行运行的平台播放器（例如Standalone，Android或iOS）中的自动测试目前不受支持。<br>在进行EditMode测试时，您必须创建一个文件夹名称编辑器来存储它们。</p>
-<p><img src="/uploads/TestRunner3.png" alt="面板参数"></p>
-<p><img src="/uploads/TestRunner5.png" alt="开启与关闭测试"></p>
-<h1 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h1><h2 id="Test-与-UnityTest-特性"><a href="#Test-与-UnityTest-特性" class="headerlink" title="Test 与 UnityTest 特性"></a>Test 与 UnityTest 特性</h2><p>在编辑器或者运行状态下都可以使用Test<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[Test]</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">GameObject_CreatedWithGiven_WillHaveTheName</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> go = <span class="keyword">new</span> GameObject(<span class="string">"MyGameObject"</span>);</div><div class="line">    Assert.AreEqual(“MyGameObject”, go.name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在运行状态下使用UnityTest<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[UnityTest]</div><div class="line"><span class="function"><span class="keyword">public</span> IEnumerator <span class="title">GameObject_WithRigidBody_WillBeAffectedByPhysics</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> go = <span class="keyword">new</span> GameObject();</div><div class="line">    go.AddComponent&lt;Rigidbody&gt;();</div><div class="line">    <span class="keyword">var</span> originalPosition = go.transform.position.y;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForFixedUpdate</span>(<span class="params"></span>)</span>;</div><div class="line"></div><div class="line">    Assert.AreNotEqual(originalPosition, go.transform.position.y);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在编辑器下使用<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[UnityTest]</div><div class="line"><span class="function"><span class="keyword">public</span> IEnumerator <span class="title">EditorUtility_WhenExecuted_ReturnsSuccess</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> utility = RunEditorUtilityInTheBackgroud();</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (utility.isRunning)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Assert.IsTrue(utility.isSuccess);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="UnityPlatform-特性"><a href="#UnityPlatform-特性" class="headerlink" title="UnityPlatform 特性"></a>UnityPlatform 特性</h2><p>该特性可以帮助你区分测试的平台<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[Test]</div><div class="line">[UnityPlatform (RuntimePlatform.WindowsPlayer)]</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestMethod1</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">   Assert.AreEqual(Application.platform, RuntimePlatform.WindowsPlayer);</div><div class="line">&#125;</div><div class="line"></div><div class="line">[Test]</div><div class="line">[UnityPlatform(exclude = <span class="keyword">new</span>[] &#123;RuntimePlatform.WindowsEditor &#125;)]</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestMethod2</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">   Assert.AreNotEqual(Application.platform, RuntimePlatform.WindowsEditor);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="PrebuildSetup"><a href="#PrebuildSetup" class="headerlink" title="PrebuildSetup"></a>PrebuildSetup</h2><p>如果您需要在测试开始之前执行任何额外的设置，请使用PrebuildSetupAttribute。 为此，请指定实现IPrebuildSetup接口的类类型。 如果您需要运行整个类的设置代码（例如，如果您想在测试开始之前执行一些代码，例如特定测试所需的资源准备或设置），请在类中实现IPrebuildSetup接口以进行测试。</p>
-<p>只需要继承 IPrebuildSetup 接口 并且 标记 PrebuildSetup 特性就能提前配置单元测试所需数据或者资源。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestsWithPrebuildStep</span> : <span class="title">IPrebuildSetup</span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Setup</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// Run this code before the tests are executed</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    [Test]</div><div class="line">    <span class="comment">//PrebuildSetupAttribute can be skipped because it's implemented in the same class</span></div><div class="line">    [PrebuildSetup(<span class="keyword">typeof</span>(TestsWithPrebuildStep))]</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        (...)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在进入播放模式或建立播放器之前，执行PrebuildSetup代码。 安装程序可以使用UnityEditor命名空间及其功能，但为了避免编译错误，您必须将其放置在“editor”文件夹中，或者必须使用#if UNITY_EDITOR指令进行保护。</p>
-<h2 id="LogAssert-Log断言"><a href="#LogAssert-Log断言" class="headerlink" title="LogAssert Log断言"></a>LogAssert Log断言</h2><p>如果记录除常规日志或警告消息之外的其他消息，则测试将失败。 使用LogAssert类在日志中预期消息，并防止测试失败。<br>如果预期的消息没有出现，测试也报告失败。 如果任何常规的日志或警告消息不出现，测试也失败。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[Test]</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">LogAssertExample</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//Expect a regular log message</span></div><div class="line">    LogAssert.Expect(LogType.Log, <span class="string">"Log message"</span>);</div><div class="line">    <span class="comment">//A log message is expected so without the following line</span></div><div class="line">    <span class="comment">//the test would fail</span></div><div class="line">    Debug.Log(<span class="string">"Log message"</span>);</div><div class="line">    <span class="comment">//An error log is printed</span></div><div class="line">    Debug.LogError(<span class="string">"Error message"</span>);</div><div class="line">    <span class="comment">//Without expecting an error log, the test would fail</span></div><div class="line">    LogAssert.Expect(LogType.Error, <span class="string">"Error message"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="MonoBehaviourTest-Mono脚本测试"><a href="#MonoBehaviourTest-Mono脚本测试" class="headerlink" title="MonoBehaviourTest Mono脚本测试"></a>MonoBehaviourTest Mono脚本测试</h2><p>MonoBehaviourTest是编写MonoBehaviour测试的包装，也是一个协程。 从UnityTest中产生MonoBehaviourTest来实例化指定的MonoBehaviour并等待它完成执行。 实现IMonoBehaviourTest接口来指示测试完成的时间。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[UnityTest]</div><div class="line">public IEnumerator MonoBehaviourTest_Works()</div><div class="line">&#123;</div><div class="line">    yield return new MonoBehaviourTest&lt;MyMonoBehaviourTest&gt;();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class MyMonoBehaviourTest : MonoBehaviour, IMonoBehaviourTest</div><div class="line">&#123;</div><div class="line">    private int frameCount;</div><div class="line">    public bool IsTestFinished</div><div class="line">    &#123;</div><div class="line">        get &#123; return frameCount &gt; 10; &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">     void Update()</div><div class="line">     &#123;</div><div class="line">        frameCount++;</div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ol>
-<li>所有标记  UnityTestAttribute  特性的方法 测试的时候就像是协同程序一样被执行。</li>
-<li>待续 。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;今天凌晨开始写这篇文章，想写这个主题很久了。相信每个资深开发都经历过每次公司要发版本之前都会有一堆bug闪现。真让人苦恼。很高兴 Unity technology 于 今年的六一儿童节更新了自动化测试的特性。这下终于不用再导入第三方自动化测试插件了。当然本章节会相对完整的快速概述其重要部分。如果你还想知道更多, Unity3D 已经提供了比较完善的&lt;a href=&quot;https://docs.unity3d.com/Manual/testing-editortestsrunner.html&quot;&gt;文档&lt;/a&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="测试自动化" scheme="http://vrast.cn/tags/%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git FAQ</title>
-    <link href="http://vrast.cn/posts/1e42cd7e/"/>
-    <id>http://vrast.cn/posts/1e42cd7e/</id>
-    <published>2017-12-02T12:37:23.000Z</published>
-    <updated>2017-12-03T02:19:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天有朋友问了我三个问题：</p>
-<ul>
-<li>策划或者美术可能没有commit前先pull的习惯，先commit上去，然后push不上。Git提醒pull，然后报错，一般除了程序，甚至没使用过Git的程序就有点不知所措了。应该要讲下出错时候要stash的问题。</li>
-<li>策划pull出错时候， 万一revert，然后push强推,把之前别人提交的东西冲掉了。我们有用过回滚，然后强推上去。可以再讲下怎么强推</li>
-<li>怎么stash，怎么stash apply，apply失败后怎么弄。commit的顺序最好也要重点强调下</li>
-</ul>
-<p>在篇中我会解答，如果还有其他问题 请给我留言，我会追加叙述。求关注 求转发。把爱传出去 笑～</p>
-<a id="more"></a>
-<h1 id="在解答第一个问题之前我们先了解一下什么是-stash-存储-非程序人员跳过此条说明"><a href="#在解答第一个问题之前我们先了解一下什么是-stash-存储-非程序人员跳过此条说明" class="headerlink" title="在解答第一个问题之前我们先了解一下什么是 stash (存储) (非程序人员跳过此条说明)"></a>在解答第一个问题之前我们先了解一下什么是 stash (存储) (非程序人员跳过此条说明)</h1><p><a href="https://stackoverflow.com/questions/10959928/what-does-commit-your-changes-or-stash-them-mean#10959956" target="_blank" rel="external">What does “commit your changes or stash them” mean?</a></p>
-<p>stash意味着你有未提交的更改，将会在拉取代码的时候防止本地的修改被覆盖。顺便说一句如果你想知道更多关于Git stash 的问题只需要提问：how do I solve the problem where Git tells me to commit or stash (如何解决Git告诉我commit或stash的问题)</p>
-<p>通过git stash将工作区恢复到上次提交的内容，同时备份本地所做的修改，之后就可以正常git pull了，git pull完成后，执行git stash pop将之前本地做的修改应用到当前工作区。</p>
-<p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。<br>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。<br>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。<br>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>
-<h1 id="Pull-与-Fetch-区别-基本概念"><a href="#Pull-与-Fetch-区别-基本概念" class="headerlink" title="Pull 与 Fetch 区别 (基本概念)"></a>Pull 与 Fetch 区别 (基本概念)</h1><ol>
-<li>每次commit都会有一个记录。</li>
-<li>本地的所有commit在没有push之前，都是存在本地。别人是更新不到你的commit记录的。</li>
-<li>所谓更新就是拿到别人的Commit数据。</li>
-<li>如果你更新到别人的commit里也有你本次commit修改的数据 就会产生冲突，就需要合并。</li>
-<li>Pull 的意思是 下载比自己更新的commit数据，并且开始合并，可能马上就有从冲突文件。</li>
-<li>Fetch 的意思是 下载比自己更新的commit数据，放在那里(不合并到当前commit)，可以看看是否有必要更新到最近commit。</li>
-</ol>
-<h1 id="先解释下报错信息"><a href="#先解释下报错信息" class="headerlink" title="先解释下报错信息"></a>先解释下报错信息</h1><p>你本地的修改和Git存储上的冲突了，现在有两种方式来解决：</p>
-<ol>
-<li>commit 先提交本地的修改，commit的原因是为了可追溯，通过本地branches就能拿到N+1个版本的修改。防止丢失</li>
-<li>stash 备份本地的修改 ，仍旧是防止丢失，且可以有多个版本 很灵活</li>
-</ol>
-<h2 id="演示-Stash如何使用-规避文件修改被冲掉"><a href="#演示-Stash如何使用-规避文件修改被冲掉" class="headerlink" title="演示-Stash如何使用 规避文件修改被冲掉"></a>演示-Stash如何使用 规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>Stash</code> 这些个文件吧。</p>
-<p><img src="/uploads/gulpfile.png" alt="机制的B君做了如下操作"><br><img src="/uploads/QQ20171202-213806@2x.png" alt="Stash了勾选后的将本地修改在这里"></p>
-<p>B君 : 点击<apply stash=""> 可将指定的Stash文件与更新后的文件合并。</apply></p>
-<blockquote>
-<h2>Stash 简单理解就是备份本地修改,且可以备份多次。什么?又冲突了？用Stash啊！</h2>
-
-
-</blockquote>
-<h2 id="演示-使用commit来规避文件修改被冲掉"><a href="#演示-使用commit来规避文件修改被冲掉" class="headerlink" title="演示-使用commit来规避文件修改被冲掉"></a>演示-使用commit来规避文件修改被冲掉</h2><p>我们假设有两个人正在操作同一份文件 <code>README.md</code> 。<br>A君 : 我已经提交此文件的修改了，你更新下。<br>B君 : 我先Fetch看看有，然后我上传。嗯？冲突了。我并不知道你修改了什么个文件,我也不想在同步的时候把本地的修改冲掉。 那我提前 <code>commit</code> 这些个文件吧。</p>
-<p><img src="/uploads/1040FC64-815A-4DD3-B703-52AD31B022D0.png" alt="这个Push Change不用勾选，反正勾选也上传不了但是不影响commit。"><br><img src="/uploads/A2A598E1-86FF-4380-A3CE-FFE532E83E0D.png" alt="现在pull也可以合并本地文件"></p>
-<blockquote>
-<h2>commit 简单理解就是保存本次修改,且可以被追溯。什么你只会Stash？直接commit也行啊！</h2>
-
-
-
-
-</blockquote>
-<h1 id="如何强推？"><a href="#如何强推？" class="headerlink" title="如何强推？"></a>如何强推？</h1><p>理解了上面的之后。发现 用Stash 或者Commit都可以实现强推。</p>
-<p><img src="/uploads/BDCE2D9F-7600-48C7-9528-1FFCC155445C.png" alt="现在commit肯定不行 因为被修改过了，sourcetree的机制是 点击按钮 默认commit，然后push"></p>
-<p><img src="/uploads/QQ20171202-223641.png" alt="必然是失败的，点击OK,现在本地branch已经有了此次commit痕迹了(可追溯)"></p>
-<p>现在点击pull/或者Apply Stash 处理好，上传吧。</p>
-<h1 id="出了莫名其妙的问题如何补救？"><a href="#出了莫名其妙的问题如何补救？" class="headerlink" title="出了莫名其妙的问题如何补救？"></a>出了莫名其妙的问题如何补救？</h1><p>有些朋友一看到一堆报错和本地紊乱的修改就慌了。别怕 可以直接回到存档(commit)点去复活。</p>
-<p><img src="/uploads/A56FB26C-1A89-4106-BC16-9D41A9114255.png" alt="直接回到某个commit的状态"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天有朋友问了我三个问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;策划或者美术可能没有commit前先pull的习惯，先commit上去，然后push不上。Git提醒pull，然后报错，一般除了程序，甚至没使用过Git的程序就有点不知所措了。应该要讲下出错时候要stash的问题。&lt;/li&gt;
-&lt;li&gt;策划pull出错时候， 万一revert，然后push强推,把之前别人提交的东西冲掉了。我们有用过回滚，然后强推上去。可以再讲下怎么强推&lt;/li&gt;
-&lt;li&gt;怎么stash，怎么stash apply，apply失败后怎么弄。commit的顺序最好也要重点强调下&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在篇中我会解答，如果还有其他问题 请给我留言，我会追加叙述。求关注 求转发。把爱传出去 笑～&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="FAQ" scheme="http://vrast.cn/categories/FAQ/"/>
-    
-    
-      <category term="Git" scheme="http://vrast.cn/tags/Git/"/>
     
   </entry>
   

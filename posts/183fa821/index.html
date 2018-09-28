@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="In me the tiger sniffs the rose"><title>Math Symbols in Markdown | Lazybones Kill PLAN</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Math Symbols in Markdown</h1><a id="logo" href="/.">Lazybones Kill PLAN</a><p class="description">In me the tiger sniffs the rose</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/history/"><i class="fa fa-book"> 历史</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Math Symbols in Markdown</h1><div class="post-meta">Sep 20, 2018<span> | </span><span class="category"><a href="/categories/Markdown/">Markdown</a></span></div><div class="post-content"><p>之前输入数学公式的一直用截图 自觉用户体验很差，最近发现用的这个主题带了好用的数学函数辅助，便一发不可收拾。顺便推荐一下我用的主题是<a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="external">maupassant-hexo github</a> ,这里记录一下数学符的用法。</p>
+<a id="more"></a>
+<h1 id="maupassant-hexo的数学函数开启方式"><a href="#maupassant-hexo的数学函数开启方式" class="headerlink" title="maupassant-hexo的数学函数开启方式"></a>maupassant-hexo的数学函数开启方式</h1><p>其他的主题可能方式不一样 具体需要对照文档</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Math Equation</div><div class="line"></div><div class="line">Add</div><div class="line"></div><div class="line">mathjax: true</div><div class="line">in Hexo's _config.yml.</div><div class="line"></div><div class="line">In the post which you would like to use math equation, add mathjax: true in the front-matter. For example:</div><div class="line"></div><div class="line">title: Test Math</div><div class="line">date: 2016-04-05 14:16:00</div><div class="line">categories: math</div><div class="line">mathjax: true</div><div class="line">---</div><div class="line">The default math delimiters are $$...$$ and \\[...\\] for displayed mathematics, and $...$ and \\(...\\) for in-line mathematics.</div><div class="line"></div><div class="line">However, if your post contains dollar signs ($), and they appear often in non-mathematical parts, in other words, you want to use $ as dollar sign not inline math delimiter, please add</div><div class="line"></div><div class="line">mathjax2: true</div><div class="line">in Hexo's _config.yml instead of mathjax: true. Correspondingly, add mathjax2: true to the front-matter of the post in which you would like to use math equation.</div><div class="line"></div><div class="line">See the example.</div></pre></td></tr></table></figure>
+<p><img src="/uploads/QQ20180920-143741.png" alt="添加标签则可用"></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$</div><div class="line">    \\beta</div><div class="line">    \\alpha</div><div class="line">$</div></pre></td></tr></table></figure>
+<p>效果如下：<br>$<br>    \beta<br>    \alpha<br>$ </p>
+<p>或者这样以居中显示：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\\[\\beta \\alpha\\]</div></pre></td></tr></table></figure></p>
+<p>\[\beta \alpha\]</p>
+<h1 id="数学符"><a href="#数学符" class="headerlink" title="数学符"></a>数学符</h1><p>上面演示的 $\beta$ 之类的数学符号列表如下：</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\cos$</td>
+<td>\cos</td>
+</tr>
+<tr>
+<td>$\sin$</td>
+<td>\sin</td>
+</tr>
+<tr>
+<td>$\lim$</td>
+<td>\lim</td>
+</tr>
+<tr>
+<td>$\exp$</td>
+<td>\exp</td>
+</tr>
+<tr>
+<td>$\to$</td>
+<td>\to</td>
+</tr>
+<tr>
+<td>$\infty$</td>
+<td>\infty</td>
+</tr>
+<tr>
+<td>$\equiv$</td>
+<td>\equiv</td>
+</tr>
+<tr>
+<td>$\bmod$</td>
+<td>\bmod</td>
+</tr>
+<tr>
+<td>$\times$</td>
+<td>\times</td>
+</tr>
+</tbody>
+</table>
+<h2 id="幂与指数"><a href="#幂与指数" class="headerlink" title="幂与指数"></a>幂与指数</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$k_{n+1}$</td>
+<td>k_{n+1}</td>
+</tr>
+<tr>
+<td>$n^2$</td>
+<td>n^2</td>
+</tr>
+<tr>
+<td>$k_n^2$</td>
+<td>k_n^2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分数与二项式"><a href="#分数与二项式" class="headerlink" title="分数与二项式"></a>分数与二项式</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\frac{n!}{k!(n-k)!}$</td>
+<td>\frac{n!}{k!(n-k)!}</td>
+</tr>
+<tr>
+<td>$\binom{n}{k}$</td>
+<td>\binom{n}{k}</td>
+</tr>
+<tr>
+<td>$\frac{\frac{x}{1}}{x - y}$</td>
+<td>\frac{\frac{x}{1}}{x - y}</td>
+</tr>
+<tr>
+<td>$^3/_7$</td>
+<td>^3/_7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="根"><a href="#根" class="headerlink" title="根"></a>根</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sqrt{k}$</td>
+<td>\sqrt{k}</td>
+</tr>
+<tr>
+<td>$\sqrt[n]{k}$</td>
+<td>\sqrt[n]{k}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="运算必须符"><a href="#运算必须符" class="headerlink" title="运算必须符"></a>运算必须符</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\sum_{i=1}^{10} t_i$</td>
+<td>\sum_{i=1}^{10} t_i</td>
+</tr>
+<tr>
+<td>$\int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x$</td>
+<td>\int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x</td>
+</tr>
+<tr>
+<td>$\sum$</td>
+<td>\sum</td>
+</tr>
+<tr>
+<td>$\prod$</td>
+<td>\prod</td>
+</tr>
+<tr>
+<td>$\coprod$</td>
+<td>\coprod</td>
+</tr>
+<tr>
+<td>$\bigoplus$</td>
+<td>\bigoplus</td>
+</tr>
+<tr>
+<td>$\bigotimes$</td>
+<td>\bigotimes</td>
+</tr>
+<tr>
+<td>$\bigodot$</td>
+<td>\bigodot</td>
+</tr>
+<tr>
+<td>$\bigcup$</td>
+<td>\bigcup</td>
+</tr>
+<tr>
+<td>$\bigcap$</td>
+<td>\bigcap</td>
+</tr>
+<tr>
+<td>$\biguplus$</td>
+<td>\biguplus</td>
+</tr>
+<tr>
+<td>$\bigsqcup$</td>
+<td>\bigsqcup</td>
+</tr>
+<tr>
+<td>$\bigvee$</td>
+<td>\bigvee</td>
+</tr>
+<tr>
+<td>$\bigwedge$</td>
+<td>\bigwedge</td>
+</tr>
+<tr>
+<td>$\int$</td>
+<td>\int</td>
+</tr>
+<tr>
+<td>$\oint$</td>
+<td>\oint</td>
+</tr>
+<tr>
+<td>$\iint$</td>
+<td>\iint</td>
+</tr>
+<tr>
+<td>$\iiint$</td>
+<td>\iiint</td>
+</tr>
+<tr>
+<td>$\idotsint$</td>
+<td>\idotsint</td>
+</tr>
+<tr>
+<td>$\sum_{\substack{0&lt;i&lt;m\0&lt;j&lt;n}} P(i, j)$</td>
+<td>\sum_{\substack{0&lt;i&lt;m\0&lt;j&lt;n}} P(i, j)</td>
+</tr>
+<tr>
+<td>$\int\limits_a^b$</td>
+<td>\int\limits_a^b</td>
+</tr>
+<tr>
+<td>$a’$ $a^{\prime}$</td>
+<td>a` a^{\prime}</td>
+</tr>
+<tr>
+<td>$a’’$</td>
+<td>a’’</td>
+</tr>
+<tr>
+<td>$\hat{a}$</td>
+<td>hat{a}</td>
+</tr>
+<tr>
+<td>$\bar{a}$</td>
+<td>\bar{a}</td>
+</tr>
+<tr>
+<td>$\grave{a}$</td>
+<td>\grave{a}</td>
+</tr>
+<tr>
+<td>$\acute{a}$</td>
+<td>\acute{a}</td>
+</tr>
+<tr>
+<td>$\dot{a}$</td>
+<td>\dot{a}</td>
+</tr>
+<tr>
+<td>$\ddot{a}$</td>
+<td>\ddot{a}</td>
+</tr>
+<tr>
+<td>$\not{a}$</td>
+<td>\not{a}</td>
+</tr>
+<tr>
+<td>$\mathring{a}$</td>
+<td>\mathring{a}</td>
+</tr>
+<tr>
+<td>$\overrightarrow{AB}$</td>
+<td>\overrightarrow{AB}</td>
+</tr>
+<tr>
+<td>$\overleftarrow{AB}$</td>
+<td>\overleftarrow{AB}</td>
+</tr>
+<tr>
+<td>$a’’’$</td>
+<td>a’’’</td>
+</tr>
+<tr>
+<td>$\overline{aaa}$</td>
+<td>\overline{aaa}</td>
+</tr>
+<tr>
+<td>$\check{a}$</td>
+<td>\check{a}</td>
+</tr>
+<tr>
+<td>$\vec{a}$</td>
+<td>\vec{a}</td>
+</tr>
+<tr>
+<td>$\underline{a}$</td>
+<td>\underline{a}</td>
+</tr>
+<tr>
+<td>$\color{red}x$</td>
+<td>\color{red}x</td>
+</tr>
+<tr>
+<td>$\pm$</td>
+<td>\pm</td>
+</tr>
+<tr>
+<td>$\mp$</td>
+<td>\mp</td>
+</tr>
+<tr>
+<td>$\int y \mathrm{d}x$</td>
+<td>\int y \mathrm{d}x</td>
+</tr>
+<tr>
+<td>$\,$</td>
+<td>\,</td>
+</tr>
+<tr>
+<td>$\:$</td>
+<td>\:</td>
+</tr>
+<tr>
+<td>$\;$</td>
+<td>\;</td>
+</tr>
+<tr>
+<td>$!$</td>
+<td>!</td>
+</tr>
+<tr>
+<td>$\int y\, \mathrm{d}x$</td>
+<td>\int y\, \mathrm{d}x</td>
+</tr>
+<tr>
+<td>$\dots$</td>
+<td>\dots</td>
+</tr>
+<tr>
+<td>$\ldots$</td>
+<td>\ldots</td>
+</tr>
+<tr>
+<td>$\cdots$</td>
+<td>\cdots</td>
+</tr>
+<tr>
+<td>$\vdots$</td>
+<td>\vdots</td>
+</tr>
+<tr>
+<td>$\ddots$</td>
+<td>\ddots</td>
+</tr>
+</tbody>
+</table>
+<h2 id="括弧"><a href="#括弧" class="headerlink" title="括弧"></a>括弧</h2><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$(a) $</td>
+<td>(a)</td>
+</tr>
+<tr>
+<td>$[a]  $</td>
+<td>[a]</td>
+</tr>
+<tr>
+<td>$a  $</td>
+<td>{a}</td>
+</tr>
+<tr>
+<td>$\langle f \rangle  $</td>
+<td>\langle f \rangle</td>
+</tr>
+<tr>
+<td>$\lfloor f \rfloor $</td>
+<td>\lfloor f \rfloor</td>
+</tr>
+<tr>
+<td>$\lceil f \rceil$</td>
+<td>\lceil f \rceil</td>
+</tr>
+<tr>
+<td>$\ulcorner f \urcorner$</td>
+<td>\ulcorner f \urcorner</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://csrgxtu.github.io/2015/03/20/Writing-Mathematic-Fomulars-in-Markdown/" target="_blank" rel="external">🔗 Writing Mathematic Fomulars in Markdown – Archer Reilly</a></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=fcrespo82.markdown-table-formatter#overview" target="_blank" rel="external">🔗 Markdown Table Formatter</a></p>
+</div><div class="tags"><a href="/tags/Math/">Math</a></div><div class="post-nav"><a class="next" href="/posts/323c9fde/">UNITY3D Playables API实践(下)</a></div><div id="container"></div><link rel="stylesheet" href="/css/default.css?v=0.0.0"><script src="/js/gitment.browser.js?v=0.0.0"></script><script>var gitment = new Gitment({
+  owner: 'KeyleXiao',
+  repo: 'keylexiao.github.io',
+  oauth: {
+    client_id: '848c90c8264323450559',
+    client_secret: '4bb4f2730d20b2e39151a6ed21a7eb0467581baa',
+  },
+})
+gitment.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://vrast.cn"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-Studio/">Android Studio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/AppStore/">AppStore</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C#</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Document/">Document</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DotNetCore/">DotNetCore</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Editor/">Editor</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/FAQ/">FAQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Framework/">Framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Host/">Host</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/INTENSE项目源码分析/">INTENSE项目源码分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MAC/">MAC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenSource/">OpenSource</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PROJECT/">PROJECT</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Plugin/">Plugin</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SDK/">SDK</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Site/">Site</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/StrangeIOC教程目录/">StrangeIOC教程目录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Terminal/">Terminal</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/UNITY/">UNITY</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/UNITY3D/">UNITY3D</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/UNITY3D-iOS/">UNITY3D&iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/UNITYAPI/">UNITYAPI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/图形学/">图形学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习手札/">学习手札</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂记/">杂记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码分析/">源码分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/翻译/">翻译</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/阅读笔记/">阅读笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/ANIMATION/" style="font-size: 15px;">ANIMATION</a> <a href="/tags/ADB/" style="font-size: 15px;">ADB</a> <a href="/tags/AI/" style="font-size: 15px;">AI</a> <a href="/tags/terminal/" style="font-size: 15px;">terminal</a> <a href="/tags/Gradle/" style="font-size: 15px;">Gradle</a> <a href="/tags/jar/" style="font-size: 15px;">jar</a> <a href="/tags/IAP/" style="font-size: 15px;">IAP</a> <a href="/tags/shader-图形学/" style="font-size: 15px;">shader 图形学</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Navigation/" style="font-size: 15px;">Navigation</a> <a href="/tags/INTENSE-GOAP文档/" style="font-size: 15px;">INTENSE GOAP文档</a> <a href="/tags/INTENSE文档/" style="font-size: 15px;">INTENSE文档</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Grammar/" style="font-size: 15px;">Grammar</a> <a href="/tags/Extension/" style="font-size: 15px;">Extension</a> <a href="/tags/ExcFoundation-framework/" style="font-size: 15px;">ExcFoundation framework</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Shader/" style="font-size: 15px;">Shader</a> <a href="/tags/GCD/" style="font-size: 15px;">GCD</a> <a href="/tags/GPUSkinning/" style="font-size: 15px;">GPUSkinning</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/Optimize/" style="font-size: 15px;">Optimize</a> <a href="/tags/INTENSE总纲/" style="font-size: 15px;">INTENSE总纲</a> <a href="/tags/Objective-C/" style="font-size: 15px;">Objective-C</a> <a href="/tags/KVC/" style="font-size: 15px;">KVC</a> <a href="/tags/Lua/" style="font-size: 15px;">Lua</a> <a href="/tags/KVO/" style="font-size: 15px;">KVO</a> <a href="/tags/MAC/" style="font-size: 15px;">MAC</a> <a href="/tags/LipSync/" style="font-size: 15px;">LipSync</a> <a href="/tags/MD5withRSA/" style="font-size: 15px;">MD5withRSA</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/markdown-语法/" style="font-size: 15px;">markdown 语法</a> <a href="/tags/UNITY3D/" style="font-size: 15px;">UNITY3D</a> <a href="/tags/Protocal/" style="font-size: 15px;">Protocal</a> <a href="/tags/rendertexure/" style="font-size: 15px;">rendertexure</a> <a href="/tags/SNFramework/" style="font-size: 15px;">SNFramework</a> <a href="/tags/sharderforge/" style="font-size: 15px;">sharderforge</a> <a href="/tags/StrangeIOC/" style="font-size: 15px;">StrangeIOC</a> <a href="/tags/SmartDataViewer/" style="font-size: 15px;">SmartDataViewer</a> <a href="/tags/AssetBundle/" style="font-size: 15px;">AssetBundle</a> <a href="/tags/Interaction/" style="font-size: 15px;">Interaction</a> <a href="/tags/CODE/" style="font-size: 15px;">CODE</a> <a href="/tags/Define/" style="font-size: 15px;">Define</a> <a href="/tags/性能优化/" style="font-size: 15px;">性能优化</a> <a href="/tags/UNITY3D编辑器/" style="font-size: 15px;">UNITY3D编辑器</a> <a href="/tags/测试自动化/" style="font-size: 15px;">测试自动化</a> <a href="/tags/coroutines/" style="font-size: 15px;">coroutines</a> <a href="/tags/ScrollView/" style="font-size: 15px;">ScrollView</a> <a href="/tags/Cocopods/" style="font-size: 15px;">Cocopods</a> <a href="/tags/YouMi/" style="font-size: 15px;">YouMi</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/UniwebView/" style="font-size: 15px;">UniwebView</a> <a href="/tags/Graphic/" style="font-size: 15px;">Graphic</a> <a href="/tags/protobuf/" style="font-size: 15px;">protobuf</a> <a href="/tags/ZSH/" style="font-size: 15px;">ZSH</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/XCode/" style="font-size: 15px;">XCode</a> <a href="/tags/VIM/" style="font-size: 15px;">VIM</a> <a href="/tags/3DUI/" style="font-size: 15px;">3DUI</a> <a href="/tags/VSCode/" style="font-size: 15px;">VSCode</a> <a href="/tags/计划与时间管理/" style="font-size: 15px;">计划与时间管理</a> <a href="/tags/None/" style="font-size: 15px;">None</a> <a href="/tags/缺氧源码分析/" style="font-size: 15px;">缺氧源码分析</a> <a href="/tags/语法/" style="font-size: 15px;">语法</a> <a href="/tags/Physics/" style="font-size: 15px;">Physics</a> <a href="/tags/NavmeshAgent/" style="font-size: 15px;">NavmeshAgent</a> <a href="/tags/English/" style="font-size: 15px;">English</a> <a href="/tags/Tencent/" style="font-size: 15px;">Tencent</a> <a href="/tags/PROJECT/" style="font-size: 15px;">PROJECT</a> <a href="/tags/Terminal/" style="font-size: 15px;">Terminal</a> <a href="/tags/微软跨平台/" style="font-size: 15px;">微软跨平台</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/SSH/" style="font-size: 15px;">SSH</a> <a href="/tags/PerGUI/" style="font-size: 15px;">PerGUI</a> <a href="/tags/Chat/" style="font-size: 15px;">Chat</a> <a href="/tags/Git技巧/" style="font-size: 15px;">Git技巧</a> <a href="/tags/SublimeText3/" style="font-size: 15px;">SublimeText3</a> <a href="/tags/VPN/" style="font-size: 15px;">VPN</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/183fa821/">Math Symbols in Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/323c9fde/">UNITY3D Playables API实践(下)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/fa938638/">GPUSkinning</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/5df16bd2/">UNITY3D Playables API 实践(上)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/bd424e64/">绘制聊天气泡思路</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/3bc1c7b4/">LipSync插件调研2</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/a08d0c34/">LipSync插件调研1</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/67edd270/">protobuf中使用继承</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8d62e7c3/">编辑器扩展-分割条</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/69247612/">UNITY性能优化参考篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/KeyleXiao" title="My GitHub" target="_blank">My GitHub</a><ul></ul><a href="https://twitter.com/keyle_xiao" title="My Twitter" target="_blank">My Twitter</a><ul></ul><a href="http://weibo.com/xiaoxiaoxiaonian" title="My Weibo" target="_blank">My Weibo</a><ul></ul><a href="http://git.oschina.net/keyle" title="My OSChina" target="_blank">My OSChina</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer"> <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold;">Coding Pages</a></p><br/> 本站由 <a href="https://vrast.cn/about">@keyle </a> 创建，采用 <a href="https://github.com/tufu9441/maupassant-hexo">Maupassant</a> 作为主题，您可以在 <a href="https://github.com/KeyleXiao/keylexiao.github.io">GitHub</a> 找到本站源码<br/> © <a href="/." rel="nofollow">Lazybones Kill PLAN . </a> 本站采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/cn/">署名-非商业性使用-相同方式共享 2.5 中国大陆</a>进行许可 <br/><a class="fa fa-envelope-o" href="mailto:keyle_xiao@hotmail.com"> keyle_xiao@hotmail.com  .</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = '//hm.baidu.com/hm.js?' + theme.baidu_analytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
