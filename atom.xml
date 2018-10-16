@@ -59,6 +59,27 @@
   </entry>
   
   <entry>
+    <title>UNITY3D Timeline实践</title>
+    <link href="http://vrast.cn/posts/cdaabbe3/"/>
+    <id>http://vrast.cn/posts/cdaabbe3/</id>
+    <published>2018-09-25T08:52:13.000Z</published>
+    <updated>2018-10-12T03:18:55.658Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>如果您想动手尝试可以在AssetStore中获取到<a href="https://assetstore.unity.com/packages/essentials/default-playables-95266" target="_blank" rel="external">🔗 示例源码</a>，在 Default Playables 包中展示了大量的<strong>Playable API</strong>案例。在这里我们会挑比较有代表性的进行讲解。在案例中全部都是结合 <strong>Timeline</strong> 使用，由此可窥 “Playables API” 真是香饽饽，堪称万金油的存在。既能单独作为树型动画播放器使用又能够被 <strong>Timeline</strong> 所结合，不写代码也能做出复杂的游戏逻辑。当然 <strong>Timeline</strong> 同样适合处理各种动画需求等 如过场剧情，封面动画，甚至可以制作电影。本篇将会带大家从零开始使用Timeline进行剧情的编写，并且对相关 概念 以及 api 进行讲解。</p>
+<a id="more"></a>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p><strong>Timeline</strong> 编辑器是一个什么样的存在 ？ 可以看作是强化版的 Animation 编辑器。他支持同时操控 N 个属性，就像是制作 flash 电影一样。在使用上策划编辑的时候不需要考虑脚本的实现只需要调用就行，程序这边不需要考虑调用时序只需要实现API并提供给策划即可。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h1&gt;&lt;p&gt;如果您想动手尝试可以在AssetStore中获取到&lt;a href=&quot;https://assetstore.unity.com/packages/essentials/default-playables-95266&quot;&gt;🔗 示例源码&lt;/a&gt;，在 Default Playables 包中展示了大量的&lt;strong&gt;Playable API&lt;/strong&gt;案例。在这里我们会挑比较有代表性的进行讲解。在案例中全部都是结合 &lt;strong&gt;Timeline&lt;/strong&gt; 使用，由此可窥 “Playables API” 真是香饽饽，堪称万金油的存在。既能单独作为树型动画播放器使用又能够被 &lt;strong&gt;Timeline&lt;/strong&gt; 所结合，不写代码也能做出复杂的游戏逻辑。当然 &lt;strong&gt;Timeline&lt;/strong&gt; 同样适合处理各种动画需求等 如过场剧情，封面动画，甚至可以制作电影。本篇将会带大家从零开始使用Timeline进行剧情的编写，并且对相关 概念 以及 api 进行讲解。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Math Symbols in Markdown</title>
     <link href="http://vrast.cn/posts/183fa821/"/>
     <id>http://vrast.cn/posts/183fa821/</id>
@@ -1260,73 +1281,6 @@
 &lt;p&gt;NavMesh Surcefa组件表示特定NavMeshAgent类型的可行走区域，并定义应该构建NavMesh的场景的一部分。&lt;/p&gt;
 &lt;p&gt;NavMesh Surface组件不在标准Unity安装中; 有关如何访问它的信息，&lt;a href=&quot;https://docs.unity3d.com/Manual/class-NavMeshSurface.html&quot;&gt;请参阅高级NavMesh构建组件的文档&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;要使用NavMesh Surface组件，导航到GameObject&amp;gt; AI&amp;gt; NavMesh Surface。 这将创建一个空的GameObject，并附带一个NavMesh Surface组件。 一个场景可以包含多个NavMesh表面。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="Navigation" scheme="http://vrast.cn/tags/Navigation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Building a NavMesh</title>
-    <link href="http://vrast.cn/posts/33160c87/"/>
-    <id>http://vrast.cn/posts/33160c87/</id>
-    <published>2017-12-07T05:50:59.000Z</published>
-    <updated>2017-12-07T08:58:46.123Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>创建导航网格与Unity2017面板详细参数说明。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="创建Navmesh-与-Agent-设置"><a href="#创建Navmesh-与-Agent-设置" class="headerlink" title="创建Navmesh 与 Agent 设置"></a>创建Navmesh 与 Agent 设置</h1><p><img src="/uploads/NavMeshSetupObject.svg" alt="设置网格"></p>
-<p><img src="/uploads/NavMeshSetupBake.svg" alt="设置网格烘焙"></p>
-<blockquote>
-<p>一些你需要知道的参数</p>
-</blockquote>
-<ul>
-<li>Agent半径定义了Agentd的中心可以靠近墙壁或窗台的距离。</li>
-<li><p>Agent Radius defines how close the agent center can get to a wall or a ledge.</p>
-</li>
-<li><p>Agent高度定义Agent可以到达的空间有多低。</p>
-</li>
-<li><p>Agent Height defines how low the spaces are that the agent can reach.</p>
-</li>
-<li><p>最大坡度定义了Agent人走上坡道的坡度。</p>
-</li>
-<li><p>Max Slope defines how steep the ramps are that the agent walk up.</p>
-</li>
-<li><p>台阶高度定义了Agent可以踩踏的障碍物的高度。</p>
-</li>
-<li>Step Height defines how high obstructions are that the agent can step on.</li>
-</ul>
-<p><img src="/uploads/NavMeshAsset.svg" alt="烘培好的网格会在Scene的同名目录内"></p>
-<blockquote>
-<p>Navmesh bake 高级烘焙设置</p>
-</blockquote>
-<h1 id="Min-Region-Area"><a href="#Min-Region-Area" class="headerlink" title="Min Region Area"></a>Min Region Area</h1><p><img src="/uploads/NavMeshMinRegion.svg" alt="最小烘焙区域，最小区域高级构建设置允许您清除小的未连接的NavMesh区域。 比表面积小于指定值的NavMesh区域将被移除。"></p>
-<h1 id="更小的代理半径"><a href="#更小的代理半径" class="headerlink" title="更小的代理半径"></a>更小的代理半径</h1><p>Voxel Size<br><img src="/uploads/QQ20171207-143312@2x.png" alt="体素尺寸"></p>
-<p>手动更改体素允许您更改烘烤过程的准确性。</p>
-<p>NavMesh烘焙过程使用体素化从任意级别的几何构建NavMesh。 在算法的第一遍中，场景被光栅化成体素，然后提取步行表面，最后将步进表面变成导航网格。 体素大小描述了由此产生的NavMesh如何准确地表示场景几何。</p>
-<p>默认精度设置为每个Agent半径有3个体素，即整个Agent宽度为6个体素。 这是精度和烘烤速度之间的良好折衷。 将体素大小减半会使内存使用量增加4倍，而构建场景需要花费4倍的时间。</p>
-<p>NavMesh烘烤系统也将减小体素的大小。 如果您的其他Agent维度保持不变，则可能不需要增加NavMesh构建分辨率。</p>
-<p>最简单的方法如下：</p>
-<p>将Agent半径设置为实际Agent半径。<br>打开手动体素大小，这将采取当前体素大小和“冻结”。<br>手动设置更小的Agent半径，因为您已经选中了手动体素大小，体素大小不会改变。</p>
-<h1 id="更精确的NavMesh"><a href="#更精确的NavMesh" class="headerlink" title="更精确的NavMesh"></a>更精确的NavMesh</h1><p>如果你的关卡有很多紧凑的点，你可能希望通过缩小体素来提高准确性。 体素大小下的标签显示体素大小和代理半径之间的关系。 一个合理的范围是2-8之间，进一步缩小体素比通常会导致非常长的构建时间。</p>
-<p>当您在游戏中有意建造走廊时，请注意，除了代理人半径之外，您还应该至少保留4 * 像素大小的空间，尤其是在走廊处于角度的情况下。<br>如果您需要小于NavMesh烘烤支持的走廊，请考虑使用“Off-Link”跨越点。 这些还有额外的好处，可以在使用时检测到，例如可以播放特定的动画。</p>
-<p>More Accurate NavMesh</p>
-<p>If your level has a lot of tight spots, you may want to increase the accuracy by making the voxel smaller. The label under the Voxel Size shows the relation between the voxel size and Agent Radius. A good range is something between 2–8, going further than that generally results really long build times.</p>
-<p>When you intentionally build tight corridors in your game, please note that you should leave at least 4 * voxelSize clearance in addition to the agent radius, especially if the corridors are at angles.</p>
-<p>If you need smaller corridors than the NavMesh baking can support, please consider using Off-Mesh Links. These have the additional benefit that you can detect when they are being used and can, for example, play a specific animation.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;创建导航网格与Unity2017面板详细参数说明。&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
