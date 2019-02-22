@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2018-10-08T06:45:48.709Z</updated>
+  <updated>2019-02-22T09:44:58.541Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,85 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C# 4.0 - 7.0 新语法特性小结</title>
+    <link href="http://vrast.cn/posts/594d3124/"/>
+    <id>http://vrast.cn/posts/594d3124/</id>
+    <published>2019-02-20T09:53:59.000Z</published>
+    <updated>2019-02-22T09:44:58.541Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本篇总结一些 C# 4.0 - 7.0的语法特性。 </p>
+</blockquote>
+<h1 id="UNITY版本与C-版本关系"><a href="#UNITY版本与C-版本关系" class="headerlink" title="UNITY版本与C#版本关系"></a>UNITY版本与C#版本关系</h1><p>Unity 5.5.4  自带的Mono也可以支持C# 6，在mcs.rsp文件中添加一行：-langversion:6即可。<br>Unity 2017.1 C# 6.0 试验性地支持新脚本运行时。This includes Mono 4.8 and IL2CPP with support for C# 6 and .NET 4.6<br>Unity 2018.1 C# 7.2 </p>
+<p>总的来说新特性还是在2018的运行环境下比较稳定，所以建议在2018下再去放开使用。下面列出的特性基本上都可以在2018中使用。不能使用的部分已经做了标注,下面是正文:</p>
+<a id="more"></a>
+<h1 id="比较重要的一些特性"><a href="#比较重要的一些特性" class="headerlink" title="比较重要的一些特性"></a>比较重要的一些特性</h1><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="comment">//---------静态引用，下面用到此命名空间下的函数可以直接调用---------- </span></div><div class="line"><span class="keyword">using</span> <span class="keyword">static</span> System.Console;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">Test1</span></div><div class="line">&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">public</span> Random random;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">int</span> Level &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">1</span>_000_000;</div><div class="line">        </div><div class="line">        <span class="keyword">public</span> <span class="keyword">int</span> Hp =&gt; ++Level;</div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">var</span> p = <span class="keyword">new</span> Program();</div><div class="line">            </div><div class="line">            <span class="comment">//------------新属性赋值--------------</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</div><div class="line">            &#123;</div><div class="line">                p.PrintLog(p.Hp);</div><div class="line"><span class="comment">//                运行结果:</span></div><div class="line"><span class="comment">//                1000001</span></div><div class="line"><span class="comment">//                1000002</span></div><div class="line"><span class="comment">//                1000003</span></div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            </div><div class="line">            <span class="comment">//------------新异常条件与$字符串拼接--------------</span></div><div class="line">            <span class="keyword">try</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"Test Expection"</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span> (Exception e) when (p.Hp == <span class="number">1000004</span>) <span class="comment">//新增条件设置 可以制定捕捉异常的条件</span></div><div class="line">            &#123;</div><div class="line">                WriteLine</div><div class="line">                (</div><div class="line">                    <span class="keyword">string</span>.Format(<span class="string">$"当前信息<span class="subst">&#123;e.Message&#125;</span>,hp为<span class="subst">&#123;p.Hp&#125;</span>"</span>) <span class="comment">//使用$符号即可使用花括号自定义拼接</span></div><div class="line">                );</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            </div><div class="line">            <span class="comment">//------------?.空指判断--------------</span></div><div class="line">            p.PrintLog(p.random?.Next(<span class="number">0</span>,<span class="number">10</span>));<span class="comment">//这行代码并不会执行 因为 random为null ,使用 ?. 来控制当前函数是否执行</span></div><div class="line"></div><div class="line">            </div><div class="line">            <span class="comment">//-------------下面两行是等价的，您可以使用下划线代替参数传入，相应也获取不到变更对象-----------------</span></div><div class="line">            <span class="comment">//p.PrintObject(out var test_p);  现在可以直接在括号内定义一个想要传入的参数</span></div><div class="line">            p.PrintObject(<span class="keyword">out</span> _); </div><div class="line">            </div><div class="line"></div><div class="line">            <span class="comment">//-------局部函数----------</span></div><div class="line">            PrintLog(<span class="string">"直接调用下面的局部函数，使用局部函数优于使用lambda"</span>); <span class="comment">//局部函数并未有代码行数上的优先级</span></div><div class="line">            <span class="function"><span class="keyword">void</span> <span class="title">PrintLog</span>(<span class="params"><span class="keyword">string</span> content</span>) </span>=&gt; WriteLine(content);</div><div class="line">            </div><div class="line">            <span class="comment">//-------使用return ref 减小开销----------</span></div><div class="line"><span class="comment">//            PrintLog(p.Avg(1,2).ToString());</span></div><div class="line">            </div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 使用 ref 减少值类型的复制   在 C#7.3中实现</span></div><div class="line"><span class="comment">//        public ref float Avg(int a, int b)</span></div><div class="line"><span class="comment">//        &#123;</span></div><div class="line"><span class="comment">//             float _avg = (a + b) / 2.0f;</span></div><div class="line"><span class="comment">//             return ref _avg;</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line">        </div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrintObject</span>(<span class="params"><span class="keyword">out</span> <span class="keyword">object</span> obj</span>)</span></div><div class="line">        &#123;</div><div class="line">            obj = <span class="keyword">new</span> Program();</div><div class="line">            WriteLine(<span class="keyword">nameof</span>(obj)); <span class="comment">// 使用 nameof 系统关键字来或者当前变量名</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//简略定义函数</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrintLog</span>(<span class="params"><span class="keyword">int</span>? content</span>) </span>=&gt; WriteLine(content); <span class="comment">//静态引用 System.Console 命名空间，直接调用 Console.WriteLine 简写为 WriteLine</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#元组分开列一下<br>元组和Lua,python,swift里的元组几乎大同小异。但是作为C#的最最重要的新工具还是着重测试一下。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本篇总结一些 C# 4.0 - 7.0的语法特性。 &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;UNITY版本与C-版本关系&quot;&gt;&lt;a href=&quot;#UNITY版本与C-版本关系&quot; class=&quot;headerlink&quot; title=&quot;UNITY版本与C#版本关系&quot;&gt;&lt;/a&gt;UNITY版本与C#版本关系&lt;/h1&gt;&lt;p&gt;Unity 5.5.4  自带的Mono也可以支持C# 6，在mcs.rsp文件中添加一行：-langversion:6即可。&lt;br&gt;Unity 2017.1 C# 6.0 试验性地支持新脚本运行时。This includes Mono 4.8 and IL2CPP with support for C# 6 and .NET 4.6&lt;br&gt;Unity 2018.1 C# 7.2 &lt;/p&gt;
+&lt;p&gt;总的来说新特性还是在2018的运行环境下比较稳定，所以建议在2018下再去放开使用。下面列出的特性基本上都可以在2018中使用。不能使用的部分已经做了标注,下面是正文:&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://vrast.cn/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dispose接口的正确使用方法</title>
+    <link href="http://vrast.cn/posts/6de8b164/"/>
+    <id>http://vrast.cn/posts/6de8b164/</id>
+    <published>2019-02-20T07:27:25.000Z</published>
+    <updated>2019-02-21T13:14:24.468Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>我们知道在代码里自己写 Dispose 来释放一些资源。但是你真的用对了吗 ？ 本篇介绍一些不容易注意到的 GC 相关知识 。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="到底什么时候需要使用到-IDispose-？"><a href="#到底什么时候需要使用到-IDispose-？" class="headerlink" title="到底什么时候需要使用到 IDispose ？"></a>到底什么时候需要使用到 IDispose ？</h1><p>当前类中出现 IO 操作。或者其他 跨语言调用,窗口和网络连接 之的非托管资源调用，这时才需要自己是实现一个IDispose 接口。其他的时候你并不需要去实现这样一个接口。我的做法是一般的类继承一个 IReset 接口，这个接口内只包含一个 Reset 函数 .<br>Dispose 接口是一个显示的调用，如果我们没有写这个接口，运行时他会在执行析构函数的时候清理资源。</p>
+<h1 id="了解析构函数-终结器"><a href="#了解析构函数-终结器" class="headerlink" title="了解析构函数(终结器)"></a>了解析构函数(终结器)</h1><p>在使用Dispose 接口的同时 你或许同时会用到一个终结器。打个比方 如果你忘记显示调用 Dispose 函数的时候，程序还是会帮你清除非托管资源。</p>
+<p>先观察以下析构函数<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">Car</span> </div><div class="line">&#123;</div><div class="line">    ~Car()  <span class="comment">// finalizer</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// cleanup statements...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的代码很简单，他等价于下面的代码</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Finalize</span>(<span class="params"></span>)  </span></div><div class="line">&#123;  </div><div class="line">    <span class="keyword">try</span>  </div><div class="line">    &#123;  </div><div class="line">        <span class="comment">// Cleanup statements...  </span></div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">finally</span>  </div><div class="line">    &#123;  </div><div class="line">        <span class="keyword">base</span>.Finalize();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在你应该已经观察到这一行代码被隐式调用了,这行代码的意义是将当前运行时 Finalize 队列中创建一个条目，等待回收器来处理该队列。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">base</span>.Finalize();</div></pre></td></tr></table></figure>
+<h1 id="正确的-“Dispose”"><a href="#正确的-“Dispose”" class="headerlink" title="正确的 “Dispose”"></a>正确的 “Dispose”</h1><p>我们再观察下面的代码<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyClass</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 这里实现了IDispose中的 Dispose方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Dispose</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//执行资源释放 xxxxxxxx</span></div><div class="line"></div><div class="line">        <span class="comment">//告诉GC此对象的Finalize方法不再需要调用</span></div><div class="line">        GC.SuppressFinalize(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ~MyClass()</div><div class="line">    &#123;</div><div class="line">        Dispose();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//下面我们使用using使用这个类</span></div><div class="line"><span class="keyword">using</span>(MyClass s = <span class="keyword">new</span> MyClass())&#123;&#125;</div></pre></td></tr></table></figure></p>
+<p>上面我们使用了 <code>GC.SuppressFinalize(this);</code> 函数，他会告诉GC的Finalize队列中移除当前，不必在执行 <code>Finalize()</code></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
+<li>在非托管资源操作中才去重写dispose接口，否则使用其他自定义接口去实现 Reset 操作</li>
+<li>在非托管资源操作中才去重写析构函数，否则空析构函数也会造成不必要的性能损失</li>
+<li>重写dispose接口的同时别忘了重写析构函数</li>
+</ol>
+<h1 id="文外话"><a href="#文外话" class="headerlink" title="文外话"></a>文外话</h1><p>在 C# 语言里对析构函数与终结器的描述似乎是同一个东西，这让我有一点困惑。我查询了一些论文他们是这样说的。如果你感兴趣也可以看一下</p>
+<p>In the C# world the terms “destructor” and “finalizer” seem to be used pretty much interchangeably, which I suspect is because the C# specification describes the non-deterministic cleanup functionality using the word “destructor”, whereas the CLR documentation always uses the word “finalizer”, so within the realms of C# they mean the same thing.</p>
+<p>However, in the C++/CLI specification there is a distinction made between the two. It allows both deterministic and non-deterministic cleanup, and uses the term “destructor” for the deterministic functionality and “finalizer” for the non-deterministic functionality:</p>
+<p>在C＃世界术语“析构函数”和“终结”似乎要使用pretty多互换，我怀疑是因为C＃规范用字“析构函数”，描述了非确定性的清理功能，而CLR的文档始终使用单词“终结”，所以C＃的领域内，他们的意思是一样的。</p>
+<p>然而，在C / CLI规范有两者之间作出区分。它同时允许确定性和非确定性的清理，并使用该确定的功能的非确定性的功能的术语“析构”和“终结”：</p>
+<p><a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/destructors" target="_blank" rel="external">Microsoft 编程指南</a></p>
+<p><a href="http://www.it1352.com/382928.html" target="_blank" rel="external">析构函数和终结器的区别？(The difference between a destructor and a finalizer?</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;我们知道在代码里自己写 Dispose 来释放一些资源。但是你真的用对了吗 ？ 本篇介绍一些不容易注意到的 GC 相关知识 。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://vrast.cn/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>C# language version history</title>
@@ -63,12 +142,13 @@
     <link href="http://vrast.cn/posts/cdaabbe3/"/>
     <id>http://vrast.cn/posts/cdaabbe3/</id>
     <published>2018-09-25T08:52:13.000Z</published>
-    <updated>2018-10-12T03:18:55.658Z</updated>
+    <updated>2018-10-25T01:22:47.492Z</updated>
     
     <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>如果您想动手尝试可以在AssetStore中获取到<a href="https://assetstore.unity.com/packages/essentials/default-playables-95266" target="_blank" rel="external">🔗 示例源码</a>，在 Default Playables 包中展示了大量的<strong>Playable API</strong>案例。在这里我们会挑比较有代表性的进行讲解。在案例中全部都是结合 <strong>Timeline</strong> 使用，由此可窥 “Playables API” 真是香饽饽，堪称万金油的存在。既能单独作为树型动画播放器使用又能够被 <strong>Timeline</strong> 所结合，不写代码也能做出复杂的游戏逻辑。当然 <strong>Timeline</strong> 同样适合处理各种动画需求等 如过场剧情，封面动画，甚至可以制作电影。本篇将会带大家从零开始使用Timeline进行剧情的编写，并且对相关 概念 以及 api 进行讲解。</p>
 <a id="more"></a>
 <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p><strong>Timeline</strong> 编辑器是一个什么样的存在 ？ 可以看作是强化版的 Animation 编辑器。他支持同时操控 N 个属性，就像是制作 flash 电影一样。在使用上策划编辑的时候不需要考虑脚本的实现只需要调用就行，程序这边不需要考虑调用时序只需要实现API并提供给策划即可。</p>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1>]]></content>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>.. 未完成 待续</p>
+]]></content>
     
     <summary type="html">
     
@@ -765,7 +845,7 @@
     <link href="http://vrast.cn/posts/bd424e64/"/>
     <id>http://vrast.cn/posts/bd424e64/</id>
     <published>2018-08-08T03:24:52.000Z</published>
-    <updated>2018-09-07T06:41:49.404Z</updated>
+    <updated>2018-10-16T03:13:59.159Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>记录一些小技巧 ，借此机会重新开始写作 .这里提供两种思路，最后建议将这两种做法结合一下 可以做成类似微信聊天气泡的效果。</p>
@@ -1207,87 +1287,6 @@
     
     
       <category term="Physics" scheme="http://vrast.cn/tags/Physics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解决NavmeshAgent寻路边界的判定</title>
-    <link href="http://vrast.cn/posts/e53ade9f/"/>
-    <id>http://vrast.cn/posts/e53ade9f/</id>
-    <published>2017-12-15T14:36:00.000Z</published>
-    <updated>2017-12-22T14:26:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>今天群里有兄弟问: “我看到navmeshagent里面有个方法叫什么获取网格边缘点的，我打算首先判断目标点在不在网格上。在的话正常逻辑，不在的话判断当前agent的位置有没有到那个边缘点 “ 。我想这样应该能解决这个问题。</p>
-</blockquote>
-<p><img src="/uploads/FC9B64C1057D31F1B4692EF0EC22A08B.jpg" alt="解决边界点的判定"></p>
-<a id="more"></a>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">1</span>))</div><div class="line">&#123;</div><div class="line">    NavMeshHit hit;</div><div class="line">    NavMesh.Raycast(transform.position, target.position, <span class="keyword">out</span> hit, <span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (hit.hit)</div><div class="line">    &#123;</div><div class="line">        NavMeshPath path = <span class="keyword">new</span> NavMeshPath();</div><div class="line">        <span class="keyword">if</span> (agent.CalculatePath(hit.position, path))</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">var</span> pos = path.corners[path.corners.Length - <span class="number">1</span>];</div><div class="line">            <span class="keyword">var</span> o = GameObject.CreatePrimitive(PrimitiveType.Sphere);</div><div class="line">            o.transform.localScale = Vector3.one * <span class="number">0.1</span>f;</div><div class="line">            o.transform.position = pos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;今天群里有兄弟问: “我看到navmeshagent里面有个方法叫什么获取网格边缘点的，我打算首先判断目标点在不在网格上。在的话正常逻辑，不在的话判断当前agent的位置有没有到那个边缘点 “ 。我想这样应该能解决这个问题。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/FC9B64C1057D31F1B4692EF0EC22A08B.jpg&quot; alt=&quot;解决边界点的判定&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="NavmeshAgent" scheme="http://vrast.cn/tags/NavmeshAgent/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>High-level NavMesh Building Components</title>
-    <link href="http://vrast.cn/posts/98dfcd51/"/>
-    <id>http://vrast.cn/posts/98dfcd51/</id>
-    <published>2017-12-07T12:49:15.000Z</published>
-    <updated>2017-12-08T03:10:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>高级 NavMesh 组件说明文档</p>
-</blockquote>
-<p>NavMesh Surface 脚本 ，在此之前 我看了网络上的一篇介绍 <a href="http://forum.china.unity3d.com/thread-25421-1-1.html" target="_blank" rel="external">进击的新版NavMesh系统：看我飞檐走壁</a> 效果非常好。我一边测试一边记录关于Surface的用法。</p>
-<p>NavMesh Surcefa组件表示特定NavMeshAgent类型的可行走区域，并定义应该构建NavMesh的场景的一部分。</p>
-<p>NavMesh Surface组件不在标准Unity安装中; 有关如何访问它的信息，<a href="https://docs.unity3d.com/Manual/class-NavMeshSurface.html" target="_blank" rel="external">请参阅高级NavMesh构建组件的文档</a>。</p>
-<p>要使用NavMesh Surface组件，导航到GameObject&gt; AI&gt; NavMesh Surface。 这将创建一个空的GameObject，并附带一个NavMesh Surface组件。 一个场景可以包含多个NavMesh表面。</p>
-<a id="more"></a>
-<p><img src="/uploads/class-NavMeshSurface-0.png" alt="嗯 就是这货了"></p>
-<p><img src="/uploads/QQ20171207-161002@2x.png" alt="针对与这个组件的使用说明"></p>
-<p><img src="/uploads/QQ20171207-162319.png" alt="NavMesh Surface参数说明"></p>
-<blockquote>
-<p>NavMesh Off-Link &amp;  Off-mesh-Link 我们通常用第一种。在两个不可行走区域之间 使用跨越点+动画 实现定点跳跃。</p>
-</blockquote>
-<p><img src="/uploads/QQ20171207-194954.png" alt="Off Link"><br><img src="/uploads/QQ20171207-195557.png" alt="Off Link"></p>
-<blockquote>
-<p>NavMesh Modifier &amp; NavMesh Modifier Volume 在烘培之前修改区域是否行走</p>
-</blockquote>
-<p>先说 NavMesh Modifier volume,你可以在烘培之前选定区域设置区域类型，例子将某个Agent设置成该区域不能行走。</p>
-<p><img src="/uploads/class-NavMesh-ModifierVolume-4.png" alt="NavMesh Modifier Volume效果图"></p>
-<!-- more -->
-<p><img src="/uploads/QQ20171207-193142@2x.png" alt="NavMesh Modifier Volume使用方法"></p>
-<p>如果知道了 NavMesh Modifier Volume 那么可以猜得到  NavMesh Modifier 就是给附着这个脚本的mesh上的区域设置区域类型。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;高级 NavMesh 组件说明文档&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;NavMesh Surface 脚本 ，在此之前 我看了网络上的一篇介绍 &lt;a href=&quot;http://forum.china.unity3d.com/thread-25421-1-1.html&quot;&gt;进击的新版NavMesh系统：看我飞檐走壁&lt;/a&gt; 效果非常好。我一边测试一边记录关于Surface的用法。&lt;/p&gt;
-&lt;p&gt;NavMesh Surcefa组件表示特定NavMeshAgent类型的可行走区域，并定义应该构建NavMesh的场景的一部分。&lt;/p&gt;
-&lt;p&gt;NavMesh Surface组件不在标准Unity安装中; 有关如何访问它的信息，&lt;a href=&quot;https://docs.unity3d.com/Manual/class-NavMeshSurface.html&quot;&gt;请参阅高级NavMesh构建组件的文档&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;要使用NavMesh Surface组件，导航到GameObject&amp;gt; AI&amp;gt; NavMesh Surface。 这将创建一个空的GameObject，并附带一个NavMesh Surface组件。 一个场景可以包含多个NavMesh表面。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="Navigation" scheme="http://vrast.cn/tags/Navigation/"/>
     
   </entry>
   
