@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-02-28T01:45:32.401Z</updated>
+  <updated>2019-03-01T02:31:28.386Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>UNITY新Prefab系统-2018</title>
+    <link href="http://vrast.cn/posts/f258ca82/"/>
+    <id>http://vrast.cn/posts/f258ca82/</id>
+    <published>2019-03-01T01:44:01.000Z</published>
+    <updated>2019-03-01T02:31:28.386Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>最近看了一下UNITY3D-2018的新Prefab系统，这里做一个记录。目前的情况看下来新Prefab系统还在不断的优化工作流，对于整体的概念应该是敲定下来了。未来应该是在编辑器层面上的优化和编辑细节上的调整。昨天看了UNITY的公开课。还是有点意思的，其中一个比较有趣的一个案例是某个客户由于场景层级太深，导致对某一个Prefab的递归修改卡了几十分钟最后官方出了一版优化到几分钟卡顿。这也从侧面说明了UNITY还是不断对编辑器进行改进的。对于我们来说应该也是一件很友好的事情。这东西需要总结的并不多，作为一个开箱即用的Prefab工作流，我认为UNITY官方处理的还是相当不错，作为美术或者非程序使用都是能很快上手的流程。<br>需要注意的是新Preafab的嵌套在Assetbundle中可不管你是不是嵌套或者变体，只要出现了多份Prefab就会出现多份资源。<br>第二个需要注意的是性能问题，你不能有太深的层级在你的prefab上。尽力告知美术让他多做prefab减少层级。<br>第三个就是尽量在非Assetbundle目录与Resource目录中使用新prefab系统，这样不会出现多份资源重复打包的问题。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>我这边也就顺着之前公开课的PPT大概浏览一遍，从个人的角度写一些笔记。因为前有视频后有PPT我就在这里做一些概念上的总结了。<br>新prefb系统功能如下：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Nested</span> Prefabs（嵌套式预制件）</div><div class="line">Prefab Overrides（预制件覆盖/重载）</div><div class="line">Prefab Variants（预制件变体）</div></pre></td></tr></table></figure></p>
+<h2 id="Nested-Prefabs（嵌套式预制件）"><a href="#Nested-Prefabs（嵌套式预制件）" class="headerlink" title="Nested Prefabs（嵌套式预制件）"></a>Nested Prefabs（嵌套式预制件）</h2><p>嵌套Prefab的做法，让我举例说的话，从程序的角度打个比方。 如果一个prefab看作是一个类的话。那么嵌套prefab就是在一个类里面使用其他的类作为局部变量类似下面:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">PrefabMain</span></div><div class="line">&#123;</div><div class="line">    PrefabA a;</div><div class="line">    PreafaB b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于a,b变量来说 进行的任何更改对于PrefabMain来说都是没有关系的。</p>
+<h2 id="Prefab-Overrides（预制件覆盖-重载）"><a href="#Prefab-Overrides（预制件覆盖-重载）" class="headerlink" title="Prefab Overrides（预制件覆盖/重载）"></a>Prefab Overrides（预制件覆盖/重载）</h2><p>这个概念就不提了，记得我们之前使用UNITY3D在场景里修改实例吗？这就叫Override。</p>
+<h2 id="Prefab-Variants（预制件变体）"><a href="#Prefab-Variants（预制件变体）" class="headerlink" title="Prefab Variants（预制件变体）"></a>Prefab Variants（预制件变体）</h2><p>对于这个概念程序应该更好理解了。就像下面写的，下面就是PrefabA变体了，他继承了PrefabMain，如果说现在对 PrefabMain 进行了更改，马上就会体现到所有的继承了 PrefabMain 的Prefab上面去。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">PrefabA</span> : <span class="title">PrefabMain</span></div><div class="line">&#123;</div><div class="line">    PreafaB b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;最近看了一下UNITY3D-2018的新Prefab系统，这里做一个记录。目前的情况看下来新Prefab系统还在不断的优化工作流，对于整体的概念应该是敲定下来了。未来应该是在编辑器层面上的优化和编辑细节上的调整。昨天看了UNITY的公开课。还是有点意思的，其中一个比较有趣的一个案例是某个客户由于场景层级太深，导致对某一个Prefab的递归修改卡了几十分钟最后官方出了一版优化到几分钟卡顿。这也从侧面说明了UNITY还是不断对编辑器进行改进的。对于我们来说应该也是一件很友好的事情。这东西需要总结的并不多，作为一个开箱即用的Prefab工作流，我认为UNITY官方处理的还是相当不错，作为美术或者非程序使用都是能很快上手的流程。&lt;br&gt;需要注意的是新Preafab的嵌套在Assetbundle中可不管你是不是嵌套或者变体，只要出现了多份Prefab就会出现多份资源。&lt;br&gt;第二个需要注意的是性能问题，你不能有太深的层级在你的prefab上。尽力告知美术让他多做prefab减少层级。&lt;br&gt;第三个就是尽量在非Assetbundle目录与Resource目录中使用新prefab系统，这样不会出现多份资源重复打包的问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="NewPrefabSystem" scheme="http://vrast.cn/tags/NewPrefabSystem/"/>
+    
+  </entry>
   
   <entry>
     <title>XCode 插件自动签名</title>
@@ -1259,37 +1294,6 @@
     
     
       <category term="NavmeshAgent" scheme="http://vrast.cn/tags/NavmeshAgent/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>三维向量曲线平滑算法</title>
-    <link href="http://vrast.cn/posts/7a035f20/"/>
-    <id>http://vrast.cn/posts/7a035f20/</id>
-    <published>2017-12-22T02:37:36.000Z</published>
-    <updated>2017-12-22T14:37:40.822Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>在网上看到一个平滑算法，很好用，经过我测试 效率很高，Chaikin 函数调用2-3次会获得一个相对较好的曲线。<a href="http://graphics.cs.ucdavis.edu/education/CAGDNotes/Chaikins-Algorithm/Chaikins-Algorithm.html" target="_blank" rel="external">算法链接</a><br>原理是不断的裁切三角形让其分裂成2个三角，2个三角变成4个，以此类推，最终会越来越平滑从而接近一个圆。</p>
-</blockquote>
-<p><img src="/uploads/chaikin_algorithm.png" alt="裁切范例"></p>
-<a id="more"></a>
-<p>平滑算法如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line">[RequireComponent(<span class="keyword">typeof</span>(LineRenderer))]</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SmoothAlgorithm</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> minRadius = <span class="number">1.5</span>f;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> maxRadius = <span class="number">3.5</span>f;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">25</span>;</div><div class="line">    <span class="keyword">private</span> LineRenderer lr;</div><div class="line">    <span class="keyword">private</span> Vector3[] points;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        lr = GetComponent&lt;LineRenderer&gt;();</div><div class="line">        GenerateRandomPath();</div><div class="line">        SetLR(points);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">GenerateRandomPath</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        points = <span class="keyword">new</span> Vector3[num];</div><div class="line"></div><div class="line">        <span class="keyword">float</span> angle = <span class="number">360.0</span>f / num;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)</div><div class="line">        &#123;</div><div class="line">            points[i] = Quaternion.AngleAxis((angle * i), Vector3.forward) * Vector3.up * Random.Range(minRadius, maxRadius);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetLR</span>(<span class="params">Vector3[] pts</span>)</span></div><div class="line">    &#123;</div><div class="line">        lr.SetVertexCount(pts.Length);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pts.Length; i++)</div><div class="line">        &#123;</div><div class="line">            lr.SetPosition(i, pts[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Space))</div><div class="line">        &#123;</div><div class="line">            points = Chaikin(points);</div><div class="line">            SetLR(points);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.G))</div><div class="line">        &#123;</div><div class="line">            GenerateRandomPath();</div><div class="line">            SetLR(points);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function">Vector3[] <span class="title">Chaikin</span>(<span class="params">Vector3[] pts</span>)</span></div><div class="line">    &#123;</div><div class="line">        Vector3[] newPts = <span class="keyword">new</span> Vector3[(pts.Length - <span class="number">2</span>) * <span class="number">2</span> + <span class="number">2</span>];</div><div class="line">        newPts[<span class="number">0</span>] = pts[<span class="number">0</span>];</div><div class="line">        newPts[newPts.Length - <span class="number">1</span>] = pts[pts.Length - <span class="number">1</span>];</div><div class="line"></div><div class="line">        <span class="keyword">int</span> j = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pts.Length - <span class="number">2</span>; i++)</div><div class="line">        &#123;</div><div class="line">            newPts[j] = pts[i] + (pts[i + <span class="number">1</span>] - pts[i]) * <span class="number">0.75</span>f;</div><div class="line">            newPts[j + <span class="number">1</span>] = pts[i + <span class="number">1</span>] + (pts[i + <span class="number">2</span>] - pts[i + <span class="number">1</span>]) * <span class="number">0.25</span>f;</div><div class="line">            j += <span class="number">2</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> newPts;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;在网上看到一个平滑算法，很好用，经过我测试 效率很高，Chaikin 函数调用2-3次会获得一个相对较好的曲线。&lt;a href=&quot;http://graphics.cs.ucdavis.edu/education/CAGDNotes/Chaikins-Algorithm/Chaikins-Algorithm.html&quot;&gt;算法链接&lt;/a&gt;&lt;br&gt;原理是不断的裁切三角形让其分裂成2个三角，2个三角变成4个，以此类推，最终会越来越平滑从而接近一个圆。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/chaikin_algorithm.png&quot; alt=&quot;裁切范例&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Math" scheme="http://vrast.cn/categories/Math/"/>
-    
-    
-      <category term="算法" scheme="http://vrast.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
