@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-03-01T02:31:28.386Z</updated>
+  <updated>2019-03-12T09:53:28.815Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SpriteAtlas 使用FAQ</title>
+    <link href="http://vrast.cn/posts/583e3cbd/"/>
+    <id>http://vrast.cn/posts/583e3cbd/</id>
+    <published>2019-03-12T07:43:31.000Z</published>
+    <updated>2019-03-12T09:53:28.815Z</updated>
+    
+    <content type="html"><![CDATA[<p>这两天详细的看了下U3D的新图集系统 SpriteAtlas ，目前为止觉得这个新系统用起来问题不大。但是在理解上有一些问题，我会在这里做一些记录。<br>在操作上，这个没什么问题。有问题的是SpriteAtlasManager这块，需要去理解一下调用机制。</p>
+<a id="more"></a>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>UNITY每次更新旧操作方式都会变得更加简单，这次亦是如此。</p>
+<h3 id="启用图集打包方式"><a href="#启用图集打包方式" class="headerlink" title="启用图集打包方式"></a>启用图集打包方式</h3><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">E<span class="function"><span class="title">dit</span>-&gt;</span> P<span class="function"><span class="title">rojectSettings</span> -&gt;</span> E<span class="function"><span class="title">ditor</span> -&gt;</span> S<span class="function"><span class="title">prite</span> Packer -&gt;</span> Mode</div><div class="line"></div><div class="line"> -&gt;  Enable For Builds：在打包时使用图集</div><div class="line"></div><div class="line"> -&gt;  AlwaysEnabled：保持图集状态</div></pre></td></tr></table></figure>
+<h3 id="制作图集"><a href="#制作图集" class="headerlink" title="制作图集"></a>制作图集</h3><p>新建SpriteAtlas文件，将Sprite或者Sprite所在文件夹拖入Objects for Packing，按Pack Preview预览。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>SpriteAtlas面板中Include in Build选项，勾选的话作用于编辑器中。取消后需要在代码中监听SpriteAtlasManager.atlasRequested事件来在程序中加载贴图集。</p>
+<h2 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h2><h3 id="先加载后取值"><a href="#先加载后取值" class="headerlink" title="先加载后取值"></a>先加载后取值</h3><p>如果现在要在运行时从资源目录或者AB里加载出Prefab,这个时候我们需要先加载这个Prefab的代码上<code>先进行SpriteAtlas的加载工作</code> – 也就是需要保证这个Sprite所属SpriteAtlas已经被Load到运行时。</p>
+<p>下面的代码是可以正常工作的：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> UnityEngine.U2D;</div><div class="line"><span class="keyword">using</span> UnityEngine.UI;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestSA</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> GameObject[] objs;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> SpriteAtlas at;</div><div class="line"></div><div class="line">	<span class="comment">// Start is called before the first frame update</span></div><div class="line">	<span class="function">IEnumerator <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		at = Resources.Load&lt;SpriteAtlas&gt;(<span class="string">"NewSpriteAtlas2"</span>);</div><div class="line">		<span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">3</span></span>)</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; objs.Length; i++)</div><div class="line">		&#123;</div><div class="line">			objs[i].SetActive(<span class="literal">true</span>);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		objs[<span class="number">0</span>].GetComponent&lt;Image&gt;().sprite = at.GetSprite(<span class="string">"04"</span>);</div><div class="line">		objs[<span class="number">1</span>].GetComponent&lt;Image&gt;().sprite = at.GetSprite(<span class="string">"04"</span>);</div><div class="line">		objs[<span class="number">2</span>].GetComponent&lt;Image&gt;().sprite = at.GetSprite(<span class="string">"04"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因为没有对 SpriteAtlasManager 中的回调函数进行监听，我们收获了一个Warning , 但是不影响编辑器中的正常显示 。</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">⚠️ SpriteAtlasManager.atlasRequested wasn<span class="symbol">'t</span> listened <span class="keyword">to</span> <span class="keyword">while</span> NewSpriteAtlas2 requested.</div></pre></td></tr></table></figure>
+<p>如果你考虑上面的做法务必小心你在每次代码调用Sprite加载都已经Load过SpriteAtlas。这应该是需要写一个相应的模块去管理 SpriteAtlas - Sprite 的从属关系。</p>
+<h3 id="先注册后取值"><a href="#先注册后取值" class="headerlink" title="先注册后取值"></a>先注册后取值</h3><p>第二种就简单一些了，这也是UNTIY推荐的方法。你不必每次都在代码前检测是否调用过图集加载之类或者其他加载图集相关代码。 你只需要在 SpriteAtlasManager 中注册 atlasRegistered . 在第一次加载相应图集的时候会自动调一次，这时候在该函数的回调中内你可以轻松的写一段加载图集的代码。<br>哦对了，这个图集什么时候被加载 ？ 如果你实例化物体关联到Sprite 就会执行 <code>atlasRequested</code> 回调，在UNITY内部做了一个检测，如果该关联到的图集是第一次被关联到，那么才会调用一次。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Trigger when any Sprite was bound to SpriteAtlas but couldn't locate the atlas asset during runtime.</div><div class="line">This usually means the sprite was packed to an atlas which is not included in build</div><div class="line">This callback does not expect an immediate response from the user. Instead, it passes on a System.Action. The user can load the atlas object later and use this System.Action to pass back the loaded atlas.</div><div class="line"></div><div class="line">using UnityEngine;</div><div class="line">using UnityEngine.U2D;</div><div class="line"></div><div class="line">public class AtlasLoader : MonoBehaviour</div><div class="line">&#123;</div><div class="line">    void OnEnable()</div><div class="line">    &#123;</div><div class="line">        SpriteAtlasManager.atlasRequested += RequestAtlas;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void OnDisable()</div><div class="line">    &#123;</div><div class="line">        SpriteAtlasManager.atlasRequested -= RequestAtlas;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void RequestAtlas(string tag, System.Action&lt;SpriteAtlas&gt; callback)</div><div class="line">    &#123;</div><div class="line">        var sa = Resources.Load&lt;SpriteAtlas&gt;(tag);</div><div class="line">        callback(sa);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.litefeel.com/unity-2017-new-sprite-atlas/" target="_blank" rel="external">Unity2017的新spriteAtlas</a><br><a href="https://docs.unity3d.com/ScriptReference/U2D.SpriteAtlasManager.html" target="_blank" rel="external">SpriteAtlasManager</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这两天详细的看了下U3D的新图集系统 SpriteAtlas ，目前为止觉得这个新系统用起来问题不大。但是在理解上有一些问题，我会在这里做一些记录。&lt;br&gt;在操作上，这个没什么问题。有问题的是SpriteAtlasManager这块，需要去理解一下调用机制。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
+    
+    
+      <category term="UI" scheme="http://vrast.cn/tags/UI/"/>
+    
+  </entry>
+  
+  <entry>
     <title>UNITY新Prefab系统-2018</title>
     <link href="http://vrast.cn/posts/f258ca82/"/>
     <id>http://vrast.cn/posts/f258ca82/</id>
     <published>2019-03-01T01:44:01.000Z</published>
-    <updated>2019-03-01T02:31:28.386Z</updated>
+    <updated>2019-03-01T02:31:42.630Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>最近看了一下UNITY3D-2018的新Prefab系统，这里做一个记录。目前的情况看下来新Prefab系统还在不断的优化工作流，对于整体的概念应该是敲定下来了。未来应该是在编辑器层面上的优化和编辑细节上的调整。昨天看了UNITY的公开课。还是有点意思的，其中一个比较有趣的一个案例是某个客户由于场景层级太深，导致对某一个Prefab的递归修改卡了几十分钟最后官方出了一版优化到几分钟卡顿。这也从侧面说明了UNITY还是不断对编辑器进行改进的。对于我们来说应该也是一件很友好的事情。这东西需要总结的并不多，作为一个开箱即用的Prefab工作流，我认为UNITY官方处理的还是相当不错，作为美术或者非程序使用都是能很快上手的流程。<br>需要注意的是新Preafab的嵌套在Assetbundle中可不管你是不是嵌套或者变体，只要出现了多份Prefab就会出现多份资源。<br>第二个需要注意的是性能问题，你不能有太深的层级在你的prefab上。尽力告知美术让他多做prefab减少层级。<br>第三个就是尽量在非Assetbundle目录与Resource目录中使用新prefab系统，这样不会出现多份资源重复打包的问题。</p>
@@ -1264,36 +1301,6 @@
     
     
       <category term="缺氧源码分析" scheme="http://vrast.cn/tags/%E7%BC%BA%E6%B0%A7%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>动态获取AgentTypeID</title>
-    <link href="http://vrast.cn/posts/9ad4f6c3/"/>
-    <id>http://vrast.cn/posts/9ad4f6c3/</id>
-    <published>2017-12-22T14:25:55.000Z</published>
-    <updated>2017-12-22T14:35:38.761Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>前阵子我在Github上给Unity团队提了一个issue关于使用代码获取<code>agentTypeID</code>，说来惭愧是我自己的没找到对应的代码。在我使用另外渠道获取此ID的时候 Unity团队已经默默给我回复了这个issues.先说说我的解决方式，由于代码设置 agentTypeID 的时候需要给一个Int类型变量，这个变量其实是对应了一个枚举，我在UnityEditor Inspector的Debug窗口中直接获取了对应AgentTypeID. 笑. 本文记录我获得答复的过程，换个角度想想其实也能发现另外的解决方案即使不知道也没关系<br>。</p>
-</blockquote>
-<p><img src="/uploads/navmeshagentid.png" alt="解决方案"></p>
-<a id="more"></a>
-<h1 id="图中的代码如下"><a href="#图中的代码如下" class="headerlink" title="图中的代码如下"></a>图中的代码如下</h1><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> count = NavMesh.GetSettingsCount();</div><div class="line"><span class="keyword">var</span> agentTypeNames = <span class="keyword">new</span> <span class="keyword">string</span>[count + <span class="number">2</span>];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; count; i++)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> id = NavMesh.GetSettingsByIndex(i).agentTypeID;</div><div class="line">    <span class="keyword">var</span> name = NavMesh.GetSettingsNameFromID(id);</div><div class="line">    agentTypeNames[i] = name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;前阵子我在Github上给Unity团队提了一个issue关于使用代码获取&lt;code&gt;agentTypeID&lt;/code&gt;，说来惭愧是我自己的没找到对应的代码。在我使用另外渠道获取此ID的时候 Unity团队已经默默给我回复了这个issues.先说说我的解决方式，由于代码设置 agentTypeID 的时候需要给一个Int类型变量，这个变量其实是对应了一个枚举，我在UnityEditor Inspector的Debug窗口中直接获取了对应AgentTypeID. 笑. 本文记录我获得答复的过程，换个角度想想其实也能发现另外的解决方案即使不知道也没关系&lt;br&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/navmeshagentid.png&quot; alt=&quot;解决方案&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="NavmeshAgent" scheme="http://vrast.cn/tags/NavmeshAgent/"/>
     
   </entry>
   
