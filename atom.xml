@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-03-12T09:53:28.815Z</updated>
+  <updated>2019-03-12T09:53:45.996Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/583e3cbd/"/>
     <id>http://vrast.cn/posts/583e3cbd/</id>
     <published>2019-03-12T07:43:31.000Z</published>
-    <updated>2019-03-12T09:53:28.815Z</updated>
+    <updated>2019-03-12T09:53:45.996Z</updated>
     
     <content type="html"><![CDATA[<p>这两天详细的看了下U3D的新图集系统 SpriteAtlas ，目前为止觉得这个新系统用起来问题不大。但是在理解上有一些问题，我会在这里做一些记录。<br>在操作上，这个没什么问题。有问题的是SpriteAtlasManager这块，需要去理解一下调用机制。</p>
 <a id="more"></a>
