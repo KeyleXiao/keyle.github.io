@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-03-13T03:35:59.526Z</updated>
+  <updated>2019-03-16T05:57:31.927Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Rider为UNITY项目生成DLL</title>
+    <link href="http://vrast.cn/posts/b10c71c2/"/>
+    <id>http://vrast.cn/posts/b10c71c2/</id>
+    <published>2019-03-16T05:23:04.000Z</published>
+    <updated>2019-03-16T05:57:31.927Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>技术中心有同事问我怎么方便的将库文件编译到UNITY中，并且方便调试。今日有空写一下案例. 无论你使用的是否是rider或者是其他(VisualStudio/Mono)，基本上都是这样处理。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="操作演示"><a href="#操作演示" class="headerlink" title="操作演示"></a>操作演示</h2><p><img src="/uploads/WX20190316-132730@2x.png" alt="在与当前项目平行的目录建一个文件夹"></p>
+<p><img src="/uploads/WeChat22cd6b5c46c3c16004d366949f7dbd96.png" alt="右键添加现有项目到解决方案，这里需要注意一下相对路径， 我的相对路径是这样的：&lt;code&gt;../../TEST2/Assets/Plugins&lt;/code&gt; "></p>
+<p><img src="/uploads/WX20190316-134956@2x.png" alt="现在我们写一个测试函数 看 已经正常进入断点了"></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>需要提前规范命名空间，并且划分好每块代码的职责范围。另外你需要确定当前所使用的.net framework 版本.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;技术中心有同事问我怎么方便的将库文件编译到UNITY中，并且方便调试。今日有空写一下案例. 无论你使用的是否是rider或者是其他(VisualStudio/Mono)，基本上都是这样处理。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="Plugin" scheme="http://vrast.cn/tags/Plugin/"/>
+    
+  </entry>
   
   <entry>
     <title>SpriteAtlas 使用FAQ</title>
@@ -1262,49 +1294,6 @@
     
     
       <category term="SNFramework" scheme="http://vrast.cn/tags/SNFramework/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分析缺氧(Oxygen not included)中所用到的技术</title>
-    <link href="http://vrast.cn/posts/6f00466c/"/>
-    <id>http://vrast.cn/posts/6f00466c/</id>
-    <published>2018-01-03T09:03:16.000Z</published>
-    <updated>2018-01-03T10:53:07.537Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>元旦期间玩了缺氧，感觉十分的好玩。属于深度沙盒经营类游戏。既然好玩那就要知其所以然，今天抽空看了看源码，基本上列出所有能找到的工具或技术。算是一个记录，也开阔一下视野。如果你还有什么补充欢迎给我留言。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="外部插件列表"><a href="#外部插件列表" class="headerlink" title="外部插件列表"></a>外部插件列表</h1><h2 id="YamlDotNet-amp-Newtonsoft-Json"><a href="#YamlDotNet-amp-Newtonsoft-Json" class="headerlink" title="YamlDotNet &amp; Newtonsoft.Json"></a>YamlDotNet &amp; Newtonsoft.Json</h2><p>序列化工具<br><a href="https://github.com/aaubry/YamlDotNet" target="_blank" rel="external">Github地址</a><br><a href="https://dotnetfiddle.net/QlqGDV" target="_blank" rel="external">代码演示地址1</a><br><a href="https://dotnetfiddle.net/HD2JXM" target="_blank" rel="external">代码演示地址2</a></p>
-<p>Newtonsoft.Json 就不说了 这个大家都知道，毕竟不是小众</p>
-<h2 id="FileHelpers-Library"><a href="#FileHelpers-Library" class="headerlink" title="FileHelpers Library"></a>FileHelpers Library</h2><p>FileHelpers Library是一款C#编写的开源 .NET 类库。它使用简单，很容易就可以从固定长度文件或界定记录(CSV)读/写数据。它也支持从不同的数据存储格式(Excel, Access, SqlServer)导入/导出数据。 <a href="http://www.filehelpers.net" target="_blank" rel="external">FileHelpers官网</a></p>
-<h2 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h2><p>ArabicSuppor.dll  阿拉伯语支持<br>I18N.dll / I18N.West.dll Unity自带的国际化工具</p>
-<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><p>Ionic.Zip 老牌的解压与压缩类库 <a href="https://dotnetzip.codeplex.com" target="_blank" rel="external">项目地址 Codeplex</a><br>SharpZipLib C#解压压缩类库 <a href="https://github.com/icsharpcode/SharpZipLib" target="_blank" rel="external">项目地址</a></p>
-<h2 id="噪声"><a href="#噪声" class="headerlink" title="噪声"></a>噪声</h2><p>libnoise.dll 用于随机算法(噪声)  <a href="http://libnoise.sourceforge.net" target="_blank" rel="external">项目地址</a></p>
-<h2 id="Png读写"><a href="#Png读写" class="headerlink" title="Png读写"></a>Png读写</h2><p>Pngcs 用来对png图读写的工具 <a href="https://github.com/leonbloy/pngcs" target="_blank" rel="external">Pngcs项目地址</a><br>我猜主场景的图片应该在不停的读写，这样比生成10000*10000的贴图效率高的多。</p>
-<h1 id="内部引用插件列表"><a href="#内部引用插件列表" class="headerlink" title="内部引用插件列表"></a>内部引用插件列表</h1><h2 id="Node-Editor-Framework"><a href="#Node-Editor-Framework" class="headerlink" title="Node_Editor_Framework"></a>Node_Editor_Framework</h2><p>节点编辑器 经过源码比对 klei 拿这个源码自己改了一版，不过确实使用了这个项目 <a href="https://github.com/Seneral/Node_Editor_Framework" target="_blank" rel="external">项目地址</a></p>
-<h2 id="fmod-studio"><a href="#fmod-studio" class="headerlink" title="fmod.studio"></a>fmod.studio</h2><p>Unity内置了Audio功能，并且底层也是用FMOD来实现的，为什么还要不辞劳苦学习使用FMOD插件来进行音效的管理？<br>-<a href="https://www.jianshu.com/p/586a5d465827" target="_blank" rel="external">FMOD学习 - 简书</a></p>
-<h2 id="TMPro"><a href="#TMPro" class="headerlink" title="TMPro"></a>TMPro</h2><p>Mesh字体插件 <a href="https://www.assetstore.unity3d.com/en/#!/content/84126" target="_blank" rel="external">AssetStore地址</a></p>
-<h2 id="procgen"><a href="#procgen" class="headerlink" title="procgen"></a>procgen</h2><p>程序上实现噪声算法 <a href="https://github.com/trentpolack/procgen" target="_blank" rel="external">项目地址</a></p>
-<h2 id="图形学插件"><a href="#图形学插件" class="headerlink" title="图形学插件"></a>图形学插件</h2><h3 id="Delaunay"><a href="#Delaunay" class="headerlink" title="Delaunay"></a>Delaunay</h3><p>三角形破裂算法 在github上搜这个关键字就好了</p>
-<h3 id="ClipperLib"><a href="#ClipperLib" class="headerlink" title="ClipperLib"></a>ClipperLib</h3><p>多边形偏移裁切算法 <a href="http://www.angusj.com/delphi/clipper.php" target="_blank" rel="external">项目地址</a></p>
-<h3 id="MIConvexHull"><a href="#MIConvexHull" class="headerlink" title="MIConvexHull"></a>MIConvexHull</h3><p>可以生成2、3维的最小凸包。可以进行狄洛尼三角剖分，生成Voronoi多边形。<br><a href="https://github.com/DesignEngrLab/MIConvexHull" target="_blank" rel="external">项目地址</a></p>
-<h3 id="Voronoi-Tree"><a href="#Voronoi-Tree" class="headerlink" title="Voronoi Tree"></a>Voronoi Tree</h3><p>泰森多边形<br><a href="https://en.m.wikipedia.org/wiki/Voronoi_diagram" target="_blank" rel="external">算法简介</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;元旦期间玩了缺氧，感觉十分的好玩。属于深度沙盒经营类游戏。既然好玩那就要知其所以然，今天抽空看了看源码，基本上列出所有能找到的工具或技术。算是一个记录，也开阔一下视野。如果你还有什么补充欢迎给我留言。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://vrast.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="缺氧源码分析" scheme="http://vrast.cn/tags/%E7%BC%BA%E6%B0%A7%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
