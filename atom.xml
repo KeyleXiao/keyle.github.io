@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-05T02:37:51.169Z</updated>
+  <updated>2019-04-05T09:57:26.698Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安装Unity导出APK显示失败</title>
+    <link href="http://vrast.cn/posts/434d7425/"/>
+    <id>http://vrast.cn/posts/434d7425/</id>
+    <published>2019-04-05T09:45:02.000Z</published>
+    <updated>2019-04-05T09:57:26.698Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。<br><img src="/uploads/WX20190405-174643.png" alt="我当时是直接更新到了 29 rc2"><br>直接导出项目在Android Studio中会直接显示 <code>android studio ERROR: Failed to find Build Tools revision 29.0.0</code><br>另外如果直接出APK然后安装会显示一个<code>Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</code> 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。</p>
+</blockquote>
+<a id="more"></a>
+<p>我在Stackoverflow上找到了一解决方案：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">For building a project, Unity3d uses a stable version of the Build Tools and not an rc (<span class="keyword">release</span> candidate).</div><div class="line"></div><div class="line">The Android SDK <span class="keyword">path</span> <span class="keyword">is</span> usually C:\<span class="keyword">Users</span>\&lt;username&gt;\AppData\<span class="keyword">Local</span>\Android\sdk\<span class="keyword">build</span>-tools\ <span class="keyword">delete</span> the <span class="number">29.0</span><span class="number">.0</span>-rc1 folder <span class="keyword">or</span> <span class="keyword">move</span> it <span class="keyword">out</span> <span class="keyword">to</span> anywhere. You could also remove the rc <span class="keyword">version</span> <span class="keyword">of</span> the SDK <span class="keyword">Build</span> Tools via Android Studio<span class="string">'s SDK manager.</span></div><div class="line"></div><div class="line">Doing that the project should build successfully.</div></pre></td></tr></table></figure>
+<p>大意就是让我直接将下载的  Build Tools 29 rc1 与 rc2 先删除然后再打包。试了一下成功安装了。</p>
+<p><img src="/uploads/WX20190405-175318.png" alt="安装成功了"></p>
+<h1 id="UNITY的Build-Tools使用策略猜测"><a href="#UNITY的Build-Tools使用策略猜测" class="headerlink" title="UNITY的Build Tools使用策略猜测"></a>UNITY的Build Tools使用策略猜测</h1><p>经过上面的实力躺坑，可以推断如果你安装了更新的Build Tools，unity导出的时候就会使用最近更新的最新的那个，或许是路径拼接的问题，unity所引用的build tools只会引用前面的版本号 ，就像我遇到的一样 明明下载了 29 rc1 / 29 rc2 ，Unity偏偏不用执着的去找一个叫 29 的 Build Tools。</p>
+<p>或许这是一个隐藏bug吧，希望Unity团队早日解决。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190405-174643.png&quot; alt=&quot;我当时是直接更新到了 29 rc2&quot;&gt;&lt;br&gt;直接导出项目在Android Studio中会直接显示 &lt;code&gt;android studio ERROR: Failed to find Build Tools revision 29.0.0&lt;/code&gt;&lt;br&gt;另外如果直接出APK然后安装会显示一个&lt;code&gt;Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION&lt;/code&gt; 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="ANDROID" scheme="http://vrast.cn/tags/ANDROID/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Android Studio进行APK Profile</title>
@@ -1257,39 +1291,6 @@
     
     
       <category term="protobuf" scheme="http://vrast.cn/tags/protobuf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编辑器扩展-分割条</title>
-    <link href="http://vrast.cn/posts/8d62e7c3/"/>
-    <id>http://vrast.cn/posts/8d62e7c3/</id>
-    <published>2018-03-27T01:40:57.000Z</published>
-    <updated>2018-03-27T01:52:39.284Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>可拖动分割条在 Unity3D 的编辑器结构中一般都属于最外层结构，因为它是基于 GUI 组件，计算位置的时候必须要很精确，所以跟Layout 流式布局混编会比较乱。这里也推荐作为最外层结构使用。</p>
-</blockquote>
-<p><img src="/uploads/2018427047.png" alt="可拖动的分割条"><br><a id="more"></a></p>
-<h1 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h1><p>下面是我写的一个演示例子 你可以在Unity中直接运行。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//   		Copyright 2017 KeyleXiao.</span></div><div class="line"><span class="comment">//     		Contact : Keyle_xiao@hotmail.com </span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//     		Licensed under the Apache License, Version 2.0 (the "License");</span></div><div class="line"><span class="comment">//     		you may not use this file except in compliance with the License.</span></div><div class="line"><span class="comment">//     		You may obtain a copy of the License at</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//     		http://www.apache.org/licenses/LICENSE-2.0</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//     		Unless required by applicable law or agreed to in writing, software</span></div><div class="line"><span class="comment">//     		distributed under the License is distributed on an "AS IS" BASIS,</span></div><div class="line"><span class="comment">//     		WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div><div class="line"><span class="comment">//     		See the License for the specific language governing permissions and</span></div><div class="line"><span class="comment">//     		limitations under the License.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">using</span>  UnityEditor;</div><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">SmartDataViewer.Editor</span></div><div class="line">&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExportWizard</span>:<span class="title">EditorWindow</span></div><div class="line">    &#123;</div><div class="line">        [MenuItem(<span class="string">"SmartDataViewer/ExportWizard"</span>)]</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OpenView</span>(<span class="params"></span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">var</span> w = CreateInstance&lt;ExportWizard &gt;();</div><div class="line">            </div><div class="line">            w.minSize = <span class="keyword">new</span> Vector2(<span class="number">350</span>,<span class="number">250</span>);</div><div class="line">            w.maxSize = w.minSize;</div><div class="line">            Vector2 pos =<span class="keyword">new</span> Vector2( Screen.width/<span class="number">2</span>-w.minSize.x,Screen.height/<span class="number">2</span>-w.minSize.y);</div><div class="line">            w.position = <span class="keyword">new</span> Rect(pos,w.minSize);</div><div class="line">            </div><div class="line">            w.ShowUtility();</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">private</span> <span class="keyword">object</span> rawData &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InitRawData</span>(<span class="params"><span class="keyword">object</span> data</span>)</span></div><div class="line">        &#123;</div><div class="line">            rawData = data;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">private</span> Vector2 scrollPos = Vector2.zero;</div><div class="line">        <span class="keyword">float</span> currentScrollViewWidth;</div><div class="line">        <span class="keyword">bool</span> resize = <span class="literal">false</span>;</div><div class="line">        Rect cursorChangeRect;</div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">OnEnable</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.position = <span class="keyword">new</span> Rect(<span class="number">200</span>,<span class="number">200</span>,<span class="number">400</span>,<span class="number">300</span>);</div><div class="line">            currentScrollViewWidth = <span class="keyword">this</span>.position.width/<span class="number">2</span>;</div><div class="line">            cursorChangeRect = <span class="keyword">new</span> Rect(currentScrollViewWidth,<span class="number">0</span>,<span class="number">4</span>f,<span class="keyword">this</span>.position.height);</div><div class="line">        &#125;</div><div class="line">     </div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">OnGUI</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            GUILayout.BeginHorizontal();</div><div class="line">            </div><div class="line">            scrollPos = GUILayout.BeginScrollView(scrollPos,GUILayout.Width(currentScrollViewWidth));</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++)</div><div class="line">                GUILayout.Label(<span class="string">"test content"</span>);</div><div class="line">            GUILayout.EndScrollView();</div><div class="line">                 </div><div class="line">            ResizeScrollView();</div><div class="line">            </div><div class="line">            GUILayout.Label(<span class="string">"right part"</span>);</div><div class="line">            GUILayout.EndHorizontal();</div><div class="line">            Repaint();</div><div class="line">        &#125;</div><div class="line">     </div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ResizeScrollView</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            GUI.DrawTexture(cursorChangeRect,EditorGUIUtility.whiteTexture);</div><div class="line">            EditorGUIUtility.AddCursorRect(cursorChangeRect,MouseCursor.ResizeHorizontal);</div><div class="line">         </div><div class="line">            <span class="keyword">if</span>( Event.current.type == EventType.MouseDown &amp;&amp; cursorChangeRect.Contains(Event.current.mousePosition))&#123;</div><div class="line">                resize = <span class="literal">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(resize)&#123;</div><div class="line">                currentScrollViewWidth = Event.current.mousePosition.x;</div><div class="line">                cursorChangeRect.Set(currentScrollViewWidth,cursorChangeRect.y,cursorChangeRect.width,cursorChangeRect.height);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(Event.current.type == EventType.MouseUp)</div><div class="line">                resize = <span class="literal">false</span>;        </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p>这里的GUI仅仅是做了一个表现，最核心的其实是 <code>cursorChangeRect</code> 因为你即使不要这个 GUI 也能在这个 Rect 的位置进行拖动。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GUI.DrawTexture(cursorChangeRect,EditorGUIUtility.whiteTexture);</div></pre></td></tr></table></figure></p>
-<p>在鼠标移动的同时将鼠标当前 x 轴的位置赋前面的一个layout，就会推动后面一个layout. (流式布局)</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;可拖动分割条在 Unity3D 的编辑器结构中一般都属于最外层结构，因为它是基于 GUI 组件，计算位置的时候必须要很精确，所以跟Layout 流式布局混编会比较乱。这里也推荐作为最外层结构使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/2018427047.png&quot; alt=&quot;可拖动的分割条&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="UNITY3D编辑器" scheme="http://vrast.cn/tags/UNITY3D%E7%BC%96%E8%BE%91%E5%99%A8/"/>
     
   </entry>
   
