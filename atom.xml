@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-03-16T05:57:31.927Z</updated>
+  <updated>2019-04-05T02:37:51.169Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,127 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Android Studio进行APK Profile</title>
+    <link href="http://vrast.cn/posts/98741dc2/"/>
+    <id>http://vrast.cn/posts/98741dc2/</id>
+    <published>2019-04-04T08:02:23.000Z</published>
+    <updated>2019-04-05T02:37:51.169Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>很多时候我们需要从Android端获取崩溃日志，但是手动adb比较麻烦。这时候就应该使用AndroidStudio了。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="使用AndroidStudio进行Profile"><a href="#使用AndroidStudio进行Profile" class="headerlink" title="使用AndroidStudio进行Profile"></a>使用AndroidStudio进行Profile</h2><p><img src="/uploads/WX20190404-160013.png" alt="导入APK到IDE中"></p>
+<p><img src="/uploads/WX20190405-100856.png" alt="选择需要启用调试的设备，也可以是真机(需要开启USB调试)"></p>
+<p><img src="/uploads/WX20190405-101425.png" alt="使用logcat轻松获取当前Log，如果信息过多 你可以直接用Unity关键字过滤"></p>
+<p>还有性能/内存等详细的分析这里有一份参考：<a href="https://blog.csdn.net/niubitianping/article/details/72617864" target="_blank" rel="external">Android studio中android profile（性能分析器）的使用</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;很多时候我们需要从Android端获取崩溃日志，但是手动adb比较麻烦。这时候就应该使用AndroidStudio了。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Android Profile" scheme="http://vrast.cn/categories/Android-Profile/"/>
+    
+    
+      <category term="APK" scheme="http://vrast.cn/tags/APK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UNITY移动端路径的注意事项</title>
+    <link href="http://vrast.cn/posts/d425b5d3/"/>
+    <id>http://vrast.cn/posts/d425b5d3/</id>
+    <published>2019-04-04T06:41:42.000Z</published>
+    <updated>2019-04-05T02:05:21.083Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>在移动端加载路径与Windwos或Mac上加载有一些区分,有时候资源文件找不到是在是查起来头疼。这里写一些推荐规范，从非开发角度就能避免这些问题。</p>
+</blockquote>
+<h2 id="路径大小写"><a href="#路径大小写" class="headerlink" title="路径大小写"></a>路径大小写</h2><p>在UNITY EDITOR下你不必关注路径大小写问题，⚠️ 注意：但是在移动端大小写是敏感的。</p>
+<ul>
+<li>建议所有AB包都保持小写的命名方式 </li>
+<li>建议在加载文件的地方的留一个可以开关的宏定义用来查路径问题</li>
+</ul>
+<h2 id="StreamAssets目录的资源加载"><a href="#StreamAssets目录的资源加载" class="headerlink" title="StreamAssets目录的资源加载"></a>StreamAssets目录的资源加载</h2><p>StreamAsset目录中。在移动端File.IO不可用，⚠️ 注意：你需要使用www来加载当前目录下资源</p>
+<p>你可以使用下面的代码块进行资源的同步加载，而不必非要放到携程里进行加载。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> (WWW www = <span class="keyword">new</span> WWW(path))</div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span> (!www.isDone)</div><div class="line">    &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> ms = <span class="keyword">new</span> MemoryStream(www.bytes))</div><div class="line">    &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="路径的隐含条件"><a href="#路径的隐含条件" class="headerlink" title="路径的隐含条件"></a>路径的隐含条件</h2><ul>
+<li>建议统一使用www加载，避免大量的逻辑判断(比如是否需要拼接”file://“)</li>
+<li>在StreamAsset目录下就不要使用 File.exsits 之类位于 System.IO命名空间下函数</li>
+</ul>
+<p>//在android下<br>Application.streamingAssetsPath = “jar:file://“ + Application.dataPath + “!/assets/“</p>
+<p>//在pc &amp; mac端<br>Application.streamingAssetsPath = Application.dataPath + “/StreamingAssets”</p>
+<p>//在iOS端<br>Application.streamingAssetsPath = Application.dataPath + “/Raw”</p>
+<p><img src="/uploads/WX20190404-160429.png" alt="APK内StreamAsset目录结构"></p>
+<p>当然你可以使用下面的代码块直接进行www加载路径的拼接</p>
+<pre><code class="cs"><span class="function"><span class="keyword">string</span> <span class="title">GetWWWLoadingPathAtStreamingAssetsFolder</span>(<span class="params"></span>)
+</span>{
+    <span class="keyword">string</span> path;
+    <span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span>
+    path = <span class="string">"file:"</span> + Application.dataPath + <span class="string">"/StreamingAssets"</span>;
+    <span class="meta">#<span class="meta-keyword">elif</span> UNITY_ANDROID</span>
+    path = <span class="string">"jar:file://"</span>+ Application.dataPath + <span class="string">"!/assets/"</span>;
+    <span class="meta">#<span class="meta-keyword">elif</span> UNITY_IOS</span>
+    path = <span class="string">"file:"</span> + Application.dataPath + <span class="string">"/Raw"</span>;
+    <span class="meta">#<span class="meta-keyword">else</span></span>
+    <span class="comment">//Desktop (Mac OS or Windows)</span>
+    path = <span class="string">"file:"</span>+ Application.dataPath + <span class="string">"/StreamingAssets"</span>;
+    <span class="meta">#<span class="meta-keyword">endif</span></span>
+
+    <span class="keyword">return</span> path;
+}
+</code></pre>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;在移动端加载路径与Windwos或Mac上加载有一些区分,有时候资源文件找不到是在是查起来头疼。这里写一些推荐规范，从非开发角度就能避免这些问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;路径大小写&quot;&gt;&lt;a href=&quot;#路径大小写&quot; 
+    
+    </summary>
+    
+    
+      <category term="MOBILE" scheme="http://vrast.cn/tags/MOBILE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XLua Generate Code Log显示代码找不到</title>
+    <link href="http://vrast.cn/posts/aee063b0/"/>
+    <id>http://vrast.cn/posts/aee063b0/</id>
+    <published>2019-04-04T06:27:25.000Z</published>
+    <updated>2019-04-04T06:40:15.764Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>项目内引用了Xlua插件，在Generate代码的时候发现一些函数没有找到。遂发现这是XLua的黑名单需要添加相应的函数。现在这里记录一下。</p>
+</blockquote>
+<p><img src="/uploads/WX20190404-143356.png" alt="参考Xlua example中Editor目录下的配置文件"></p>
+<p>像下面一样将报错的函数添加到黑名单，然后重新生成代码即可<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[BlackList]</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt; BlackList = <span class="keyword">new</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt;()  &#123;</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowRadius"</span>&#125;,</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowAngle"</span>&#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;项目内引用了Xlua插件，在Generate代码的时候发现一些函数没有找到。遂发现这是XLua的黑名单需要添加相应的函数。现在这里记录一下。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/uploads/WX20190404-14
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="XLua" scheme="http://vrast.cn/tags/XLua/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Rider为UNITY项目生成DLL</title>
@@ -52,7 +173,7 @@
     <link href="http://vrast.cn/posts/583e3cbd/"/>
     <id>http://vrast.cn/posts/583e3cbd/</id>
     <published>2019-03-12T07:43:31.000Z</published>
-    <updated>2019-03-13T03:35:59.526Z</updated>
+    <updated>2019-04-04T06:38:25.320Z</updated>
     
     <content type="html"><![CDATA[<p>这两天详细的看了下U3D的新图集系统 SpriteAtlas ，目前为止觉得这个新系统用起来问题不大。但是在理解上有一些问题，我会在这里做一些记录。<br>在操作上，这个没什么问题。有问题的是SpriteAtlasManager这块，需要去理解一下调用机制。</p>
 <a id="more"></a>
@@ -1184,116 +1305,6 @@
     
     
       <category term="UNITY3D编辑器" scheme="http://vrast.cn/tags/UNITY3D%E7%BC%96%E8%BE%91%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UNITY性能优化参考篇</title>
-    <link href="http://vrast.cn/posts/69247612/"/>
-    <id>http://vrast.cn/posts/69247612/</id>
-    <published>2018-03-09T08:12:00.000Z</published>
-    <updated>2018-03-09T11:07:23.840Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>下面是我给项目组的一些参考。其中也包含各种各样的标准，与优化建议。项目优化并不是一件事，它是点点滴滴串联起来的(勿以恶小而为之)，我见过很多项目只是图一时之方便就导致后期很难做 比如 前期未规划好图集，模型贴图材质目录混用，UI制作未按照 复用/特殊 的标准制作，动画导出帧率不统一高高低低 等等。如果一开始没有定制良好的规范，后面想要补救只能靠程序写一些工具批量处理，当然这工具也不一定好写。</p>
-</blockquote>
-<a id="more"></a>
-<p>因为效率优化是一个很泛化的词。所以在这里我只讨论大类进而衍生出 “标准做法”。标准只说通用的，做了不会错的那种。如果你没有做 推荐你试一试。像如同项目贴图设置，灯光设置，烘焙，fog，等 设置问题这里不谈。因为设置的选项是最容易做优化的即使到了后期也是可以快速做的。</p>
-<h2 id="美术资源"><a href="#美术资源" class="headerlink" title="美术资源"></a>美术资源</h2><h3 id="资源分级"><a href="#资源分级" class="headerlink" title="资源分级"></a>资源分级</h3><p>如 贴图png/jpg的选择 动画30帧还是60帧的选择 粒子质量高或低还是标准 等。根据不同场合使用不同级别资源。一般来说高质量资源只会出现在最显眼的地方 如 登陆，人物选择，入场。真正战斗调用的美术资源往往只需要普通品质即可。具体项目可以跟着需求来控制，划重点 这里要做差异化 才能省出资源(内存)。</p>
-<h4 id="贴图的质量选择"><a href="#贴图的质量选择" class="headerlink" title="贴图的质量选择"></a>贴图的质量选择</h4><p><img src="/uploads/texturequality.png" alt="可参考 https://www.jianshu.com/p/f7c3741f22af"><br>贴图的质量选择主要影响运行时效率，并不影响出包的大小。UNITY3D打包会自己优化图片大小，如果你使用了android studio release 打包，大小会进一步压缩。<br>这里可以想象一下内存与效率的转化。内存占比越高越清晰。这个可以直接通过贴图的前缀或者后缀统一设置。或者写一个资源管理工具 统一设置。</p>
-<h2 id="冷热分离-延迟加载"><a href="#冷热分离-延迟加载" class="headerlink" title="冷热分离 延迟加载"></a>冷热分离 延迟加载</h2><ol>
-<li>使用延迟加载，如果需要集中加载某些资源可以考虑冷热分离。常驻内存中的资源 与 非常驻内存中的资源采取不同策略：<br>战斗配置 等到战斗场景再加载，关卡/任务/成就/ 等等其他 可以等到打开具体面板或进入场景的时候做一次缓存。</li>
-<li>移除空函数 如 继承自MB的 Update 之类的函数。</li>
-<li>分帧做iO 或 网络请求的操作。再具体一点就是用携程 该return的地方就return 等候下一帧处理。</li>
-<li>高消耗的函数避免甚至不用 基本上UNITY API中以Findxxx开头 返回一个 List 的函数都是高消耗函数。</li>
-</ol>
-<h2 id="内存控制"><a href="#内存控制" class="headerlink" title="内存控制"></a>内存控制</h2><ol>
-<li>使用缓存池 如 通用面板/通用弹出美术字(战斗中伤害数字)/ 等考虑缓存。</li>
-<li>监测当前工程在移动端的内存占用，给所有的缓存池增加释放接口 做一些排序释放操作(优先级释放)。<br>可以参考 UNITY5.6 的新API <a href="https://docs.unity3d.com/ScriptReference/Application-lowMemory.html" target="_blank" rel="external">Application.lowMemory</a></li>
-<li>使用压缩过的音频 或者 使用 Fmod 之类的插件进行托管。缺氧使用的就是 fmod .</li>
-<li>文本配置转2进制存储 减少运行时内存占用。</li>
-</ol>
-<h2 id="效率重点"><a href="#效率重点" class="headerlink" title="效率重点"></a>效率重点</h2><ol>
-<li>使用 line fog 调整相机视野</li>
-<li>关闭场景阴影 能用烘焙用烘焙。 </li>
-<li>使用 Fast Shadow Projector 做阴影。</li>
-<li>不要使用standard shader。因为大量的实时GI运算。</li>
-</ol>
-<h2 id="打包事项"><a href="#打包事项" class="headerlink" title="打包事项"></a>打包事项</h2><ol>
-<li>iOS 如果可以就使用 bit code</li>
-<li>APK 使用 Android Studio release 打包</li>
-<li>使用  <code>.NET 2.0 Subset </code> 使用脚本代替如 xml 之类的system库的使用。</li>
-<li>打包完之后查看 log 确定资源瓶颈。推荐使用 <code>Build Report Tool</code><br>某宝五毛钱能买到最新版。每次打包都需要看一眼，真等到需要做优化的时候已经晚了，优化的需求往往是积累到一定程度才爆发需要优化。</li>
-<li>打包过atlas的图就不要再放到Resources下，方便的话就打包成AB</li>
-</ol>
-<h2 id="一些具体的优化资料"><a href="#一些具体的优化资料" class="headerlink" title="一些具体的优化资料"></a>一些具体的优化资料</h2><p><a href="https://docs.unity3d.com/Manual/OptimizingGraphicsPerformance.html" target="_blank" rel="external">官网 图形性能优化</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;下面是我给项目组的一些参考。其中也包含各种各样的标准，与优化建议。项目优化并不是一件事，它是点点滴滴串联起来的(勿以恶小而为之)，我见过很多项目只是图一时之方便就导致后期很难做 比如 前期未规划好图集，模型贴图材质目录混用，UI制作未按照 复用/特殊 的标准制作，动画导出帧率不统一高高低低 等等。如果一开始没有定制良好的规范，后面想要补救只能靠程序写一些工具批量处理，当然这工具也不一定好写。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
-    
-    
-      <category term="性能优化" scheme="http://vrast.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Unity new API</title>
-    <link href="http://vrast.cn/posts/76c9e56/"/>
-    <id>http://vrast.cn/posts/76c9e56/</id>
-    <published>2018-02-26T11:17:08.000Z</published>
-    <updated>2018-02-27T07:19:38.124Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>这里记录一些Unity3D的API 以备不时之需。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="Application-lowMemory-低内存检测-5-6"><a href="#Application-lowMemory-低内存检测-5-6" class="headerlink" title="Application.lowMemory 低内存检测 5.6+"></a>Application.lowMemory 低内存检测 5.6+</h1><p>当Andorid或者iOS内存过低会调用此函数。用来处理内存释放 <a href="https://docs.unity3d.com/ScriptReference/Application-lowMemory.html" target="_blank" rel="external">官网文档</a><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"></div><div class="line"><span class="keyword">class</span> <span class="title">LowMemoryTrigger</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">    List&lt;Texture2D&gt; _textures;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        _textures = <span class="keyword">new</span> List&lt;Texture2D&gt;();</div><div class="line">        Application.lowMemory += OnLowMemory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// allocate textures until we run out of memory</span></div><div class="line">        _textures.Add(<span class="keyword">new</span> Texture2D(<span class="number">256</span>, <span class="number">256</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnLowMemory</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// release all cached textures</span></div><div class="line">        _textures = <span class="keyword">new</span> List&lt;Texture2D&gt;();</div><div class="line">        Resources.UnloadUnusedAssets();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;这里记录一些Unity3D的API 以备不时之需。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITYAPI" scheme="http://vrast.cn/categories/UNITYAPI/"/>
-    
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/tags/UNITY3D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SNFramework</title>
-    <link href="http://vrast.cn/posts/f326c5ce/"/>
-    <id>http://vrast.cn/posts/f326c5ce/</id>
-    <published>2018-01-16T01:31:33.000Z</published>
-    <updated>2018-01-16T05:57:48.212Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h1><p>2015年 我在淘米写了一套 <a href="http://www.cnblogs.com/Keyle/p/4843934.html" target="_blank" rel="external">消息传递机制</a> 当然这一套在我的上家公司也得到验证。<br>2016年 我在世纪创意基于2015年一版的消息传递进行了封装但是当时赶项目也没有引入。我称之为 <a href="https://gitee.com/keyle/SmartNotificationFramework" target="_blank" rel="external">SmartNotificationFramework</a> 我希望它能达到足够的灵活，在我看来它工作的还不错，但是太简陋。<br>2018年 也就是今年我终于得空并且集中时间大量重构与完成了大部分的单元测试。SNFramework 是我正在使用的消息传递机制。它已经有了初步的理想功能，如消息上下分隔离，消息被阅读成功自动释放(即指执行一次)，广播消息等。</p>
-<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/KeyleXiao/SNFramework" target="_blank" rel="external">https://github.com/KeyleXiao/SNFramework</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;起源&quot;&gt;&lt;a href=&quot;#起源&quot; class=&quot;headerlink&quot; title=&quot;起源&quot;&gt;&lt;/a&gt;起源&lt;/h1&gt;&lt;p&gt;2015年 我在淘米写了一套 &lt;a href=&quot;http://www.cnblogs.com/Keyle/p/4843934.html&quot; t
-    
-    </summary>
-    
-      <category term="OpenSource" scheme="http://vrast.cn/categories/OpenSource/"/>
-    
-    
-      <category term="SNFramework" scheme="http://vrast.cn/tags/SNFramework/"/>
     
   </entry>
   
