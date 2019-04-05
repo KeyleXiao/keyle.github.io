@@ -52,11 +52,12 @@
     <link href="http://vrast.cn/posts/d425b5d3/"/>
     <id>http://vrast.cn/posts/d425b5d3/</id>
     <published>2019-04-04T06:41:42.000Z</published>
-    <updated>2019-04-05T03:07:04.645Z</updated>
+    <updated>2019-04-05T07:12:28.363Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>在移动端加载路径与Windwos或Mac上加载有一些区分,有时候资源文件找不到是在是查起来头疼。这里写一些推荐规范，从非开发角度就能避免这些问题。</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="路径大小写"><a href="#路径大小写" class="headerlink" title="路径大小写"></a>路径大小写</h2><p>在UNITY EDITOR下你不必关注路径大小写问题，⚠️ 注意：但是在移动端大小写是敏感的。</p>
 <ul>
 <li>建议所有AB包都保持小写的命名方式 </li>
@@ -82,7 +83,6 @@
       &lt;blockquote&gt;
 &lt;p&gt;在移动端加载路径与Windwos或Mac上加载有一些区分,有时候资源文件找不到是在是查起来头疼。这里写一些推荐规范，从非开发角度就能避免这些问题。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;路径大小写&quot;&gt;&lt;a href=&quot;#路径大小写&quot; 
     
     </summary>
     
