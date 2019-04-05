@@ -52,7 +52,7 @@
     <link href="http://vrast.cn/posts/d425b5d3/"/>
     <id>http://vrast.cn/posts/d425b5d3/</id>
     <published>2019-04-04T06:41:42.000Z</published>
-    <updated>2019-04-05T02:05:21.083Z</updated>
+    <updated>2019-04-05T03:07:04.645Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>在移动端加载路径与Windwos或Mac上加载有一些区分,有时候资源文件找不到是在是查起来头疼。这里写一些推荐规范，从非开发角度就能避免这些问题。</p>
@@ -63,7 +63,8 @@
 <li>建议在加载文件的地方的留一个可以开关的宏定义用来查路径问题</li>
 </ul>
 <h2 id="StreamAssets目录的资源加载"><a href="#StreamAssets目录的资源加载" class="headerlink" title="StreamAssets目录的资源加载"></a>StreamAssets目录的资源加载</h2><p>StreamAsset目录中。在移动端File.IO不可用，⚠️ 注意：你需要使用www来加载当前目录下资源</p>
-<p>你可以使用下面的代码块进行资源的同步加载，而不必非要放到携程里进行加载。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> (WWW www = <span class="keyword">new</span> WWW(path))</div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span> (!www.isDone)</div><div class="line">    &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> ms = <span class="keyword">new</span> MemoryStream(www.bytes))</div><div class="line">    &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你可以使用下面的代码块进行资源的同步加载，而不必非要放到携程里进行加载。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> (WWW www = <span class="keyword">new</span> WWW(path))</div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span> (!www.isDone)</div><div class="line">    &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> ms = <span class="keyword">new</span> MemoryStream(www.bytes))</div><div class="line">    &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="路径的隐含条件"><a href="#路径的隐含条件" class="headerlink" title="路径的隐含条件"></a>路径的隐含条件</h2><ul>
 <li>建议统一使用www加载，避免大量的逻辑判断(比如是否需要拼接”file://“)</li>
 <li>在StreamAsset目录下就不要使用 File.exsits 之类位于 System.IO命名空间下函数</li>
@@ -73,23 +74,7 @@
 <p>//在iOS端<br>Application.streamingAssetsPath = Application.dataPath + “/Raw”</p>
 <p><img src="/uploads/WX20190404-160429.png" alt="APK内StreamAsset目录结构"></p>
 <p>当然你可以使用下面的代码块直接进行www加载路径的拼接</p>
-<pre><code class="cs"><span class="function"><span class="keyword">string</span> <span class="title">GetWWWLoadingPathAtStreamingAssetsFolder</span>(<span class="params"></span>)
-</span>{
-    <span class="keyword">string</span> path;
-    <span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span>
-    path = <span class="string">"file:"</span> + Application.dataPath + <span class="string">"/StreamingAssets"</span>;
-    <span class="meta">#<span class="meta-keyword">elif</span> UNITY_ANDROID</span>
-    path = <span class="string">"jar:file://"</span>+ Application.dataPath + <span class="string">"!/assets/"</span>;
-    <span class="meta">#<span class="meta-keyword">elif</span> UNITY_IOS</span>
-    path = <span class="string">"file:"</span> + Application.dataPath + <span class="string">"/Raw"</span>;
-    <span class="meta">#<span class="meta-keyword">else</span></span>
-    <span class="comment">//Desktop (Mac OS or Windows)</span>
-    path = <span class="string">"file:"</span>+ Application.dataPath + <span class="string">"/StreamingAssets"</span>;
-    <span class="meta">#<span class="meta-keyword">endif</span></span>
-
-    <span class="keyword">return</span> path;
-}
-</code></pre>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">string</span> <span class="title">GetWWWLoadingPathAtStreamingAssetsFolder</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> path;</div><div class="line">    <span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></div><div class="line">    path = <span class="string">"file:"</span> + Application.dataPath + <span class="string">"/StreamingAssets"</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">elif</span> UNITY_ANDROID</span></div><div class="line">    path = <span class="string">"jar:file://"</span>+ Application.dataPath + <span class="string">"!/assets/"</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">elif</span> UNITY_IOS</span></div><div class="line">    path = <span class="string">"file:"</span> + Application.dataPath + <span class="string">"/Raw"</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    <span class="comment">//Desktop (Mac OS or Windows)</span></div><div class="line">    path = <span class="string">"file:"</span>+ Application.dataPath + <span class="string">"/StreamingAssets"</span>;</div><div class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    </div><div class="line">    <span class="keyword">return</span> path;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
@@ -111,14 +96,14 @@
     <link href="http://vrast.cn/posts/aee063b0/"/>
     <id>http://vrast.cn/posts/aee063b0/</id>
     <published>2019-04-04T06:27:25.000Z</published>
-    <updated>2019-04-04T06:40:15.764Z</updated>
+    <updated>2019-04-05T03:05:19.642Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>项目内引用了Xlua插件，在Generate代码的时候发现一些函数没有找到。遂发现这是XLua的黑名单需要添加相应的函数。现在这里记录一下。</p>
 </blockquote>
 <p><img src="/uploads/WX20190404-143356.png" alt="参考Xlua example中Editor目录下的配置文件"></p>
-<p>像下面一样将报错的函数添加到黑名单，然后重新生成代码即可<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[BlackList]</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt; BlackList = <span class="keyword">new</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt;()  &#123;</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowRadius"</span>&#125;,</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowAngle"</span>&#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-]]></content>
+<p>像下面一样将报错的函数添加到黑名单，然后重新生成代码即可</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[BlackList]</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt; BlackList = <span class="keyword">new</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt;()  &#123;</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowRadius"</span>&#125;,</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowAngle"</span>&#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
