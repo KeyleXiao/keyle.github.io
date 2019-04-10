@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-05T09:57:26.698Z</updated>
+  <updated>2019-04-10T07:31:27.574Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>优化IL2CPP打包速度</title>
+    <link href="http://vrast.cn/posts/b5ee8b26/"/>
+    <id>http://vrast.cn/posts/b5ee8b26/</id>
+    <published>2019-04-10T06:54:16.000Z</published>
+    <updated>2019-04-10T07:31:27.574Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>今天有同事找我聊了一下关于打包的问题，他说在UNITY IL2CPP下编译速度过慢，切换成 mono 会快三分之一。这个速度有没有办法优化。我倒是没有什么实际优化打包速度的操作经验，让我来做一般就是资源层优化，当然这是最难也最容易做到的。但是他倒是给我提了几个不错的建议。我看了下UNITY的官网确实如此。本篇记录之。</p>
+</blockquote>
+<ul>
+<li>降低硬盘读写(各种方案:关闭杀毒软件/用两块ssd项目与unity分开/等)</li>
+<li>增量包构建会加速进程</li>
+</ul>
+<p>下面是UNITY官方的实践经验：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Optimizing IL2CPP build times</div><div class="line">Project build times can be much longer when building a project with IL2CPP</div><div class="line">. However, there are several ways to reduce the build time significantly:</div><div class="line"></div><div class="line"><span class="keyword">Use</span> incremental building</div><div class="line"></div><div class="line"><span class="keyword">When</span> <span class="keyword">using</span> incremental building, the C++ compiler <span class="keyword">only</span> recompiles files that have <span class="keyword">changed</span> since the <span class="keyword">last</span> build. <span class="keyword">To</span> <span class="keyword">use</span> incremental building, <span class="keyword">build</span> your <span class="keyword">project</span> <span class="keyword">to</span> a previous <span class="keyword">build</span> location (<span class="keyword">without</span> deleting the target <span class="keyword">directory</span>).</div><div class="line"></div><div class="line"><span class="keyword">Exclude</span> <span class="keyword">project</span> <span class="keyword">and</span> target <span class="keyword">build</span> folders <span class="keyword">from</span> anti-malware software scans</div><div class="line"></div><div class="line">You can improve <span class="keyword">build</span> times <span class="keyword">by</span> disabling anti-malware software <span class="keyword">before</span> building your project. (Testing <span class="keyword">by</span> Unity Technologies <span class="keyword">found</span> that <span class="keyword">build</span> times decreased <span class="keyword">by</span> <span class="number">50</span> – <span class="number">66</span>% <span class="keyword">after</span> disabling Windows Defender <span class="keyword">on</span> a <span class="keyword">fresh</span> Windows <span class="number">10</span> installation.)</div><div class="line"></div><div class="line"><span class="keyword">Store</span> your <span class="keyword">project</span> <span class="keyword">and</span> target <span class="keyword">build</span> folder <span class="keyword">on</span> a Solid State Drive (SSD)</div><div class="line"></div><div class="line">Solid State Drives (SSDs) have faster <span class="keyword">read</span>/write speed, <span class="keyword">when</span> compared <span class="keyword">to</span> traditional Hard Disk Drives (HDD). Converting IL code <span class="keyword">to</span> C++ <span class="keyword">and</span> compiling it involves a <span class="keyword">large</span> <span class="built_in">number</span> <span class="keyword">of</span> <span class="keyword">read</span>/write operations. A faster <span class="keyword">storage</span> device speeds up this process.</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;今天有同事找我聊了一下关于打包的问题，他说在UNITY IL2CPP下编译速度过慢，切换成 mono 会快三分之一。这个速度有没有办法优化。我倒是没有什么实际优化打包速度的操作经验，让我来做一般就是资源层优化，当然这是最难也最容易做到的。但是他倒是
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="BuildTimes" scheme="http://vrast.cn/tags/BuildTimes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>安装Unity导出APK显示失败</title>
     <link href="http://vrast.cn/posts/434d7425/"/>
     <id>http://vrast.cn/posts/434d7425/</id>
     <published>2019-04-05T09:45:02.000Z</published>
-    <updated>2019-04-05T09:57:26.698Z</updated>
+    <updated>2019-04-05T10:02:37.498Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。<br><img src="/uploads/WX20190405-174643.png" alt="我当时是直接更新到了 29 rc2"><br>直接导出项目在Android Studio中会直接显示 <code>android studio ERROR: Failed to find Build Tools revision 29.0.0</code><br>另外如果直接出APK然后安装会显示一个<code>Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</code> 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。</p>
@@ -1266,31 +1298,6 @@
     
     
       <category term="LipSync" scheme="http://vrast.cn/tags/LipSync/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>protobuf中使用继承</title>
-    <link href="http://vrast.cn/posts/67edd270/"/>
-    <id>http://vrast.cn/posts/67edd270/</id>
-    <published>2018-04-08T06:06:57.000Z</published>
-    <updated>2018-04-08T06:18:18.273Z</updated>
-    
-    <content type="html"><![CDATA[<p>前两天有一个问题一直困扰我。使用protobuf .net版本的时候序列化类，基类的字段会丢失。随后我问了下朋友无一例外他们都使用的是组合而非继承。我也在反思是否这个做法本身就有问题。我昨天Google的时候发现有人遇到相同的问题，遂在本篇中记录。</p>
-<a id="more"></a>
-<p><a href="https://stackoverflow.com/questions/6109868/protobuf-net-base-class-properties-is-not-included-when-serializing-derived-clas" target="_blank" rel="external">ProtoBuf.net Base class properties is not included when serializing derived class</a> 这个就是我遇到的问题，一摸一样。<br>解决方案如下：如果是子类想要在序列化的时候带上基类的信息请使用【ProtoInclude】，填写上想要包含的类型即可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;前两天有一个问题一直困扰我。使用protobuf .net版本的时候序列化类，基类的字段会丢失。随后我问了下朋友无一例外他们都使用的是组合而非继承。我也在反思是否这个做法本身就有问题。我昨天Google的时候发现有人遇到相同的问题，遂在本篇中记录。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="protobuf" scheme="http://vrast.cn/tags/protobuf/"/>
     
   </entry>
   
