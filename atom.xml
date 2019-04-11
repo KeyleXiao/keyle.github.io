@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-11T10:39:27.151Z</updated>
+  <updated>2019-04-11T10:56:40.650Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,20 +20,25 @@
     <link href="http://vrast.cn/posts/80d969f4/"/>
     <id>http://vrast.cn/posts/80d969f4/</id>
     <published>2019-04-11T08:11:24.000Z</published>
-    <updated>2019-04-11T10:39:27.151Z</updated>
+    <updated>2019-04-11T10:56:40.650Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>这段时间自从用了UNITY 2018.3.8F1 出现的bug很多，关于构建包的。不知道是不是 Unity 频繁更新导致的。截止到目前为止 我已经在UNITY HUB上看到了 UNITY2018.3.12.F1 这个版本了。我这边的遇到的问题主要体现在使用Gradle构建或者使用内置方式构建都会出现无法找到MainActivity。也就是Unity默认运行的那个Activity.即使我直接创建一个新的工程打包，亦是如此。<br><img src="/uploads/WX20190411-161531.png" alt="无法找到这个 unityplayer.UnityActivity 或者 xxx.xxx.xxx.UnityPlayerActivity"><br><a id="more"></a></p>
+<p>这段时间自从用了UNITY 2018.3.8F1 出现的bug很多，关于构建包的。不知道是不是 Unity 频繁更新导致的。截止到目前为止 我已经在UNITY HUB上看到了 UNITY2018.3.12.F1 这个版本了。我这边的遇到的问题主要体现在使用Gradle构建或者使用内置方式构建都会出现无法找到MainActivity。也就是Unity默认运行的那个Activity.即使我直接创建一个新的工程打包，亦是如此。<br><img src="/uploads/WX20190411-161531.png" alt="无法找到这个 unityplayer.UnityActivity 或者 xxx.xxx.xxx.UnityPlayerActivity"></p>
 </blockquote>
+<a id="more"></a>
 <p><img src="/uploads/WX20190411-183559.png" alt="打开AndroidManifest.xml之后发现这边直接找不到。"></p>
 <p><img src="/uploads/WX20190411-183859.png" alt="既然这样我直接用UNITY3D默认的"></p>
 <p>好吧 解决了。</p>
-]]></content>
+<p>当然这并不是引发当前问题的根源，然而为什么会引发这个问题呢 ？ 于是我重新审视了一下代码</p>
+<p><img src="/uploads/WX20190411-184808.png" alt="这段代码的继承类是 Activity"></p>
+<h1 id="但是"><a href="#但是" class="headerlink" title="但是"></a>但是</h1><p><img src="/uploads/WX20190411-185258.png" alt="在老版本里是这样的，改成继承自UnityPlayerAcitivity问题解决。"></p>
+<h1 id="所以-这又是Unity的BUG吗？"><a href="#所以-这又是Unity的BUG吗？" class="headerlink" title="所以 这又是Unity的BUG吗？"></a>所以 这又是Unity的BUG吗？</h1>]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;这段时间自从用了UNITY 2018.3.8F1 出现的bug很多，关于构建包的。不知道是不是 Unity 频繁更新导致的。截止到目前为止 我已经在UNITY HUB上看到了 UNITY2018.3.12.F1 这个版本了。我这边的遇到的问题主要体现在使用Gradle构建或者使用内置方式构建都会出现无法找到MainActivity。也就是Unity默认运行的那个Activity.即使我直接创建一个新的工程打包，亦是如此。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190411-161531.png&quot; alt=&quot;无法找到这个 unityplayer.UnityActivity 或者 xxx.xxx.xxx.UnityPlayerActivity&quot;&gt;&lt;br&gt;
+&lt;p&gt;这段时间自从用了UNITY 2018.3.8F1 出现的bug很多，关于构建包的。不知道是不是 Unity 频繁更新导致的。截止到目前为止 我已经在UNITY HUB上看到了 UNITY2018.3.12.F1 这个版本了。我这边的遇到的问题主要体现在使用Gradle构建或者使用内置方式构建都会出现无法找到MainActivity。也就是Unity默认运行的那个Activity.即使我直接创建一个新的工程打包，亦是如此。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190411-161531.png&quot; alt=&quot;无法找到这个 unityplayer.UnityActivity 或者 xxx.xxx.xxx.UnityPlayerActivity&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
