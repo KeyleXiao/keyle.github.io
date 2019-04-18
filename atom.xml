@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-11T10:56:40.650Z</updated>
+  <updated>2019-04-18T02:59:03.364Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac平台Debug lua提示缺少socket.http组件</title>
+    <link href="http://vrast.cn/posts/d708212d/"/>
+    <id>http://vrast.cn/posts/d708212d/</id>
+    <published>2019-04-18T02:35:02.000Z</published>
+    <updated>2019-04-18T02:59:03.364Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>起因是这样的我想在Mac上配一下Lua Debug环境，在debug的时候会用到socket链接到调试器。在intelliJ中Debug的时候它提示我“module ‘socket.http’ not found” 然后我就去了解了一下Lua环境的配置，这里着重要提到Lua的包管理工具 <a href="https://luarocks.org" target="_blank" rel="external">luarocks</a>,还真是很方便缺什么直接就装什么。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="安装luarocks"><a href="#安装luarocks" class="headerlink" title="安装luarocks"></a>安装luarocks</h1><p>直接用Homebrew就能安装，当然可以下载源码编译。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span>update</div><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>luarocks</div></pre></td></tr></table></figure></p>
+<p>或者</p>
+<ol>
+<li>下载 <a href="https://luarocks.org/releases/luarocks-3.0.4.tar.gz" target="_blank" rel="external">https://luarocks.org/releases/luarocks-3.0.4.tar.gz</a></li>
+<li>解压进入luarocks-3.0.4</li>
+<li>编译 ./configure; sudo make bootstrap</li>
+<li>安装luasocket sudo luarocks install luasocket</li>
+</ol>
+<p>这里需要注意如果你和我是使用Mac那么在第4步的时候需要切换到<code>/usr/local/share/lua/5.3</code>这个路径下。这是默认的lua文件存放位置。</p>
+<h1 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">luarocks <span class="built_in">help</span></div></pre></td></tr></table></figure>
+<h1 id="关于插件"><a href="#关于插件" class="headerlink" title="关于插件"></a>关于插件</h1><p>我看了下好用的lua扩展还真不少<br><img src="/uploads/WX20190418-104738.png" alt="比如关于Protobuf的库"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://stackoverflow.com/questions/16491242/module-socket-http-not-found-lua-on-imac" target="_blank" rel="external">“module ‘socket.http’ not found:” –Lua on iMac [closed]
+</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;起因是这样的我想在Mac上配一下Lua Debug环境，在debug的时候会用到socket链接到调试器。在intelliJ中Debug的时候它提示我“module ‘socket.http’ not found” 然后我就去了解了一下Lua环境的配置，这里着重要提到Lua的包管理工具 &lt;a href=&quot;https://luarocks.org&quot;&gt;luarocks&lt;/a&gt;,还真是很方便缺什么直接就装什么。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="FAQ" scheme="http://vrast.cn/categories/FAQ/"/>
+    
+    
+      <category term="Lua" scheme="http://vrast.cn/tags/Lua/"/>
+    
+  </entry>
   
   <entry>
     <title>UNITY Unable to instantiate UnityPlayerActivity</title>
@@ -1217,60 +1258,6 @@
     
     
       <category term="Chat" scheme="http://vrast.cn/tags/Chat/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LipSync插件调研2</title>
-    <link href="http://vrast.cn/posts/3bc1c7b4/"/>
-    <id>http://vrast.cn/posts/3bc1c7b4/</id>
-    <published>2018-04-24T03:41:33.000Z</published>
-    <updated>2018-05-11T09:59:47.570Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只讨论其功能实现。</p>
-</blockquote>
-<p>本篇评测的工具实现方式都相近,插件列表如下：</p>
-<p><strong>LipSync Pro【U3D】</strong><br><strong>EasyTalk【U3D】</strong><br><del><strong>Lipsync Tool【美术用】</strong></del><br><del><strong>Face and lips</strong></del></p>
-<p>评测的方向： 1. 嘴型同步   2.面部表情<br>评测角度：   1. 实现方式   2. 可用性<br><a id="more"></a></p>
-<h1 id="一般有语音层的-LipSync-工具结构都相似"><a href="#一般有语音层的-LipSync-工具结构都相似" class="headerlink" title="一般有语音层的 LipSync 工具结构都相似"></a>一般有语音层的 LipSync 工具结构都相似</h1><p><img src="/uploads/QQ20180424.jpeg" alt="LipSync工具在流程上都类似 1.导入转码，转换成便于语音识别层使用的格式 2.识别(需要语言与声学模型支持) 3.特定格式的数据导出 4.根据数据源进行口型融合(口型事先映射好了)"><br><img src="/uploads/QQSample1.png" alt="EasyTalk语音识别工具"><br><img src="/uploads/QQ20180427-162401@2x.png" alt="在这一层中EasyTalk并不友好，他在外部实现的音频解析工具并不提供源码，导致我们无法根据项目对插件进行定制"> </p>
-<p><img src="/uploads/QQSample2.png" alt="Face and lips不参加本次评测是其非主流应用方式，需要美术通过MikuMikuDance编辑器制作动作等，应用方向请参考【极乐净土】 "><br><img src="/uploads/QQSample3.png" alt="LipSyncPro插件稳定性有待提高：在进行测试的期间此插件在mac上有代码级别的问题。1.4.1版本代码bug 手动修复后WIN7能跑，1.4.2最新版修复了前版本的bug但是在mac上运行仍旧有其他bug导致不能解析音频。【目前mac版本不能解析音频bug正在查】"><br><img src="/uploads/hs_err_pid2167.png" alt="Lipsync Tool不参加本次评测的原因有三 1.Demo下载后只有英语语言模型，不提供其他语言下载 2.主要是美术用在maya或3dmax做插件 3.价格高，最便宜5500$."></p>
-<h2 id="语音识别层介绍"><a href="#语音识别层介绍" class="headerlink" title="语音识别层介绍"></a>语音识别层介绍</h2><h3 id="在LipSyncPro中的CMUSphinx语音识别层"><a href="#在LipSyncPro中的CMUSphinx语音识别层" class="headerlink" title="在LipSyncPro中的CMUSphinx语音识别层"></a>在LipSyncPro中的CMUSphinx语音识别层</h3><p>在介绍实现方式之前我们先深入一下<strong>语音识别层</strong>，原因是此类型插件都使用了语音识别出的数据作为驱动口型的<strong>数据源</strong>。</p>
-<p><strong>CMUSphinx</strong> 是一个开源组件 作为<strong>语音识别层</strong>层的核心 ,下文是简介</p>
-<p>[CMU Sphinx, also called Sphinx in short, is the general term to describe a group of speech recognition systems developed at Carnegie Mellon University. These include a series of speech recognizers (Sphinx 2 - 4) and an acoustic model trainer (SphinxTrain).</p>
-<p>In 2000, the Sphinx group at Carnegie Mellon committed to open source several speech recognizer components, including Sphinx 2 and later Sphinx 3 (in 2001). The speech decoders come with acoustic models and sample applications. The available resources include in addition software for acoustic model training, Language model compilation and a public domain pronunciation dictionary, cmudict.</p>
-<p>Sphinx encompasses a number of software systems, described below.   —来自维基百科](<a href="https://en.wikipedia.org/wiki/CMU_Sphinx" target="_blank" rel="external">https://en.wikipedia.org/wiki/CMU_Sphinx</a>)</p>
-<h3 id="在CMUSphinx之上使用语音训练创建语言模型"><a href="#在CMUSphinx之上使用语音训练创建语言模型" class="headerlink" title="在CMUSphinx之上使用语音训练创建语言模型"></a>在CMUSphinx之上使用语音训练创建语言模型</h3><blockquote>
-<p><strong>CMUSphinx</strong> 使用的语言库是可以自己训练的 <a href="https://cmusphinx.github.io/wiki/tutoriallm/" target="_blank" rel="external">Building a language model</a>。工程量比较大，如果没有做好充足准备(资源)不建议自己训练语言库。我们自己训练的库是需要优化的，不是做完就能用，良好的语音模型拥有更高的识别率，在高识别率的前提下我们最终得到的口型会更加准确。下面例举了一些做语言训练需要的资源</p>
-</blockquote>
-<p><strong>1.真人进行训练</strong><br>训练之前，假设你有充足的数据：</p>
-<p>用于单个人的指令应用，至少需要一小时录音，<br>用于很多人指令应用，需要200个录音人，每人5小时<br>用于单个人的听写，需要10小时他的录音<br>用于多个人的听写，需要200个说话人，每人50小时的录音<br>同时你要有这门语言的语音学知识，以及你有足够的比如一个月的时间，来训练模型</p>
-<p><strong>2.使用机器学习</strong><br>1.您必须为指定的语言收集音频材料。实际上这不是这么复杂的事情。有声书本、电影和播客提供足够的录音构建良好的声学模型。<br>2.语音学习需要您构建一个框架,用于跟踪错误的发音。包括代不正确的发音和得分。这里可以使用 cmusphinx 的机器学习。</p>
-<h1 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h1><h3 id="可借鉴优点"><a href="#可借鉴优点" class="headerlink" title="可借鉴优点"></a>可借鉴优点</h3><ol>
-<li>速度快，基于语音识别可以快速匹配出所有的音素，并且映射相应的口型</li>
-<li>表情多，可以定制非常多的口型与面部表情</li>
-<li>可修改，可以自己手动编辑已经识别完毕的【音频对应的口型配置文件】</li>
-</ol>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
-<li>每种语言需要对应的声学与语言模型</li>
-<li>难深度定制，我们只能定制表层使用，深入到语音识别层面很难。</li>
-</ol>
-<h1 id="补充资料-Lipsync-Tool"><a href="#补充资料-Lipsync-Tool" class="headerlink" title="补充资料 Lipsync Tool"></a>补充资料 Lipsync Tool</h1><p>对 Lipsync Tool 这款工具进行一些补充说明。下文是一些技术标准</p>
-<p>目前支持导出格式如下，主要在影视方向，这里提到有简单的脚本导出但是不确定实现，他并未支持任何的游戏引擎。目前只是衔接了影视与建模软件。<br>It exports a simple text format readable from most scripting languages.<br>3ds max script for creating animations in max from lipsync tool files<br>MAYA .mov files, melscript (Lipscript) importer<br>.swf, .as : Macromedia Flash Files</p>
-<p><a href="https://en.wikipedia.org/wiki/CMU_Sphinx" target="_blank" rel="external">🔗 CMUSphinx介绍</a><br><a href="http://sox.sourceforge.net" target="_blank" rel="external">🔗 SOX音频处理库</a><br><a href="https://cmusphinx.github.io/wiki/tutoriallm/" target="_blank" rel="external">🔗 Building a language model</a><br><a href="https://www.cnblogs.com/lijieqiong/p/4817373.html" target="_blank" rel="external">🔗【sphinx】中文声学模型训练</a><br><a href="https://blog.csdn.net/zouxy09/article/details/7941585" target="_blank" rel="external">🔗 语音识别的基础知识与CMUsphinx介绍</a><br><a href="http://www.annosoft.com/prices" target="_blank" rel="external">🔗 Lipsync Tool官网 annosoft价格表</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;这周会计划研究LipSync方向，会写一些资料记录过程。本篇并不讲详细使用步骤，只讨论其功能实现。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;本篇评测的工具实现方式都相近,插件列表如下：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;LipSync Pro【U3D】&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;EasyTalk【U3D】&lt;/strong&gt;&lt;br&gt;&lt;del&gt;&lt;strong&gt;Lipsync Tool【美术用】&lt;/strong&gt;&lt;/del&gt;&lt;br&gt;&lt;del&gt;&lt;strong&gt;Face and lips&lt;/strong&gt;&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;评测的方向： 1. 嘴型同步   2.面部表情&lt;br&gt;评测角度：   1. 实现方式   2. 可用性&lt;br&gt;
-    
-    </summary>
-    
     
   </entry>
   
