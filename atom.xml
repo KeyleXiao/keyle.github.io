@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-19T15:02:19.353Z</updated>
+  <updated>2019-04-19T15:03:57.505Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="http://vrast.cn/posts/47642b6e/"/>
     <id>http://vrast.cn/posts/47642b6e/</id>
     <published>2019-04-19T14:44:21.000Z</published>
-    <updated>2019-04-19T15:02:19.353Z</updated>
+    <updated>2019-04-19T15:03:57.505Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>本篇是给一个小朋友看的，原画是这样的：“用VisualStudio Code 看不了Markdown文件 。” 那么按照本篇操作，你将可以方便的在VsCode中预览Markdown文件。</p>
+<p>本篇是给一个小朋友看的，原话是这样的：“用VisualStudio Code 看不了Markdown文件 。” 那么按照本篇操作，你将可以方便的在VsCode中预览Markdown文件。</p>
 </blockquote>
  <a id="more"></a>
 <h1 id="给VisualStudio-Code安装Markdown预览插件"><a href="#给VisualStudio-Code安装Markdown预览插件" class="headerlink" title="给VisualStudio Code安装Markdown预览插件"></a>给VisualStudio Code安装Markdown预览插件</h1><p><img src="/uploads/WX20190419-225136@2x.png" alt="安装插件的步骤"></p>
@@ -37,7 +37,7 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;本篇是给一个小朋友看的，原画是这样的：“用VisualStudio Code 看不了Markdown文件 。” 那么按照本篇操作，你将可以方便的在VsCode中预览Markdown文件。&lt;/p&gt;
+&lt;p&gt;本篇是给一个小朋友看的，原话是这样的：“用VisualStudio Code 看不了Markdown文件 。” 那么按照本篇操作，你将可以方便的在VsCode中预览Markdown文件。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
