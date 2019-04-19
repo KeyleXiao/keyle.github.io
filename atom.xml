@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-18T02:59:03.364Z</updated>
+  <updated>2019-04-19T15:02:19.353Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,45 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>使用VisualStudio Code 预览.md文件</title>
+    <link href="http://vrast.cn/posts/47642b6e/"/>
+    <id>http://vrast.cn/posts/47642b6e/</id>
+    <published>2019-04-19T14:44:21.000Z</published>
+    <updated>2019-04-19T15:02:19.353Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本篇是给一个小朋友看的，原画是这样的：“用VisualStudio Code 看不了Markdown文件 。” 那么按照本篇操作，你将可以方便的在VsCode中预览Markdown文件。</p>
+</blockquote>
+ <a id="more"></a>
+<h1 id="给VisualStudio-Code安装Markdown预览插件"><a href="#给VisualStudio-Code安装Markdown预览插件" class="headerlink" title="给VisualStudio Code安装Markdown预览插件"></a>给VisualStudio Code安装Markdown预览插件</h1><p><img src="/uploads/WX20190419-225136@2x.png" alt="安装插件的步骤"></p>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><p>安装完毕之后打开<code> .md </code>文件。就可以使用preview功能了。</p>
+<p><img src="/uploads/WX20190419-225136@2x.png" alt="按一次Ctrl + Shift + v 就可以开启preview窗口了。"></p>
+<p><img src="/uploads/WX20190419-225734@2x.png" alt="如果想要左右分屏 可以点一下这个小图标"></p>
+<p><img src="/uploads/WX20190419-225904@2x.png" alt="分屏效果图"></p>
+<p><img src="/uploads/WX20190419-225344@2x.png" alt="快捷键在插件内部也有介绍，非常的简单"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本篇是给一个小朋友看的，原画是这样的：“用VisualStudio Code 看不了Markdown文件 。” 那么按照本篇操作，你将可以方便的在VsCode中预览Markdown文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Markdown" scheme="http://vrast.cn/categories/Markdown/"/>
+    
+    
+      <category term="tools" scheme="http://vrast.cn/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac平台Debug lua提示缺少socket.http组件</title>
     <link href="http://vrast.cn/posts/d708212d/"/>
     <id>http://vrast.cn/posts/d708212d/</id>
     <published>2019-04-18T02:35:02.000Z</published>
-    <updated>2019-04-18T02:59:03.364Z</updated>
+    <updated>2019-04-18T03:19:56.561Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>起因是这样的我想在Mac上配一下Lua Debug环境，在debug的时候会用到socket链接到调试器。在intelliJ中Debug的时候它提示我“module ‘socket.http’ not found” 然后我就去了解了一下Lua环境的配置，这里着重要提到Lua的包管理工具 <a href="https://luarocks.org" target="_blank" rel="external">luarocks</a>,还真是很方便缺什么直接就装什么。</p>
@@ -1225,39 +1259,6 @@
     
     
       <category term="ANIMATION" scheme="http://vrast.cn/tags/ANIMATION/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>绘制聊天气泡思路</title>
-    <link href="http://vrast.cn/posts/bd424e64/"/>
-    <id>http://vrast.cn/posts/bd424e64/</id>
-    <published>2018-08-08T03:24:52.000Z</published>
-    <updated>2018-10-16T03:13:59.159Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>记录一些小技巧 ，借此机会重新开始写作 .这里提供两种思路，最后建议将这两种做法结合一下 可以做成类似微信聊天气泡的效果。</p>
-</blockquote>
-<a id="more"></a>
-<p>有两种方式来实现了聊天气泡，第一种是自己去计算当前文字的宽度，然后控制背景气泡进行宽度与高度的缩放。参考代码如下</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">BubbleFormate</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line"><span class="comment">//            MainContent.GraphicUpdateComplete();</span></div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (MainContent.rectTransform.sizeDelta.x &gt; MainContent.preferredWidth)</div><div class="line">    &#123;</div><div class="line">        MainContentBG.rectTransform.sizeDelta =</div><div class="line">            <span class="keyword">new</span> Vector2(</div><div class="line">                MainContentBG.rectTransform.sizeDelta.x -</div><div class="line">                (MainContent.rectTransform.sizeDelta.x - MainContent.preferredWidth),</div><div class="line">                MainContentBG.rectTransform.sizeDelta.y</div><div class="line">            );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> temp_width = <span class="number">0</span>;</div><div class="line">        <span class="keyword">var</span> rawContent = MainContent.text;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MainContent.text.Length; i++)</div><div class="line">        &#123;</div><div class="line">            MainContent.font.GetCharacterInfo(MainContent.text[i], <span class="keyword">out</span> temp_info, MainContent.fontSize);</div><div class="line">            temp_width += temp_info.advance;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (temp_width &gt;= MainContent.rectTransform.sizeDelta.x)</div><div class="line">            &#123;</div><div class="line">                rawContent = rawContent.Insert(i, <span class="string">"\n"</span>);</div><div class="line">                temp_width = temp_info.advance;</div><div class="line">                </div><div class="line">                MainContentBG.rectTransform.sizeDelta = <span class="keyword">new</span> Vector2(</div><div class="line">                    MainContentBG.rectTransform.sizeDelta.x,</div><div class="line">                    MainContentBG.rectTransform.sizeDelta.y + MainContent.preferredHeight</div><div class="line">                );</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        MainContent.text = rawContent;</div><div class="line"> </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/uploads/canvas-wrap.gif" alt="第二种方式是使用 Layout 布局进行规范"></p>
-<p>最后我建议使用这两者的结合，在控制宽度的时候不加限制，自己判断宽度然后动态的添加换行符。</p>
-<p>这样的好处是能控制文本框的长短，做成类似微信聊天这种 消息长的话 气泡就会变长，反之亦然。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;记录一些小技巧 ，借此机会重新开始写作 .这里提供两种思路，最后建议将这两种做法结合一下 可以做成类似微信聊天气泡的效果。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
-    
-    
-      <category term="Chat" scheme="http://vrast.cn/tags/Chat/"/>
     
   </entry>
   
