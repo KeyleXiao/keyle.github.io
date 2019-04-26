@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-26T16:41:22.351Z</updated>
+  <updated>2019-04-26T16:44:44.732Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,20 +20,18 @@
     <link href="http://vrast.cn/posts/5b921b24/"/>
     <id>http://vrast.cn/posts/5b921b24/</id>
     <published>2019-04-26T14:29:33.000Z</published>
-    <updated>2019-04-26T16:41:22.351Z</updated>
+    <updated>2019-04-26T16:44:44.732Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>一直以来都想把我从业游戏以来的积累转化成体系，直到近期才下定决心整理出一本书，分享给社区。本篇提纲不定期修改。</p>
-</blockquote>
-<h1 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h1><h3 id="C-Java-与-Objective-C"><a href="#C-Java-与-Objective-C" class="headerlink" title="C# Java 与 Objective-C"></a>C# Java 与 Objective-C</h3><h3 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h3><h3 id="综合案例-1"><a href="#综合案例-1" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="辅助脚本语言"><a href="#辅助脚本语言" class="headerlink" title="辅助脚本语言"></a>辅助脚本语言</h1><h3 id="Lua-与-Python"><a href="#Lua-与-Python" class="headerlink" title="Lua 与 Python"></a>Lua 与 Python</h3><h3 id="综合案例-2"><a href="#综合案例-2" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="bat-与-Shell"><a href="#bat-与-Shell" class="headerlink" title="bat 与 Shell"></a>bat 与 Shell</h3><h3 id="综合案例-3"><a href="#综合案例-3" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="开发技巧"><a href="#开发技巧" class="headerlink" title="开发技巧"></a>开发技巧</h1><h3 id="代码风格与Bug概率之间的关系"><a href="#代码风格与Bug概率之间的关系" class="headerlink" title="代码风格与Bug概率之间的关系"></a>代码风格与Bug概率之间的关系</h3><h3 id="综合案例-4"><a href="#综合案例-4" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="小黄鸭调试法"><a href="#小黄鸭调试法" class="headerlink" title="小黄鸭调试法"></a>小黄鸭调试法</h3><h3 id="综合案例-5"><a href="#综合案例-5" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="代码优化案例"><a href="#代码优化案例" class="headerlink" title="代码优化案例"></a>代码优化案例</h3><h3 id="综合案例-6"><a href="#综合案例-6" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="不同平台的调试技巧"><a href="#不同平台的调试技巧" class="headerlink" title="不同平台的调试技巧"></a>不同平台的调试技巧</h3><h3 id="综合案例-7"><a href="#综合案例-7" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="学会发问"><a href="#学会发问" class="headerlink" title="学会发问"></a>学会发问</h3><h3 id="综合案例-8"><a href="#综合案例-8" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="使用搜索引擎处理现有问题"><a href="#使用搜索引擎处理现有问题" class="headerlink" title="使用搜索引擎处理现有问题"></a>使用搜索引擎处理现有问题</h3><h3 id="综合案例-9"><a href="#综合案例-9" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="扩展件开发"><a href="#扩展件开发" class="headerlink" title="扩展件开发"></a>扩展件开发</h1><h3 id="编辑器扩展使用技巧"><a href="#编辑器扩展使用技巧" class="headerlink" title="编辑器扩展使用技巧"></a>编辑器扩展使用技巧</h3><h3 id="综合案例-10"><a href="#综合案例-10" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="序列化以及资源处理管道"><a href="#序列化以及资源处理管道" class="headerlink" title="序列化以及资源处理管道"></a>序列化以及资源处理管道</h3><h3 id="综合案例-11"><a href="#综合案例-11" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="原生层插件的开发方法"><a href="#原生层插件的开发方法" class="headerlink" title="原生层插件的开发方法"></a>原生层插件的开发方法</h3><h3 id="综合案例-12"><a href="#综合案例-12" class="headerlink" title="综合案例"></a>综合案例</h3><p>暂时先写这里 后面的再列</p>
+<p>一直以来都想把我从业游戏以来的积累转化成体系，直到近期才下定决心整理出一本书，分享给社区。本篇提纲不定期修改。<br><a id="more"></a></p>
+<h1 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h1><h3 id="C-Java-与-Objective-C"><a href="#C-Java-与-Objective-C" class="headerlink" title="C# Java 与 Objective-C"></a>C# Java 与 Objective-C</h3><h3 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h3><h3 id="综合案例-1"><a href="#综合案例-1" class="headerlink" title="综合案例"></a>综合案例</h3></blockquote>
+<h1 id="辅助脚本语言"><a href="#辅助脚本语言" class="headerlink" title="辅助脚本语言"></a>辅助脚本语言</h1><h3 id="Lua-与-Python"><a href="#Lua-与-Python" class="headerlink" title="Lua 与 Python"></a>Lua 与 Python</h3><h3 id="综合案例-2"><a href="#综合案例-2" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="bat-与-Shell"><a href="#bat-与-Shell" class="headerlink" title="bat 与 Shell"></a>bat 与 Shell</h3><h3 id="综合案例-3"><a href="#综合案例-3" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="开发技巧"><a href="#开发技巧" class="headerlink" title="开发技巧"></a>开发技巧</h1><h3 id="代码风格与Bug概率之间的关系"><a href="#代码风格与Bug概率之间的关系" class="headerlink" title="代码风格与Bug概率之间的关系"></a>代码风格与Bug概率之间的关系</h3><h3 id="综合案例-4"><a href="#综合案例-4" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="小黄鸭调试法"><a href="#小黄鸭调试法" class="headerlink" title="小黄鸭调试法"></a>小黄鸭调试法</h3><h3 id="综合案例-5"><a href="#综合案例-5" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="代码优化案例"><a href="#代码优化案例" class="headerlink" title="代码优化案例"></a>代码优化案例</h3><h3 id="综合案例-6"><a href="#综合案例-6" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="不同平台的调试技巧"><a href="#不同平台的调试技巧" class="headerlink" title="不同平台的调试技巧"></a>不同平台的调试技巧</h3><h3 id="综合案例-7"><a href="#综合案例-7" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="学会发问"><a href="#学会发问" class="headerlink" title="学会发问"></a>学会发问</h3><h3 id="综合案例-8"><a href="#综合案例-8" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="使用搜索引擎处理现有问题"><a href="#使用搜索引擎处理现有问题" class="headerlink" title="使用搜索引擎处理现有问题"></a>使用搜索引擎处理现有问题</h3><h3 id="综合案例-9"><a href="#综合案例-9" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="扩展件开发"><a href="#扩展件开发" class="headerlink" title="扩展件开发"></a>扩展件开发</h1><h3 id="编辑器扩展使用技巧"><a href="#编辑器扩展使用技巧" class="headerlink" title="编辑器扩展使用技巧"></a>编辑器扩展使用技巧</h3><h3 id="综合案例-10"><a href="#综合案例-10" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="序列化以及资源处理管道"><a href="#序列化以及资源处理管道" class="headerlink" title="序列化以及资源处理管道"></a>序列化以及资源处理管道</h3><h3 id="综合案例-11"><a href="#综合案例-11" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="原生层插件的开发方法"><a href="#原生层插件的开发方法" class="headerlink" title="原生层插件的开发方法"></a>原生层插件的开发方法</h3><h3 id="综合案例-12"><a href="#综合案例-12" class="headerlink" title="综合案例"></a>综合案例</h3><p>暂时先写这里 后面的再列</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;一直以来都想把我从业游戏以来的积累转化成体系，直到近期才下定决心整理出一本书，分享给社区。本篇提纲不定期修改。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;语言基础&quot;&gt;&lt;a href=&quot;#语言基础&quot; class=&quot;headerlink&quot; t
+&lt;p&gt;一直以来都想把我从业游戏以来的积累转化成体系，直到近期才下定决心整理出一本书，分享给社区。本篇提纲不定期修改。&lt;br&gt;
     
     </summary>
     
