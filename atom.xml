@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-04-30T04:50:38.606Z</updated>
+  <updated>2019-04-30T05:54:24.610Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,15 +20,17 @@
     <link href="http://vrast.cn/posts/cd9ab0aa/"/>
     <id>http://vrast.cn/posts/cd9ab0aa/</id>
     <published>2019-04-30T04:48:53.000Z</published>
-    <updated>2019-04-30T04:50:38.606Z</updated>
+    <updated>2019-04-30T05:54:24.610Z</updated>
     
-    <content type="html"><![CDATA[<p>最近跟风看了一些项管相关的书，这里做一下记录。</p>
+    <content type="html"><![CDATA[<p>最近受一位蓝朋友影响看了一些项管相关的书，这里做一下记录。</p>
 <a id="more"></a>
+<p>   JIT   TOC</p>
+<p><a href="https://baike.baidu.com/item/全面质量管理/82450?fromtitle=TQM&amp;fromid=1446922&amp;fr=aladdin" target="_blank" rel="external">TQM</a></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;最近跟风看了一些项管相关的书，这里做一下记录。&lt;/p&gt;
+      &lt;p&gt;最近受一位蓝朋友影响看了一些项管相关的书，这里做一下记录。&lt;/p&gt;
     
     </summary>
     
@@ -212,10 +214,10 @@
     <link href="http://vrast.cn/posts/434d7425/"/>
     <id>http://vrast.cn/posts/434d7425/</id>
     <published>2019-04-05T09:45:02.000Z</published>
-    <updated>2019-04-05T10:02:37.498Z</updated>
+    <updated>2019-05-06T02:18:20.064Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。<br><img src="/uploads/WX20190405-174643.png" alt="我当时是直接更新到了 29 rc2"><br>直接导出项目在Android Studio中会直接显示 <code>android studio ERROR: Failed to find Build Tools revision 29.0.0</code><br>另外如果直接出APK然后安装会显示一个<code>Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</code> 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。</p>
+<p>遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。<br><img src="/uploads/WX20190405-174643.png" alt="我当时是直接更新到了 29 rc2"><br>直接导出项目在Android Studio中会直接显示 <strong>android studio ERROR: Failed to find Build Tools revision 29.0.0</strong><br>另外如果直接出APK然后安装会显示一个<strong>Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</strong> 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。</p>
 </blockquote>
 <a id="more"></a>
 <p>我在Stackoverflow上找到了一解决方案：</p>
@@ -229,7 +231,7 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190405-174643.png&quot; alt=&quot;我当时是直接更新到了 29 rc2&quot;&gt;&lt;br&gt;直接导出项目在Android Studio中会直接显示 &lt;code&gt;android studio ERROR: Failed to find Build Tools revision 29.0.0&lt;/code&gt;&lt;br&gt;另外如果直接出APK然后安装会显示一个&lt;code&gt;Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION&lt;/code&gt; 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。&lt;/p&gt;
+&lt;p&gt;遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190405-174643.png&quot; alt=&quot;我当时是直接更新到了 29 rc2&quot;&gt;&lt;br&gt;直接导出项目在Android Studio中会直接显示 &lt;strong&gt;android studio ERROR: Failed to find Build Tools revision 29.0.0&lt;/strong&gt;&lt;br&gt;另外如果直接出APK然后安装会显示一个&lt;strong&gt;Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION&lt;/strong&gt; 这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
