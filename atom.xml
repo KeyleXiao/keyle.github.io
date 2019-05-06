@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-05-06T02:45:10.222Z</updated>
+  <updated>2019-05-06T02:46:26.137Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/cd9ab0aa/"/>
     <id>http://vrast.cn/posts/cd9ab0aa/</id>
     <published>2019-04-30T04:48:53.000Z</published>
-    <updated>2019-05-06T02:45:10.222Z</updated>
+    <updated>2019-05-06T02:46:26.137Z</updated>
     
     <content type="html"><![CDATA[<p>最近受一位蓝朋友影响看了一些项管相关的书，这里做一下记录。记录的内容不多科普文。摘录内容源于wiki。</p>
 <a id="more"></a>
@@ -51,7 +51,7 @@
 <p>V-plant: The general flow of material is one-to-many, such as a plant that takes one raw material and can make many final products. Classic examples are meat rendering plants or a steel manufacturer. The primary problem in V-plants is “robbing,” where one operation (A) immediately after a diverging point “steals” materials meant for the other operation (B). Once the material has been processed by A, it cannot come back and be run through B without significant rework.<br>A-plant: The general flow of material is many-to-one, such as in a plant where many sub-assemblies converge for a final assembly. The primary problem in A-plants is in synchronizing the converging lines so that each supplies the final assembly point at the right time.<br>T-plant: The general flow is that of an I-plant (or has multiple lines), which then splits into many assemblies (many-to-many). Most manufactured parts are used in multiple assemblies and nearly all assemblies use multiple parts. Customized devices, such as computers, are good examples. T-plants suffer from both synchronization problems of A-plants (parts aren’t all available for an assembly) and the robbing problems of V-plants (one assembly steals parts that could have been used in another).<br>I-plant: Material flows in a sequence, such as in an assembly line. The primary work is done in a straight sequence of events (one-to-one). The constraint is the slowest operation.<br>From the above list, one can deduce that for non-material systems one could draw the flow of work or the flow of processes, instead of physical flows, and arrive at similar basic V, A, T, or I structures. A project, for example, is an A-shaped sequence of work, culminating in a delivered product (i.e., the intended outcome of the project).</p>
 <h1 id="甘特图"><a href="#甘特图" class="headerlink" title="甘特图"></a>甘特图</h1><p>甘特图我推荐用下面这个，平时我做计划几乎都离不开Omniplan,它支持导出Project格式，同时支持任务排期跳过节假日等。</p>
 <p><img src="/uploads/WX20190506-104321.png" alt="Omniplan"></p>
-<p><a href="https://en.wikipedia.org/wiki/Just-in-time_manufacturing" target="_blank" rel="external">Just-in-time manufacturing</a><br><a href="https://baike.baidu.com/item/全面质量管理/82450?fromtitle=TQM&amp;fromid=1446922&amp;fr=aladdin" target="_blank" rel="external">TQM</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Theory_of_constraints" target="_blank" rel="external">TOC</a><br><a href="https://en.wikipedia.org/wiki/Just-in-time_manufacturing" target="_blank" rel="external">Just-in-time manufacturing</a><br><a href="https://baike.baidu.com/item/全面质量管理/82450?fromtitle=TQM&amp;fromid=1446922&amp;fr=aladdin" target="_blank" rel="external">TQM</a></p>
 ]]></content>
     
     <summary type="html">
