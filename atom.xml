@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-05-06T08:26:41.341Z</updated>
+  <updated>2019-05-09T13:26:06.772Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AndroidStudio AVD FAQ</title>
+    <link href="http://vrast.cn/posts/55eaddde/"/>
+    <id>http://vrast.cn/posts/55eaddde/</id>
+    <published>2019-05-09T13:19:20.000Z</published>
+    <updated>2019-05-09T13:26:06.772Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本篇记录一些在Profile APK过程中可能遇到的一些问题。当然我也查了好一会儿。在这里做一下记录。</p>
+</blockquote>
+<h3 id="Device-File-Explore"><a href="#Device-File-Explore" class="headerlink" title="Device File Explore"></a>Device File Explore</h3><p><img src="/uploads/WX20190509-212231@2x.png" alt="使用 Device File Explore 可以看到当前虚拟机内文件的情况, 在View/TopWindows/Device File Explore你可以找到这个面板的入口。"></p>
+<p><img src="/uploads/WX20190509-212133@2x.png" alt="这里有一个点需要注意，你如果使用了含有GooglePlay框架的包，是不可以访问系统保护目录的。所以这里需要安装Google API的包。"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本篇记录一些在Profile APK过程中可能遇到的一些问题。当然我也查了好一会儿。在这里做一下记录。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;Device-File-Explore&quot;&gt;&lt;a href=&quot;#Device-File-Exp
+    
+    </summary>
+    
+      <category term="AndroidStudio" scheme="http://vrast.cn/categories/AndroidStudio/"/>
+    
+    
+      <category term="AVD" scheme="http://vrast.cn/tags/AVD/"/>
+    
+  </entry>
   
   <entry>
     <title>JIT &amp;&amp; TOC</title>
@@ -1059,69 +1089,6 @@
     
     
       <category term="Math" scheme="http://vrast.cn/tags/Math/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UNITY3D Playables API实践(下)</title>
-    <link href="http://vrast.cn/posts/323c9fde/"/>
-    <id>http://vrast.cn/posts/323c9fde/</id>
-    <published>2018-09-19T09:33:28.000Z</published>
-    <updated>2018-09-28T02:34:40.026Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>上篇给大家介绍了 “Playables API” 的使用方法与背后的意义，本篇将会进一步带大家深入其中。 本篇重点还是会放到  “Playables API” 上，不会对 <strong>Timeline</strong> 进行集中讲解，但是搞明白了 “Playables API” 也就意味着理解了 <strong>Timeline</strong> 最复杂的部分，到时候学起来也会非常的快。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="快速回顾"><a href="#快速回顾" class="headerlink" title="快速回顾"></a>快速回顾</h1><p>在本篇开始前我们先快速的回顾一下上篇的内容：</p>
-<ol>
-<li><p>“Playables API” 的意义 ？<br>答：替换Legacy动画系统，并兼容Timeline 。</p>
-</li>
-<li><p>如何创建 “Playables 树 ？</p>
-</li>
-</ol>
-<p>答：五行代码就可以快速创建！</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">playableGraph = PlayableGraph.Create(<span class="string">"test graph"</span>);</div><div class="line"><span class="keyword">var</span> playableOutput = AnimationPlayableOutput.Create(playableGraph, <span class="string">"test Animation"</span>,_animator = GetComponent&lt;Animator&gt;());</div><div class="line"></div><div class="line"><span class="keyword">var</span> clipPlayable = AnimationClipPlayable.Create(playableGraph, clip);</div><div class="line">playableOutput.SetSourcePlayable(clipPlayable);</div><div class="line"></div><div class="line">playableGraph.Play();</div></pre></td></tr></table></figure>
-<ol>
-<li>没有图形化界面时我们该如何记忆节点链接方式 ？<br>答：右输入(数量) 左输出(数量)，根节点有左边口，普通节点两边有 。</li>
-</ol>
-<h1 id="正文：更复杂的API运用方式"><a href="#正文：更复杂的API运用方式" class="headerlink" title="正文：更复杂的API运用方式"></a>正文：更复杂的API运用方式</h1><h2 id="使用-Animation-Layer"><a href="#使用-Animation-Layer" class="headerlink" title="使用 Animation Layer"></a>使用 Animation Layer</h2><p>上一篇我们提到使用 XXXMixerPlayable 可以用来融合多个动画/音频等。那么想在一个角色的身上同时播两个或多个互不干扰的动画该如何处理呢？ </p>
-<p>想必大家都想到了，没错，就是使用 Animation Layer (动画层) 的技术。在 Animator 中常使用 Avatar Mask 来设置不同部位的遮罩，让其他部分的动画各司其职。</p>
-<p>现在我们来看一看 Animation Layer 技术如何在 “Playerable API” 中使用吧。</p>
-<p><img src="/uploads/bodylowermask.png" alt="第一步先制作遮罩，关闭身体上半的动画控制"></p>
-<p>代码案例如下，您可以看见这里与上一篇我们讲到的 <strong>AnimationMixerPlayable</strong> 是不是保持了高度一致 ？ 这可不是架构的功劳，而是得益于代码风格的统一。无论是在 <strong>AnimationMixerPlayable</strong> 或 <strong>AnimationLayerMixerPlayable</strong> 其中都有统一的静态函数 <code>Create</code> ,良好的代码风格能让阅读者轻松掌握代码规律，从而减少阅读时间 。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> AnimationClip clip1;</div><div class="line"><span class="keyword">public</span> AnimationClip clip2;</div><div class="line"><span class="keyword">private</span> Animator _animator;</div><div class="line"><span class="keyword">private</span> AnimationLayerMixerPlayable mixerPlayable;</div><div class="line"><span class="keyword">public</span>  <span class="keyword">float</span> weight = <span class="number">.5</span>f;</div><div class="line"></div><div class="line"><span class="keyword">public</span> AvatarMask LowerMask;</div><div class="line"></div><div class="line"><span class="keyword">public</span> PlayableGraph playableGraph;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    playableGraph = PlayableGraph.Create(<span class="string">"test graph"</span>);</div><div class="line">    <span class="keyword">var</span> playableOutput = AnimationPlayableOutput.Create(playableGraph, <span class="string">"test Animation"</span>,_animator = GetComponent&lt;Animator&gt;());</div><div class="line"></div><div class="line">    mixerPlayable = AnimationLayerMixerPlayable.Create(playableGraph, <span class="number">2</span>);</div><div class="line">    mixerPlayable.SetLayerMaskFromAvatarMask(<span class="number">1</span>,LowerMask);<span class="comment">//设置遮罩到1层</span></div><div class="line">    </div><div class="line">    playableOutput.SetSourcePlayable(mixerPlayable);</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip1);</div><div class="line">    <span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line">    </div><div class="line">    mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>,<span class="number">1</span>);<span class="comment">//设置权重1</span></div><div class="line">    mixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable2,<span class="number">0</span>,<span class="number">1</span>);<span class="comment">//设置权重1</span></div><div class="line">    </div><div class="line">    playableGraph.Play();</div><div class="line">    </div><div class="line">    GraphVisualizerClient.Show(playableGraph);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>请注意上面有一些不同与之前的看到的 <strong>AnimationMixerPlayable</strong> ，这里连接的两个动画权重均为1.为什么不是 0.5 与 0.5 ?<br>因为现在是同时播放不同于融合。融合需要两种动画过渡权重，而分层则是将模型分为两个区间，0区间播放Clip1，1区间播放Clip2，这是完全同步又独立的。</p>
-<p><img src="/uploads/QQ20180927-105649-HD.gif" alt="效果图：上身播放跳跃，下身播放跑动"></p>
-<h2 id="动态添加动画"><a href="#动态添加动画" class="headerlink" title="动态添加动画"></a>动态添加动画</h2><p>之前我们使用<strong>Animator</strong>的时候需要将所有使用到的动画都加入其中。现在我们使用 <strong>ConnectInput &amp; DisconnectInput</strong> API 就能轻易的切换动画。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (Input.GetKeyUp(KeyCode.A))</div><div class="line">    &#123;</div><div class="line">        mixerPlayable.DisconnectInput(<span class="number">0</span>);</div><div class="line">        <span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip3);</div><div class="line">        mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/uploads/QQ20180927-120130-HD.gif" alt="效果图：上身切换到胜利动画，下身播放跑动"></p>
-<h3 id="动态切换的优化"><a href="#动态切换的优化" class="headerlink" title="动态切换的优化"></a>动态切换的优化</h3><p>刚才我们实现了动态的切换动画。效果是达到了，可是动画是硬过渡。如果现在只有<code>Connect  &amp; Disconnect</code>接口那么API真的无法帮我们达到动画的融合过渡！<br>现在我们现在来优化一下这段动画硬切的过程，使其达到融合过渡的效果(淡入淡出)。</p>
-<h4 id="方式一-使用AnimationMixerPlayable-API"><a href="#方式一-使用AnimationMixerPlayable-API" class="headerlink" title="方式一 使用AnimationMixerPlayable API"></a>方式一 使用AnimationMixerPlayable API</h4><p>使用动画融合节点控制权重实现动画融合，使用这种方式需要实现一个自定义Playable，以list作为容器才能实现复用，否则就是hardcode了 。下面代码展示了最简方式使用融合节点。<br><img src="/uploads/QQ20180927-163146-HD.gif" alt="效果图：上身融合跳跃与胜利动画"></p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mixerPlayable = AnimationMixerPlayable.Create(layerMixerPlayable.GetGraph(),<span class="number">2</span>);</div><div class="line"><span class="keyword">var</span> clipPlayable1 = AnimationClipPlayable.Create(playableGraph, clip1);</div><div class="line"><span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line"><span class="keyword">var</span> clipPlayable3 = AnimationClipPlayable.Create(playableGraph, clip3);</div><div class="line"></div><div class="line">mixerPlayable.ConnectInput(<span class="number">0</span>,clipPlayable1,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">mixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable3,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line"></div><div class="line">layerMixerPlayable.ConnectInput(<span class="number">0</span>,mixerPlayable,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">layerMixerPlayable.ConnectInput(<span class="number">1</span>,clipPlayable2,<span class="number">0</span>,<span class="number">1</span>);</div></pre></td></tr></table></figure>
-<h4 id="方式二-使用Animator"><a href="#方式二-使用Animator" class="headerlink" title="方式二 使用Animator"></a>方式二 使用Animator</h4><p><img src="/uploads/QQ20180927-170717.png" alt="效果图：创建融合状态机"><br>同样的我们使用融合状态机实现这个过渡效果。这种方式(Animator+PlayableAPI))让策划或者美术配置也是一种不错的选择。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">animatorController = AnimatorControllerPlayable.Create(layerMixerPlayable.GetGraph(), animationController);</div><div class="line"></div><div class="line"><span class="keyword">var</span> clipPlayable2 = AnimationClipPlayable.Create(playableGraph, clip2);</div><div class="line"></div><div class="line">layerMixerPlayable.ConnectInput(<span class="number">0</span>,animatorController,<span class="number">0</span>,<span class="number">1</span>);</div></pre></td></tr></table></figure>
-<p><img src="/uploads/QQ20180927-170915-HD.gif" alt="效果图：上身融合跳跃与胜利动画"></p>
-<h4 id="方式三-纯Playable-API"><a href="#方式三-纯Playable-API" class="headerlink" title="方式三 纯Playable API"></a>方式三 纯Playable API</h4><p>下面我们要介绍的这种过渡模式是纯代码实现，类似与lengcy api里的Animation CrossFade. 原理就是利用<code>Connect  &amp; Disconnect</code> 动态开关节点实现过渡，完毕后重新连接回来。具体实现方式可参考 <strong>方式一</strong></p>
-<h2 id="使用Bone-IK"><a href="#使用Bone-IK" class="headerlink" title="使用Bone IK"></a>使用Bone IK</h2><p><del> 现在我们再来看看更高级的用法 骨骼IK动画。如果我们需要做一些更逼真的效果IK技术是少不了的。为了方便展示 我们在这边Clone一下代码。</del></p>
-<p>在我写本篇的时候我发现官方在 2018.8.29日 发过关于Playable API 调用IK动画的范例，这里就再重复的赘述。下面是原文链接 <a href="http://forum.china.unity3d.com/thread-32814-1-1.html" target="_blank" rel="external">🔗 [技术] 详解Animation C# Jobs</a></p>
-<p>您可以直接克隆下面的代码范例中检验效果。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Clone https:<span class="comment">//github.com/KeyleXiao/animation-jobs-samples.git</span></div></pre></td></tr></table></figure>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>总体而言Playable API提供了更低层的操作方式，对于使用者的要求更高。如果您现在想要在项目中实践建议先不要用高级特性(ik部分)，因为这部分的功能目前还是实验性功能，API的相关文档并不完善。使用动画的控制API进行 Lengacy Animation的替换工作还是很有意义，不仅在与效率，与Timeline结合使用更能发挥出事半功倍的效果。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;上篇给大家介绍了 “Playables API” 的使用方法与背后的意义，本篇将会进一步带大家深入其中。 本篇重点还是会放到  “Playables API” 上，不会对 &lt;strong&gt;Timeline&lt;/strong&gt; 进行集中讲解，但是搞明白了 “Playables API” 也就意味着理解了 &lt;strong&gt;Timeline&lt;/strong&gt; 最复杂的部分，到时候学起来也会非常的快。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
-    
-    
-      <category term="ANIMATION" scheme="http://vrast.cn/tags/ANIMATION/"/>
     
   </entry>
   
