@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-05-09T13:39:38.906Z</updated>
+  <updated>2019-05-14T07:32:56.907Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用ternimal 或 powershell 计算文件md5</title>
+    <link href="http://vrast.cn/posts/2a8fe98b/"/>
+    <id>http://vrast.cn/posts/2a8fe98b/</id>
+    <published>2019-05-14T07:29:39.000Z</published>
+    <updated>2019-05-14T07:32:56.907Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>最近经常会需要临时计算某个文件md5的需求。然后找了下相关命令在此记录下。</p>
+</blockquote>
+<p>MAC:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">md5 you-file-full-path</div></pre></td></tr></table></figure>
+<p>powershell</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">get</span>-filehash you-file-full-path -algorithm md5</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;最近经常会需要临时计算某个文件md5的需求。然后找了下相关命令在此记录下。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;MAC:&lt;/p&gt;
+&lt;figure class=&quot;highlight cs&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutte
+    
+    </summary>
+    
+      <category term="teranimal" scheme="http://vrast.cn/categories/teranimal/"/>
+    
+    
+      <category term="md5" scheme="http://vrast.cn/tags/md5/"/>
+    
+  </entry>
   
   <entry>
     <title>AndroidStudio AVD FAQ</title>
@@ -270,12 +302,13 @@
     <link href="http://vrast.cn/posts/434d7425/"/>
     <id>http://vrast.cn/posts/434d7425/</id>
     <published>2019-04-05T09:45:02.000Z</published>
-    <updated>2019-05-06T08:25:11.788Z</updated>
+    <updated>2019-05-14T07:34:50.978Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。<br><img src="/uploads/WX20190405-174643.png" alt="我当时是直接更新到了 29 rc2"><br>直接导出项目在Android Studio中会直接显示<br><strong>android studio ERROR: Failed to find Build Tools revision 29.0.0</strong><br>另外如果直接出APK然后安装会显示一个<br><strong>Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</strong><br>这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。</p>
+<p>遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。<br><img src="/uploads/WX20190405-174643.png" alt="我当时是直接更新到了 29 rc2"><br>直接导出项目在Android Studio中会直接显示  …</p>
 </blockquote>
 <a id="more"></a>
+<p><strong>android studio ERROR: Failed to find Build Tools revision 29.0.0</strong><br>另外如果直接出APK然后安装会显示一个<br><strong>Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</strong><br>这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。</p>
 <p>我在Stackoverflow上找到了一解决方案：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">For building a project, Unity3d uses a stable version of the Build Tools and not an rc (<span class="keyword">release</span> candidate).</div><div class="line"></div><div class="line">The Android SDK <span class="keyword">path</span> <span class="keyword">is</span> usually C:\<span class="keyword">Users</span>\&lt;username&gt;\AppData\<span class="keyword">Local</span>\Android\sdk\<span class="keyword">build</span>-tools\ <span class="keyword">delete</span> the <span class="number">29.0</span><span class="number">.0</span>-rc1 folder <span class="keyword">or</span> <span class="keyword">move</span> it <span class="keyword">out</span> <span class="keyword">to</span> anywhere. You could also remove the rc <span class="keyword">version</span> <span class="keyword">of</span> the SDK <span class="keyword">Build</span> Tools via Android Studio<span class="string">'s SDK manager.</span></div><div class="line"></div><div class="line">Doing that the project should build successfully.</div></pre></td></tr></table></figure>
 <p>大意就是让我直接将下载的  Build Tools 29 rc1 与 rc2 先删除然后再打包。试了一下成功安装了。</p>
@@ -287,7 +320,7 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190405-174643.png&quot; alt=&quot;我当时是直接更新到了 29 rc2&quot;&gt;&lt;br&gt;直接导出项目在Android Studio中会直接显示&lt;br&gt;&lt;strong&gt;android studio ERROR: Failed to find Build Tools revision 29.0.0&lt;/strong&gt;&lt;br&gt;另外如果直接出APK然后安装会显示一个&lt;br&gt;&lt;strong&gt;Installation error:INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION&lt;/strong&gt;&lt;br&gt;这个报错信息是十分误导人的，网上的解决方案一般都是更改keystone或直接更改unity的项目导出模版。这样越改越偏。如果你也和我一样不妨试一下下面的方案。&lt;/p&gt;
+&lt;p&gt;遇到一个非常皮的问题，我更新了Android Studio的SDK Build Tools，直接将 Build Tools 29 rc1 与 rc2 都下载了。&lt;br&gt;&lt;img src=&quot;/uploads/WX20190405-174643.png&quot; alt=&quot;我当时是直接更新到了 29 rc2&quot;&gt;&lt;br&gt;直接导出项目在Android Studio中会直接显示  …&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
@@ -687,408 +720,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Math Symbols in Markdown</title>
-    <link href="http://vrast.cn/posts/183fa821/"/>
-    <id>http://vrast.cn/posts/183fa821/</id>
-    <published>2018-09-20T06:29:47.000Z</published>
-    <updated>2018-09-20T07:20:39.128Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前输入数学公式的一直用截图 自觉用户体验很差，最近发现用的这个主题带了好用的数学函数辅助，便一发不可收拾。顺便推荐一下我用的主题是<a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="external">maupassant-hexo github</a> ,这里记录一下数学符的用法。</p>
-<a id="more"></a>
-<h1 id="maupassant-hexo的数学函数开启方式"><a href="#maupassant-hexo的数学函数开启方式" class="headerlink" title="maupassant-hexo的数学函数开启方式"></a>maupassant-hexo的数学函数开启方式</h1><p>其他的主题可能方式不一样 具体需要对照文档</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Math Equation</div><div class="line"></div><div class="line">Add</div><div class="line"></div><div class="line">mathjax: true</div><div class="line">in Hexo's _config.yml.</div><div class="line"></div><div class="line">In the post which you would like to use math equation, add mathjax: true in the front-matter. For example:</div><div class="line"></div><div class="line">title: Test Math</div><div class="line">date: 2016-04-05 14:16:00</div><div class="line">categories: math</div><div class="line">mathjax: true</div><div class="line">---</div><div class="line">The default math delimiters are $$...$$ and \\[...\\] for displayed mathematics, and $...$ and \\(...\\) for in-line mathematics.</div><div class="line"></div><div class="line">However, if your post contains dollar signs ($), and they appear often in non-mathematical parts, in other words, you want to use $ as dollar sign not inline math delimiter, please add</div><div class="line"></div><div class="line">mathjax2: true</div><div class="line">in Hexo's _config.yml instead of mathjax: true. Correspondingly, add mathjax2: true to the front-matter of the post in which you would like to use math equation.</div><div class="line"></div><div class="line">See the example.</div></pre></td></tr></table></figure>
-<p><img src="/uploads/QQ20180920-143741.png" alt="添加标签则可用"></p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$</div><div class="line">    \\beta</div><div class="line">    \\alpha</div><div class="line">$</div></pre></td></tr></table></figure>
-<p>效果如下：<br>$<br>    \beta<br>    \alpha<br>$ </p>
-<p>或者这样以居中显示：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\\[\\beta \\alpha\\]</div></pre></td></tr></table></figure></p>
-<p>\[\beta \alpha\]</p>
-<h1 id="数学符"><a href="#数学符" class="headerlink" title="数学符"></a>数学符</h1><p>上面演示的 $\beta$ 之类的数学符号列表如下：</p>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Script</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$\cos$</td>
-<td>\cos</td>
-</tr>
-<tr>
-<td>$\sin$</td>
-<td>\sin</td>
-</tr>
-<tr>
-<td>$\lim$</td>
-<td>\lim</td>
-</tr>
-<tr>
-<td>$\exp$</td>
-<td>\exp</td>
-</tr>
-<tr>
-<td>$\to$</td>
-<td>\to</td>
-</tr>
-<tr>
-<td>$\infty$</td>
-<td>\infty</td>
-</tr>
-<tr>
-<td>$\equiv$</td>
-<td>\equiv</td>
-</tr>
-<tr>
-<td>$\bmod$</td>
-<td>\bmod</td>
-</tr>
-<tr>
-<td>$\times$</td>
-<td>\times</td>
-</tr>
-</tbody>
-</table>
-<h2 id="幂与指数"><a href="#幂与指数" class="headerlink" title="幂与指数"></a>幂与指数</h2><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Script</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$k_{n+1}$</td>
-<td>k_{n+1}</td>
-</tr>
-<tr>
-<td>$n^2$</td>
-<td>n^2</td>
-</tr>
-<tr>
-<td>$k_n^2$</td>
-<td>k_n^2</td>
-</tr>
-</tbody>
-</table>
-<h2 id="分数与二项式"><a href="#分数与二项式" class="headerlink" title="分数与二项式"></a>分数与二项式</h2><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Script</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$\frac{n!}{k!(n-k)!}$</td>
-<td>\frac{n!}{k!(n-k)!}</td>
-</tr>
-<tr>
-<td>$\binom{n}{k}$</td>
-<td>\binom{n}{k}</td>
-</tr>
-<tr>
-<td>$\frac{\frac{x}{1}}{x - y}$</td>
-<td>\frac{\frac{x}{1}}{x - y}</td>
-</tr>
-<tr>
-<td>$^3/_7$</td>
-<td>^3/_7</td>
-</tr>
-</tbody>
-</table>
-<h2 id="根"><a href="#根" class="headerlink" title="根"></a>根</h2><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Script</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$\sqrt{k}$</td>
-<td>\sqrt{k}</td>
-</tr>
-<tr>
-<td>$\sqrt[n]{k}$</td>
-<td>\sqrt[n]{k}</td>
-</tr>
-</tbody>
-</table>
-<h2 id="运算必须符"><a href="#运算必须符" class="headerlink" title="运算必须符"></a>运算必须符</h2><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Script</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$\sum_{i=1}^{10} t_i$</td>
-<td>\sum_{i=1}^{10} t_i</td>
-</tr>
-<tr>
-<td>$\int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x$</td>
-<td>\int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x</td>
-</tr>
-<tr>
-<td>$\sum$</td>
-<td>\sum</td>
-</tr>
-<tr>
-<td>$\prod$</td>
-<td>\prod</td>
-</tr>
-<tr>
-<td>$\coprod$</td>
-<td>\coprod</td>
-</tr>
-<tr>
-<td>$\bigoplus$</td>
-<td>\bigoplus</td>
-</tr>
-<tr>
-<td>$\bigotimes$</td>
-<td>\bigotimes</td>
-</tr>
-<tr>
-<td>$\bigodot$</td>
-<td>\bigodot</td>
-</tr>
-<tr>
-<td>$\bigcup$</td>
-<td>\bigcup</td>
-</tr>
-<tr>
-<td>$\bigcap$</td>
-<td>\bigcap</td>
-</tr>
-<tr>
-<td>$\biguplus$</td>
-<td>\biguplus</td>
-</tr>
-<tr>
-<td>$\bigsqcup$</td>
-<td>\bigsqcup</td>
-</tr>
-<tr>
-<td>$\bigvee$</td>
-<td>\bigvee</td>
-</tr>
-<tr>
-<td>$\bigwedge$</td>
-<td>\bigwedge</td>
-</tr>
-<tr>
-<td>$\int$</td>
-<td>\int</td>
-</tr>
-<tr>
-<td>$\oint$</td>
-<td>\oint</td>
-</tr>
-<tr>
-<td>$\iint$</td>
-<td>\iint</td>
-</tr>
-<tr>
-<td>$\iiint$</td>
-<td>\iiint</td>
-</tr>
-<tr>
-<td>$\idotsint$</td>
-<td>\idotsint</td>
-</tr>
-<tr>
-<td>$\sum_{\substack{0&lt;i&lt;m\0&lt;j&lt;n}} P(i, j)$</td>
-<td>\sum_{\substack{0&lt;i&lt;m\0&lt;j&lt;n}} P(i, j)</td>
-</tr>
-<tr>
-<td>$\int\limits_a^b$</td>
-<td>\int\limits_a^b</td>
-</tr>
-<tr>
-<td>$a’$ $a^{\prime}$</td>
-<td>a` a^{\prime}</td>
-</tr>
-<tr>
-<td>$a’’$</td>
-<td>a’’</td>
-</tr>
-<tr>
-<td>$\hat{a}$</td>
-<td>hat{a}</td>
-</tr>
-<tr>
-<td>$\bar{a}$</td>
-<td>\bar{a}</td>
-</tr>
-<tr>
-<td>$\grave{a}$</td>
-<td>\grave{a}</td>
-</tr>
-<tr>
-<td>$\acute{a}$</td>
-<td>\acute{a}</td>
-</tr>
-<tr>
-<td>$\dot{a}$</td>
-<td>\dot{a}</td>
-</tr>
-<tr>
-<td>$\ddot{a}$</td>
-<td>\ddot{a}</td>
-</tr>
-<tr>
-<td>$\not{a}$</td>
-<td>\not{a}</td>
-</tr>
-<tr>
-<td>$\mathring{a}$</td>
-<td>\mathring{a}</td>
-</tr>
-<tr>
-<td>$\overrightarrow{AB}$</td>
-<td>\overrightarrow{AB}</td>
-</tr>
-<tr>
-<td>$\overleftarrow{AB}$</td>
-<td>\overleftarrow{AB}</td>
-</tr>
-<tr>
-<td>$a’’’$</td>
-<td>a’’’</td>
-</tr>
-<tr>
-<td>$\overline{aaa}$</td>
-<td>\overline{aaa}</td>
-</tr>
-<tr>
-<td>$\check{a}$</td>
-<td>\check{a}</td>
-</tr>
-<tr>
-<td>$\vec{a}$</td>
-<td>\vec{a}</td>
-</tr>
-<tr>
-<td>$\underline{a}$</td>
-<td>\underline{a}</td>
-</tr>
-<tr>
-<td>$\color{red}x$</td>
-<td>\color{red}x</td>
-</tr>
-<tr>
-<td>$\pm$</td>
-<td>\pm</td>
-</tr>
-<tr>
-<td>$\mp$</td>
-<td>\mp</td>
-</tr>
-<tr>
-<td>$\int y \mathrm{d}x$</td>
-<td>\int y \mathrm{d}x</td>
-</tr>
-<tr>
-<td>$\,$</td>
-<td>\,</td>
-</tr>
-<tr>
-<td>$\:$</td>
-<td>\:</td>
-</tr>
-<tr>
-<td>$\;$</td>
-<td>\;</td>
-</tr>
-<tr>
-<td>$!$</td>
-<td>!</td>
-</tr>
-<tr>
-<td>$\int y\, \mathrm{d}x$</td>
-<td>\int y\, \mathrm{d}x</td>
-</tr>
-<tr>
-<td>$\dots$</td>
-<td>\dots</td>
-</tr>
-<tr>
-<td>$\ldots$</td>
-<td>\ldots</td>
-</tr>
-<tr>
-<td>$\cdots$</td>
-<td>\cdots</td>
-</tr>
-<tr>
-<td>$\vdots$</td>
-<td>\vdots</td>
-</tr>
-<tr>
-<td>$\ddots$</td>
-<td>\ddots</td>
-</tr>
-</tbody>
-</table>
-<h2 id="括弧"><a href="#括弧" class="headerlink" title="括弧"></a>括弧</h2><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Script</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$(a) $</td>
-<td>(a)</td>
-</tr>
-<tr>
-<td>$[a]  $</td>
-<td>[a]</td>
-</tr>
-<tr>
-<td>$a  $</td>
-<td>{a}</td>
-</tr>
-<tr>
-<td>$\langle f \rangle  $</td>
-<td>\langle f \rangle</td>
-</tr>
-<tr>
-<td>$\lfloor f \rfloor $</td>
-<td>\lfloor f \rfloor</td>
-</tr>
-<tr>
-<td>$\lceil f \rceil$</td>
-<td>\lceil f \rceil</td>
-</tr>
-<tr>
-<td>$\ulcorner f \urcorner$</td>
-<td>\ulcorner f \urcorner</td>
-</tr>
-</tbody>
-</table>
-<p><a href="http://csrgxtu.github.io/2015/03/20/Writing-Mathematic-Fomulars-in-Markdown/" target="_blank" rel="external">🔗 Writing Mathematic Fomulars in Markdown – Archer Reilly</a></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=fcrespo82.markdown-table-formatter#overview" target="_blank" rel="external">🔗 Markdown Table Formatter</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前输入数学公式的一直用截图 自觉用户体验很差，最近发现用的这个主题带了好用的数学函数辅助，便一发不可收拾。顺便推荐一下我用的主题是&lt;a href=&quot;https://github.com/tufu9441/maupassant-hexo&quot;&gt;maupassant-hexo github&lt;/a&gt; ,这里记录一下数学符的用法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Markdown" scheme="http://vrast.cn/categories/Markdown/"/>
-    
-    
-      <category term="Math" scheme="http://vrast.cn/tags/Math/"/>
     
   </entry>
   
