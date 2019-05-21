@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-05-14T07:32:56.907Z</updated>
+  <updated>2019-05-21T08:40:15.133Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>http下载与ftp下载md5值不一致</title>
+    <link href="http://vrast.cn/posts/d2e8872a/"/>
+    <id>http://vrast.cn/posts/d2e8872a/</id>
+    <published>2019-05-21T08:20:34.000Z</published>
+    <updated>2019-05-21T08:40:15.133Z</updated>
+    
+    <content type="html"><![CDATA[<p>这问题花了四个小时找答案，值得记录下。起因是这样的，我用工具上传一份文件到ftp，通过http下载的时候md5值与我原始文件不一致。通过文件比对发现多了17字节。推测是编码问题，随后查找事情的起因。经过同事提醒是否是文件传输过程中造成的。遂检查Filezillia的传输设置。<br>修改为二进制上传，问题解决。</p>
+<p><img src="/uploads/WX20190521-163850.png" alt="修改filezillia文件传设置"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这问题花了四个小时找答案，值得记录下。起因是这样的，我用工具上传一份文件到ftp，通过http下载的时候md5值与我原始文件不一致。通过文件比对发现多了17字节。推测是编码问题，随后查找事情的起因。经过同事提醒是否是文件传输过程中造成的。遂检查Filezillia的传输设置
+    
+    </summary>
+    
+      <category term="ftp" scheme="http://vrast.cn/categories/ftp/"/>
+    
+    
+      <category term="download" scheme="http://vrast.cn/tags/download/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用ternimal 或 powershell 计算文件md5</title>
     <link href="http://vrast.cn/posts/2a8fe98b/"/>
     <id>http://vrast.cn/posts/2a8fe98b/</id>
     <published>2019-05-14T07:29:39.000Z</published>
-    <updated>2019-05-14T07:32:56.907Z</updated>
+    <updated>2019-05-14T07:35:07.484Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>最近经常会需要临时计算某个文件md5的需求。然后找了下相关命令在此记录下。</p>
@@ -698,28 +722,6 @@
     
     
       <category term="C#" scheme="http://vrast.cn/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UNITY3D Timeline实践</title>
-    <link href="http://vrast.cn/posts/cdaabbe3/"/>
-    <id>http://vrast.cn/posts/cdaabbe3/</id>
-    <published>2018-09-25T08:52:13.000Z</published>
-    <updated>2018-10-25T01:22:47.492Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>如果您想动手尝试可以在AssetStore中获取到<a href="https://assetstore.unity.com/packages/essentials/default-playables-95266" target="_blank" rel="external">🔗 示例源码</a>，在 Default Playables 包中展示了大量的<strong>Playable API</strong>案例。在这里我们会挑比较有代表性的进行讲解。在案例中全部都是结合 <strong>Timeline</strong> 使用，由此可窥 “Playables API” 真是香饽饽，堪称万金油的存在。既能单独作为树型动画播放器使用又能够被 <strong>Timeline</strong> 所结合，不写代码也能做出复杂的游戏逻辑。当然 <strong>Timeline</strong> 同样适合处理各种动画需求等 如过场剧情，封面动画，甚至可以制作电影。本篇将会带大家从零开始使用Timeline进行剧情的编写，并且对相关 概念 以及 api 进行讲解。</p>
-<a id="more"></a>
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p><strong>Timeline</strong> 编辑器是一个什么样的存在 ？ 可以看作是强化版的 Animation 编辑器。他支持同时操控 N 个属性，就像是制作 flash 电影一样。在使用上策划编辑的时候不需要考虑脚本的实现只需要调用就行，程序这边不需要考虑调用时序只需要实现API并提供给策划即可。</p>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>.. 未完成 待续</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h1&gt;&lt;p&gt;如果您想动手尝试可以在AssetStore中获取到&lt;a href=&quot;https://assetstore.unity.com/packages/essentials/default-playables-95266&quot;&gt;🔗 示例源码&lt;/a&gt;，在 Default Playables 包中展示了大量的&lt;strong&gt;Playable API&lt;/strong&gt;案例。在这里我们会挑比较有代表性的进行讲解。在案例中全部都是结合 &lt;strong&gt;Timeline&lt;/strong&gt; 使用，由此可窥 “Playables API” 真是香饽饽，堪称万金油的存在。既能单独作为树型动画播放器使用又能够被 &lt;strong&gt;Timeline&lt;/strong&gt; 所结合，不写代码也能做出复杂的游戏逻辑。当然 &lt;strong&gt;Timeline&lt;/strong&gt; 同样适合处理各种动画需求等 如过场剧情，封面动画，甚至可以制作电影。本篇将会带大家从零开始使用Timeline进行剧情的编写，并且对相关 概念 以及 api 进行讲解。&lt;/p&gt;
-    
-    </summary>
-    
     
   </entry>
   
