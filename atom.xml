@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-05-21T08:40:15.133Z</updated>
+  <updated>2019-05-21T08:52:48.096Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,15 +20,15 @@
     <link href="http://vrast.cn/posts/d2e8872a/"/>
     <id>http://vrast.cn/posts/d2e8872a/</id>
     <published>2019-05-21T08:20:34.000Z</published>
-    <updated>2019-05-21T08:40:15.133Z</updated>
+    <updated>2019-05-21T08:52:48.096Z</updated>
     
-    <content type="html"><![CDATA[<p>这问题花了四个小时找答案，值得记录下。起因是这样的，我用工具上传一份文件到ftp，通过http下载的时候md5值与我原始文件不一致。通过文件比对发现多了17字节。推测是编码问题，随后查找事情的起因。经过同事提醒是否是文件传输过程中造成的。遂检查Filezillia的传输设置。<br>修改为二进制上传，问题解决。</p>
+    <content type="html"><![CDATA[<p>这问题花了四个小时找答案，值得记录下。起因是这样的，我用工具上传一份文件(二进制)到ftp，通过http下载的时候md5值与我原始文件不一致。通过文件比对发现多了17字节。推测是编码问题，随后查找事情的起因。经过同事提醒是否是文件传输过程中造成的。遂检查Filezillia的传输设置。<br>修改为二进制上传，问题解决。</p>
 <p><img src="/uploads/WX20190521-163850.png" alt="修改filezillia文件传设置"></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;这问题花了四个小时找答案，值得记录下。起因是这样的，我用工具上传一份文件到ftp，通过http下载的时候md5值与我原始文件不一致。通过文件比对发现多了17字节。推测是编码问题，随后查找事情的起因。经过同事提醒是否是文件传输过程中造成的。遂检查Filezillia的传输设置
+      &lt;p&gt;这问题花了四个小时找答案，值得记录下。起因是这样的，我用工具上传一份文件(二进制)到ftp，通过http下载的时候md5值与我原始文件不一致。通过文件比对发现多了17字节。推测是编码问题，随后查找事情的起因。经过同事提醒是否是文件传输过程中造成的。遂检查Filezillia
     
     </summary>
     
