@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-05-21T08:52:48.096Z</updated>
+  <updated>2019-06-05T18:03:05.296Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>IMGUI：UNITY的新UI系统</title>
+    <link href="http://vrast.cn/posts/56648355/"/>
+    <id>http://vrast.cn/posts/56648355/</id>
+    <published>2019-06-05T15:30:46.000Z</published>
+    <updated>2019-06-05T18:03:05.296Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>我关注类似MVVM的UI框架已经很久了，从2019.1发布的功能列表中我终于看到了非常想要的功能库。那就是UI Elements.<br>我在2016年也写过类似框架介绍，感兴趣的话可以看一下<a href="http://www.manew.com/forum.php?mod=viewthread&amp;tid=93737&amp;extra=page%3D1%26filter%3Dtypeid%26typeid%3D324" target="_blank" rel="external">细说PreGUI框架设计思路-蛮牛网</a>。<br>与PreGUI的设计思路类似，但是官方出品质量肯定上去不止一个台阶。另外配有完善的Profile工具。让你可以清楚的看到UI的布局细节。<br>截止到今日，IMGUI还是作为辅助UI系统在Unity中使用【编辑器】,相信过不了多久他就会转正甚至取代目前的UGUI,所以我们现在早点了解也好未来可以快速上手。好了下面开始正文 ：）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="使用-UI-Elements-Debugger-查看已有Editor的结构"><a href="#使用-UI-Elements-Debugger-查看已有Editor的结构" class="headerlink" title="使用 UI Elements Debugger 查看已有Editor的结构"></a>使用 UI Elements Debugger 查看已有Editor的结构</h1><p><img src="/uploads/usedebugtoolsmodifiedname.png" alt="你甚至可以在Elements Debugger中实时的修改属性值"></p>
+<h1 id="Case01"><a href="#Case01" class="headerlink" title="Case01"></a>Case01</h1><p>这里就不上图了。简单描述下 rootVisualElement,他就是我们所有UI的根节点。如果你写过HTML 那么你肯定可以轻易地的<br>可以轻易地的过渡到现在的写法上，理解上亦是如此。</p>
+<p>但下面的代码里，代码我们先获取到了UI的根节点，跟然后创建各种元素,将其添加进我们的根节点上。至此我们不需要加上额外代码，即可渲染控件，就如同我们在运行时里使用UGUI做的一样。</p>
+<p>这里有一个小技巧,像HTML一样我们可以通过ID来寻找我们的控件。所以在创建组件的同时,如果考虑到我们后续需要去动态寻找该组件，那么我们将其设置一个name,并且通过name来寻找。就像下面做的这样。<code>var lable =rootVisualElement.Q<label>(“lable01”);</label></code></p>
+<p>⚠️注意：.Q 查询函数为所有visual elements的扩展函数，也就意味着所有的元素都能搜索自己结构下的节点。</p>
+<p>在这里你可以给控件添加回调函数，在该函数中你甚至可以获取触发当前回调的来源（每个控件都有callback）。就像下面做这样<code>var slider = evt.target as SliderInt;</code></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnEnable</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> root = rootVisualElement;</div><div class="line">    </div><div class="line">    <span class="comment">//创建lable</span></div><div class="line">    <span class="keyword">var</span> label = <span class="keyword">new</span> Label();</div><div class="line">    label.name = <span class="string">"lable01"</span>;</div><div class="line">    </div><div class="line">    <span class="comment">//创建slider</span></div><div class="line">    <span class="keyword">var</span> slider = <span class="keyword">new</span> SliderInt();</div><div class="line">    slider.name = <span class="string">"slider01"</span>;</div><div class="line">    slider.RegisterValueChangedCallback(SliderValueChangeCallback);</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">    root.Add(slider);</div><div class="line">    root.Add(label);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SliderValueChangeCallback</span>(<span class="params">ChangeEvent&lt;<span class="keyword">int</span>&gt; evt</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> slider = evt.target <span class="keyword">as</span> SliderInt;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> lable =rootVisualElement.Q&lt;Label&gt;(<span class="string">"lable01"</span>);</div><div class="line">    lable.text = evt.newValue + <span class="string">" &lt;&lt; fontsize is change. slider name:"</span> + slider.name;</div><div class="line">    lable.style.fontSize = slider.<span class="keyword">value</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Case02"><a href="#Case02" class="headerlink" title="Case02"></a>Case02</h1><p>看图～</p>
+<p><img src="/uploads/WX20190606-005131@2x.png" alt="在这里，你可以看到目前所有可以用的控件"></p>
+<h1 id="Case03"><a href="#Case03" class="headerlink" title="Case03"></a>Case03</h1><p>当然我们想要的更多,你同样可以通过样式文件与布局文件来渲染窗口。这才是我们最终的目的，什么让我们来看一下范例吧。</p>
+<p><img src="/uploads/WX20190606-011815@2x.png" alt="创建布局与样式"></p>
+<h2 id="读取uxml与uss"><a href="#读取uxml与uss" class="headerlink" title="读取uxml与uss"></a>读取uxml与uss</h2><p>⚠️注意：我们读取之后的类型分别为 VisualTreeAsset 与 StyleSheet 。</p>
+<p>读取之后直接<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">VisualElement m_RootElement;</div><div class="line">VisualTreeAsset m_ModulesVisualTree;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnEnable</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    m_TurretBuilder = <span class="keyword">new</span> TurretBuilder(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    <span class="comment">// Hierarchy</span></div><div class="line">    m_RootElement = <span class="keyword">new</span> VisualElement();</div><div class="line">    m_ModulesVisualTree =</div><div class="line">        AssetDatabase.LoadAssetAtPath&lt;VisualTreeAsset&gt;(</div><div class="line">            <span class="string">"Assets/Demo/UI/TurretEditorTemplate.uxml"</span>);</div><div class="line"></div><div class="line">    <span class="comment">// Styles</span></div><div class="line">    <span class="keyword">var</span> stylesheet =</div><div class="line">        AssetDatabase.LoadAssetAtPath&lt;StyleSheet&gt;(</div><div class="line">            <span class="string">"Assets/Demo/UI/TurretEditorStyles.uss"</span>);</div><div class="line">    m_RootElement.styleSheets.Add(stylesheet);</div><div class="line"></div><div class="line">    <span class="comment">// WILL BE FIXED: Unset padding on parent InspectorElement.</span></div><div class="line">    m_RootElement.RegisterCallback&lt;AttachToPanelEvent&gt;(OnRootAttachToPanel);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="创建Elements"><a href="#创建Elements" class="headerlink" title="创建Elements"></a>创建Elements</h2><p>使用CloneTree API可以创建读取出来的结构。并且将当前节点作为root的子节点。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">m_ModulesVisualTree.CloneTree(root);</div></pre></td></tr></table></figure></p>
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><p>暂时我没有找到事件映射或者绑定的代码。也有可能是这部分的API没有开放出来。暂时来看IMGUI的完善进度也比较快，就算现在没有事件映射，也可以等等。毕竟现在还没有过preview阶段。不过现在已经看起来像那么一回事了，相信用上它的一天很快会到的。</p>
+<h1 id="Case4"><a href="#Case4" class="headerlink" title="Case4"></a>Case4</h1><p>添加高亮与提示(提示有限并不能很好的支持)</p>
+<p><img src="/uploads/WX20190606-011014@2x.png" alt="在编辑uxml与uss的时候你需要一个代码高亮。在rider里是这样设置的"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;我关注类似MVVM的UI框架已经很久了，从2019.1发布的功能列表中我终于看到了非常想要的功能库。那就是UI Elements.&lt;br&gt;我在2016年也写过类似框架介绍，感兴趣的话可以看一下&lt;a href=&quot;http://www.manew.com/forum.php?mod=viewthread&amp;amp;tid=93737&amp;amp;extra=page%3D1%26filter%3Dtypeid%26typeid%3D324&quot;&gt;细说PreGUI框架设计思路-蛮牛网&lt;/a&gt;。&lt;br&gt;与PreGUI的设计思路类似，但是官方出品质量肯定上去不止一个台阶。另外配有完善的Profile工具。让你可以清楚的看到UI的布局细节。&lt;br&gt;截止到今日，IMGUI还是作为辅助UI系统在Unity中使用【编辑器】,相信过不了多久他就会转正甚至取代目前的UGUI,所以我们现在早点了解也好未来可以快速上手。好了下面开始正文 ：）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UI" scheme="http://vrast.cn/categories/UI/"/>
+    
+    
+      <category term="IMGUI" scheme="http://vrast.cn/tags/IMGUI/"/>
+    
+  </entry>
   
   <entry>
     <title>http下载与ftp下载md5值不一致</title>
@@ -676,49 +721,6 @@
 &lt;/blockquote&gt;
     
     </summary>
-    
-    
-      <category term="C#" scheme="http://vrast.cn/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# language version history</title>
-    <link href="http://vrast.cn/posts/d763b1b/"/>
-    <id>http://vrast.cn/posts/d763b1b/</id>
-    <published>2018-10-08T07:01:13.000Z</published>
-    <updated>2018-10-08T06:45:48.709Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>These are the versions of C# known about at the time of this writing:</p>
-</blockquote>
-<ul>
-<li>C# 1.0 released with .NET 1.0 and VS2002 (January 2002)</li>
-<li>C# 1.2 (bizarrely enough); released with .NET 1.1 and VS2003 (April 2003). First version to call Dispose on IEnumerators which implemented IDisposable. A few other small features.</li>
-<li>C# 2.0 released with .NET 2.0 and VS2005 (November 2005). Major new features: generics, anonymous methods, nullable types, iterator blocks</li>
-<li>C# 3.0 released with .NET 3.5 and VS2008 (November 2007). Major new features: lambda expressions, extension methods, expression trees, anonymous types, implicit typing (var), query expressions</li>
-<li>C# 4.0 released with .NET 4 and VS2010 (April 2010). Major new features: late binding (dynamic), delegate and interface generic variance, more COM support, named arguments, tuple data type and optional parameters</li>
-<li>C# 5.0 released with .NET 4.5 and VS2012 (August 2012). Major features: async programming, caller info attributes. Breaking change: loop variable closure.</li>
-<li>C# 6.0 released with .NET 4.6 and VS2015 (July 2015). Implemented by Roslyn. Features: initializers for automatically implemented properties, using directives to import static members, exception filters, element initializers, await in catch and finally, extension Add methods in collection initializers.</li>
-<li>C# 7.0 released with .NET 4.7 and VS2017 (March 2017) Major new features: tuples, ref locals and ref return, pattern matching (including pattern-based switch statements), inline out parameter declarations, local functions, binary literals, digit separators, and arbitrary async returns.</li>
-<li>C# 7.1 released with VS2017 v15.3 (August 2017) New features: async main, tuple member name inference, default expression, pattern matching with generics.</li>
-<li>C# 7.2 released with VS2017 v15.5 (November 2017) New features: private protected access modifier, Span<t>, aka interior pointer, aka stackonly struct, everything else.</t></li>
-<li>C# 7.3 released with VS2017 v15.7 (May 2018). New features: enum, delegate and unmanaged generic type constraints. ref reassignment. Unsafe improvements: stackalloc initialization, unpinned indexed fixed buffers, custom fixed statements. Improved overloading resolution. Expression variables in initializers and queries. == and != defined for tuples. Auto-properties’ backing fields can now be targeted by attributes.</li>
-<li>C# 8.0 currently in preview. Expected new features: Non-nullable reference-types, IAsyncEnumerable<t> support, Ranges, and default interface methods.</t></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;These are the versions of C# known about at the time of this writing:&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;C# 1.0 released with .NET 1
-    
-    </summary>
-    
-      <category term="SCRIPT" scheme="http://vrast.cn/categories/SCRIPT/"/>
     
     
       <category term="C#" scheme="http://vrast.cn/tags/C/"/>
