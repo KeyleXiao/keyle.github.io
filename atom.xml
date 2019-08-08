@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2019-06-05T18:03:05.296Z</updated>
+  <updated>2019-08-08T07:45:28.897Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>win10 svn 校验失败无法下载 FAQ</title>
+    <link href="http://vrast.cn/posts/2f0ec6ff/"/>
+    <id>http://vrast.cn/posts/2f0ec6ff/</id>
+    <published>2019-08-08T07:38:23.000Z</published>
+    <updated>2019-08-08T07:45:28.897Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/uploads/1565239339773.jpg" alt="Checkout svn 代码出现校验失败,svn账户密码窗口未出现"></p>
+<p>找了下 Stackoverflow 发现一个可用的方案：<a href="https://stackoverflow.com/questions/45299260/tortoisesvn-authentication-error" target="_blank" rel="external">原文点这里</a></p>
+<a id="more"></a>
+<h1 id="解决方案如下"><a href="#解决方案如下" class="headerlink" title="解决方案如下"></a>解决方案如下</h1><p>If it’s caused by using Microsoft Account instead of Local Account to log in your Windows, the solution is in the SO link below. It’s just difficult to find it because it doesn’t talk exactly about TortoiseSVN, but the Subversion library which is under the hood of TortoiseSVN:</p>
+<p>In SVN how do I override automatic Windows domain authentication</p>
+<p>From the answer:</p>
+<p>In “%AppData%\Subversion\servers” add into [groups] this line:</p>
+<p>yoursvnserver_com = *.yoursvnserver.com<br>In the same file later add this group:</p>
+<p>[yoursvnserver_com]<br>http-auth-types=basic;digest</p>
+<p><img src="/uploads/WX20190808-154339.png" alt="修改servers文件"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/uploads/1565239339773.jpg&quot; alt=&quot;Checkout svn 代码出现校验失败,svn账户密码窗口未出现&quot;&gt;&lt;/p&gt;
+&lt;p&gt;找了下 Stackoverflow 发现一个可用的方案：&lt;a href=&quot;https://stackoverflow.com/questions/45299260/tortoisesvn-authentication-error&quot;&gt;原文点这里&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FAQ" scheme="http://vrast.cn/categories/FAQ/"/>
+    
+    
+      <category term="svn" scheme="http://vrast.cn/tags/svn/"/>
+    
+  </entry>
   
   <entry>
     <title>IMGUI：UNITY的新UI系统</title>
@@ -672,53 +705,6 @@
 &lt;/blockquote&gt;
 &lt;p&gt;UNITY版本与C#版本关系&lt;br&gt;Unity 5.5.4  自带的Mono也可以支持C# 6，在mcs.rsp文件中添加一行：-langversion:6即可。&lt;br&gt;Unity 2017.1 C# 6.0 试验性地支持新脚本运行时。This includes Mono 4.8 and IL2CPP with support for C# 6 and .NET 4.6&lt;br&gt;Unity 2018.1 C# 7.2 &lt;/p&gt;
 &lt;p&gt;总的来说新特性还是在2018的运行环境下比较稳定，所以建议在2018下再去放开使用。下面列出的特性基本上都可以在2018中使用。不能使用的部分已经做了标注,下面是正文:&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C#" scheme="http://vrast.cn/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Dispose接口的正确使用方法</title>
-    <link href="http://vrast.cn/posts/6de8b164/"/>
-    <id>http://vrast.cn/posts/6de8b164/</id>
-    <published>2019-02-20T07:27:25.000Z</published>
-    <updated>2019-02-21T13:14:24.468Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>我们知道在代码里自己写 Dispose 来释放一些资源。但是你真的用对了吗 ？ 本篇介绍一些不容易注意到的 GC 相关知识 。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="到底什么时候需要使用到-IDispose-？"><a href="#到底什么时候需要使用到-IDispose-？" class="headerlink" title="到底什么时候需要使用到 IDispose ？"></a>到底什么时候需要使用到 IDispose ？</h1><p>当前类中出现 IO 操作。或者其他 跨语言调用,窗口和网络连接 之的非托管资源调用，这时才需要自己是实现一个IDispose 接口。其他的时候你并不需要去实现这样一个接口。我的做法是一般的类继承一个 IReset 接口，这个接口内只包含一个 Reset 函数 .<br>Dispose 接口是一个显示的调用，如果我们没有写这个接口，运行时他会在执行析构函数的时候清理资源。</p>
-<h1 id="了解析构函数-终结器"><a href="#了解析构函数-终结器" class="headerlink" title="了解析构函数(终结器)"></a>了解析构函数(终结器)</h1><p>在使用Dispose 接口的同时 你或许同时会用到一个终结器。打个比方 如果你忘记显示调用 Dispose 函数的时候，程序还是会帮你清除非托管资源。</p>
-<p>先观察以下析构函数<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">Car</span> </div><div class="line">&#123;</div><div class="line">    ~Car()  <span class="comment">// finalizer</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// cleanup statements...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的代码很简单，他等价于下面的代码</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Finalize</span>(<span class="params"></span>)  </span></div><div class="line">&#123;  </div><div class="line">    <span class="keyword">try</span>  </div><div class="line">    &#123;  </div><div class="line">        <span class="comment">// Cleanup statements...  </span></div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">finally</span>  </div><div class="line">    &#123;  </div><div class="line">        <span class="keyword">base</span>.Finalize();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在你应该已经观察到这一行代码被隐式调用了,这行代码的意义是将当前运行时 Finalize 队列中创建一个条目，等待回收器来处理该队列。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">base</span>.Finalize();</div></pre></td></tr></table></figure>
-<h1 id="正确的-“Dispose”"><a href="#正确的-“Dispose”" class="headerlink" title="正确的 “Dispose”"></a>正确的 “Dispose”</h1><p>我们再观察下面的代码<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyClass</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 这里实现了IDispose中的 Dispose方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Dispose</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//执行资源释放 xxxxxxxx</span></div><div class="line"></div><div class="line">        <span class="comment">//告诉GC此对象的Finalize方法不再需要调用</span></div><div class="line">        GC.SuppressFinalize(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ~MyClass()</div><div class="line">    &#123;</div><div class="line">        Dispose();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//下面我们使用using使用这个类</span></div><div class="line"><span class="keyword">using</span>(MyClass s = <span class="keyword">new</span> MyClass())&#123;&#125;</div></pre></td></tr></table></figure></p>
-<p>上面我们使用了 <code>GC.SuppressFinalize(this);</code> 函数，他会告诉GC的Finalize队列中移除当前，不必在执行 <code>Finalize()</code></p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
-<li>在非托管资源操作中才去重写dispose接口，否则使用其他自定义接口去实现 Reset 操作</li>
-<li>在非托管资源操作中才去重写析构函数，否则空析构函数也会造成不必要的性能损失</li>
-<li>重写dispose接口的同时别忘了重写析构函数</li>
-</ol>
-<h1 id="文外话"><a href="#文外话" class="headerlink" title="文外话"></a>文外话</h1><p>在 C# 语言里对析构函数与终结器的描述似乎是同一个东西，这让我有一点困惑。我查询了一些论文他们是这样说的。如果你感兴趣也可以看一下</p>
-<p>In the C# world the terms “destructor” and “finalizer” seem to be used pretty much interchangeably, which I suspect is because the C# specification describes the non-deterministic cleanup functionality using the word “destructor”, whereas the CLR documentation always uses the word “finalizer”, so within the realms of C# they mean the same thing.</p>
-<p>However, in the C++/CLI specification there is a distinction made between the two. It allows both deterministic and non-deterministic cleanup, and uses the term “destructor” for the deterministic functionality and “finalizer” for the non-deterministic functionality:</p>
-<p>在C＃世界术语“析构函数”和“终结”似乎要使用pretty多互换，我怀疑是因为C＃规范用字“析构函数”，描述了非确定性的清理功能，而CLR的文档始终使用单词“终结”，所以C＃的领域内，他们的意思是一样的。</p>
-<p>然而，在C / CLI规范有两者之间作出区分。它同时允许确定性和非确定性的清理，并使用该确定的功能的非确定性的功能的术语“析构”和“终结”：</p>
-<p><a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/destructors" target="_blank" rel="external">Microsoft 编程指南</a></p>
-<p><a href="http://www.it1352.com/382928.html" target="_blank" rel="external">析构函数和终结器的区别？(The difference between a destructor and a finalizer?</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;我们知道在代码里自己写 Dispose 来释放一些资源。但是你真的用对了吗 ？ 本篇介绍一些不容易注意到的 GC 相关知识 。&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
