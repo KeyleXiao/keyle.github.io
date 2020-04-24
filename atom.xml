@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-02-20T07:55:05.975Z</updated>
+  <updated>2020-04-24T12:50:00.788Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/d3349a9e/"/>
     <id>http://vrast.cn/posts/d3349a9e/</id>
     <published>2020-02-19T09:07:29.000Z</published>
-    <updated>2020-02-20T07:55:05.975Z</updated>
+    <updated>2020-04-24T12:50:00.788Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 <a href="https://vrast.cn/posts/56648355/">IMGUI：UNITY的新UI系统</a> 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。<br>从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 <strong>Unity Technologies</strong> 的功能就行了.<br>写本章的主要目的是探索 Addressable 的易用性与各种标准。</p>
