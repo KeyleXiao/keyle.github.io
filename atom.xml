@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-02-18T09:28:33.276Z</updated>
+  <updated>2020-02-20T07:55:05.975Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Addressable 或成为Unity资源加载的新主流</title>
+    <link href="http://vrast.cn/posts/d3349a9e/"/>
+    <id>http://vrast.cn/posts/d3349a9e/</id>
+    <published>2020-02-19T09:07:29.000Z</published>
+    <updated>2020-02-20T07:55:05.975Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 <a href="https://vrast.cn/posts/56648355/">IMGUI：UNITY的新UI系统</a> 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。<br>从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 <strong>Unity Technologies</strong> 的功能就行了.<br>写本章的主要目的是探索 Addressable 的易用性与各种标准。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><p>Addressable 2019.8.28 更新到1.1.10版本，也就是本章使用的最新版本。本篇所使用的Unity版本2019.3.f1 如果你也想测试请注意本文的时效性。</p>
+<p><img src="/uploads/WX20200219-171056.png" alt="Addressable的更新日志"></p>
+<p>## </p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.unity3d.com/Packages/com.unity.addressables@1.1/manual/AddressableAssetsGettingStarted.html" target="_blank" rel="external">Getting started with Addressable Assets</a><br><a href="https://www.jianshu.com/p/9da4a30ad989" target="_blank" rel="external">The Addressable Asset System 正式版应用（一）</a><br><a href="https://www.jianshu.com/p/e79b2eef97bf" target="_blank" rel="external">学习Unity新出资源管理系统-Addressable Asset</a><br><a href="https://github.com/Unity-Technologies/Addressables-Sample" target="_blank" rel="external">GitHub Unity-Technologies/Addressables-Sample</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 &lt;a href=&quot;https://vrast.cn/posts/56648355/&quot;&gt;IMGUI：UNITY的新UI系统&lt;/a&gt; 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。&lt;br&gt;从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 &lt;strong&gt;Unity Technologies&lt;/strong&gt; 的功能就行了.&lt;br&gt;写本章的主要目的是探索 Addressable 的易用性与各种标准。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
+    
+    
+      <category term="Addressable" scheme="http://vrast.cn/tags/Addressable/"/>
+    
+  </entry>
   
   <entry>
     <title>人生三问</title>
@@ -678,37 +710,6 @@
     
     
       <category term="NewPrefabSystem" scheme="http://vrast.cn/tags/NewPrefabSystem/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XCode 插件自动签名</title>
-    <link href="http://vrast.cn/posts/2dde2a0b/"/>
-    <id>http://vrast.cn/posts/2dde2a0b/</id>
-    <published>2019-02-28T01:25:59.000Z</published>
-    <updated>2019-02-28T01:45:32.401Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近用XCode写一些C++的测试，遇到一个问题，我升级过XCode所以现在看不到所有的旧插件了，网上找了一圈，需要手动创建证书然后重新对之前的插件进行签名。最后我找到一个插件可以很方便的对之前插件进行恢复。<br><a id="more"></a></p>
-<h2 id="关闭XCode"><a href="#关闭XCode" class="headerlink" title="关闭XCode"></a>关闭XCode</h2><p>别忘记关XCode，不然过程中还会提醒关闭。</p>
-<h2 id="使用Gem下载"><a href="#使用Gem下载" class="headerlink" title="使用Gem下载"></a>使用Gem下载</h2><p>Gem 是Mac自带的Ruby内建的功能，所以Mac用户也不必纠结什么是Gem.就是一个插件下载器，使用下面的命令安装好工具<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem <span class="keyword">install</span> update_xcode_plugins</div></pre></td></tr></table></figure></p>
-<p>当然你同样可以通过github下载 <a href="https://github.com/inket/update_xcode_plugins" target="_blank" rel="external">https://github.com/inket/update_xcode_plugins</a> </p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">keyle@xiaonians-MacBook-Pro  ~  sudo gem install update_xcode_plugins</div><div class="line">Password:</div><div class="line">Fetching: colorize-<span class="number">0.8</span>.<span class="number">1</span><span class="selector-class">.gem</span> (<span class="number">100%</span>)</div><div class="line">Successfully installed colorize-<span class="number">0.8</span>.<span class="number">1</span></div><div class="line">Fetching: tins-<span class="number">1.20</span>.<span class="number">2</span><span class="selector-class">.gem</span> (<span class="number">100%</span>)</div><div class="line">Successfully installed tins-<span class="number">1.20</span>.<span class="number">2</span></div><div class="line">Fetching: term-ansicolor-<span class="number">1.7</span>.<span class="number">1</span><span class="selector-class">.gem</span> (<span class="number">100%</span>)</div><div class="line">Successfully installed term-ansicolor-<span class="number">1.7</span>.<span class="number">1</span></div><div class="line">Fetching: inquirer-<span class="number">0.2</span>.<span class="number">1</span><span class="selector-class">.gem</span> (<span class="number">100%</span>)</div><div class="line">Successfully installed inquirer-<span class="number">0.2</span>.<span class="number">1</span></div><div class="line">Fetching: update_xcode_plugins-<span class="number">0.4</span>.<span class="number">0</span><span class="selector-class">.gem</span> (<span class="number">100%</span>)</div><div class="line">Successfully installed update_xcode_plugins-<span class="number">0.4</span>.<span class="number">0</span></div><div class="line">Parsing documentation <span class="keyword">for</span> colorize-<span class="number">0.8</span>.<span class="number">1</span></div><div class="line">Installing ri documentation <span class="keyword">for</span> colorize-<span class="number">0.8</span>.<span class="number">1</span></div><div class="line">Parsing documentation <span class="keyword">for</span> tins-<span class="number">1.20</span>.<span class="number">2</span></div><div class="line">Installing ri documentation <span class="keyword">for</span> tins-<span class="number">1.20</span>.<span class="number">2</span></div><div class="line">Parsing documentation <span class="keyword">for</span> term-ansicolor-<span class="number">1.7</span>.<span class="number">1</span></div><div class="line">Installing ri documentation <span class="keyword">for</span> term-ansicolor-<span class="number">1.7</span>.<span class="number">1</span></div><div class="line">Parsing documentation <span class="keyword">for</span> inquirer-<span class="number">0.2</span>.<span class="number">1</span></div><div class="line">Installing ri documentation <span class="keyword">for</span> inquirer-<span class="number">0.2</span>.<span class="number">1</span></div><div class="line">Parsing documentation <span class="keyword">for</span> update_xcode_plugins-<span class="number">0.4</span>.<span class="number">0</span></div><div class="line">Installing ri documentation <span class="keyword">for</span> update_xcode_plugins-<span class="number">0.4</span>.<span class="number">0</span></div><div class="line">Done installing documentation <span class="keyword">for</span> colorize, tins, term-ansicolor, inquirer, update_xcode_plugins after <span class="number">1</span> seconds</div><div class="line"><span class="number">5</span> gems installed</div></pre></td></tr></table></figure>
-<h2 id="查看本机现有XCode插件"><a href="#查看本机现有XCode插件" class="headerlink" title="查看本机现有XCode插件"></a>查看本机现有XCode插件</h2><p>使用 <code>update_xcode_plugins</code> 命令可以直接更新旧签名插件。<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">keyle@xiaonians-MacBook-Pro  ~  update_xcode_plugins</div><div class="line">Found:</div><div class="line">-<span class="ruby"> Xcode (<span class="number">10.1</span>) [D7881182-AD0<span class="number">0</span>-<span class="number">4</span>C36-A94D-F45FC9B0CF85]: <span class="regexp">/Applications/</span>Xcode.app</span></div><div class="line"></div><div class="line">Plugins:</div><div class="line">-<span class="ruby"> AutoIndentWithSave (<span class="number">1.0</span>)</span></div><div class="line">-<span class="ruby"> XToDo (<span class="number">1.0</span>)</span></div><div class="line">-<span class="ruby"> RSImageOptimPlugin (<span class="number">1.0</span>)</span></div><div class="line">-<span class="ruby"> Alcatraz (<span class="number">1.2</span>.<span class="number">1</span>)</span></div><div class="line">-<span class="ruby"> BBUDebuggerTuckAway (<span class="number">1.0</span>)</span></div><div class="line">-<span class="ruby"> Auto-Importer (<span class="number">1.0</span>)</span></div><div class="line">-<span class="ruby"> VVDocumenter-Xcode (<span class="number">1.0</span>)</span></div><div class="line">-<span class="ruby"> OMQuickHelp (<span class="number">1.0</span>.<span class="number">1</span>)</span></div><div class="line">-<span class="ruby"> AutoHighlightSymbol (<span class="number">1.1</span>)</span></div><div class="line">-<span class="ruby"> OMColorSense (<span class="number">1.0</span>.<span class="number">1</span>)</span></div><div class="line"></div><div class="line">Updating...</div><div class="line"></div><div class="line">Finished! 🎉</div><div class="line"></div><div class="line">It seems that you have Xcode 8+ installed!</div><div class="line">Some plugins might not work on recent versions of Xcode because of library validation.</div><div class="line">See https://github.com/alcatraz/Alcatraz/issues/475</div><div class="line"></div><div class="line">Run `update_xcode_plugins --unsign` to fix this.</div></pre></td></tr></table></figure></p>
-<p>在上面他提升我的某些插件可能会有问题需要使用 <code>update_xcode_plugins –unsign</code> 解决一下。<br>执行这条命令之后我忘记关XCode，按照提示关闭XCode后继续。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"> keyle@xiaonians-MacBook-Pro  ~  update_xcode_plugins <span class="comment">--unsign</span></div><div class="line">Looking <span class="keyword">for</span> Xcode...</div><div class="line"></div><div class="line">Unsigning Xcode will make <span class="keyword">it</span> skip library validation allowing <span class="keyword">it</span> <span class="keyword">to</span> load plugins.</div><div class="line">However, an unsigned Xcode presents security risks, <span class="keyword">and</span> will be untrusted <span class="keyword">by</span> both Apple <span class="keyword">and</span> your system.</div><div class="line">This tool will create a backup <span class="keyword">and</span> allow you <span class="keyword">to</span> restore Xcode's signature <span class="keyword">by</span> <span class="built_in">running</span></div><div class="line">$ update_xcode_plugins <span class="comment">--restore</span></div><div class="line"></div><div class="line">Choose which Xcode you would like <span class="keyword">to</span> unsign (use arrows): Xcode (<span class="number">10.1</span>) [Signed]: /Applications/Xcode.app</div><div class="line">Unsign xcodebuild too?: Yes</div><div class="line"></div><div class="line">Unsigning...</div><div class="line"></div><div class="line">* Changing ownership <span class="keyword">of</span> /Applications/Xcode.app/Contents/MacOS (will be restored <span class="keyword">after</span>)</div><div class="line">* Restored ownership <span class="keyword">of</span> /Applications/Xcode.app/Contents/MacOS</div><div class="line"></div><div class="line">* Changing ownership <span class="keyword">of</span> /Applications/Xcode.app/Contents/Developer/usr/bin (will be restored <span class="keyword">after</span>)</div><div class="line">* Restored ownership <span class="keyword">of</span> /Applications/Xcode.app/Contents/Developer/usr/bin</div><div class="line">Finish</div></pre></td></tr></table></figure></p>
-<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><p>这应该是我安装插件以来最轻松愉快的体验了。</p>
-<p><img src="/uploads/QQ20190228-094023@2x.png" alt="看到Window菜单下的PackageManager了"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近用XCode写一些C++的测试，遇到一个问题，我升级过XCode所以现在看不到所有的旧插件了，网上找了一圈，需要手动创建证书然后重新对之前的插件进行签名。最后我找到一个插件可以很方便的对之前插件进行恢复。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="XCode" scheme="http://vrast.cn/categories/XCode/"/>
-    
-    
-      <category term="Plugins" scheme="http://vrast.cn/tags/Plugins/"/>
     
   </entry>
   
