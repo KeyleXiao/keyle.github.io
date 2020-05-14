@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-04-24T12:50:00.788Z</updated>
+  <updated>2020-05-14T16:31:33.348Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,26 +16,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Addressable 或成为Unity资源加载的新主流</title>
-    <link href="http://vrast.cn/posts/d3349a9e/"/>
-    <id>http://vrast.cn/posts/d3349a9e/</id>
-    <published>2020-02-19T09:07:29.000Z</published>
-    <updated>2020-04-24T12:50:00.788Z</updated>
+    <title>Addressable 上手就遇BUG ?</title>
+    <link href="http://vrast.cn/posts/ff77377d/"/>
+    <id>http://vrast.cn/posts/ff77377d/</id>
+    <published>2020-02-19T09:07:29.232Z</published>
+    <updated>2020-05-14T16:31:33.348Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
-<p>关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 <a href="https://vrast.cn/posts/56648355/">IMGUI：UNITY的新UI系统</a> 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。<br>从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 <strong>Unity Technologies</strong> 的功能就行了.<br>写本章的主要目的是探索 Addressable 的易用性与各种标准。</p>
+<p>关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 <a href="https://vrast.cn/posts/56648355/">IMGUI：UNITY的新UI系统</a> 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。<br>从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 <strong>Unity Technologies</strong> 的功能就行了.<br>写本章的主要目的是记录这两天遇到bug的体验。</p>
 </blockquote>
 <a id="more"></a>
 <h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><p>Addressable 2019.8.28 更新到1.1.10版本，也就是本章使用的最新版本。本篇所使用的Unity版本2019.3.f1 如果你也想测试请注意本文的时效性。</p>
 <p><img src="/uploads/WX20200219-171056.png" alt="Addressable的更新日志"></p>
-<p>## </p>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>我写了这么一段代码用来测试不用callback 而直接获取实时加载进度与结果。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">string</span> loadPath = <span class="keyword">string</span>.Empty;</div><div class="line"></div><div class="line"><span class="function">IEnumerator <span class="title">loadRes</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> operationHandle = Addressables.LoadAssetAsync&lt;GameObject&gt;(loadPath);</div><div class="line"></div><div class="line">    Debug.Log(operationHandle.Status.ToString());</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (operationHandle.Status == AsyncOperationStatus.Failed)</div><div class="line">    &#123;</div><div class="line">        Debug.Log(<span class="string">"load failed"</span>);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">while</span> (!operationHandle.IsDone)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> operationHandle.PercentComplete;</div><div class="line">        <span class="comment">// yield return new WaitForSeconds(.1f);</span></div><div class="line">        Debug.LogFormat(<span class="string">"loading percent :&#123;0&#125;"</span>,operationHandle.PercentComplete);   </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> g = operationHandle.Result;</div><div class="line">    <span class="keyword">var</span> g_ins = Instantiate(g);</div><div class="line">    g_ins.transform.position = Vector3.zero;</div><div class="line">    </div><div class="line">    <span class="keyword">yield</span> <span class="keyword">break</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnGUI</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    loadPath = GUILayout.TextField(loadPath);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (GUILayout.Button(<span class="string">"sample load test"</span>))</div><div class="line">    &#123;</div><div class="line">        StartCoroutine(loadRes());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果我发现我第一次点击test按钮 operationHandle.Status 并不会返回错误信息他返回的是一个None状态,导致后面的代码直接崩溃。<br>紧接着第二次点击test按钮,变得正常了打印 load failed ，并且 operationHandle.Status 为 failed 。</p>
+<p>就这个问题我查了一个晚上，终于给搞明白了 。Addressables 直接加载文件，内部会校验自身是否初始化完毕如果没有初始化 那就执行一次初始化 在进行资源加载作业。<br>不负责任的猜想是开发这个插件的人觉得 Addressables 同步加载不优雅，直接给 Addressables.Initialize 函数给oabsolute，<br>改为了Addressables.InitializeSync 接口(非同步的初始化接口)。</p>
+<p>现在问题来了，Addressables.InitializeSync 是非同步的，后面的加载函数肯定在 Addressables 还没初始化完毕的情况下调用，出现不可预知的错误。</p>
+<p>如何解决：1. 显式初始化  2. 改代码手动添加加载KeyCache</p>
+<p>第一种方案直接等待初始化完毕再进行加载处理<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function">IEnumerator <span class="title">loadRes</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> Addressables.InitializeAsync();</div><div class="line"> </div><div class="line">    <span class="keyword">var</span> operationHandle = Addressables.LoadAssetAsync&lt;GameObject&gt;(loadPath);</div><div class="line"></div><div class="line">    Debug.Log(operationHandle.Status.ToString());</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (operationHandle.Status == AsyncOperationStatus.Failed)</div><div class="line">    &#123;</div><div class="line">        Debug.Log(<span class="string">"load failed"</span>);</div><div class="line">        <span class="keyword">yield</span> <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二种方案这里我说下思路</p>
+<ol>
+<li>找到 InitializeAsync 的 Complete 函数注册完成事件</li>
+<li>在加载资源的入口判断是否初始化完成，没有完成则记录加载资源的Key 然后跳出</li>
+<li>InitializeAsync 的 Complete 函数调用后完成事件，根据第二步记录的key重做一次资源加载</li>
+</ol>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.unity3d.com/Packages/com.unity.addressables@1.1/manual/AddressableAssetsGettingStarted.html" target="_blank" rel="external">Getting started with Addressable Assets</a><br><a href="https://www.jianshu.com/p/9da4a30ad989" target="_blank" rel="external">The Addressable Asset System 正式版应用（一）</a><br><a href="https://www.jianshu.com/p/e79b2eef97bf" target="_blank" rel="external">学习Unity新出资源管理系统-Addressable Asset</a><br><a href="https://github.com/Unity-Technologies/Addressables-Sample" target="_blank" rel="external">GitHub Unity-Technologies/Addressables-Sample</a></p>
 ]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 &lt;a href=&quot;https://vrast.cn/posts/56648355/&quot;&gt;IMGUI：UNITY的新UI系统&lt;/a&gt; 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。&lt;br&gt;从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 &lt;strong&gt;Unity Technologies&lt;/strong&gt; 的功能就行了.&lt;br&gt;写本章的主要目的是探索 Addressable 的易用性与各种标准。&lt;/p&gt;
+&lt;p&gt;关注此插件已经有一段时间了，最早在2018就有preview版本了。但直到2019.7.15日 Addressable(1.1.5) 才正式发布第一个正式版。未来它会成为UNITY的内置标准组件，就像之前我介绍过的 &lt;a href=&quot;https://vrast.cn/posts/56648355/&quot;&gt;IMGUI：UNITY的新UI系统&lt;/a&gt; 一样,目前该系统在UNITY2019的UNTY上已经成了标配组件。&lt;br&gt;从中我也发现了UNITY更新内置功能的规律。 1.放到preview给程序员们试用收集反馈 2.preview迭代后转正式  3.一段时间的正式版后转为内置组建。 那未来要预测UNITY在下版本的功能我们看preview列表中来自 &lt;strong&gt;Unity Technologies&lt;/strong&gt; 的功能就行了.&lt;br&gt;写本章的主要目的是记录这两天遇到bug的体验。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
