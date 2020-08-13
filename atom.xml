@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-05-14T16:31:33.348Z</updated>
+  <updated>2020-08-13T14:50:21.097Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,81 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>反思下开发中位置同步遇到的问题</title>
+    <link href="http://vrast.cn/posts/807bdaae/"/>
+    <id>http://vrast.cn/posts/807bdaae/</id>
+    <published>2020-08-13T13:48:20.000Z</published>
+    <updated>2020-08-13T14:50:21.097Z</updated>
+    
+    <content type="html"><![CDATA[<p>先简单描述下本篇记录的是什么. 起因是服务器这段时间在查流量，需要严格控制乃至减少现在数据包的 大小/频率。<br>目前服务器的逻辑大概在30hz的频率刷新当前逻辑块，客户端并未走单独的逻辑刷新层。故现在客户端并未按照帧去判定当前是否同步，而是走固定的刷新周期。<br>250ms为一个刷新周期，触发当前同步的判定;</p>
+<p>先列一下几种位置同步的【条件】：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">角度是否变更</div><div class="line">位置是否变更</div></pre></td></tr></table></figure>
+<p>在固定的周期内会检测一次两个条件是否超出一定的阀值，如果超过定量则在该周期内同步一次。服务器则根据当前同步的角度预测计算帧当前角色可能的位置。</p>
+<p>如果是这种做法，当前移动速度为6m/s :</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">客户端刷新周期<span class="number">250</span>ms，延迟为<span class="number">200</span>ms，服务器得到当位置的最大误差为： (<span class="number">0.25</span>s + <span class="number">0.2</span>s) * <span class="number">6</span>m = <span class="number">2.7</span>m   每秒<span class="number">4</span>个包</div><div class="line">客户端刷新周期<span class="number">100</span>ms，延迟为<span class="number">200</span>ms，服务器得到当位置的最大误差为： (<span class="number">0.1</span>s + <span class="number">0.2</span>s) * <span class="number">6</span>m  = <span class="number">1.8</span>m   每秒<span class="number">10</span>个包</div><div class="line">客户端刷新周期<span class="number">50</span>ms，延迟为<span class="number">200</span>ms，服务器得到当位置的最大误差为： (<span class="number">0.05</span>s + <span class="number">0.2</span>s) * <span class="number">6</span>m  = <span class="number">1.5</span>m   每秒<span class="number">20</span>个包</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>以此类推，稍微优化一下也用不了那么多包，如果【条件】没有变更的话是不需要持续在周期内同步。也就变成了每帧判定【条件】是否变更，如果没有变更则无需同步，<br>否则走默认的周期检测，检测周期也就可以改为1s同步一次当前位置。</p>
+<h1 id="条件的改变频率"><a href="#条件的改变频率" class="headerlink" title="条件的改变频率"></a>条件的改变频率</h1><p>在此基础上可以知道延迟固定的最大误差为 0.2s * 6m = 1.2m ，那么现在基于此应该去尽量少的发送数据包，也尽量少降低误差。<br>如果【条件】改变的频繁会大幅增加发包的数量，甚至可能每帧都产生一个包。如果玩家在原地绕圈的时候.<br>此时增加【条件】的冗余可以减少当前发包的数量，如 增加 角度/距离 变更的判定范围。<br>实际上这样做的效果并不好，原因是【条件】太容易满足。</p>
+<h1 id="基于误差累计替换【条件】"><a href="#基于误差累计替换【条件】" class="headerlink" title="基于误差累计替换【条件】"></a>基于误差累计替换【条件】</h1><p>前面有说到服务器预测当前物体，在计算帧的坐标是基于 运动朝向 + 物体坐标</p>
+<p>那么在我们的检测代码中可以做两次计算：</p>
+<p>先预测服务器得到的当前物体位置 : 上次同步的坐标 + 运动方向 * 同步结束后累计的时间<br>计算当前物体实际距离与 预测服务器得到的当前物体位置 之间的距离</p>
+<p>如果当前位置与服务器预测的位置误差控制在一定的范围内则不需要同步反之立即同步一次;</p>
+<p>这样的好处是误差可以控制在一定的范围内并且尽量的少发送同步包；比如误差控制在0.1m范围，如果发送的包超量再适当的增加此范围。</p>
+<h1 id="基于时间戳修正"><a href="#基于时间戳修正" class="headerlink" title="基于时间戳修正"></a>基于时间戳修正</h1><p>这两天还在调试 尽量取一个比较折中的方案，如果实在达不到预期再考虑 双端同步时间种 基于此各自做运动状态的计算。</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://blog.codingnow.com/2012/03/dev_note_12.html" target="_blank" rel="external">开发笔记(12) : 位置同步策略</a><br><a href="https://blog.codingnow.com/2006/04/sync.html" target="_blank" rel="external">网络游戏的对时以及同步问题-云风的 BLOG</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;先简单描述下本篇记录的是什么. 起因是服务器这段时间在查流量，需要严格控制乃至减少现在数据包的 大小/频率。&lt;br&gt;目前服务器的逻辑大概在30hz的频率刷新当前逻辑块，客户端并未走单独的逻辑刷新层。故现在客户端并未按照帧去判定当前是否同步，而是走固定的刷新周期。&lt;br&gt;25
+    
+    </summary>
+    
+      <category term="网络" scheme="http://vrast.cn/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="位置同步" scheme="http://vrast.cn/tags/%E4%BD%8D%E7%BD%AE%E5%90%8C%E6%AD%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>迁站那些事</title>
+    <link href="http://vrast.cn/posts/4241dac4/"/>
+    <id>http://vrast.cn/posts/4241dac4/</id>
+    <published>2020-08-11T06:12:28.000Z</published>
+    <updated>2020-08-11T06:58:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p>说起现在这个博客，用了已经很久了一只在折腾 各种调优 . 原因是国内访问的时候太慢了，自从去年年末开始 github 的访问变得很慢(gfw)，基本上page是处于一个非常尴尬的境地。<br>我也只能在网速龟爬的基础上尽力的尝试优化访问速率，如：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">切换网页内嵌的css<span class="regexp">/js/</span>font 源至国内的cdn</div><div class="line">使用国内的图床进行缓存</div><div class="line">启用七牛云（现在域名没有备案也用不了）</div><div class="line">压缩所有能压缩的资源</div></pre></td></tr></table></figure>
+<p>国内的云服务器价格高带宽低，还有就是国内备案办手续时间挺久来来回回审核资料我也怕麻烦，这也是我一度觉得没必要迁入的原因之一。<br>就在最近 githubhub 的 page 服务终于迎来了社会的毒打，国内大部分品牌的宽带都没办法访问，移动网络还是偶尔可以。已经屏蔽的很彻底了。<br>我还是下决心花点时间将站点移动到国内 ，下面说说我迁站遇到的事儿。</p>
+<ol>
+<li>阿里云主机申请</li>
+<li>域名备案</li>
+<li>主机绑定</li>
+</ol>
+<h1 id="阿里云主机申请"><a href="#阿里云主机申请" class="headerlink" title="阿里云主机申请"></a>阿里云主机申请</h1><p>个人博客不商用就是记录一些日常的积累和一些偶尔的想法，所以呢，我想租一个尽量便宜的主机。<br>同事给介绍了一个虚拟云主机，说白了就是共享主机。如果不了解什么是共享主机的我举个栗子。租房子的 整租 和 合租的概念 你就明白了。<br>最近做活动 3 年 600+ RMB 。已经很便宜了，缺点也有只能只能ftp操作，没提供ssh，也只有php环境，基本上就是和github的page一个配置。<br>对于目前做静态博客的人来说是比较友好的，如果不是 那还是老老实实买其他类型的吧。</p>
+<h1 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h1><p><img src="/uploads/WX20200811-143759.png" alt=""></p>
+<p>备案的时候要举着身份证校验身份，非上海本地人要本市居住证。推荐上海这边管局审核，原因自然是上海这边效率高了，我大概4-5天审核好了。<br>备案之前如果你有域名的话要提前实名制域名。</p>
+<h1 id="主机绑定"><a href="#主机绑定" class="headerlink" title="主机绑定"></a>主机绑定</h1><p>不知道是否只有共享主机需要这样配置，其他的我也没有在阿里云上实践过。好处也有一点 可以开一个免费的https。证书是免费的</p>
+<p><img src="/uploads/WX20200811-145115.png" alt=""></p>
+<p>哦对了，cdn是阿里云单独收费的服务 …</p>
+<h1 id="在最后说一些"><a href="#在最后说一些" class="headerlink" title="在最后说一些"></a>在最后说一些</h1><p>在网站下面要把备案号贴出来，对 就像我现在这样。如果有时间可以再做一个公安备案。获得一个公安备案的logo，说实话还挺好看 。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://beian.miit.gov.cn/"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span>沪ICP备0000000号<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;说起现在这个博客，用了已经很久了一只在折腾 各种调优 . 原因是国内访问的时候太慢了，自从去年年末开始 github 的访问变得很慢(gfw)，基本上page是处于一个非常尴尬的境地。&lt;br&gt;我也只能在网速龟爬的基础上尽力的尝试优化访问速率，如：&lt;/p&gt;
+&lt;figure c
+    
+    </summary>
+    
+      <category term="vrast.cn" scheme="http://vrast.cn/categories/vrast-cn/"/>
+    
+    
+      <category term="网站" scheme="http://vrast.cn/tags/%E7%BD%91%E7%AB%99/"/>
+    
+  </entry>
   
   <entry>
     <title>Addressable 上手就遇BUG ?</title>
@@ -305,33 +380,6 @@
     
     
       <category term="project" scheme="http://vrast.cn/tags/project/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>none内容提纲</title>
-    <link href="http://vrast.cn/posts/5b921b24/"/>
-    <id>http://vrast.cn/posts/5b921b24/</id>
-    <published>2019-04-26T14:29:33.000Z</published>
-    <updated>2019-04-26T16:44:44.732Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>一直以来都想把我从业游戏以来的积累转化成体系，直到近期才下定决心整理出一本书，分享给社区。本篇提纲不定期修改。<br><a id="more"></a></p>
-<h1 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h1><h3 id="C-Java-与-Objective-C"><a href="#C-Java-与-Objective-C" class="headerlink" title="C# Java 与 Objective-C"></a>C# Java 与 Objective-C</h3><h3 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h3><h3 id="综合案例-1"><a href="#综合案例-1" class="headerlink" title="综合案例"></a>综合案例</h3></blockquote>
-<h1 id="辅助脚本语言"><a href="#辅助脚本语言" class="headerlink" title="辅助脚本语言"></a>辅助脚本语言</h1><h3 id="Lua-与-Python"><a href="#Lua-与-Python" class="headerlink" title="Lua 与 Python"></a>Lua 与 Python</h3><h3 id="综合案例-2"><a href="#综合案例-2" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="bat-与-Shell"><a href="#bat-与-Shell" class="headerlink" title="bat 与 Shell"></a>bat 与 Shell</h3><h3 id="综合案例-3"><a href="#综合案例-3" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="开发技巧"><a href="#开发技巧" class="headerlink" title="开发技巧"></a>开发技巧</h1><h3 id="代码风格与Bug概率之间的关系"><a href="#代码风格与Bug概率之间的关系" class="headerlink" title="代码风格与Bug概率之间的关系"></a>代码风格与Bug概率之间的关系</h3><h3 id="综合案例-4"><a href="#综合案例-4" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="小黄鸭调试法"><a href="#小黄鸭调试法" class="headerlink" title="小黄鸭调试法"></a>小黄鸭调试法</h3><h3 id="综合案例-5"><a href="#综合案例-5" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="代码优化案例"><a href="#代码优化案例" class="headerlink" title="代码优化案例"></a>代码优化案例</h3><h3 id="综合案例-6"><a href="#综合案例-6" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="不同平台的调试技巧"><a href="#不同平台的调试技巧" class="headerlink" title="不同平台的调试技巧"></a>不同平台的调试技巧</h3><h3 id="综合案例-7"><a href="#综合案例-7" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="学会发问"><a href="#学会发问" class="headerlink" title="学会发问"></a>学会发问</h3><h3 id="综合案例-8"><a href="#综合案例-8" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="使用搜索引擎处理现有问题"><a href="#使用搜索引擎处理现有问题" class="headerlink" title="使用搜索引擎处理现有问题"></a>使用搜索引擎处理现有问题</h3><h3 id="综合案例-9"><a href="#综合案例-9" class="headerlink" title="综合案例"></a>综合案例</h3><h1 id="扩展件开发"><a href="#扩展件开发" class="headerlink" title="扩展件开发"></a>扩展件开发</h1><h3 id="编辑器扩展使用技巧"><a href="#编辑器扩展使用技巧" class="headerlink" title="编辑器扩展使用技巧"></a>编辑器扩展使用技巧</h3><h3 id="综合案例-10"><a href="#综合案例-10" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="序列化以及资源处理管道"><a href="#序列化以及资源处理管道" class="headerlink" title="序列化以及资源处理管道"></a>序列化以及资源处理管道</h3><h3 id="综合案例-11"><a href="#综合案例-11" class="headerlink" title="综合案例"></a>综合案例</h3><h3 id="原生层插件的开发方法"><a href="#原生层插件的开发方法" class="headerlink" title="原生层插件的开发方法"></a>原生层插件的开发方法</h3><h3 id="综合案例-12"><a href="#综合案例-12" class="headerlink" title="综合案例"></a>综合案例</h3><p>暂时先写这里 后面的再列</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;一直以来都想把我从业游戏以来的积累转化成体系，直到近期才下定决心整理出一本书，分享给社区。本篇提纲不定期修改。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="新书提纲" scheme="http://vrast.cn/categories/%E6%96%B0%E4%B9%A6%E6%8F%90%E7%BA%B2/"/>
-    
-    
-      <category term="none" scheme="http://vrast.cn/tags/none/"/>
     
   </entry>
   
@@ -687,41 +735,6 @@
     
     
       <category term="UI" scheme="http://vrast.cn/tags/UI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UNITY新Prefab系统-2018</title>
-    <link href="http://vrast.cn/posts/f258ca82/"/>
-    <id>http://vrast.cn/posts/f258ca82/</id>
-    <published>2019-03-01T01:44:01.000Z</published>
-    <updated>2019-03-01T02:31:42.630Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>最近看了一下UNITY3D-2018的新Prefab系统，这里做一个记录。目前的情况看下来新Prefab系统还在不断的优化工作流，对于整体的概念应该是敲定下来了。未来应该是在编辑器层面上的优化和编辑细节上的调整。昨天看了UNITY的公开课。还是有点意思的，其中一个比较有趣的一个案例是某个客户由于场景层级太深，导致对某一个Prefab的递归修改卡了几十分钟最后官方出了一版优化到几分钟卡顿。这也从侧面说明了UNITY还是不断对编辑器进行改进的。对于我们来说应该也是一件很友好的事情。这东西需要总结的并不多，作为一个开箱即用的Prefab工作流，我认为UNITY官方处理的还是相当不错，作为美术或者非程序使用都是能很快上手的流程。<br>需要注意的是新Preafab的嵌套在Assetbundle中可不管你是不是嵌套或者变体，只要出现了多份Prefab就会出现多份资源。<br>第二个需要注意的是性能问题，你不能有太深的层级在你的prefab上。尽力告知美术让他多做prefab减少层级。<br>第三个就是尽量在非Assetbundle目录与Resource目录中使用新prefab系统，这样不会出现多份资源重复打包的问题。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>我这边也就顺着之前公开课的PPT大概浏览一遍，从个人的角度写一些笔记。因为前有视频后有PPT我就在这里做一些概念上的总结了。<br>新prefb系统功能如下：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Nested</span> Prefabs（嵌套式预制件）</div><div class="line">Prefab Overrides（预制件覆盖/重载）</div><div class="line">Prefab Variants（预制件变体）</div></pre></td></tr></table></figure></p>
-<h2 id="Nested-Prefabs（嵌套式预制件）"><a href="#Nested-Prefabs（嵌套式预制件）" class="headerlink" title="Nested Prefabs（嵌套式预制件）"></a>Nested Prefabs（嵌套式预制件）</h2><p>嵌套Prefab的做法，让我举例说的话，从程序的角度打个比方。 如果一个prefab看作是一个类的话。那么嵌套prefab就是在一个类里面使用其他的类作为局部变量类似下面:</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">PrefabMain</span></div><div class="line">&#123;</div><div class="line">    PrefabA a;</div><div class="line">    PreafaB b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>对于a,b变量来说 进行的任何更改对于PrefabMain来说都是没有关系的。</p>
-<h2 id="Prefab-Overrides（预制件覆盖-重载）"><a href="#Prefab-Overrides（预制件覆盖-重载）" class="headerlink" title="Prefab Overrides（预制件覆盖/重载）"></a>Prefab Overrides（预制件覆盖/重载）</h2><p>这个概念就不提了，记得我们之前使用UNITY3D在场景里修改实例吗？这就叫Override。</p>
-<h2 id="Prefab-Variants（预制件变体）"><a href="#Prefab-Variants（预制件变体）" class="headerlink" title="Prefab Variants（预制件变体）"></a>Prefab Variants（预制件变体）</h2><p>对于这个概念程序应该更好理解了。就像下面写的，下面就是PrefabA变体了，他继承了PrefabMain，如果说现在对 PrefabMain 进行了更改，马上就会体现到所有的继承了 PrefabMain 的Prefab上面去。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">PrefabA</span> : <span class="title">PrefabMain</span></div><div class="line">&#123;</div><div class="line">    PreafaB b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;最近看了一下UNITY3D-2018的新Prefab系统，这里做一个记录。目前的情况看下来新Prefab系统还在不断的优化工作流，对于整体的概念应该是敲定下来了。未来应该是在编辑器层面上的优化和编辑细节上的调整。昨天看了UNITY的公开课。还是有点意思的，其中一个比较有趣的一个案例是某个客户由于场景层级太深，导致对某一个Prefab的递归修改卡了几十分钟最后官方出了一版优化到几分钟卡顿。这也从侧面说明了UNITY还是不断对编辑器进行改进的。对于我们来说应该也是一件很友好的事情。这东西需要总结的并不多，作为一个开箱即用的Prefab工作流，我认为UNITY官方处理的还是相当不错，作为美术或者非程序使用都是能很快上手的流程。&lt;br&gt;需要注意的是新Preafab的嵌套在Assetbundle中可不管你是不是嵌套或者变体，只要出现了多份Prefab就会出现多份资源。&lt;br&gt;第二个需要注意的是性能问题，你不能有太深的层级在你的prefab上。尽力告知美术让他多做prefab减少层级。&lt;br&gt;第三个就是尽量在非Assetbundle目录与Resource目录中使用新prefab系统，这样不会出现多份资源重复打包的问题。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
-    
-    
-      <category term="NewPrefabSystem" scheme="http://vrast.cn/tags/NewPrefabSystem/"/>
     
   </entry>
   
