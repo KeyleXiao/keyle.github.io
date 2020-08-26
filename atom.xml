@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-08-13T14:50:21.097Z</updated>
+  <updated>2020-08-26T15:34:27.110Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -16,11 +16,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>弱网多人联机表现优化</title>
+    <link href="http://vrast.cn/posts/840045e3/"/>
+    <id>http://vrast.cn/posts/840045e3/</id>
+    <published>2020-08-26T11:23:55.000Z</published>
+    <updated>2020-08-26T15:34:27.110Z</updated>
+    
+    <content type="html"><![CDATA[<p>上篇讲到客户端的同步策略，也就是Client to Server的发包策略。那么这篇说一下Server to Client的网络波动情况下优化本地表现。<br>延迟并不会造成客户端表现障碍，但是网络波动会，我们优化的点在于不要让其他玩家看到模型闪现，让表现过度自然。处理的过程中尽量追平服务器计算的实时位置。</p>
+<p><img src="/uploads/QQ20200826-145550-HD.mp4" alt=""></p>
+<p>这里讲一下我的思路，玩家每次收到的Pack结构如下：position是此刻当前物体处在位置，angle为运动方向，speed为0则物体进入idle。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerStatePack</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">float</span> speed;</div><div class="line">    <span class="keyword">public</span> Vector3 position;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> angle_deg;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面是模拟服务端延迟的实现，fluctuation用来模拟网络的波动：</p>
+<p><code> currentTime = Time.time + Ping / 1000f <em> 2 + Random.Range(-fluctuation </em> 2/1000f , fluctuation * 2/1000f ); </code> </p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; packLst.Count; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (packLst[i].BeSend)</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (packLst[i].currentTime &lt;= Time.time)</div><div class="line">        &#123;</div><div class="line">            packLst[i].BeSend = <span class="literal">true</span>;</div><div class="line">            ReceivePack?.Invoke(packLst[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>客户端接收消息实现如下：通过ReceivePack函数订阅模拟服务器下发的Pack, 在该函数内做一个向量的减法，获取当前客户端所处与服务器同步过来的位置之间的误差，<br>有了此向量，那后面就可以通过插值逐渐修正到一个趋近正确的位置，一定程度上抹平网络波动引起的误差。<br>在 ApplyPoint 函数我做了一个当前误差的差值与角度差值，这样效果会好一些。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnMove</span>(<span class="params"><span class="keyword">float</span> passTime,<span class="keyword">float</span> step,Vector3 pos,<span class="keyword">float</span> angle</span>)</span></div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ReceivePack</span>(<span class="params">PlayerStatePack item</span>)</span></div><div class="line">&#123;</div><div class="line">    Debug.Log(<span class="string">"其他玩家收到同步包"</span>);</div><div class="line"></div><div class="line">    modifyOffset = item.position - transform.position;</div><div class="line">    localPositon = transform.position;</div><div class="line">    localAnlge = transform.eulerAngles.y;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">float</span> timeTakenDuringLerp = <span class="number">.2</span>f;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    ....</div><div class="line">    <span class="keyword">var</span> passTime = Time.time - currentPack.CurrentTime;</div><div class="line"></div><div class="line">    OnMove(passTime,step,pos,angle);</div><div class="line"></div><div class="line">    ApplyPoint(passTime);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ApplyPoint</span>(<span class="params"><span class="keyword">float</span> passTime</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">float</span> percentageComplete = passTime / timeTakenDuringLerp;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span>(percentageComplete &gt;= <span class="number">1.0</span>f)</div><div class="line">    &#123;</div><div class="line">        transform.position = RuntimePos + modifyOffset;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> offset = Vector3.Lerp(Vector3.zero, modifyOffset,percentageComplete); </div><div class="line">    transform.position = RuntimePos + offset;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(percentageComplete*<span class="number">2</span> &gt;= <span class="number">1.0</span>f)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> yoffset = Mathf.LerpAngle(localAnlge, currentPack.angle_deg,percentageComplete*<span class="number">2</span>);</div><div class="line">    transform.eulerAngles = <span class="keyword">new</span> Vector3(transform.transform.eulerAngles.x,yoffset,transform.transform.eulerAngles.z);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="http://www.zhust.com/index.php/2014/02/网络游戏的移动同步（三）平滑算法/" target="_blank" rel="external">网络游戏的移动同步（三）平滑算法</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上篇讲到客户端的同步策略，也就是Client to Server的发包策略。那么这篇说一下Server to Client的网络波动情况下优化本地表现。&lt;br&gt;延迟并不会造成客户端表现障碍，但是网络波动会，我们优化的点在于不要让其他玩家看到模型闪现，让表现过度自然。处理的过
+    
+    </summary>
+    
+      <category term="网络" scheme="http://vrast.cn/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="位置同步" scheme="http://vrast.cn/tags/%E4%BD%8D%E7%BD%AE%E5%90%8C%E6%AD%A5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>反思下开发中位置同步遇到的问题</title>
     <link href="http://vrast.cn/posts/807bdaae/"/>
     <id>http://vrast.cn/posts/807bdaae/</id>
     <published>2020-08-13T13:48:20.000Z</published>
-    <updated>2020-08-13T14:50:21.097Z</updated>
+    <updated>2020-08-26T11:19:50.058Z</updated>
     
     <content type="html"><![CDATA[<p>先简单描述下本篇记录的是什么. 起因是服务器这段时间在查流量，需要严格控制乃至减少现在数据包的 大小/频率。<br>目前服务器的逻辑大概在30hz的频率刷新当前逻辑块，客户端并未走单独的逻辑刷新层。故现在客户端并未按照帧去判定当前是否同步，而是走固定的刷新周期。<br>250ms为一个刷新周期，触发当前同步的判定;</p>
 <p>先列一下几种位置同步的【条件】：</p>
@@ -30,13 +62,14 @@
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">客户端刷新周期<span class="number">250</span>ms，延迟为<span class="number">200</span>ms，服务器得到当位置的最大误差为： (<span class="number">0.25</span>s + <span class="number">0.2</span>s) * <span class="number">6</span>m = <span class="number">2.7</span>m   每秒<span class="number">4</span>个包</div><div class="line">客户端刷新周期<span class="number">100</span>ms，延迟为<span class="number">200</span>ms，服务器得到当位置的最大误差为： (<span class="number">0.1</span>s + <span class="number">0.2</span>s) * <span class="number">6</span>m  = <span class="number">1.8</span>m   每秒<span class="number">10</span>个包</div><div class="line">客户端刷新周期<span class="number">50</span>ms，延迟为<span class="number">200</span>ms，服务器得到当位置的最大误差为： (<span class="number">0.05</span>s + <span class="number">0.2</span>s) * <span class="number">6</span>m  = <span class="number">1.5</span>m   每秒<span class="number">20</span>个包</div><div class="line">...</div></pre></td></tr></table></figure>
 <p>以此类推，稍微优化一下也用不了那么多包，如果【条件】没有变更的话是不需要持续在周期内同步。也就变成了每帧判定【条件】是否变更，如果没有变更则无需同步，<br>否则走默认的周期检测，检测周期也就可以改为1s同步一次当前位置。</p>
 <h1 id="条件的改变频率"><a href="#条件的改变频率" class="headerlink" title="条件的改变频率"></a>条件的改变频率</h1><p>在此基础上可以知道延迟固定的最大误差为 0.2s * 6m = 1.2m ，那么现在基于此应该去尽量少的发送数据包，也尽量少降低误差。<br>如果【条件】改变的频繁会大幅增加发包的数量，甚至可能每帧都产生一个包。如果玩家在原地绕圈的时候.<br>此时增加【条件】的冗余可以减少当前发包的数量，如 增加 角度/距离 变更的判定范围。<br>实际上这样做的效果并不好，原因是【条件】太容易满足。</p>
-<h1 id="基于误差累计替换【条件】"><a href="#基于误差累计替换【条件】" class="headerlink" title="基于误差累计替换【条件】"></a>基于误差累计替换【条件】</h1><p>前面有说到服务器预测当前物体，在计算帧的坐标是基于 运动朝向 + 物体坐标</p>
+<h1 id="基于误差累计替换【条件】-航位推算法DR"><a href="#基于误差累计替换【条件】-航位推算法DR" class="headerlink" title="基于误差累计替换【条件】(航位推算法DR)"></a>基于误差累计替换【条件】(航位推算法DR)</h1><p><img src="/uploads/dr.jpg" alt=""></p>
+<p>前面有说到服务器预测当前物体，在计算帧的坐标是基于 运动朝向 + 物体坐标</p>
 <p>那么在我们的检测代码中可以做两次计算：</p>
 <p>先预测服务器得到的当前物体位置 : 上次同步的坐标 + 运动方向 * 同步结束后累计的时间<br>计算当前物体实际距离与 预测服务器得到的当前物体位置 之间的距离</p>
 <p>如果当前位置与服务器预测的位置误差控制在一定的范围内则不需要同步反之立即同步一次;</p>
 <p>这样的好处是误差可以控制在一定的范围内并且尽量的少发送同步包；比如误差控制在0.1m范围，如果发送的包超量再适当的增加此范围。</p>
 <h1 id="基于时间戳修正"><a href="#基于时间戳修正" class="headerlink" title="基于时间戳修正"></a>基于时间戳修正</h1><p>这两天还在调试 尽量取一个比较折中的方案，如果实在达不到预期再考虑 双端同步时间种 基于此各自做运动状态的计算。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://blog.codingnow.com/2012/03/dev_note_12.html" target="_blank" rel="external">开发笔记(12) : 位置同步策略</a><br><a href="https://blog.codingnow.com/2006/04/sync.html" target="_blank" rel="external">网络游戏的对时以及同步问题-云风的 BLOG</a></p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://blog.codingnow.com/2012/03/dev_note_12.html" target="_blank" rel="external">开发笔记(12) : 位置同步策略</a><br><a href="https://blog.codingnow.com/2006/04/sync.html" target="_blank" rel="external">网络游戏的对时以及同步问题-云风的 BLOG</a><br><a href="http://www.zhust.com/index.php/2014/02/网络游戏的移动同步（二）状态更新及航位预测法/" target="_blank" rel="external">状态更新及航位预测法</a></p>
 ]]></content>
     
     <summary type="html">
@@ -694,47 +727,6 @@
     
     
       <category term="Plugin" scheme="http://vrast.cn/tags/Plugin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpriteAtlas 使用FAQ</title>
-    <link href="http://vrast.cn/posts/583e3cbd/"/>
-    <id>http://vrast.cn/posts/583e3cbd/</id>
-    <published>2019-03-12T07:43:31.000Z</published>
-    <updated>2019-04-04T06:38:25.320Z</updated>
-    
-    <content type="html"><![CDATA[<p>这两天详细的看了下U3D的新图集系统 SpriteAtlas ，目前为止觉得这个新系统用起来问题不大。但是在理解上有一些问题，我会在这里做一些记录。<br>在操作上，这个没什么问题。有问题的是SpriteAtlasManager这块，需要去理解一下调用机制。</p>
-<a id="more"></a>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>UNITY每次更新旧操作方式都会变得更加简单，这次亦是如此。</p>
-<h3 id="启用图集打包方式"><a href="#启用图集打包方式" class="headerlink" title="启用图集打包方式"></a>启用图集打包方式</h3><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">E<span class="function"><span class="title">dit</span>-&gt;</span> P<span class="function"><span class="title">rojectSettings</span> -&gt;</span> E<span class="function"><span class="title">ditor</span> -&gt;</span> S<span class="function"><span class="title">prite</span> Packer -&gt;</span> Mode</div><div class="line"></div><div class="line"> -&gt;  Enable For Builds：在打包时使用图集</div><div class="line"></div><div class="line"> -&gt;  AlwaysEnabled：保持图集状态</div></pre></td></tr></table></figure>
-<h3 id="制作图集"><a href="#制作图集" class="headerlink" title="制作图集"></a>制作图集</h3><p>新建SpriteAtlas文件，将Sprite或者Sprite所在文件夹拖入Objects for Packing，按Pack Preview预览。</p>
-<h3 id="变体"><a href="#变体" class="headerlink" title="变体"></a>变体</h3><p><img src="/uploads/spriteatlasdemo.png" alt="使用变体方便的制作低清晰度图集给低性能设备使用"></p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>SpriteAtlas -&gt; Include in Build : 勾选的话作用于编辑器中。取消后需要在代码中监听SpriteAtlasManager.atlasRequested事件来在程序中加载贴图集。</p>
-<p>如果你准备用AB加载图集 或者 直接从Resources加载图集 建议你将 Include in Build 的选中去掉。避免重复的资源出现在包体里。</p>
-<h2 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h2><h3 id="先加载后取值"><a href="#先加载后取值" class="headerlink" title="先加载后取值"></a>先加载后取值</h3><p>如果现在要在运行时从资源目录或者AB里加载出Prefab,这个时候我们需要先加载这个Prefab的代码上<code>先进行SpriteAtlas的加载工作</code> – 也就是需要保证这个Sprite所属SpriteAtlas已经被Load到运行时。</p>
-<p>下面的代码是可以正常工作的：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> UnityEngine.U2D;</div><div class="line"><span class="keyword">using</span> UnityEngine.UI;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestSA</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> GameObject[] objs;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> SpriteAtlas at;</div><div class="line"></div><div class="line">	<span class="comment">// Start is called before the first frame update</span></div><div class="line">	<span class="function">IEnumerator <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		at = Resources.Load&lt;SpriteAtlas&gt;(<span class="string">"NewSpriteAtlas2"</span>);</div><div class="line">		<span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">3</span></span>)</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; objs.Length; i++)</div><div class="line">		&#123;</div><div class="line">			objs[i].SetActive(<span class="literal">true</span>);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		objs[<span class="number">0</span>].GetComponent&lt;Image&gt;().sprite = at.GetSprite(<span class="string">"04"</span>);</div><div class="line">		objs[<span class="number">1</span>].GetComponent&lt;Image&gt;().sprite = at.GetSprite(<span class="string">"04"</span>);</div><div class="line">		objs[<span class="number">2</span>].GetComponent&lt;Image&gt;().sprite = at.GetSprite(<span class="string">"04"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>因为没有对 SpriteAtlasManager 中的回调函数进行监听，我们收获了一个Warning , 但是不影响编辑器中的正常显示 。</p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">⚠️ SpriteAtlasManager.atlasRequested wasn<span class="symbol">'t</span> listened <span class="keyword">to</span> <span class="keyword">while</span> NewSpriteAtlas2 requested.</div></pre></td></tr></table></figure>
-<p>如果你考虑上面的做法务必小心你在每次代码调用Sprite加载都已经Load过SpriteAtlas。这应该是需要写一个相应的模块去管理 SpriteAtlas - Sprite 的从属关系。</p>
-<h3 id="先注册后取值"><a href="#先注册后取值" class="headerlink" title="先注册后取值"></a>先注册后取值</h3><p>第二种就简单一些了，这也是UNTIY推荐的方法。你不必每次都在代码前检测是否调用过图集加载之类或者其他加载图集相关代码。 你只需要在 SpriteAtlasManager 中注册 atlasRegistered . 在第一次加载相应图集的时候会自动调一次，这时候在该函数的回调中内你可以轻松的写一段加载图集的代码。</p>
-<h3 id="加载时机"><a href="#加载时机" class="headerlink" title="加载时机"></a>加载时机</h3><p>哦对了，这个图集什么时候被加载 ？ 如果你实例化物体关联到Sprite 就会执行 <code>atlasRequested</code> 回调，在UNITY内部做了一个检测，如果该关联到的图集是第一次被关联到，那么才会调用一次。</p>
-<p>Trigger when any Sprite was bound to SpriteAtlas but couldn’t locate the atlas asset during runtime.<br>This usually means the sprite was packed to an atlas which is not included in build<br>This callback does not expect an immediate response from the user. Instead, it passes on a System.Action. The user can load the atlas object later and use this System.Action to pass back the loaded atlas.</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> UnityEngine.U2D;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AtlasLoader</span> : <span class="title">MonoBehaviour</span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnEnable</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        SpriteAtlasManager.atlasRequested += RequestAtlas;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnDisable</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        SpriteAtlasManager.atlasRequested -= RequestAtlas;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">RequestAtlas</span>(<span class="params"><span class="keyword">string</span> tag, System.Action&lt;SpriteAtlas&gt; callback</span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> sa = Resources.Load&lt;SpriteAtlas&gt;(tag);</div><div class="line">        callback(sa);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.litefeel.com/unity-2017-new-sprite-atlas/" target="_blank" rel="external">Unity2017的新spriteAtlas</a><br><a href="https://docs.unity3d.com/ScriptReference/U2D.SpriteAtlasManager.html" target="_blank" rel="external">SpriteAtlasManager</a><br><a href="https://forum.unity.com/threads/about-include-in-build-behaviour.481433/" target="_blank" rel="external">About “Include in Build” behaviour</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这两天详细的看了下U3D的新图集系统 SpriteAtlas ，目前为止觉得这个新系统用起来问题不大。但是在理解上有一些问题，我会在这里做一些记录。&lt;br&gt;在操作上，这个没什么问题。有问题的是SpriteAtlasManager这块，需要去理解一下调用机制。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="UNITY3D" scheme="http://vrast.cn/categories/UNITY3D/"/>
-    
-    
-      <category term="UI" scheme="http://vrast.cn/tags/UI/"/>
     
   </entry>
   
