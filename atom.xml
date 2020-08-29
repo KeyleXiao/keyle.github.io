@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-08-26T15:45:42.880Z</updated>
+  <updated>2020-08-26T15:46:58.741Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="http://vrast.cn/posts/840045e3/"/>
     <id>http://vrast.cn/posts/840045e3/</id>
     <published>2020-08-26T11:23:55.000Z</published>
-    <updated>2020-08-26T15:45:42.880Z</updated>
+    <updated>2020-08-26T15:46:58.741Z</updated>
     
     <content type="html"><![CDATA[<p>上篇讲到客户端的同步策略，也就是Client to Server的发包策略。那么这篇说一下Server to Client的网络抖动情况下优化本地表现。<br>延迟实际并不会造成客户端表现障碍，但是网络抖动会，我们优化的点在于不要让用户看到模型坐标拉扯，让表现过度自然。处理的过程中尽量追平服务器计算的实时位置。</p>
 <p><img src="/uploads/QQ20200826-145550-HD.mp4" alt=""></p>
 <p>这里讲一下我的思路，玩家每次收到的Pack结构如下：position是此刻当前物体处在位置，angle为运动方向，speed为0则物体进入idle。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerStatePack</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">float</span> speed;</div><div class="line">    <span class="keyword">public</span> Vector3 position;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> angle_deg;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面是模拟服务端延迟的实现，fluctuation用来模拟网络的波动：</p>
+<p>下面是模拟服务端延迟的实现，fluctuation用来模拟网络抖动：</p>
 <p><code> currentTime = Time.time + Ping / 1000f <em> 2 + Random.Range(-fluctuation </em> 2/1000f , fluctuation * 2/1000f ); </code> </p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; packLst.Count; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (packLst[i].BeSend)</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (packLst[i].currentTime &lt;= Time.time)</div><div class="line">        &#123;</div><div class="line">            packLst[i].BeSend = <span class="literal">true</span>;</div><div class="line">            ReceivePack?.Invoke(packLst[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>客户端接收消息实现如下：通过ReceivePack函数订阅模拟服务器下发的Pack, 在该函数内做一个向量的减法，获取当前客户端所处与服务器同步过来的位置之间的误差，<br>有了此向量，那后面就可以通过插值逐渐修正到一个趋近正确的位置，一定程度上抹平网络波动引起的误差。<br>在 ApplyPoint 函数我做了一个当前误差的差值与角度差值，这样效果会好一些。</p>
