@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-08-26T15:46:58.741Z</updated>
+  <updated>2020-12-30T10:48:19.561Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -14,6 +14,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>客户端常用的数学技巧</title>
+    <link href="http://vrast.cn/posts/18c501b3/"/>
+    <id>http://vrast.cn/posts/18c501b3/</id>
+    <published>2020-11-02T11:38:02.000Z</published>
+    <updated>2020-12-30T10:48:19.561Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>先说下本篇博问的起因，在我的群里总有一些朋友在问，关于旋转，空间点判定等问题，关于这些程序实现上的问题，看完本篇后你会发现要解决也很简单。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="简单好用函数库"><a href="#简单好用函数库" class="headerlink" title="简单好用函数库"></a>简单好用函数库</h2><h2 id="点乘-叉乘"><a href="#点乘-叉乘" class="headerlink" title="点乘 叉乘"></a>点乘 叉乘</h2><p>稍微复杂一点的也说说</p>
+<h3 id="理一下概念"><a href="#理一下概念" class="headerlink" title="理一下概念"></a>理一下概念</h3><p>这张图可以记一下，简单明了，仔细看下图里有画垂直与Y轴与X轴的红线。<br><img src="/uploads/WX20201102-195706.png" alt="dot - cross"></p>
+<h3 id="使用场景：-光照计算"><a href="#使用场景：-光照计算" class="headerlink" title="使用场景： 光照计算"></a>使用场景： 光照计算</h3><p>这边是diffuse的计算方式，这里用到的dot，判定法线是否与光源反射的方向同向。<br>如果两者同向反射光强度最高，反之则变暗。<br><img src="/uploads/241917011098992.png" alt="演示-shaderforge"></p>
+<h3 id="使用场景：-判定前后或左右"><a href="#使用场景：-判定前后或左右" class="headerlink" title="使用场景： 判定前后或左右"></a>使用场景： 判定前后或左右</h3><p>这段代码直接通过dot判定是否物体在我们的前或后。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Vector3 forward = transform.TransformDirection(Vector3.forward);</div><div class="line">Vector3 toOther = other.position - transform.position;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (Vector3.Dot(forward, toOther) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line">    <span class="comment">//"The other transform is behind me!"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="再稍微深入一点的概念"><a href="#再稍微深入一点的概念" class="headerlink" title="再稍微深入一点的概念"></a>再稍微深入一点的概念</h2><h3 id="弧度-与-角度"><a href="#弧度-与-角度" class="headerlink" title="弧度 与 角度"></a>弧度 与 角度</h3><p><img src="/uploads/WX20201230-163930.png" alt="rad - 弧度"><br><img src="/uploads/WX20201230-164418.png" alt="deg - 角度"></p>
+<p>这个概念我常常见有人搞混，口语化描述弧度或者角度，我们都称之为度，所以经常会弄错。<br>有个简单的记忆方式:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">一般unity中对Eular Angle进行操作的api用的都是角度而非弧度。</div><div class="line">一般我们所有开放给人为配置的也都是角度（易读也好理解）</div><div class="line">一般在三角函数相关计算api使用的是弧度。</div></pre></td></tr></table></figure></p>
+<h4 id="Mathf-sin-amp-cos"><a href="#Mathf-sin-amp-cos" class="headerlink" title="Mathf.sin  &amp; cos"></a>Mathf.sin  &amp; cos</h4><p><img src="/uploads/WX20201230-175742.png" alt="使用sin+cos计算一个指定的坐标"></p>
+<p><img src="/uploads/WX20201230-184758" alt="使用sin+cos计算一个指定的坐标"></p>
+<h4 id="Mathf-Asin"><a href="#Mathf-Asin" class="headerlink" title="Mathf.Asin"></a>Mathf.Asin</h4><p>我这边用的是lua演示的，数学库运算结果都一样。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">math.deg(math.asin(math.sin(math.rad(<span class="number">30</span>))))   --result：<span class="number">30</span></div></pre></td></tr></table></figure></p>
+<h2 id="在我眼中的数学在游戏中的应用"><a href="#在我眼中的数学在游戏中的应用" class="headerlink" title="在我眼中的数学在游戏中的应用"></a>在我眼中的数学在游戏中的应用</h2><p>前人已经实现了很多数学函数库，只要把数学当作工具使用就行了。了解这个”工具“的性能，以及如何运用。那么你一定会做的很好。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;先说下本篇博问的起因，在我的群里总有一些朋友在问，关于旋转，空间点判定等问题，关于这些程序实现上的问题，看完本篇后你会发现要解决也很简单。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="http://vrast.cn/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+      <category term="数学" scheme="http://vrast.cn/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>客户端位移同步解决方案Demo</title>
+    <link href="http://vrast.cn/posts/def1fe6b/"/>
+    <id>http://vrast.cn/posts/def1fe6b/</id>
+    <published>2020-08-29T10:58:35.000Z</published>
+    <updated>2020-08-29T12:07:59.179Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>下面简单介绍下此Demo, 该demo是我的小试验田，主要是位置同步相关。感兴趣的可以follow一下。</p>
+</blockquote>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">PlayerSelf.cs  模拟主角协议收发以及位移处理</div><div class="line">ServerSample.cs 模拟服务器协议收发，网络延迟波动等</div><div class="line">PlayerSolutionA.cs 模拟其他客户端的观察状态【强制位置同步】</div><div class="line">PlayerSolutionB.cs 模拟其他客户端的观察状态【差值位置同步】</div></pre></td></tr></table></figure>
+<p><a href="https://github.com/KeyleXiao/GamePosSyncSolution" target="_blank" rel="external">点我转跳过去</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;下面简单介绍下此Demo, 该demo是我的小试验田，主要是位置同步相关。感兴趣的可以follow一下。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight cs&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gu
+    
+    </summary>
+    
+      <category term="网络" scheme="http://vrast.cn/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="位置同步" scheme="http://vrast.cn/tags/%E4%BD%8D%E7%BD%AE%E5%90%8C%E6%AD%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>弱网多人联机表现优化</title>
@@ -53,7 +121,7 @@
     <link href="http://vrast.cn/posts/807bdaae/"/>
     <id>http://vrast.cn/posts/807bdaae/</id>
     <published>2020-08-13T13:48:20.000Z</published>
-    <updated>2020-08-26T11:19:50.058Z</updated>
+    <updated>2020-09-12T14:39:39.463Z</updated>
     
     <content type="html"><![CDATA[<p>先简单描述下本篇记录的是什么. 起因是服务器这段时间在查流量，需要严格控制乃至减少现在数据包的 大小/频率。<br>目前服务器的逻辑大概在30hz的频率刷新当前逻辑块，客户端并未走单独的逻辑刷新层。故现在客户端并未按照帧去判定当前是否同步，而是走固定的刷新周期。<br>250ms为一个刷新周期，触发当前同步的判定;</p>
 <p>先列一下几种位置同步的【条件】：</p>
@@ -70,6 +138,7 @@
 <p>如果当前位置与服务器预测的位置误差控制在一定的范围内则不需要同步反之立即同步一次;</p>
 <p>这样的好处是误差可以控制在一定的范围内并且尽量的少发送同步包；比如误差控制在0.1m范围，如果发送的包超量再适当的增加此范围。</p>
 <h1 id="基于时间戳修正"><a href="#基于时间戳修正" class="headerlink" title="基于时间戳修正"></a>基于时间戳修正</h1><p>这两天还在调试 尽量取一个比较折中的方案，如果实在达不到预期再考虑 双端同步时间种 基于此各自做运动状态的计算。</p>
+<h1 id="更新：撞墙如何处理"><a href="#更新：撞墙如何处理" class="headerlink" title="更新：撞墙如何处理"></a>更新：撞墙如何处理</h1><p>撞墙后通过代码使人物转向，不要降低运动速度即可。</p>
 <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://blog.codingnow.com/2012/03/dev_note_12.html" target="_blank" rel="external">开发笔记(12) : 位置同步策略</a><br><a href="https://blog.codingnow.com/2006/04/sync.html" target="_blank" rel="external">网络游戏的对时以及同步问题-云风的 BLOG</a><br><a href="http://www.zhust.com/index.php/2014/02/网络游戏的移动同步（二）状态更新及航位预测法/" target="_blank" rel="external">状态更新及航位预测法</a></p>
 ]]></content>
     
@@ -666,68 +735,6 @@
     
     
       <category term="MOBILE" scheme="http://vrast.cn/tags/MOBILE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XLua Generate Code Log显示代码找不到</title>
-    <link href="http://vrast.cn/posts/aee063b0/"/>
-    <id>http://vrast.cn/posts/aee063b0/</id>
-    <published>2019-04-04T06:27:25.000Z</published>
-    <updated>2019-04-05T03:05:19.642Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>项目内引用了Xlua插件，在Generate代码的时候发现一些函数没有找到。遂发现这是XLua的黑名单需要添加相应的函数。现在这里记录一下。</p>
-</blockquote>
-<p><img src="/uploads/WX20190404-143356.png" alt="参考Xlua example中Editor目录下的配置文件"></p>
-<p>像下面一样将报错的函数添加到黑名单，然后重新生成代码即可</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[BlackList]</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt; BlackList = <span class="keyword">new</span> List&lt;List&lt;<span class="keyword">string</span>&gt;&gt;()  &#123;</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowRadius"</span>&#125;,</div><div class="line">    <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;()&#123;<span class="string">"UnityEngine.Light"</span>, <span class="string">"shadowAngle"</span>&#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;项目内引用了Xlua插件，在Generate代码的时候发现一些函数没有找到。遂发现这是XLua的黑名单需要添加相应的函数。现在这里记录一下。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/WX20190404-14
-    
-    </summary>
-    
-      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
-    
-    
-      <category term="XLua" scheme="http://vrast.cn/tags/XLua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Rider为UNITY项目生成DLL</title>
-    <link href="http://vrast.cn/posts/b10c71c2/"/>
-    <id>http://vrast.cn/posts/b10c71c2/</id>
-    <published>2019-03-16T05:23:04.000Z</published>
-    <updated>2019-03-16T05:57:31.927Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>技术中心有同事问我怎么方便的将库文件编译到UNITY中，并且方便调试。今日有空写一下案例. 无论你使用的是否是rider或者是其他(VisualStudio/Mono)，基本上都是这样处理。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="操作演示"><a href="#操作演示" class="headerlink" title="操作演示"></a>操作演示</h2><p><img src="/uploads/WX20190316-132730@2x.png" alt="在与当前项目平行的目录建一个文件夹"></p>
-<p><img src="/uploads/WeChat22cd6b5c46c3c16004d366949f7dbd96.png" alt="右键添加现有项目到解决方案，这里需要注意一下相对路径， 我的相对路径是这样的：&lt;code&gt;../../TEST2/Assets/Plugins&lt;/code&gt; "></p>
-<p><img src="/uploads/WX20190316-134956@2x.png" alt="现在我们写一个测试函数 看 已经正常进入断点了"></p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>需要提前规范命名空间，并且划分好每块代码的职责范围。另外你需要确定当前所使用的.net framework 版本.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;技术中心有同事问我怎么方便的将库文件编译到UNITY中，并且方便调试。今日有空写一下案例. 无论你使用的是否是rider或者是其他(VisualStudio/Mono)，基本上都是这样处理。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="UNITY" scheme="http://vrast.cn/categories/UNITY/"/>
-    
-    
-      <category term="Plugin" scheme="http://vrast.cn/tags/Plugin/"/>
     
   </entry>
   
