@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vrast.cn/"/>
-  <updated>2020-12-31T07:23:46.057Z</updated>
+  <updated>2021-02-09T08:51:17.684Z</updated>
   <id>http://vrast.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://vrast.cn/posts/18c501b3/"/>
     <id>http://vrast.cn/posts/18c501b3/</id>
     <published>2020-11-02T11:38:02.000Z</published>
-    <updated>2020-12-31T07:23:46.057Z</updated>
+    <updated>2021-02-09T08:51:17.684Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>先说下本篇博问的起因，在我的群里总有一些朋友在问，关于旋转，空间点判定等问题，关于这些程序实现上的问题，看完本篇后你会发现要解决也很简单。<br>本篇关键字：<code>点乘 叉乘 弧度 角度 sin cos asin atan atan2</code><br><a id="more"></a></p>
